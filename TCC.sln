@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{A07D91
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "src\WebApp\WebApp.csproj", "{BC04F0B0-8CEC-4BD0-8735-5B87BC5C4238}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dominio", "Dominio", "{02B49467-7E9E-411D-B57D-0B214B78377E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "src\Dominio\Dominio.csproj", "{C54BE9D7-6A62-4A71-9DE3-3A18029ABEF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +21,17 @@ Global
 		{BC04F0B0-8CEC-4BD0-8735-5B87BC5C4238}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC04F0B0-8CEC-4BD0-8735-5B87BC5C4238}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC04F0B0-8CEC-4BD0-8735-5B87BC5C4238}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C54BE9D7-6A62-4A71-9DE3-3A18029ABEF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C54BE9D7-6A62-4A71-9DE3-3A18029ABEF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C54BE9D7-6A62-4A71-9DE3-3A18029ABEF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C54BE9D7-6A62-4A71-9DE3-3A18029ABEF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BC04F0B0-8CEC-4BD0-8735-5B87BC5C4238} = {A07D914E-6007-4975-A9FC-49E9DEE47D8A}
+		{C54BE9D7-6A62-4A71-9DE3-3A18029ABEF2} = {02B49467-7E9E-411D-B57D-0B214B78377E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF2A73B4-4EC0-4608-949B-7A6144C4E0C5}

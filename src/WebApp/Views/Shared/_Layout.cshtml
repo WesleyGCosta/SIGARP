@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Inicio</title>
+    <title>@ViewData["Title"] - SIRP</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container d-flex justify-content-center">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light mb-3">
+            <div class="container d-flex justify-content-start">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SIRP</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -50,6 +50,38 @@
                         <a class="dropdown-item" href="#">Programação de Consumo</a>
                         <a class="dropdown-item" href="#">Detentora</a>
                         <a class="dropdown-item" href="#">Unidade ou Órgão</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                        Publicações
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">Publicar Ata</a>
+                        <a class="dropdown-item" href="#">Retificar Ata</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                        Liberações
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">Ordem de Fornecimento</a>
+                        <a class="dropdown-item" href="#">Ordem Fornecimento Carona</a>
+                        <a class="dropdown-item" href="#">Estorno Solicitação OF</a>
+                        <a class="dropdown-item" href="#">Estorno Aditivo</a>
+                        <a class="dropdown-item" href="#">Alterar Adesão Carona</a>
+                        <a class="dropdown-item" href="#">Transferência de Saldo</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                        Realiamento de Preço
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">Suspender Item</a>
+                        <a class="dropdown-item" href="#">Realinhar Preço</a>
+                        <a class="dropdown-item" href="#">Consultar Realinhamentos</a>
                     </div>
                 </div>
             </div>

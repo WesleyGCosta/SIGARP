@@ -1,9 +1,11 @@
-﻿namespace Dominio.Enums
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Dominio.Enums
 {
     public enum EPregao
     {
-        PregaoElotronico,
-        PregaoPresencial,
-        AmbosPregaos
+        [Display(Name = "Pregão Eletônico")] PregaoEletronico,
+        [Display(Name = "Pregão Presencial")] PregaoPresencial,
+        [Display(Name = "Ambos Pregões")] AmbosPregaos
     }
 }

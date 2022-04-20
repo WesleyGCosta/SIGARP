@@ -1,0 +1,81 @@
+﻿@model WebApp.Models.AtaViewModel
+@using Dominio.Enums
+
+@{
+    ViewData["Title"] = "Cadastrar";
+}
+
+<form asp-action="Incluir" class="teste">
+    <div class="card shadow mt-5">
+        <div class="card-header text-center">
+            <h2 class="card-title title-card">Cadastro de Nova Ata</h2>
+        </div>
+        <div class="card-body row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-3">
+                <label asp-for="Numero" class="control-label"></label>
+                <input asp-for="Numero" class="form-control" />
+                <span asp-validation-for="Numero" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="AnoAta" class="control-label"></label>
+                <input asp-for="AnoAta" class="form-control" />
+                <span asp-validation-for="AnoAta" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="NumeroProcesso" class="control-label"></label>
+                <input asp-for="NumeroProcesso" class="form-control" />
+                <span asp-validation-for="NumeroProcesso" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="TipoPregao" class="control-label"></label>
+                <select asp-items="@Html.GetEnumSelectList<EPregao>()" class="custom-select"></select>
+                <span asp-validation-for="TipoPregao" class="text-danger"></span>
+            </div>
+            <div class="col-3 mt-3">
+                <label asp-for="NumeroPregao" class="control-label"></label>
+                <input asp-for="NumeroPregao" class="form-control" />
+                <span asp-validation-for="NumeroPregao" class="text-danger"></span>
+            </div>
+            <div class="col-3 mt-3">
+                <label asp-for="AnoPregao" class="control-label"></label>
+                <input asp-for="AnoPregao" class="form-control" />
+                <span asp-validation-for="AnoPregao" class="text-danger"></span>
+            </div>
+            <div class="col-3 mt-3">
+                <label asp-for="DataHomologacao" class="control-label"></label>
+                <input asp-for="DataHomologacao" class="form-control" />
+                <span asp-validation-for="DataHomologacao" class="text-danger"></span>
+            </div>
+            <div class="col-3 mt-3">
+                <label asp-for="DataPublicacaoDOE" class="control-label"></label>
+                <input asp-for="DataPublicacaoDOE" class="form-control" />
+                <span asp-validation-for="DataPublicacaoDOE" class="text-danger"></span>
+            </div>
+            <div class="col-12 mt-3">
+                <label asp-for="ObjetoResumido" class="control-label"></label>
+                <textarea rows="3" asp-for="ObjetoResumido" class="form-control"></textarea>
+                <span asp-validation-for="ObjetoResumido" class="text-danger"></span>
+            </div>
+            <div class="col-12 mt-3">
+                <label asp-for="Observacao" class="control-label"></label>
+                <textarea rows="3" asp-for="Observacao" class="form-control"></textarea>
+                <span asp-validation-for="Observacao" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="card-footer d-flex">
+            <div class="mr-2">
+                <input type="submit" value="Salvar" class="btn btn-primary shadow" />
+            </div>
+            <div>
+                <button class="btn btn-secondary shadow" asp-action="Index">Voltar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

@@ -6,9 +6,8 @@ namespace WebApp.Models
 {
     public class AtaViewModel
     {
-        public Guid Id { get; set; }
         [Display(Name = "Número da Ata")]
-        public int Numero { get; set; }
+        public int NumeroAta { get; set; }
 
         [Display(Name = "Ano da Ata")]
         public int AnoAta { get; set; }

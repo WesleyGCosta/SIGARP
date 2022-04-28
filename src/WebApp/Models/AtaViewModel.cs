@@ -42,14 +42,10 @@ namespace WebApp.Models
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
 
-        public string UsuarioCadastrado { get; set; }
-
         public DateTime DataCadastro { get; set; }
-
-        public string UsuarioAlteracao { get; set; }
 
         public string DataAlteracao { get; set; }
 
-        public float LimiteAdesao { get; set; }
+        public int LimiteAdesao { get; set; }
     }
 }

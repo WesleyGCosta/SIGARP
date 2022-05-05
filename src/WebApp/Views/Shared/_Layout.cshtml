@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,97 +8,103 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light mb-3">
-            <div class="container d-flex justify-content-start">
-                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">SIGEP</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+    @if (@User.Identity.IsAuthenticated)
+    {
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light mb-3">
+                <div class="container d-flex justify-content-start">
+                    <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">SIGEP</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="dropdown">
-                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                        Cadastros
-                    </a>
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="dropdown">
+                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                            Cadastros
+                        </a>
 
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" asp-controller="ata" asp-action="Cadastrar">Cadastrar Nova Ata</a>
-                        <a class="dropdown-item" href="#">Cadastrar Itens</a>
-                        <a class="dropdown-item" href="#">Cadastrar Participantes</a>
-                        <a class="dropdown-item" href="#">Cadastrar Detentora</a>
-                        <a class="dropdown-item" asp-controller="UnidadeAdministrativa" asp-action="Cadastrar">Cadastrar Unidade ou Órgão</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" asp-controller="ata" asp-action="Cadastrar">Cadastrar Nova Ata</a>
+                            <a class="dropdown-item" href="#">Cadastrar Itens</a>
+                            <a class="dropdown-item" href="#">Cadastrar Participantes</a>
+                            <a class="dropdown-item" href="#">Cadastrar Detentora</a>
+                            <a class="dropdown-item" asp-controller="UnidadeAdministrativa" asp-action="Cadastrar">Cadastrar Unidade ou Órgão</a>
+                        </div>
                     </div>
-                </div>
-                <div class="dropdown">
-                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                        Gerenciar
-                    </a>
+                    <div class="dropdown">
+                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                            Gerenciar
+                        </a>
 
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Atas de Registros de Preços</a>
-                        <a class="dropdown-item" href="#">Programação de Consumo</a>
-                        <a class="dropdown-item" href="#">Detentora</a>
-                        <a class="dropdown-item" href="#">Unidade ou Órgão</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Atas de Registros de Preços</a>
+                            <a class="dropdown-item" href="#">Programação de Consumo</a>
+                            <a class="dropdown-item" href="#">Detentora</a>
+                            <a class="dropdown-item" href="#">Unidade ou Órgão</a>
+                        </div>
                     </div>
-                </div>
-                <div class="dropdown">
-                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                        Consultas
-                    </a>
+                    <div class="dropdown">
+                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                            Consultas
+                        </a>
 
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Atas de Registros de Preços</a>
-                        <a class="dropdown-item" href="#">Programação de Consumo</a>
-                        <a class="dropdown-item" href="#">Detentora</a>
-                        <a class="dropdown-item" href="#">Unidade ou Órgão</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Atas de Registros de Preços</a>
+                            <a class="dropdown-item" href="#">Programação de Consumo</a>
+                            <a class="dropdown-item" href="#">Detentora</a>
+                            <a class="dropdown-item" href="#">Unidade ou Órgão</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                            Publicações
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Publicar Ata</a>
+                            <a class="dropdown-item" href="#">Retificar Ata</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                            Liberações
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Ordem de Fornecimento</a>
+                            <a class="dropdown-item" href="#">Ordem Fornecimento Carona</a>
+                            <a class="dropdown-item" href="#">Estorno Solicitação OF</a>
+                            <a class="dropdown-item" href="#">Estorno Aditivo</a>
+                            <a class="dropdown-item" href="#">Alterar Adesão Carona</a>
+                            <a class="dropdown-item" href="#">Transferência de Saldo</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                            Realiamento de Preço
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Suspender Item</a>
+                            <a class="dropdown-item" href="#">Realinhar Preço</a>
+                            <a class="dropdown-item" href="#">Consultar Realinhamentos</a>
+                        </div>
                     </div>
                 </div>
-                <div class="dropdown">
-                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                        Publicações
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Publicar Ata</a>
-                        <a class="dropdown-item" href="#">Retificar Ata</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                        Liberações
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Ordem de Fornecimento</a>
-                        <a class="dropdown-item" href="#">Ordem Fornecimento Carona</a>
-                        <a class="dropdown-item" href="#">Estorno Solicitação OF</a>
-                        <a class="dropdown-item" href="#">Estorno Aditivo</a>
-                        <a class="dropdown-item" href="#">Alterar Adesão Carona</a>
-                        <a class="dropdown-item" href="#">Transferência de Saldo</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                        Realiamento de Preço
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Suspender Item</a>
-                        <a class="dropdown-item" href="#">Realinhar Preço</a>
-                        <a class="dropdown-item" href="#">Consultar Realinhamentos</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+            </nav>
+        </header>
+    }
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="footer">
-        <div class="container text-center">
-            &copy; 2022 - Desenvolvido por Wesley
-        </div>
-    </footer>
+    @if (@User.Identity.IsAuthenticated)
+    {
+        <footer class="footer">
+            <div class="container text-center">
+                &copy; 2022 - Desenvolvido por Wesley
+            </div>
+        </footer>
+    }
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

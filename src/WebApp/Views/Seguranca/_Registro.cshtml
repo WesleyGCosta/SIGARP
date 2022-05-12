@@ -1,0 +1,19 @@
+﻿@model WebApp.Models.RegistroViewModel
+
+
+<input asp-for="Cpf" type="text" placeholder="CPF" required />
+<span asp-validation-for="Cpf" class="text-danger"></span>
+<i class="fas fa-envelope iCpf"></i>
+
+<input asp-for="Senha" type="password" placeholder="Senha" required />
+<span asp-validation-for="Senha" class="text-danger"></span>
+<i class="fas fa-lock iPassword"></i>
+
+<input asp-for="ConfirmarSenha" type="password" placeholder="Senha" required />
+<span asp-validation-for="ConfirmarSenha" class="text-danger"></span>
+<i class="fas fa-lock iPassword2"></i>
+<div class="divCheck">
+    <input type="checkbox" required />
+    <span>Termos</span>
+</div>
+<button class="btn" type="submit">Registrar</button>

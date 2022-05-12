@@ -1,39 +1,20 @@
-﻿@model WebApp.Models.LoginViewModel
-
-@{
+﻿@{
     ViewData["Title"] = "Login";
 }
 
-<div class="container-login">
+<div class="container-forms">
     <div class="buttonsForm">
         <div class="btnColor"></div>
-        <button id="bntEntrar">Logar</button>
+        <button id="btnLogar">Logar</button>
         <button id="btnRegistrar">Registrar</button>
     </div>
-    <form id="formEntrar">
-        <input type="text" placeholder="CPF" />
-        <i class="fas fa-envelope iCpf"></i>
-        <input type="password" placeholder="Senha" />
-        <i class="fas fa-lock iPassword"></i>
-        <div class="divCheck">
-            <input type="checkbox" />
-            <span>Lembrar de Mim</span>
-        </div>
-        <button type="submit">Entrar</button>
+
+    <form asp-action"Logar" id="formLogar">
+        <partial name="_Logar" />
     </form>
 
-    <form id="formRegistrar">
-        <input type="text" placeholder="CPF" />
-        <i class="fas fa-envelope iCpf"></i>
-        <input type="password" placeholder="Senha" />
-        <i class="fas fa-lock iPassword"></i>
-        <input type="password" placeholder="Confirmar Senha" />
-        <i class="fas fa-lock iPassword2"></i>
-        <div class="divCheck">
-            <input type="checkbox" />
-            <span>Lembrar de Mim</span>
-        </div>
-        <button type="submit">Registrar</button>
+    <form asp-controller="Seguranca" asp-action"Registrar" id="formRegistrar">
+        <partial name="_Registro" />
     </form>
 </div>
 
@@ -43,21 +24,21 @@
 }
 
 <script type="text/javascript">
-    var formSignin = document.querySelector('#formEntrar')
-    var formSignup = document.querySelector('#formRegistrar')
+    var formLogar = document.querySelector('#formLogar')
+    var formRegistrar = document.querySelector('#formRegistrar')
     var btnColor = document.querySelector('.btnColor')
 
-    document.querySelector('#btnEntrar')
+    document.querySelector('#btnLogar')
       .addEventListener('click', () => {
-        formSignin.style.left = "25px"
-        formSignup.style.left = "450px"
+        formLogar.style.left = "25px"
+        formRegistrar.style.left = "450px"
         btnColor.style.left = "0px"
     })
 
     document.querySelector('#btnRegistrar')
       .addEventListener('click', () => {
-        formSignin.style.left = "-450px"
-        formSignup.style.left = "25px"
+        formLogar.style.left = "-450px"
+        formRegistrar.style.left = "25px"
         btnColor.style.left = "110px"
     })
 

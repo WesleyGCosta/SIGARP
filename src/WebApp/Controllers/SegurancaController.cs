@@ -17,20 +17,15 @@ namespace WebApp.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-        public IActionResult Registro()
-        {
-            return View();
-        }
 
         [HttpPost]
-        public async Task<IActionResult> Registro(RegistroViewModel model)
+        public async Task<IActionResult> Registrar(RegistroViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser
                 {
-                    UserName = model.Email,
-                    Email = model.Email,
+                    UserName = model.Cpf,
                     EmailConfirmed = true
                 };
 
@@ -61,11 +56,11 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel user)
+        public async Task<IActionResult> Logar(LoginViewModel user)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(user.Email, user.Senha, user.Lembrar, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(user.Cpf, user.Senha, user.Lembrar, lockoutOnFailure: false);
 
                 if (result.Succeeded)
                 {
@@ -75,7 +70,7 @@ namespace WebApp.Controllers
                 ModelState.AddModelError(string.Empty, "Login Inválido");
 
             }
-            return View(user);
+            return View();
         }
 
         public async Task<IActionResult> Logout()

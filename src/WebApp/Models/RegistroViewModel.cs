@@ -4,10 +4,11 @@ namespace WebApp.Models
 {
     public class RegistroViewModel
     {
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Campo {0} é Obrigatório!")]
+        public string Cpf { get; set; }
+
+        
+        [Required(ErrorMessage = "Campo {0} é Obrigatório!")]
         [DataType(DataType.Password)]
         public string Senha { get; set; }
 

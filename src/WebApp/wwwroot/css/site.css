@@ -7,6 +7,7 @@
     --caroline-blue: #1b98e0;
     --azure-web-color: #e8f1f2;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -67,10 +68,11 @@ body {
     color: var(--prussian-blue);
 }
 
-.container-login {
+.container-forms {
     background-color: whitesmoke;
+    margin: 6% 35%;
     padding: 6px;
-    width: 430px;
+    width: 350px;
     height: 450px;
     display: flex;
     flex-direction: column;
@@ -81,48 +83,20 @@ body {
     box-shadow: 0 0 20px 0 darkgrey;
 }
 
-    .container-login form {
-        position: absolute;
-        margin-top: 80px;
-        transition: .5s;
-        width: 380px;
-        height: 480px;
-    }
-
-        .container-login form input[type="text"], input[type="password"] {
-            border: none;
-            margin-top: 40px;
-            border-radius: 60px;
-            padding: 8px 0 8px 35px;
-            outline: none;
-            width: 100%;
-        }
-
-        .container-login form button[type="submit"] {
-            background: #660fc8;
-            color: white;
-            border-radius: 30px;
-            width: 100%;
-            border: none;
-            outline: none;
-            padding: 8px 0 8px 15px;
-            font-size: 15px;
-            margin-top: 40px;
-            cursor: pointer;
-        }
-
-        .container-login form .divCheck {
-            margin: 10px 0 0 5px;
-            width: 80%;
-            font-size: 13px;
-        }
-
+form {
+    position: absolute;
+    margin-top: 80px;
+    transition: .5s;
+    width: 300px;
+    height: 400px;
+}
 
 .buttonsForm {
     margin-top: 40px;
     position: relative;
+    border: none;
     border-radius: 30px;
-    box-shadow: 0 0 7px blueviolet;
+    box-shadow: 0 0 7px 0 blueviolet;
 }
 
     .buttonsForm button {
@@ -130,7 +104,8 @@ body {
         background: transparent;
         border: none;
         position: relative;
-        padding: 10px 29px;
+        padding: 10px 24px;
+        outline: none;
     }
 
 .btnColor {
@@ -142,7 +117,35 @@ body {
     transition: .3s;
 }
 
-#formEntrar {
+input[type="text"], input[type="password"] {
+    border: none;
+    margin-top: 40px;
+    border-radius: 60px;
+    padding: 8px 0 8px 35px;
+    outline: none;
+    width: 100%;
+}
+
+button[type="submit"] {
+    background: #660fc8;
+    color: white;
+    border-radius: 30px;
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 8px 0 8px 15px;
+    font-size: 15px;
+    margin-top: 40px;
+    cursor: pointer;
+}
+
+.divCheck {
+    margin: 10px 0 0 5px;
+    width: 80%;
+    font-size: 13px;
+}
+
+#formLogar {
     left: 25px;
 }
 
@@ -161,9 +164,9 @@ i {
 }
 
 .iPassword {
-    top: 114px;
+    top: 30%;
 }
 
 .iPassword2 {
-    top: 190px;
+    top: 50%;
 }

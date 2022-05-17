@@ -1,46 +1,63 @@
-﻿@{
+﻿@model LoginViewModel
+
+@{
     ViewData["Title"] = "Login";
+    Layout = "_LayoutLogin";
 }
 
-<div class="container-forms">
-    <div class="buttonsForm">
-        <div class="btnColor"></div>
-        <button id="btnLogar">Logar</button>
-        <button id="btnRegistrar">Registrar</button>
+<div class="card-login">
+    <div class="card-login-body">
+        <form class="needs-validation" novalidate asp-action="Logar">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-4">
+                <div class="text-center"><span asp-validation-for="Cpf" class="text-danger"></span></div>
+                <div class="input-group box-shadow">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bi bi-postcard"></span>
+                    </div>
+                    <input type="text" class="form-control" asp-for="Cpf" placeholder="CPF" required>
+                </div>
+            </div>
+            <div class="mb-4">
+                <div class="text-center"><span asp-validation-for="Senha" class="text-danger"></span></div>
+                <div class="input-group box-shadow">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bi bi-lock"></span>
+                    </div>
+                    <input type="password" class="form-control" asp-for="Senha" placeholder="Senha" required>
+                </div>
+            </div>
+
+            <button class="btn btn-primary box-shadow mt-2" type="submit">Acessar</button>
+            <hr />
+            <button class="btn btn-secondary box-shadow mt-2" type="submit">Registrar</button>
+        </form>
     </div>
-
-    <form asp-action"Logar" id="formLogar">
-        <partial name="_Logar" />
-    </form>
-
-    <form asp-controller="Seguranca" asp-action"Registrar" id="formRegistrar">
-        <partial name="_Registro" />
-    </form>
 </div>
+
 
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
 
-<script type="text/javascript">
-    var formLogar = document.querySelector('#formLogar')
-    var formRegistrar = document.querySelector('#formRegistrar')
-    var btnColor = document.querySelector('.btnColor')
+    }
 
-    document.querySelector('#btnLogar')
-      .addEventListener('click', () => {
-        formLogar.style.left = "25px"
-        formRegistrar.style.left = "450px"
-        btnColor.style.left = "0px"
-    })
+    <script>
+        (function() {
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
 
-    document.querySelector('#btnRegistrar')
-      .addEventListener('click', () => {
-        formLogar.style.left = "-450px"
-        formRegistrar.style.left = "25px"
-        btnColor.style.left = "110px"
-    })
-
-</script>
-}
+        $("#Cpf").mask("000.000.000-00");
+    </script>
+    }

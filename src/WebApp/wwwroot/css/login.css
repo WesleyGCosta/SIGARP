@@ -1,0 +1,69 @@
+﻿:root {
+    --prussian-blue: #13293d;
+    --sapphire-blue: #006494;
+    --celadon-blue: #247ba0;
+    --caroline-blue: #1b98e0;
+    --azure-web-color: #e8f1f2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins', sans-serif;
+}
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    background-image: url("../img/bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.box-shadow {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.42) !important;
+}
+
+.btn-primary {
+    color: var(--azure-web-color);
+    background-color: var(--sapphire-blue);
+    border-color: var(--sapphire-blue);
+}
+
+    .btn-primary:hover {
+        background-color: var(--celadon-blue);
+        border-color: #1861ac;
+    }
+
+
+.card-login {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+}
+
+.card-login-body {
+    margin-top: 17%;
+}
+
+    .card-login-body form {
+        display: flex;
+        flex-direction: column;
+    }

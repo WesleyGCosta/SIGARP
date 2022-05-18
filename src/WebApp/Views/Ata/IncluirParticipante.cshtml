@@ -1,0 +1,51 @@
+﻿@model WebApp.Models.AtaParticipanteViewModel
+
+@{
+    ViewData["Title"] = "IncluirParticipante";
+}
+
+
+<form asp-action="Cadastrar" class="teste">
+    <div class="card shadow mt-5">
+        <div class="card-header text-center">
+            <h2 class="card-title title-card">Incluir Participante</h2>
+        </div>
+        <div class="card-body row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-2">
+                <label asp-for="AnoAta" class="control-label"></label>
+                <input asp-for="AnoAta" class="form-control" />
+                <span asp-validation-for="AnoAta" class="text-danger"></span>
+            </div>
+            <div class="col-2">
+                <label asp-for="CodigoAta" class="control-label"></label>
+                <input asp-for="CodigoAta" class="form-control" />
+                <span asp-validation-for="CodigoAta" class="text-danger"></span>
+            </div>
+            <div class="col-8">
+                <label asp-for="CodigoUnidadeAdministrativa" class="control-label"></label>
+                <input asp-for="CodigoUnidadeAdministrativa" class="form-control" />
+                <span asp-validation-for="CodigoUnidadeAdministrativa" class="text-danger"></span>
+            </div>
+            <div class="col-12 mt-3">
+                <label asp-for="CodigoItem" class="control-label"></label>
+                <input asp-for="CodigoItem" class="form-control" />
+                <span asp-validation-for="CodigoItem" class="text-danger"></span>
+            </div>
+            
+        </div>
+        <div class="card-footer d-flex">
+            <div class="mr-2">
+                <input type="submit" value="Salvar" class="btn btn-primary shadow" />
+            </div>
+            <div>
+                <button class="btn btn-secondary shadow" asp-action="Index">Voltar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

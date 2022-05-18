@@ -2,14 +2,11 @@
 
 namespace WebApp.Controllers
 {
-    public class AtaController : Controller
+    public class DetentoraController : Controller
     {
         public IActionResult Cadastrar()
         {
             return View();
         }
-
-        public IActionResult IncluirDetentora() => View();
-        public IActionResult IncluirParticipante() => View();
     }
 }

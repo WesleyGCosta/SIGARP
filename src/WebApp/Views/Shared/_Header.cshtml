@@ -12,11 +12,13 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" asp-controller="ata" asp-action="Cadastrar">Cadastrar Nova Ata</a>
-                    <a class="dropdown-item" href="#">Cadastrar Itens</a>
-                    <a class="dropdown-item" href="#">Cadastrar Participantes</a>
-                    <a class="dropdown-item" href="#">Cadastrar Detentora</a>
                     <a class="dropdown-item" asp-controller="UnidadeAdministrativa" asp-action="Cadastrar">Cadastrar Unidade ou Órgão</a>
+                    <a class="dropdown-item" asp-controller="Detentora" asp-action="Cadastrar">Cadastrar Detentora</a>
+                    <a class="dropdown-item" asp-controller="Ata" asp-action="Cadastrar">Cadastrar Nova Ata</a>
+                    <a class="dropdown-item" asp-controller="Item" asp-action="Cadastrar">Cadastrar Itens</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" asp-controller="Ata" asp-action="IncluirDetentora">Incluir Detentora na Ata</a>
+                    <a class="dropdown-item" asp-controller="Ata" asp-action="IncluirParticipante">Incluir Participante na Ata</a>
                 </div>
             </div>
             <div class="dropdown">

@@ -18,7 +18,10 @@ namespace WebApp.Controllers
             _signInManager = signInManager;
         }
 
+        public IActionResult Registro() => View();
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registrar(RegistroViewModel model)
         {
             if (ModelState.IsValid)
@@ -46,7 +49,7 @@ namespace WebApp.Controllers
                 ModelState.AddModelError(string.Empty, "Login inválido");
 
             }
-            return View(model);
+            return View("Registro", model);
         }
 
         [HttpGet]  

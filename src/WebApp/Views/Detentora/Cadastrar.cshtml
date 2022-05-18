@@ -1,0 +1,86 @@
+﻿@using Dominio.Enums
+@model WebApp.Models.DetentoraViewModel
+
+@{
+    ViewData["Title"] = "Cadastrar";
+}
+
+<form asp-action="Cadastrar" class="teste">
+    <div class="card shadow mt-5">
+        <div class="card-header text-center">
+            <h2 class="card-title title-card">Cadastro de Nova Detentora</h2>
+        </div>
+        <div class="card-body row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-3">
+                <label asp-for="Cnpj" class="control-label"></label>
+                <input asp-for="Cnpj" class="form-control" />
+                <span asp-validation-for="Cnpj" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="RazaoSocial" class="control-label"></label>
+                <input asp-for="RazaoSocial" class="form-control" />
+                <span asp-validation-for="RazaoSocial" class="text-danger"></span>
+            </div>
+            <div class="col-4">
+                <label asp-for="NomeFantasia" class="control-label"></label>
+                <input asp-for="NomeFantasia" class="form-control" />
+                <span asp-validation-for="NomeFantasia" class="text-danger"></span>
+            </div>
+             <div class="col-2">
+                <label asp-for="Pessoa" class="control-label"></label>
+                <select asp-items="@Html.GetEnumSelectList<EPessoa>()" class="custom-select"></select>
+                <span asp-validation-for="Pessoa" class="text-danger"></span>
+            </div>
+            <div class="col-3 mt-3">
+                <label asp-for="Telefone" class="control-label"></label>
+                <input asp-for="Telefone" class="form-control" />
+                <span asp-validation-for="Telefone" class="text-danger"></span>
+            </div>
+            <div class="col-3 mt-3">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            
+            <div class="col-4 mt-3">
+                <label asp-for="Endereco" class="control-label"></label>
+                <input asp-for="Endereco" class="form-control" />
+                <span asp-validation-for="Endereco" class="text-danger"></span>
+            </div>
+            <div class="col-2 mt-3">
+                <label asp-for="Numero" class="control-label"></label>
+                <input asp-for="Numero" class="form-control" />
+                <span asp-validation-for="Numero" class="text-danger"></span>
+            </div>
+            <div class="col-5 mt-3">
+                <label asp-for="Bairro" class="control-label"></label>
+                <input asp-for="Bairro" class="form-control" />
+                <span asp-validation-for="Bairro" class="text-danger"></span>
+            </div>
+            <div class="col-1 mt-3">
+                <label asp-for="Uf" class="control-label"></label>
+                <input asp-for="Uf" class="form-control" />
+                <span asp-validation-for="Uf" class="text-danger"></span>
+            </div>
+            <div class="col-6 mt-3">
+                <label asp-for="Municipio" class="control-label"></label>
+                <input asp-for="Municipio" class="form-control" />
+                <span asp-validation-for="Municipio" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="card-footer d-flex">
+            <div class="mr-2">
+                <input type="submit" value="Salvar" class="btn btn-primary shadow" />
+            </div>
+            <div>
+                <button class="btn btn-secondary shadow" asp-action="Index">Voltar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

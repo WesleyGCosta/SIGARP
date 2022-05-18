@@ -1,13 +1,13 @@
-﻿@model LoginViewModel
+﻿@model WebApp.Models.RegistroViewModel
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Registro";
     Layout = "_LayoutLogin";
 }
 
 <div class="card-login">
     <div class="card-login-body">
-        <form class="needs-validation" novalidate asp-action="Logar">
+        <form class="needs-validation" novalidate asp-action="Registrar">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-4">
                 <div class="text-center"><span asp-validation-for="Cpf" class="text-danger"></span></div>
@@ -27,37 +27,27 @@
                     <input type="password" class="form-control" asp-for="Senha" placeholder="Senha" required>
                 </div>
             </div>
+            <div class="mb-4">
+                <div class="text-center"><span asp-validation-for="ConfirmarSenha" class="text-danger"></span></div>
+                <div class="input-group box-shadow">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bi bi-lock"></span>
+                    </div>
+                    <input type="password" class="form-control" asp-for="ConfirmarSenha" placeholder="Senha" required>
+                </div>
+            </div>
 
-            <button class="btn btn-primary box-shadow mt-2" type="submit">Acessar</button>
+            <button class="btn btn-primary box-shadow mt-2" type="submit">Registrar</button>
             <hr />
-            <a asp-controller="Seguranca" asp-action="Registro" class="btn btn-secondary box-shadow mt-2" type="submit">Registrar</a>
+            <a asp-controller="Seguranca" asp-action="Login" class="btn btn-secondary box-shadow mt-2" type="submit">Acessar</a>
         </form>
     </div>
 </div>
 
-
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script>
-        (function() {
-            window.addEventListener('load', function() {
-                var forms = document.getElementsByClassName('needs-validation');
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            }, false);
-        })();
-
         $("#Cpf").mask("000.000.000-00");
     </script>
-    }
+}

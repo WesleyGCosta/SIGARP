@@ -1,15 +1,14 @@
-﻿using Dominio.Enums;
+﻿using Dominio.Entidades;
 using System;
+using System.Collections.Generic;
 
 namespace Dominio.Entidades
 {
     public class Ata
     {
-        public Guid Id { get; private set; }
-        public int Numero { get; private set; }
+        public int CodigoAta { get; private set; }
         public int AnoAta { get; private set; }
         public string NumeroProcesso { get; private set; }
-        public EPregao TipoPregao { get; private set; }
         public string NumeroPregao { get; private set; }
         public int AnoPregao { get; private set; }
         public DateTime DataHomologacao { get; private set; }
@@ -19,8 +18,8 @@ namespace Dominio.Entidades
         public bool Publicada { get; private set; }
         public DateTime DataPublicacaoSistema { get; private set; }
         public string Observacao { get; private set; }
-        public DateTime DataCadastro { get; private set; }
-        public string DataAlteracao { get; private set; }
-        public int LimiteAdesao { get; private set; }
+        public float LimiteAdesao { get; private set; }
+
+        public IEnumerable<Item> Itens { get; private set; }
     }
 }

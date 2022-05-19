@@ -1,4 +1,4 @@
-﻿using Dominio.Entidade;
+﻿using Dominio.Entidades;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -9,7 +9,7 @@ namespace Infra.Contexto.Maps
         public void Configure(EntityTypeBuilder<Ata> builder)
         {
             builder.ToTable("Atas");
-            builder.HasKey(a => new {a.NumeroAta, a.AnoAta});
+            builder.HasKey(a => new {a.CodigoAta, a.AnoAta});
             builder.Property(a => a.NumeroProcesso).IsRequired().HasColumnType("varchar(25)");
             builder.Property(a => a.NumeroPregao).IsRequired().HasColumnType("varchar(25)");
             builder.Property(a => a.AnoPregao).IsRequired().HasColumnType("int");

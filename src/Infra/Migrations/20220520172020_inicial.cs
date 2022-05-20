@@ -84,7 +84,7 @@ namespace Infra.Migrations
                     ConsumoEstimado = table.Column<int>(type: "int", nullable: false),
                     PrecoMercado = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
                     PrecoRegistrado = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
-                    Ativo = table.Column<bool>(type: "bit", nullable: false)
+                    Ativo = table.Column<bool>(type: "bit", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -157,18 +157,17 @@ namespace Infra.Migrations
                     Saldo = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
                     Aditivo = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
                     Transferido = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
-                    SaldoAnterior = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
-                    ParticipanteItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    SaldoAnterior = table.Column<decimal>(type: "decimal(15,2)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProgamacaoConsumoParticipantes", x => x.ProgramacaoParticipanteId);
                     table.ForeignKey(
-                        name: "FK_ProgamacaoConsumoParticipantes_ParticipantesItens_ParticipanteItemId",
-                        column: x => x.ParticipanteItemId,
+                        name: "FK_ProgamacaoConsumoParticipantes_ParticipantesItens_ParticipanteId",
+                        column: x => x.ParticipanteId,
                         principalTable: "ParticipantesItens",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -179,7 +178,8 @@ namespace Infra.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_DetentorasItens_ItemId",
                 table: "DetentorasItens",
-                column: "ItemId");
+                column: "ItemId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Itens_CodigoAta_AnoAta",
@@ -197,9 +197,10 @@ namespace Infra.Migrations
                 column: "UnidadeAdministrativaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProgamacaoConsumoParticipantes_ParticipanteItemId",
+                name: "IX_ProgamacaoConsumoParticipantes_ParticipanteId",
                 table: "ProgamacaoConsumoParticipantes",
-                column: "ParticipanteItemId");
+                column: "ParticipanteId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

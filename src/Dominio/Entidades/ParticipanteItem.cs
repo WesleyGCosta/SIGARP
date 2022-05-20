@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Dominio.Entidades
 {
@@ -11,6 +10,6 @@ namespace Dominio.Entidades
 
         public Item Item { get; private set; }
         public UnidadeAdministrativa UnidadeAdministrativa { get; private set; }
-        public IEnumerable<ProgramacaoConsumoParticipante> ProgramacoesConsumoParticipantes { get; private set; }
+        public ProgramacaoConsumoParticipante ProgramacoesConsumoParticipantes { get; private set; }
     }
 }

@@ -133,7 +133,8 @@ namespace Infra.Migrations
 
                     b.HasIndex("DetentoraId");
 
-                    b.HasIndex("ItemId");
+                    b.HasIndex("ItemId")
+                        .IsUnique();
 
                     b.ToTable("DetentorasItens");
                 });
@@ -231,9 +232,6 @@ namespace Infra.Migrations
                     b.Property<Guid>("ParticipanteId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ParticipanteItemId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<decimal>("Saldo")
                         .HasColumnType("decimal(15,2)");
 
@@ -245,7 +243,8 @@ namespace Infra.Migrations
 
                     b.HasKey("ProgramacaoParticipanteId");
 
-                    b.HasIndex("ParticipanteItemId");
+                    b.HasIndex("ParticipanteId")
+                        .IsUnique();
 
                     b.ToTable("ProgamacaoConsumoParticipantes");
                 });
@@ -293,8 +292,8 @@ namespace Infra.Migrations
                         .IsRequired();
 
                     b.HasOne("Dominio.Entidades.Item", "Item")
-                        .WithMany("DetentorasItens")
-                        .HasForeignKey("ItemId")
+                        .WithOne("DetentoraItem")
+                        .HasForeignKey("Dominio.Entidades.DetentoraItem", "ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -334,8 +333,10 @@ namespace Infra.Migrations
             modelBuilder.Entity("Dominio.Entidades.ProgramacaoConsumoParticipante", b =>
                 {
                     b.HasOne("Dominio.Entidades.ParticipanteItem", "ParticipanteItem")
-                        .WithMany("ProgramacoesConsumoParticipantes")
-                        .HasForeignKey("ParticipanteItemId");
+                        .WithOne("ProgramacoesConsumoParticipantes")
+                        .HasForeignKey("Dominio.Entidades.ProgramacaoConsumoParticipante", "ParticipanteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ParticipanteItem");
                 });
@@ -352,7 +353,7 @@ namespace Infra.Migrations
 
             modelBuilder.Entity("Dominio.Entidades.Item", b =>
                 {
-                    b.Navigation("DetentorasItens");
+                    b.Navigation("DetentoraItem");
 
                     b.Navigation("ParticipantesItens");
                 });

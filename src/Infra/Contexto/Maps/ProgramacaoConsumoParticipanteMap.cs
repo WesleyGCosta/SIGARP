@@ -16,7 +16,7 @@ namespace Infra.Contexto.Maps
             builder.Property(p => p.Transferido).IsRequired().HasColumnType("decimal(15,2)");
             builder.Property(p => p.SaldoAnterior).IsRequired().HasColumnType("decimal(15,2)");
 
-            builder.HasOne(i => i.ParticipanteItem).WithMany(a => a.ProgramacoesConsumoParticipantes);
+            builder.HasOne(d => d.ParticipanteItem).WithOne(i => i.ProgramacoesConsumoParticipantes).HasForeignKey<ProgramacaoConsumoParticipante>(i => i.ParticipanteId);
         }
     }
 }

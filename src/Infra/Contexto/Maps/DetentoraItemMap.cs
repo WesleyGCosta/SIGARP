@@ -17,7 +17,7 @@ namespace Infra.Contexto.Maps
             builder.HasKey(d => d.Id);
 
             //Relacionamentos
-            builder.HasOne(d => d.Item).WithMany(i => i.DetentorasItens);
+            builder.HasOne(d => d.Item).WithOne(i => i.DetentoraItem).HasForeignKey<DetentoraItem>(i => i.ItemId);
             builder.HasOne(i => i.Detentora).WithMany(a => a.DetentorasItens);
         }
     }

@@ -20,7 +20,8 @@ namespace Dominio.Entidades
         public bool Ativo { get; private set; }
 
         public Ata Ata { get; private set; }
+        public DetentoraItem DetentoraItem { get; private set; }
         public IEnumerable<ParticipanteItem> ParticipantesItens { get; private set; }
-        public IEnumerable<DetentoraItem> DetentorasItens { get; private set; }
+       
     }
 }

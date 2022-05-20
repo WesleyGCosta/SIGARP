@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220519152841_inicial")]
+    [Migration("20220520160623_inicial")]
     partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,10 +73,9 @@ namespace Infra.Migrations
 
             modelBuilder.Entity("Dominio.Entidades.Detentora", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Bairro")
                         .HasColumnType("Varchar(100)");
@@ -90,9 +89,6 @@ namespace Infra.Migrations
 
                     b.Property<string>("Endereco")
                         .HasColumnType("Varchar(100)");
-
-                    b.Property<int?>("ItemCodigoItem")
-                        .HasColumnType("int");
 
                     b.Property<string>("Municipio")
                         .HasColumnType("Varchar(100)");
@@ -120,22 +116,40 @@ namespace Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemCodigoItem");
-
                     b.ToTable("Detentoras");
+                });
+
+            modelBuilder.Entity("Dominio.Entidades.DetentoraItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DetentoraId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DetentoraId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("DetentorasItens");
                 });
 
             modelBuilder.Entity("Dominio.Entidades.Item", b =>
                 {
-                    b.Property<int>("CodigoItem")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AnoAta")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AtaAnoAta")
+                    b.Property<int?>("AnoAta")
                         .HasColumnType("int");
 
                     b.Property<int?>("CodigoAta")
@@ -158,6 +172,9 @@ namespace Infra.Migrations
                         .IsRequired()
                         .HasColumnType("Varchar(50)");
 
+                    b.Property<int>("NumeroItem")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("PrecoMercado")
                         .HasColumnType("decimal(15,2)");
 
@@ -173,62 +190,51 @@ namespace Infra.Migrations
                         .IsRequired()
                         .HasColumnType("Varchar(20)");
 
-                    b.HasKey("CodigoItem");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CodigoAta", "AtaAnoAta");
+                    b.HasIndex("CodigoAta", "AnoAta");
 
                     b.ToTable("Itens");
                 });
 
-            modelBuilder.Entity("Dominio.Entidades.ItemParticipante", b =>
+            modelBuilder.Entity("Dominio.Entidades.ParticipanteItem", b =>
                 {
-                    b.Property<int>("CodigoAta")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("AnoAta")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CodigoItem")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UnidadeAdministrativaId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CodigoUnidadeAdministrativa")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.Property<int?>("ItemCodigoItem")
-                        .HasColumnType("int");
+                    b.HasIndex("ItemId");
 
-                    b.HasKey("CodigoAta", "AnoAta");
+                    b.HasIndex("UnidadeAdministrativaId");
 
-                    b.HasIndex("ItemCodigoItem");
-
-                    b.ToTable("ItensParticipantes");
+                    b.ToTable("ParticipantesItens");
                 });
 
             modelBuilder.Entity("Dominio.Entidades.ProgramacaoConsumoParticipante", b =>
                 {
-                    b.Property<int>("CodigoAta")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AnoAta")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProgramacaoParticipanteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Aditivo")
                         .HasColumnType("decimal(15,2)");
 
-                    b.Property<int>("CodigoItem")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CodigoUnidadeAdministrativa")
-                        .HasColumnType("int");
-
                     b.Property<int>("ConsumoEstimado")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ItemParticipanteAnoAta")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ParticipanteId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("ItemParticipanteCodigoAta")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("ParticipanteItemId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Saldo")
                         .HasColumnType("decimal(15,2)");
@@ -239,19 +245,18 @@ namespace Infra.Migrations
                     b.Property<decimal>("Transferido")
                         .HasColumnType("decimal(15,2)");
 
-                    b.HasKey("CodigoAta", "AnoAta");
+                    b.HasKey("ProgramacaoParticipanteId");
 
-                    b.HasIndex("ItemParticipanteCodigoAta", "ItemParticipanteAnoAta");
+                    b.HasIndex("ParticipanteItemId");
 
-                    b.ToTable("ProgamacaoConsumoParticipoantes");
+                    b.ToTable("ProgamacaoConsumoParticipantes");
                 });
 
             modelBuilder.Entity("Dominio.Entidades.UnidadeAdministrativa", b =>
                 {
-                    b.Property<int>("CodigoUnidadeAdministrativa")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
@@ -260,12 +265,6 @@ namespace Infra.Migrations
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
-
-                    b.Property<int?>("ItemParticipanteAnoAta")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ItemParticipanteCodigoAta")
-                        .HasColumnType("int");
 
                     b.Property<string>("NomeUnidadeAdministrativa")
                         .IsRequired()
@@ -282,18 +281,26 @@ namespace Infra.Migrations
                         .IsRequired()
                         .HasColumnType("Varchar(50)");
 
-                    b.HasKey("CodigoUnidadeAdministrativa");
-
-                    b.HasIndex("ItemParticipanteCodigoAta", "ItemParticipanteAnoAta");
+                    b.HasKey("Id");
 
                     b.ToTable("UnidadesAdministrativas");
                 });
 
-            modelBuilder.Entity("Dominio.Entidades.Detentora", b =>
+            modelBuilder.Entity("Dominio.Entidades.DetentoraItem", b =>
                 {
+                    b.HasOne("Dominio.Entidades.Detentora", "Detentora")
+                        .WithMany("DetentorasItens")
+                        .HasForeignKey("DetentoraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Dominio.Entidades.Item", "Item")
-                        .WithMany("Detentoras")
-                        .HasForeignKey("ItemCodigoItem");
+                        .WithMany("DetentorasItens")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Detentora");
 
                     b.Navigation("Item");
                 });
@@ -302,36 +309,37 @@ namespace Infra.Migrations
                 {
                     b.HasOne("Dominio.Entidades.Ata", "Ata")
                         .WithMany("Itens")
-                        .HasForeignKey("CodigoAta", "AtaAnoAta");
+                        .HasForeignKey("CodigoAta", "AnoAta");
 
                     b.Navigation("Ata");
                 });
 
-            modelBuilder.Entity("Dominio.Entidades.ItemParticipante", b =>
+            modelBuilder.Entity("Dominio.Entidades.ParticipanteItem", b =>
                 {
                     b.HasOne("Dominio.Entidades.Item", "Item")
-                        .WithMany("Participantes")
-                        .HasForeignKey("ItemCodigoItem");
+                        .WithMany("ParticipantesItens")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dominio.Entidades.UnidadeAdministrativa", "UnidadeAdministrativa")
+                        .WithMany("ParticipantesItens")
+                        .HasForeignKey("UnidadeAdministrativaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Item");
+
+                    b.Navigation("UnidadeAdministrativa");
                 });
 
             modelBuilder.Entity("Dominio.Entidades.ProgramacaoConsumoParticipante", b =>
                 {
-                    b.HasOne("Dominio.Entidades.ItemParticipante", "ItemParticipante")
-                        .WithMany("ProgramacaoConsumoParticipantes")
-                        .HasForeignKey("ItemParticipanteCodigoAta", "ItemParticipanteAnoAta");
+                    b.HasOne("Dominio.Entidades.ParticipanteItem", "ParticipanteItem")
+                        .WithMany("ProgramacoesConsumoParticipantes")
+                        .HasForeignKey("ParticipanteItemId");
 
-                    b.Navigation("ItemParticipante");
-                });
-
-            modelBuilder.Entity("Dominio.Entidades.UnidadeAdministrativa", b =>
-                {
-                    b.HasOne("Dominio.Entidades.ItemParticipante", "ItemParticipante")
-                        .WithMany("UnidadesAdministrativas")
-                        .HasForeignKey("ItemParticipanteCodigoAta", "ItemParticipanteAnoAta");
-
-                    b.Navigation("ItemParticipante");
+                    b.Navigation("ParticipanteItem");
                 });
 
             modelBuilder.Entity("Dominio.Entidades.Ata", b =>
@@ -339,18 +347,26 @@ namespace Infra.Migrations
                     b.Navigation("Itens");
                 });
 
-            modelBuilder.Entity("Dominio.Entidades.Item", b =>
+            modelBuilder.Entity("Dominio.Entidades.Detentora", b =>
                 {
-                    b.Navigation("Detentoras");
-
-                    b.Navigation("Participantes");
+                    b.Navigation("DetentorasItens");
                 });
 
-            modelBuilder.Entity("Dominio.Entidades.ItemParticipante", b =>
+            modelBuilder.Entity("Dominio.Entidades.Item", b =>
                 {
-                    b.Navigation("ProgramacaoConsumoParticipantes");
+                    b.Navigation("DetentorasItens");
 
-                    b.Navigation("UnidadesAdministrativas");
+                    b.Navigation("ParticipantesItens");
+                });
+
+            modelBuilder.Entity("Dominio.Entidades.ParticipanteItem", b =>
+                {
+                    b.Navigation("ProgramacoesConsumoParticipantes");
+                });
+
+            modelBuilder.Entity("Dominio.Entidades.UnidadeAdministrativa", b =>
+                {
+                    b.Navigation("ParticipantesItens");
                 });
 #pragma warning restore 612, 618
         }

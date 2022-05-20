@@ -11,7 +11,9 @@ namespace Infra.Contexto.Maps
         public void Configure(EntityTypeBuilder<UnidadeAdministrativa> builder)
         {
             builder.ToTable("UnidadesAdministrativas");
-            builder.HasKey(u => u.CodigoUnidadeAdministrativa);
+            builder.HasKey(u => u.Id);
+
+            //Propriedades
             builder.Property(u => u.NomeUnidadeAdministrativa).IsRequired().HasColumnType("Varchar(100)");
             builder.Property(u => u.Sigla).IsRequired().HasColumnType("Varchar(10)");
             builder.Property(u => u.OrgaoEx).IsRequired().HasColumnType("bit");

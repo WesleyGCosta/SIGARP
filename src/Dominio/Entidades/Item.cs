@@ -1,11 +1,13 @@
 ﻿using Dominio.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace Dominio.Entidades
 {
     public class Item
     {
-        public int CodigoItem { get; private set; }
+        public Guid Id { private set; get; }
+        public int NumeroItem { get; private set; }
         public int CodigoAta { get; private set; }
         public int AnoAta { get; private set; }
         public ETipo Tipo { get; private set; }
@@ -18,7 +20,7 @@ namespace Dominio.Entidades
         public bool Ativo { get; private set; }
 
         public Ata Ata { get; private set; }
-        public IEnumerable<ItemParticipante> Participantes { get; private set; }
-        public IEnumerable<Detentora> Detentoras { get; private set; }
+        public IEnumerable<ParticipanteItem> ParticipantesItens { get; private set; }
+        public IEnumerable<DetentoraItem> DetentorasItens { get; private set; }
     }
 }

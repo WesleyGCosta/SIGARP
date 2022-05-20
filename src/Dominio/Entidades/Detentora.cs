@@ -1,10 +1,12 @@
 ﻿using Dominio.Enums;
+using System;
+using System.Collections.Generic;
 
 namespace Dominio.Entidades
 {
     public class Detentora
     {
-        public int Id { get; private set; }
+        public Guid Id { get; private set; }
         public string Cnpj { get; private set; }
         public string RazaoSocial { get; private set; }
         public string NomeFantasia { get; private set; }
@@ -17,6 +19,6 @@ namespace Dominio.Entidades
         public string Uf { get; private set; }
         public string Municipio { get; private set; }
 
-        public Item Item { get; private set; }
+        public IEnumerable<DetentoraItem> DetentorasItens { get; private set; }
     }
 }

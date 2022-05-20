@@ -1,10 +1,12 @@
 ﻿using Dominio.Enums;
+using System;
+using System.Collections.Generic;
 
 namespace Dominio.Entidades
 {
     public class UnidadeAdministrativa
     {
-        public int CodigoUnidadeAdministrativa { get; private set; }
+        public Guid Id { get; private set; }
         public string NomeUnidadeAdministrativa { get; private set; }
         public string Sigla { get; private set; }
         public bool OrgaoEx { get; private set; }
@@ -12,6 +14,6 @@ namespace Dominio.Entidades
         public EhEsferaAdministrativa EsferaAdministrativa { get; private set; }
         public bool Ativo { get; private set; }
 
-        public ItemParticipante ItemParticipante { get; private set; }
+        public IEnumerable<ParticipanteItem> ParticipantesItens { get; private set; }
     }
 }

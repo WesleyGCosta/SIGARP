@@ -1,35 +1,33 @@
-﻿using Dominio.IRepository;
+﻿using Dominio.IRepositorio;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Infra.Persistencia
 {
-    public abstract class BaseRepository<TEndity> : IBaseRepository<TEndity> where TEndity : class
+    public abstract class BaseRepositorio<TEntity> : IBaseRepositorio<TEntity> where TEntity : class
     {
-        public Task Adicionar(TEndity endity)
+        public Task Adicionar(TEntity endity)
         {
             throw new NotImplementedException();
         }
 
-        public Task Atualizar(TEndity endity)
+        public Task Atualizar(TEntity endity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<TEndity> BuscarPorChavesPrimariaComposta(int chaveUm, int chaveDois)
+        public Task<TEntity> BuscarPorChavesPrimariaComposta(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<TEndity>> BuscarTodos()
+        public Task<IEnumerable<TEntity>> BuscarTodos()
         {
             throw new NotImplementedException();
         }
 
-        public Task Deletar(TEndity endity)
+        public Task Deletar(TEntity endity)
         {
             throw new NotImplementedException();
         }

@@ -1,8 +1,6 @@
-﻿
+﻿using Domain.Enums;
 
-using Domain.Enums;
-
-namespace WebApp.Models
+namespace WebApp.ViewModels
 {
     public class ItemViewModel
     {

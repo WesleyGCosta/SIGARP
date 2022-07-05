@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApp.Models
+namespace WebApp.ViewModels
 {
     public class RegistroViewModel
     {
         [Required(ErrorMessage = "Campo Obrigatório!")]
         public string Cpf { get; set; }
 
-        
+
         [Required(ErrorMessage = "Campo Obrigatório!")]
         [DataType(DataType.Password)]
         public string Senha { get; set; }

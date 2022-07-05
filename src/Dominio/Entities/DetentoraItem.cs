@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 
-namespace Dominio.Entidades
+namespace Domain.Entities
 {
     public class DetentoraItem
     {

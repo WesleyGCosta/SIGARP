@@ -1,8 +1,8 @@
-﻿using Dominio.Enums;
+﻿using Domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApp.Models
+namespace WebApp.ViewModels
 {
     public class AtaViewModel
     {

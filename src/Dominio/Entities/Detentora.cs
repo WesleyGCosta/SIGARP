@@ -1,8 +1,8 @@
-﻿using Dominio.Enums;
+﻿using Domain.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace Dominio.Entidades
+namespace Domain.Entities
 {
     public class Detentora
     {
@@ -20,5 +20,6 @@ namespace Dominio.Entidades
         public string Municipio { get; private set; }
 
         public IEnumerable<DetentoraItem> DetentorasItens { get; private set; }
+        public IEnumerable<Endereco> Enderecos { get; private set; }
     }
 }

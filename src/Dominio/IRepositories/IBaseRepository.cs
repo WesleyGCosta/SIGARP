@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Dominio.IRepositorio
+namespace Domain.IRepositories
 {
-    public interface IBaseRepositorio<TEntity> where TEntity : class
+    public interface IBaseRepository<TEntity> where TEntity : class
     {
         Task Adicionar(TEntity endity);
         Task Atualizar(TEntity endity);

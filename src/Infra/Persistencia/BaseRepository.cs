@@ -1,11 +1,11 @@
-﻿using Dominio.IRepositorio;
+﻿using Domain.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Infra.Persistencia
 {
-    public abstract class BaseRepositorio<TEntity> : IBaseRepositorio<TEntity> where TEntity : class
+    public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
         public Task Adicionar(TEntity endity)
         {

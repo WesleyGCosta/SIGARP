@@ -1,4 +1,4 @@
-﻿using Dominio.Entidades;
+﻿using Domain.Entities;
 using Infra.Contexto.Maps;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +10,7 @@ namespace Infra.Contexto
 
         public DbSet<Ata> Atas { get; set; }
         public DbSet<Detentora> Detentoras { get; set; }
+        public DbSet<Endereco> Enderecoes { get; set; }
         public DbSet<Item> Itens { get; set; }
         public DbSet<ProgramacaoConsumoParticipante> ProgramacaoConsumoParticipantes { get; set; }
         public DbSet<UnidadeAdministrativa> UnidadesAdministrativas { get; set; }
@@ -25,6 +26,7 @@ namespace Infra.Contexto
             modelBuilder.ApplyConfiguration(new UnidadeAdministrativaMap());
             modelBuilder.ApplyConfiguration(new DetentoraItemMap());
             modelBuilder.ApplyConfiguration(new ParticipanteItemMap());
+            modelBuilder.ApplyConfiguration(new EnderecoMap());
         }
     }
 }

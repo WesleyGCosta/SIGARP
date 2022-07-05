@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using WebApp.Models;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -73,7 +73,7 @@ namespace WebApp.Controllers
                 ModelState.AddModelError(string.Empty, "Login Inválido");
 
             }
-            return View();
+            return View("Login");
         }
 
         public async Task<IActionResult> Logout()

@@ -7,17 +7,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApp", "WebApp", "{A07D91
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "src\WebApp\WebApp.csproj", "{BC04F0B0-8CEC-4BD0-8735-5B87BC5C4238}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dominio", "Dominio", "{02B49467-7E9E-411D-B57D-0B214B78377E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{02B49467-7E9E-411D-B57D-0B214B78377E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dominio", "src\Dominio\Dominio.csproj", "{C54BE9D7-6A62-4A71-9DE3-3A18029ABEF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Dominio\Domain.csproj", "{C54BE9D7-6A62-4A71-9DE3-3A18029ABEF2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{C1192FF4-B113-4587-AC9A-0E75122634F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra", "src\Infra\Infra.csproj", "{5BC22673-5FBE-49DC-BD6B-5F38A0174F71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra", "src\Infra\Infra.csproj", "{5BC22673-5FBE-49DC-BD6B-5F38A0174F71}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Historia", "Historia", "{2DC0733E-3BB2-4977-8040-0D831A85AEC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Historia", "src\Historia\Historia.csproj", "{C2A577C8-7536-4F1F-8D62-6822284F0F6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Historia", "src\Historia\Historia.csproj", "{C2A577C8-7536-4F1F-8D62-6822284F0F6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,8 +1,7 @@
-﻿using Dominio.Entidades;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace Dominio.Entidades
+namespace Domain.Entities
 {
     public class Ata
     {

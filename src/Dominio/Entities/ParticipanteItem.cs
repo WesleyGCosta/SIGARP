@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dominio.Entidades
+namespace Domain.Entities
 {
     public class ParticipanteItem
     {

@@ -1,8 +1,8 @@
-﻿using Dominio.Enums;
+﻿using Domain.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace Dominio.Entidades
+namespace Domain.Entities
 {
     public class UnidadeAdministrativa
     {

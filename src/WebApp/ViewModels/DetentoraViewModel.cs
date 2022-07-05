@@ -1,4 +1,4 @@
-﻿using Dominio.Enums;
+﻿using Domain.Enums;
 
 namespace WebApp.Models
 {

@@ -1,4 +1,4 @@
-﻿using Dominio.IRepositorio;
+﻿using Domain.IRepositories;
 using Infra.Contexto;
 using Infra.Persistencia;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +10,7 @@ namespace WebApp.Configuracao
     {
         public static IServiceCollection ResolveDependencias(this IServiceCollection services)
         {
-            services.AddScoped<IAtaRepositorio, AtaRepositorio>();
+            services.AddScoped<IAtaRepository, AtaRepository>();
 
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

@@ -1,4 +1,4 @@
-﻿namespace Dominio.Enums
+﻿namespace Domain.Enums
 {
     public enum EhEsferaAdministrativa
     {

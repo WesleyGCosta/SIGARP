@@ -1,4 +1,4 @@
-﻿using Dominio.Enums;
+﻿using Domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
 

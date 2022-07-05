@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infra.Migrations
 {
-    public partial class inicial : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,12 +40,7 @@ namespace Infra.Migrations
                     NomeFantasia = table.Column<string>(type: "Varchar(100)", nullable: true),
                     Email = table.Column<string>(type: "Varchar(100)", nullable: true),
                     Telefone = table.Column<string>(type: "Varchar(15)", nullable: true),
-                    Pessoa = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Endereco = table.Column<string>(type: "Varchar(100)", nullable: true),
-                    Numero = table.Column<int>(type: "int", nullable: false),
-                    Bairro = table.Column<string>(type: "Varchar(100)", nullable: true),
-                    Uf = table.Column<string>(type: "Varchar(5)", nullable: true),
-                    Municipio = table.Column<string>(type: "Varchar(100)", nullable: true)
+                    Pessoa = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -85,16 +80,41 @@ namespace Infra.Migrations
                     PrecoMercado = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
                     PrecoRegistrado = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
+                    AtaCodigoAta = table.Column<int>(type: "int", nullable: true),
+                    AtaAnoAta = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Itens", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Itens_Atas_CodigoAta_AnoAta",
-                        columns: x => new { x.CodigoAta, x.AnoAta },
+                        name: "FK_Itens_Atas_AtaCodigoAta_AtaAnoAta",
+                        columns: x => new { x.AtaCodigoAta, x.AtaAnoAta },
                         principalTable: "Atas",
                         principalColumns: new[] { "CodigoAta", "AnoAta" },
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Enderecos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DetentoraId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Rua = table.Column<string>(type: "Varchar(100)", nullable: false),
+                    Numero = table.Column<int>(type: "int", nullable: false),
+                    Bairro = table.Column<string>(type: "Varchar(50)", nullable: false),
+                    Uf = table.Column<string>(type: "Varchar(5)", nullable: false),
+                    Municipio = table.Column<string>(type: "Varchar(50)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Enderecos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Enderecos_Detentoras_DetentoraId",
+                        column: x => x.DetentoraId,
+                        principalTable: "Detentoras",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,9 +202,14 @@ namespace Infra.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Itens_CodigoAta_AnoAta",
+                name: "IX_Enderecos_DetentoraId",
+                table: "Enderecos",
+                column: "DetentoraId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Itens_AtaCodigoAta_AtaAnoAta",
                 table: "Itens",
-                columns: new[] { "CodigoAta", "AnoAta" });
+                columns: new[] { "AtaCodigoAta", "AtaAnoAta" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ParticipantesItens_ItemId",
@@ -207,6 +232,9 @@ namespace Infra.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DetentorasItens");
+
+            migrationBuilder.DropTable(
+                name: "Enderecos");
 
             migrationBuilder.DropTable(
                 name: "ProgamacaoConsumoParticipantes");

@@ -1,4 +1,6 @@
 ﻿using Domain.IRepositories;
+using Infra.Contexto;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,29 +9,51 @@ namespace Infra.Persistencia
 {
     public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {
-        public Task Adicionar(TEntity endity)
+        protected readonly DataContext _db;
+        protected readonly DbSet<TEntity> _dbSet;
+
+        protected BaseRepository(DataContext db)
         {
-            throw new NotImplementedException();
+            _db = db;
+            _dbSet = db.Set<TEntity>();
         }
 
-        public Task Atualizar(TEntity endity)
+        public async Task Create(TEntity entity)
         {
-            throw new NotImplementedException();
+            _dbSet.Add(entity);
+            await SaveChanges();
         }
 
-        public Task<TEntity> BuscarPorChavesPrimariaComposta(Guid id)
+        public async Task Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            _db.Update(entity);
+            await SaveChanges();
         }
 
-        public Task<IEnumerable<TEntity>> BuscarTodos()
+        public async Task Delete(TEntity entity)
         {
-            throw new NotImplementedException();
+            _db.Remove(entity);
+            await SaveChanges();
         }
 
-        public Task Deletar(TEntity endity)
+        public async Task<List<TEntity>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _dbSet.ToListAsync();
+        }
+
+        public async Task<TEntity> GetByPrimaryKey(Guid id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
+
+        public async Task SaveChanges()
+        {
+            await _db.SaveChangesAsync();
+        }
+
+        public void Dispose()
+        {
+            _db?.Dispose();
         }
     }
 }

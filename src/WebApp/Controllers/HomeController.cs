@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.IRepositories;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using WebApp.ViewModels;
@@ -6,11 +7,11 @@ using WebApp.ViewModels;
 namespace WebApp.Controllers
 {
     //[Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, INotifier notifier) : base(notifier)
         {
             _logger = logger;
         }

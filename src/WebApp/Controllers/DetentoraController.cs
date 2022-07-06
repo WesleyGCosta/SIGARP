@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.IRepositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers
 {
-    public class DetentoraController : Controller
+    public class DetentoraController : BaseController
     {
+        public DetentoraController(INotifier notifier) : base(notifier)
+        {
+        }
+
         public IActionResult Cadastrar()
         {
             return View();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Domain.IRepositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -7,12 +8,14 @@ using WebApp.ViewModels;
 namespace WebApp.Controllers
 {
     [AllowAnonymous]
-    public class SegurancaController : Controller
+    public class AutenticationController : BaseController
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        public SegurancaController(UserManager<IdentityUser> userManager,
-                              SignInManager<IdentityUser> signInManager)
+        public AutenticationController(
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
+            INotifier notifier) : base(notifier)
         {
             _userManager = userManager;
             _signInManager = signInManager;

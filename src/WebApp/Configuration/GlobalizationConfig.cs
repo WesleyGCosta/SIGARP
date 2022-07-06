@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Localization;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace WebApp.Configuracao
+namespace WebApp.Configuration
 {
     public static class GlobalizationConfig
     {

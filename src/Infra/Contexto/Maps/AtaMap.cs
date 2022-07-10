@@ -19,7 +19,7 @@ namespace Infra.Contexto.Maps
             builder.Property(a => a.ObjetoResumido).IsRequired().HasColumnType("text");
             builder.Property(a => a.Publicada).IsRequired().HasColumnType("bit");
             builder.Property(a => a.DataPublicacaoSistema).IsRequired().HasColumnType("date");
-            builder.Property(a => a.Observacao).IsRequired().HasColumnType("text");
+            builder.Property(a => a.Observacao).HasColumnType("text");
             builder.Property(a => a.LimiteAdesao).IsRequired().HasColumnType("float");
         }
     }

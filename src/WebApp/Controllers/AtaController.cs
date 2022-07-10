@@ -1,28 +1,32 @@
 ﻿using Domain.IRepositories;
+using Historia.Atas;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using WebApp.Factories;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
     public class AtaController : BaseController
     {
-        public AtaController(INotifier notifier) : base(notifier)
+        private readonly CreateAta _createAta;
+        public AtaController(IAtaRepository ataRepository, INotifier notifier) : base(notifier)
         {
+            _createAta = new CreateAta(ataRepository);
         }
 
-        public IActionResult Cadastrar()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
         public async Task<IActionResult> Create(AtaViewModel ataViewModel)
         {
             if (!ModelState.IsValid)
             {
-                TempData["Atencao"] = "Algo de Errado não está certo";
                 return View("Cadastrar", ataViewModel);
             }
+
+            var ata = AtaFactory.ToEntityAta(ataViewModel);
+
+            await _createAta.Run(ata);
 
             TempData["Sucesso"] = "Cadastrado com Sucesso";
 

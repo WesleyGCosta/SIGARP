@@ -1,4 +1,4 @@
-﻿using Domain.IRepositories;
+﻿using Domain.Notifications.Interface;
 using System.Collections.Generic;
 using System.Linq;
 

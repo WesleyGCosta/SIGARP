@@ -1,7 +1,7 @@
 ﻿using Domain.Notifications;
 using System.Collections.Generic;
 
-namespace Domain.IRepositories
+namespace Domain.Notifications.Interface
 {
     public interface INotifier
     {

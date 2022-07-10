@@ -1,5 +1,6 @@
-﻿using Domain.IRepositories;
+﻿using Domain.Notifications.Interface;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -9,9 +10,12 @@ namespace WebApp.Controllers
         {
         }
 
-        public IActionResult Cadastrar()
+        public IActionResult Create() => View();
+
+        [HttpPost]
+        public IActionResult Create(UnidadeAdministrativaViewModel unidadeAdministrativaViewModel)
         {
-            return View();
+            return View(unidadeAdministrativaViewModel);
         }
     }
 }

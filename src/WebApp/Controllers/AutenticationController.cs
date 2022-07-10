@@ -1,4 +1,4 @@
-﻿using Domain.IRepositories;
+﻿using Domain.Notifications.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

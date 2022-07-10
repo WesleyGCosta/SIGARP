@@ -1,4 +1,5 @@
 ﻿using Domain.IRepositories;
+using Domain.Notifications.Interface;
 using Historia.Atas;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,11 +18,12 @@ namespace WebApp.Controllers
 
         public IActionResult Create() => View();
 
+        [HttpPost]
         public async Task<IActionResult> Create(AtaViewModel ataViewModel)
         {
             if (!ModelState.IsValid)
             {
-                return View("Cadastrar", ataViewModel);
+                return View(ataViewModel);
             }
 
             var ata = AtaFactory.ToEntityAta(ataViewModel);
@@ -30,7 +32,7 @@ namespace WebApp.Controllers
 
             TempData["Sucesso"] = "Cadastrado com Sucesso";
 
-            return View("Cadastrar");
+            return View();
         }
 
         public IActionResult IncluirDetentora() => View();

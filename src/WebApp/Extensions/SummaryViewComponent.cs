@@ -1,4 +1,4 @@
-﻿using Domain.IRepositories;
+﻿using Domain.Notifications.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

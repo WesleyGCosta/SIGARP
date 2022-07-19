@@ -13,7 +13,6 @@ namespace WebApp.ViewModels
 
         [Display(Name = "Número da Ata")]
         [Required(ErrorMessage = "Campo Obrigatório!")]
-        [Range(1, 1000, ErrorMessage = "Números de 1 à 1000")]
         public int NumeroAta { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório!")]

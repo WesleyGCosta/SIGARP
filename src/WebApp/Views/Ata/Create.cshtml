@@ -19,7 +19,9 @@
             </div>
             <div class="col-3">
                 <label asp-for="AnoAta" class="control-label"></label>
-                <input asp-for="AnoAta" class="form-control" />
+                <select asp-for="AnoAta" class="custom-select" asp-items="new SelectList(ViewBag.ListYears)">
+                    <option value="">Selecione um Ano...</option>
+                </select>
                 <span asp-validation-for="AnoAta" class="text-danger"></span>
             </div>
             <div class="col-3">

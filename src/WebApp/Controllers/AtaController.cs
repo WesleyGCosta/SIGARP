@@ -16,7 +16,11 @@ namespace WebApp.Controllers
             _createAta = new CreateAta(ataRepository);
         }
 
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+            ViewBag.ListYears = LoadDropAno();
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(AtaViewModel ataViewModel)
@@ -32,7 +36,7 @@ namespace WebApp.Controllers
 
             TempData["Sucesso"] = "Cadastrado com Sucesso";
 
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult IncluirDetentora() => View();

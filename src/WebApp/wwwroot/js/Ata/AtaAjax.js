@@ -13,6 +13,5 @@
         } else {
             $('#NumeroAta').attr('value', '')
         }
-
     })
 })

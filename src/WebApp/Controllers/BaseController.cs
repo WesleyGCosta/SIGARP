@@ -19,7 +19,7 @@ namespace WebApp.Controllers
             return !_notifier.HasNotification();
         }
 
-        public List<int> LoadDropAno()
+        public List<int> LoadDropYear()
         {
             DateTime dataInicio = Convert.ToDateTime("01/01/2011");
             DateTime hoje = DateTime.Now;

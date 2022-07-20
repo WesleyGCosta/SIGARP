@@ -30,6 +30,12 @@ namespace Infra.Migrations
                     b.Property<int>("AnoPregao")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DataAlteracao")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("date");
+
                     b.Property<DateTime>("DataFinalVigencia")
                         .HasColumnType("date");
 
@@ -54,7 +60,6 @@ namespace Infra.Migrations
                         .HasColumnType("varchar(25)");
 
                     b.Property<string>("ObjetoResumido")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Observacao")
@@ -62,6 +67,11 @@ namespace Infra.Migrations
 
                     b.Property<bool>("Publicada")
                         .HasColumnType("bit");
+
+                    b.Property<string>("TipoPregao")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("CodigoAta", "AnoAta");
 

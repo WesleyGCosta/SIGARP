@@ -2,30 +2,32 @@
 
 namespace Infra.Migrations
 {
-    public partial class observacao : Migration
+    public partial class CorrecaoTamanho : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Observacao",
+                name: "TipoPregao",
                 table: "Atas",
-                type: "text",
-                nullable: true,
+                type: "nvarchar(20)",
+                maxLength: 20,
+                nullable: false,
                 oldClrType: typeof(string),
-                oldType: "text");
+                oldType: "nvarchar(10)",
+                oldMaxLength: 10);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<string>(
-                name: "Observacao",
+                name: "TipoPregao",
                 table: "Atas",
-                type: "text",
+                type: "nvarchar(10)",
+                maxLength: 10,
                 nullable: false,
-                defaultValue: "",
                 oldClrType: typeof(string),
-                oldType: "text",
-                oldNullable: true);
+                oldType: "nvarchar(20)",
+                oldMaxLength: 20);
         }
     }
 }

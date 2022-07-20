@@ -13,12 +13,15 @@ namespace WebApp.Factories
                 ataViewModel.NumeroProcesso,
                 ataViewModel.NumeroPregao,
                 ataViewModel.AnoPregao,
+                ataViewModel.TipoPregao,
                 ataViewModel.DataHomologacao,
                 ataViewModel.DataPublicacaoDOE,
                 ataViewModel.DataFinalVigencia,
                 ataViewModel.ObjetoResumido,
                 ataViewModel.Publicada,
                 ataViewModel.DataPublicacaoSistema,
+                ataViewModel.DataCadastro,
+                ataViewModel.DataAlteracao,
                 ataViewModel.Observacao,
                 ataViewModel.LimiteAdesao
                 );

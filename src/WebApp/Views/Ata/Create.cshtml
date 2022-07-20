@@ -13,11 +13,6 @@
         <div class="card-body row">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col-3">
-                <label asp-for="NumeroAta" class="control-label"></label>
-                <input asp-for="NumeroAta" class="form-control" />
-                <span asp-validation-for="NumeroAta" class="text-danger"></span>
-            </div>
-            <div class="col-3">
                 <label asp-for="AnoAta" class="control-label"></label>
                 <select asp-for="AnoAta" class="custom-select" asp-items="new SelectList(ViewBag.ListYears)">
                     <option value="">Selecione um Ano...</option>
@@ -25,13 +20,27 @@
                 <span asp-validation-for="AnoAta" class="text-danger"></span>
             </div>
             <div class="col-3">
+                <label asp-for="NumeroAta" class="control-label"></label>
+                <input asp-for="NumeroAta" class="form-control" placeholder="Número da Ata" readonly />
+                <span asp-validation-for="NumeroAta" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="AnoPregao" class="control-label"></label>
+                <select asp-for="AnoPregao" class="custom-select" asp-items="new SelectList(ViewBag.ListYears)">
+                    <option value="">Selecione um Ano...</option>
+                </select>
+                <span asp-validation-for="AnoPregao" class="text-danger"></span>
+            </div>
+            <div class="col-3">
                 <label asp-for="NumeroProcesso" class="control-label"></label>
                 <input asp-for="NumeroProcesso" class="form-control" />
                 <span asp-validation-for="NumeroProcesso" class="text-danger"></span>
             </div>
-            <div class="col-3">
+            <div class="col-3 mt-3">
                 <label asp-for="TipoPregao" class="control-label"></label>
-                <select asp-items="@Html.GetEnumSelectList<EPregao>()" class="custom-select"></select>
+                <select asp-for="TipoPregao" asp-items="@Html.GetEnumSelectList<EPregao>()" class="custom-select">
+                    <option value="">Selecione</option>
+                </select>
                 <span asp-validation-for="TipoPregao" class="text-danger"></span>
             </div>
             <div class="col-3 mt-3">
@@ -40,18 +49,13 @@
                 <span asp-validation-for="NumeroPregao" class="text-danger"></span>
             </div>
             <div class="col-3 mt-3">
-                <label asp-for="AnoPregao" class="control-label"></label>
-                <input asp-for="AnoPregao" class="form-control" />
-                <span asp-validation-for="AnoPregao" class="text-danger"></span>
-            </div>
-            <div class="col-3 mt-3">
                 <label asp-for="DataHomologacao" class="control-label"></label>
                 <input asp-for="DataHomologacao" class="form-control" type="date" />
                 <span asp-validation-for="DataHomologacao" class="text-danger"></span>
             </div>
             <div class="col-3 mt-3">
                 <label asp-for="DataPublicacaoDOE" class="control-label"></label>
-                <input asp-for="DataPublicacaoDOE" class="form-control" type="date"/>
+                <input asp-for="DataPublicacaoDOE" class="form-control" type="date" />
                 <span asp-validation-for="DataPublicacaoDOE" class="text-danger"></span>
             </div>
             <div class="col-12 mt-3">
@@ -78,6 +82,8 @@
 
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="~/js/Ata/AtaAjax.js"></script>
 }

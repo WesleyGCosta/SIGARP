@@ -46,7 +46,6 @@ namespace WebApp.ViewModels
         [Required(ErrorMessage = "Campo Obrigatório!")]
         public DateTime DataFinalVigencia { get; set; }
 
-        [Required(ErrorMessage = "Campo Obrigatório!")]
         [Display(Name = "Objeto Resumido")]
         public string ObjetoResumido { get; set; }
 
@@ -61,8 +60,6 @@ namespace WebApp.ViewModels
 
         public DateTime DataAlteracao { get; set; }
 
-        [Required(ErrorMessage = "Campo Obrigatório!")]
-        [Display(Name = "Limite de Adesão")]
         public int LimiteAdesao { get; set; }
     }
 }

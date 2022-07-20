@@ -16,13 +16,16 @@ namespace Infra.Migrations
                     NumeroProcesso = table.Column<string>(type: "varchar(25)", nullable: false),
                     NumeroPregao = table.Column<string>(type: "varchar(25)", nullable: false),
                     AnoPregao = table.Column<int>(type: "int", nullable: false),
+                    TipoPregao = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     DataHomologacao = table.Column<DateTime>(type: "date", nullable: false),
                     DataPublicacaoDOE = table.Column<DateTime>(type: "date", nullable: false),
                     DataFinalVigencia = table.Column<DateTime>(type: "date", nullable: false),
-                    ObjetoResumido = table.Column<string>(type: "text", nullable: false),
+                    ObjetoResumido = table.Column<string>(type: "text", nullable: true),
                     Publicada = table.Column<bool>(type: "bit", nullable: false),
                     DataPublicacaoSistema = table.Column<DateTime>(type: "date", nullable: false),
-                    Observacao = table.Column<string>(type: "text", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "date", nullable: false),
+                    DataAlteracao = table.Column<DateTime>(type: "date", nullable: false),
+                    Observacao = table.Column<string>(type: "text", nullable: true),
                     LimiteAdesao = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
@@ -79,16 +82,14 @@ namespace Infra.Migrations
                     ConsumoEstimado = table.Column<int>(type: "int", nullable: false),
                     PrecoMercado = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
                     PrecoRegistrado = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
-                    Ativo = table.Column<bool>(type: "bit", nullable: false),
-                    AtaCodigoAta = table.Column<int>(type: "int", nullable: true),
-                    AtaAnoAta = table.Column<int>(type: "int", nullable: true)
+                    Ativo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Itens", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Itens_Atas_AtaCodigoAta_AtaAnoAta",
-                        columns: x => new { x.AtaCodigoAta, x.AtaAnoAta },
+                        name: "FK_Itens_Atas_CodigoAta_AnoAta",
+                        columns: x => new { x.CodigoAta, x.AnoAta },
                         principalTable: "Atas",
                         principalColumns: new[] { "CodigoAta", "AnoAta" },
                         onDelete: ReferentialAction.Restrict);
@@ -207,9 +208,9 @@ namespace Infra.Migrations
                 column: "DetentoraId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Itens_AtaCodigoAta_AtaAnoAta",
+                name: "IX_Itens_CodigoAta_AnoAta",
                 table: "Itens",
-                columns: new[] { "AtaCodigoAta", "AtaAnoAta" });
+                columns: new[] { "CodigoAta", "AnoAta" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ParticipantesItens_ItemId",

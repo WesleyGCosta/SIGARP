@@ -5,7 +5,7 @@
     ViewData["Title"] = "Cadastrar";
 }
 
-<form asp-action="Cadastrar" class="teste">
+<form asp-action="Create" class="teste">
     <div class="card shadow mt-5">
         <div class="card-header text-center">
             <h2 class="card-title title-card">Cadastro de Unidade Administrativa</h2>
@@ -14,37 +14,41 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col-8">
                 <label asp-for="NomeUnidadeAdministrativa" class="control-label"></label>
-                <input asp-for="NomeUnidadeAdministrativa" class="form-control" />
+                <input asp-for="NomeUnidadeAdministrativa" class="form-control capitalize" placeholder="Unidade Administrativa" />
                 <span asp-validation-for="NomeUnidadeAdministrativa" class="text-danger"></span>
             </div>
             <div class="col-4">
                 <label asp-for="Sigla" class="control-label"></label>
-                <input asp-for="Sigla" class="form-control" />
+                <input asp-for="Sigla" class="form-control uppercase" placeholder="Ex. UADMI" />
                 <span asp-validation-for="Sigla" class="text-danger"></span>
             </div>
             <div class="col-5 mt-3">
                 <label asp-for="UnidadeDaFederacao" class="control-label"></label>
-                <input asp-for="UnidadeDaFederacao" class="form-control" />
+                <input asp-for="UnidadeDaFederacao" class="form-control capitalize" placeholder="Unidade da Federeção" />
                 <span asp-validation-for="UnidadeDaFederacao" class="text-danger"></span>
             </div>
             <div class="col-3 mt-3">
                 <label asp-for="EsferaAdministrativa" class="control-label"></label>
-                <select asp-items="@Html.GetEnumSelectList<EhEsferaAdministrativa>()" class="custom-select">
-                    <option value="0">...</option>
+                <select asp-for="EsferaAdministrativa" asp-items="@Html.GetEnumSelectList<EhEsferaAdministrativa>()" class="custom-select">
+                    <option value="">Selecione uma Opcão</option>
                 </select>
                 <span asp-validation-for="EsferaAdministrativa" class="text-danger"></span>
             </div>
             <div class="col-4 mt-3">
                 <label asp-for="OrgaoEx" class="control-label"></label>
-                <div class="form-check form-check-inline ml-5">
-                    <input class="form-check-input" type="radio" asp-for="OrgaoEx" value="true" >
-                    <label class="form-check-label" asp-for="OrgaoEx">Sim</label>
+                <div class="d-flex justify-content-around">
+                    <div class="form-check form-check-inline mt-2">
+                        <input class="form-check-input" type="radio" asp-for="OrgaoEx" value="true">
+                        <label class="form-check-label" asp-for="OrgaoEx">Sim</label>
+                    </div>
+                    <div class="form-check form-check-inline mt-2">
+                        <input class="form-check-input" type="radio" asp-for="OrgaoEx" value="false">
+                        <label class="form-check-label" asp-for="OrgaoEx">Não</label>
+                    </div>
                 </div>
-                <div class="form-check form-check-inline ml-5">
-                    <input class="form-check-input" type="radio" asp-for="OrgaoEx" value="false">
-                    <label class="form-check-label" asp-for="OrgaoEx">Não</label>
-                </div>
-                <span asp-validation-for="OrgaoEx" class="text-danger"></span>
+                <div class="text-center">
+                    <span asp-validation-for="OrgaoEx" class="text-danger"></span>
+                </div>          
             </div>
         </div>
         <div class="card-footer d-flex">
@@ -61,6 +65,6 @@
 
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
-}
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

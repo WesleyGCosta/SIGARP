@@ -45,11 +45,11 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<JsonResult> AutoCompleteNumberAta(int yearAta)
         {
-            var search = await _searchAta.GetAtaByYear(yearAta);
-            if (search == null)
+            var ata = await _searchAta.GetAtaByYear(yearAta);
+            if (ata == null)
                 return Json(1);
 
-            return Json(search.CodigoAta + 1);
+            return Json(ata.CodigoAta + 1);
         }
 
         public IActionResult IncluirDetentora() => View();

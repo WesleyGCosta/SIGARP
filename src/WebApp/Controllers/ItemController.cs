@@ -9,7 +9,7 @@ namespace WebApp.Controllers
         {
         }
 
-        public IActionResult Cadastrar()
+        public IActionResult Create()
         {
             return View();
         }

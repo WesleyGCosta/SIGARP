@@ -12,6 +12,7 @@ namespace Infra.Contexto.Maps
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Rua).IsRequired().HasColumnType("Varchar(100)");
+            builder.Property(x => x.Cep).IsRequired().HasColumnType("Varchar(9)");
             builder.Property(x => x.Bairro).IsRequired().HasColumnType("Varchar(50)");
             builder.Property(x => x.Numero).IsRequired().HasColumnType("int");
             builder.Property(x => x.Uf).IsRequired().HasColumnType("Varchar(5)");

@@ -40,6 +40,9 @@
 $(document).ready(function () {
     //Mascaras
     $('#NumeroProcesso').mask("0000.00000-00-0000");
+    /*$('#Cnpj').mask("00.000.000/0000-00");*/
+    $('#Telefone').mask('(00) 9 0000-0000');
+    /*$('#Cep').mask('00.000-000')*/
 
     //Formatação de Texto
     $('.uppercase').upperFirstAll()

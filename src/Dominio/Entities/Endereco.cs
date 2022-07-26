@@ -6,6 +6,7 @@ namespace Domain.Entities
     {
         public Guid Id { get; private set; }
         public Guid DetentoraId { get; private set; }
+        public string Cep { get; private set; }
         public string Rua { get; private set; }
         public int Numero { get; private set; }
         public string Bairro { get; private set; }

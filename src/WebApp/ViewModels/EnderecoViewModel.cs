@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.ViewModels
@@ -32,7 +33,7 @@ namespace WebApp.ViewModels
 
         [Display(Name = "UF")]
         [Required(ErrorMessage = "Campo Obrigatório")]
-        public string Uf { get; set; }
+        public EUnidadeFederacao Uf { get; set; }
 
         [Display(Name = "Município")]
         [Required(ErrorMessage = "Campo Obrigatório")]

@@ -37,7 +37,7 @@ namespace WebApp.Controllers
 
             await _createAta.Run(ata);
 
-            TempData["Sucesso"] = "Cadastrado com Sucesso";
+            TempData["Success"] = "Cadastrado com Sucesso";
 
             return RedirectToAction("Index", "Home");
         }

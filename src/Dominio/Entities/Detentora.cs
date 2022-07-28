@@ -6,6 +6,17 @@ namespace Domain.Entities
 {
     public class Detentora
     {
+        public Detentora(Guid id, string cnpj, string razaoSocial, string nomeFantasia, string email, string telefone, EPessoa pessoa)
+        {
+            Id = id;
+            Cnpj = cnpj;
+            RazaoSocial = razaoSocial;
+            NomeFantasia = nomeFantasia;
+            Email = email;
+            Telefone = telefone;
+            Pessoa = pessoa;
+        }
+
         public Guid Id { get; private set; }
         public string Cnpj { get; private set; }
         public string RazaoSocial { get; private set; }

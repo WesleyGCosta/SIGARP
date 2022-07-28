@@ -5,7 +5,7 @@
     ViewData["Title"] = "Cadastrar";
 }
 
-<form asp-action="Cadastrar" class="teste">
+<form asp-action="Create">
     <div class="card shadow mt-5">
         <div class="card-header text-center">
             <h3 class="card-title">Formulário de Cadastro de Detentora</h3>
@@ -17,7 +17,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col-3">
                 <label asp-for="Cnpj" class="control-label"></label>
-                <input asp-for="Cnpj" class="form-control" onkeypress="$(this).mask('00.000.000/0000-00')" placeholder="00.000.000/0000-00" />
+                <input asp-for="Cnpj" class="form-control" placeholder="00.000.000/0000-00" />
                 <span asp-validation-for="Cnpj" class="text-danger"></span>
             </div>
             <div class="col-4">
@@ -37,7 +37,7 @@
             </div>
             <div class="col-4 mt-3">
                 <label asp-for="Telefone" class="control-label"></label>
-                <input asp-for="Telefone" class="form-control" onkeypress="$(this).mask('(00) 9 0000-0000')" placeholder="(00) 0 0000-0000" />
+                <input asp-for="Telefone" class="form-control" placeholder="(00) 0 0000-0000" />
                 <span asp-validation-for="Telefone" class="text-danger"></span>
             </div>
             <div class="col-5 mt-3">
@@ -52,7 +52,7 @@
 
             <div class="col-3 mt-3">
                 <label asp-for="Endereco.Cep" class="control-label"></label>
-                <input asp-for="Endereco.Cep" class="form-control" onkeypress="$(this).mask('00.000-000')" placeholder="00.000-000" />
+                <input asp-for="Endereco.Cep" class="form-control" placeholder="00.000-000" />
                 <span asp-validation-for="Endereco.Cep" class="text-danger"></span>
             </div>
             <div class="col-4 mt-3">

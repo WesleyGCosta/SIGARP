@@ -35,7 +35,6 @@ namespace WebApp.ViewModels
 
         [Display(Name = "Telefone")]
         [Required(ErrorMessage = "Campo Obrigatório")]
-        [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "Por favor, insira um número de telefone válido.")]
         public string Telefone { get; set; }
 
         [Display(Name = "Pessoa")]

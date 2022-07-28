@@ -33,7 +33,7 @@ namespace WebApp.Controllers
 
             await _createUnidadeAdministrativa.Run(unidadeAdministrativa);
 
-            TempData["Sucesso"] = "Unidade Administrativa Cadastrado com Sucesso";
+            TempData["Success"] = "Unidade Administrativa Cadastrado com Sucesso";
 
             return RedirectToAction("Index", "Home");
         }

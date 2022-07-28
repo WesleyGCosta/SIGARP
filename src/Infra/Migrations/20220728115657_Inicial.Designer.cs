@@ -7,19 +7,22 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220719213055_CorrecaoTamanho")]
-    partial class CorrecaoTamanho
+    [Migration("20220728115657_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.16")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("Domain.Entities.Ata", b =>
                 {
@@ -77,7 +80,7 @@ namespace Infra.Migrations
 
                     b.HasKey("CodigoAta", "AnoAta");
 
-                    b.ToTable("Atas");
+                    b.ToTable("Atas", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Detentora", b =>
@@ -110,7 +113,7 @@ namespace Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Detentoras");
+                    b.ToTable("Detentoras", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.DetentoraItem", b =>
@@ -132,7 +135,7 @@ namespace Infra.Migrations
                     b.HasIndex("ItemId")
                         .IsUnique();
 
-                    b.ToTable("DetentorasItens");
+                    b.ToTable("DetentorasItens", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Endereco", b =>
@@ -144,6 +147,10 @@ namespace Infra.Migrations
                     b.Property<string>("Bairro")
                         .IsRequired()
                         .HasColumnType("Varchar(50)");
+
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasColumnType("Varchar(10)");
 
                     b.Property<Guid>("DetentoraId")
                         .HasColumnType("uniqueidentifier");
@@ -167,7 +174,7 @@ namespace Infra.Migrations
 
                     b.HasIndex("DetentoraId");
 
-                    b.ToTable("Enderecos");
+                    b.ToTable("Enderecos", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Item", b =>
@@ -177,12 +184,6 @@ namespace Infra.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AnoAta")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AtaAnoAta")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AtaCodigoAta")
                         .HasColumnType("int");
 
                     b.Property<bool>("Ativo")
@@ -222,9 +223,9 @@ namespace Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AtaCodigoAta", "AtaAnoAta");
+                    b.HasIndex("CodigoAta", "AnoAta");
 
-                    b.ToTable("Itens");
+                    b.ToTable("Itens", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.ParticipanteItem", b =>
@@ -245,7 +246,7 @@ namespace Infra.Migrations
 
                     b.HasIndex("UnidadeAdministrativaId");
 
-                    b.ToTable("ParticipantesItens");
+                    b.ToTable("ParticipantesItens", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.ProgramacaoConsumoParticipante", b =>
@@ -277,7 +278,7 @@ namespace Infra.Migrations
                     b.HasIndex("ParticipanteId")
                         .IsUnique();
 
-                    b.ToTable("ProgamacaoConsumoParticipantes");
+                    b.ToTable("ProgamacaoConsumoParticipantes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.UnidadeAdministrativa", b =>
@@ -311,7 +312,7 @@ namespace Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UnidadesAdministrativas");
+                    b.ToTable("UnidadesAdministrativas", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.DetentoraItem", b =>
@@ -348,7 +349,9 @@ namespace Infra.Migrations
                 {
                     b.HasOne("Domain.Entities.Ata", "Ata")
                         .WithMany("Itens")
-                        .HasForeignKey("AtaCodigoAta", "AtaAnoAta");
+                        .HasForeignKey("CodigoAta", "AnoAta")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Ata");
                 });

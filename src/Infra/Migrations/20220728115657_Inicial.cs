@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace Infra.Migrations
 {
     public partial class Inicial : Migration
@@ -16,7 +18,7 @@ namespace Infra.Migrations
                     NumeroProcesso = table.Column<string>(type: "varchar(25)", nullable: false),
                     NumeroPregao = table.Column<string>(type: "varchar(25)", nullable: false),
                     AnoPregao = table.Column<int>(type: "int", nullable: false),
-                    TipoPregao = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    TipoPregao = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     DataHomologacao = table.Column<DateTime>(type: "date", nullable: false),
                     DataPublicacaoDOE = table.Column<DateTime>(type: "date", nullable: false),
                     DataFinalVigencia = table.Column<DateTime>(type: "date", nullable: false),
@@ -92,7 +94,7 @@ namespace Infra.Migrations
                         columns: x => new { x.CodigoAta, x.AnoAta },
                         principalTable: "Atas",
                         principalColumns: new[] { "CodigoAta", "AnoAta" },
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,6 +103,7 @@ namespace Infra.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DetentoraId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Cep = table.Column<string>(type: "Varchar(10)", nullable: false),
                     Rua = table.Column<string>(type: "Varchar(100)", nullable: false),
                     Numero = table.Column<int>(type: "int", nullable: false),
                     Bairro = table.Column<string>(type: "Varchar(50)", nullable: false),

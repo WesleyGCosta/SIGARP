@@ -148,7 +148,7 @@ namespace Infra.Migrations
 
                     b.Property<string>("Cep")
                         .IsRequired()
-                        .HasColumnType("Varchar(9)");
+                        .HasColumnType("Varchar(10)");
 
                     b.Property<Guid>("DetentoraId")
                         .HasColumnType("uniqueidentifier");
@@ -182,12 +182,6 @@ namespace Infra.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AnoAta")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AtaAnoAta")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AtaCodigoAta")
                         .HasColumnType("int");
 
                     b.Property<bool>("Ativo")
@@ -227,7 +221,7 @@ namespace Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AtaCodigoAta", "AtaAnoAta");
+                    b.HasIndex("CodigoAta", "AnoAta");
 
                     b.ToTable("Itens", (string)null);
                 });
@@ -353,7 +347,9 @@ namespace Infra.Migrations
                 {
                     b.HasOne("Domain.Entities.Ata", "Ata")
                         .WithMany("Itens")
-                        .HasForeignKey("AtaCodigoAta", "AtaAnoAta");
+                        .HasForeignKey("CodigoAta", "AnoAta")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Ata");
                 });

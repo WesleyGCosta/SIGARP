@@ -8,7 +8,7 @@ namespace WebApp.Factories
         public static Ata ToEntityAta(AtaViewModel ataViewModel)
         {
             var ata = new Ata(
-                ataViewModel.NumeroAta,
+                ataViewModel.CodigoAta,
                 ataViewModel.AnoAta,
                 ataViewModel.NumeroProcesso,
                 ataViewModel.NumeroPregao,

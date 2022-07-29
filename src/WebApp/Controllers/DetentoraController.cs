@@ -22,7 +22,7 @@ namespace WebApp.Controllers
             _createEndereco = new CreateEndereco(enderecoRepository);
         }
 
-        public IActionResult Create() => View(new DetentoraViewModel());
+        public IActionResult Create() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]

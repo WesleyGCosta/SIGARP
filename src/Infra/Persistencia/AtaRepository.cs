@@ -2,6 +2,7 @@
 using Domain.IRepositories;
 using Infra.Contexto;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,6 +21,15 @@ namespace Infra.Persistencia
                 .Where(a => a.AnoAta.Equals(year))
                 .OrderByDescending(a => a.CodigoAta)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<List<int>> GetListCodeByYear(int year)
+        {
+            return await _db.Atas
+                .AsNoTracking()
+                .Where( a => a.AnoAta.Equals(year))
+                .Select(a => a.CodigoAta)
+                .ToListAsync();
         }
     }
 }

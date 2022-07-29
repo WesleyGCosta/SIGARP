@@ -6,6 +6,33 @@ namespace Domain.Entities
 {
     public class Item
     {
+        public Item(Guid id, 
+            int numeroItem, 
+            int codigoAta, 
+            int anoAta, 
+            ETipo tipo, 
+            string descricao, 
+            string marca, 
+            string unidadeAquisicao, 
+            int consumoEstimado, 
+            decimal precoMercado, 
+            decimal precoRegistrado, 
+            bool ativo)
+        {
+            Id = id;
+            NumeroItem = numeroItem;
+            CodigoAta = codigoAta;
+            AnoAta = anoAta;
+            Tipo = tipo;
+            Descricao = descricao;
+            Marca = marca;
+            UnidadeAquisicao = unidadeAquisicao;
+            ConsumoEstimado = consumoEstimado;
+            PrecoMercado = precoMercado;
+            PrecoRegistrado = precoRegistrado;
+            Ativo = ativo;
+        }
+
         public Guid Id { private set; get; }
         public int NumeroItem { get; private set; }
         public int CodigoAta { get; private set; }

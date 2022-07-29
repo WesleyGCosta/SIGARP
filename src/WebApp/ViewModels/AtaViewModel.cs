@@ -11,9 +11,9 @@ namespace WebApp.ViewModels
             DataCadastro = DateTime.Now;
         }
 
-        [Display(Name = "Número da Ata")]
+        [Display(Name = "Código da Ata")]
         [Required(ErrorMessage = "Campo Obrigatório!")]
-        public int NumeroAta { get; set; }
+        public int CodigoAta { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório!")]
         [Display(Name = "Ano da Ata")]

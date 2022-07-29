@@ -42,6 +42,8 @@ $(document).ready(function () {
     $('#NumeroProcesso').mask("0000.00000-00-0000");
     $('#Cnpj').mask("00.000.000/0000-00");
     $('#Endereco_Cep').mask('00.000-000');
+    $('#PrecoMercado').mask('#.##0,00', { reverse: true });
+    $('#PrecoRegistrado').mask('#.##0,00', { reverse: true });
     $('#Telefone').mask('(00) 00000-0000');
     $('#Telefone').blur(function (event) {
         if ($(this).val().length == 15) {

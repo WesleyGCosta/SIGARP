@@ -6,6 +6,16 @@
     --celadon-blue: #247ba0;
     --caroline-blue: #1b98e0;
     --azure-web-color: #e8f1f2;
+
+    --primary-color: #21325E;
+    --secondary-color: #3E497A;
+    --warning-color: #F1D00A;
+    --bg-color: #F0F0F0;
+    --gray-color: #c4c4c4;
+
+    --red-color: #dc4a46;
+    --green-color: #357847;
+    --list-hover-color: #fffef7;
 }
 
 * {
@@ -80,5 +90,113 @@ body {
 
 .uppercase{
     text-transform: uppercase;
+}
+
+/* Notifications */
+.tn-box {
+    width: 360px;
+    margin: 10px;
+    position: fixed;
+    right: 0;
+    padding: 25px 15px;
+    border-radius: 10px;
+    opacity: 0;
+    cursor: default;
+    display: none;
+    z-index: 1;
+}
+
+    .tn-box .bi {
+        font-size: 2.25em;
+    }
+
+.tn-box-color-1 {
+    background: var(--warning-color);
+    color: var(--primary-color);
+}
+
+    .tn-box-color-1 .tn-progress {
+        background: var(--primary-color);
+    }
+
+.tn-box-color-2 {
+    background: #963232;
+    color: var(--white-color);
+}
+
+.tn-box-color-3 {
+    background: var(--green-color);
+    color: var(--white-color);
+}
+
+.tn-progress {
+    width: 0;
+    height: 4px;
+    background: rgba(255,255,255,1);
+    position: absolute;
+    bottom: 5px;
+    left: 2%;
+    border-radius: 3px;
+}
+
+/*animações notificação*/
+@keyframes fadeOut {
+    0% {
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+
+    99% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes runProgress {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 96%;
+    }
+}
+/**********/
+
+/*ATIVA NOTIFICAÇÃO*/
+input.fire-check:checked ~ section .tn-box {
+    display: block;
+    animation: fadeOut 5s linear forwards;
+}
+
+    input.fire-check:checked ~ section .tn-box .tn-progress {
+        animation: runProgress 4s linear forwards 0.5s;
+    }
+/*****************/
+
+.tn-box.tn-box-active {
+    display: block;
+    animation: fadeOut 5s linear forwards;
+}
+
+    .tn-box.tn-box-active .tn-progress {
+        animation: runProgress 4s linear forwards 0.5s;
+    }
+
+.tn-box.tn-box-hoverpause:hover,
+.tn-box.tn-box-hoverpause:hover .tn-progress {
+    animation-play-state: paused;
 }
 

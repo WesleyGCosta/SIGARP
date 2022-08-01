@@ -9,6 +9,7 @@ namespace WebApp.ViewModels
         public AtaViewModel()
         {
             DataCadastro = DateTime.Now;
+            LimiteAdesao = 100;
         }
 
         [Display(Name = "Código da Ata")]

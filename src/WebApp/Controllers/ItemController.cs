@@ -36,6 +36,7 @@ namespace WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.ListYears = LoadDropYear();
                 return View(itemViewModel);
             }
 

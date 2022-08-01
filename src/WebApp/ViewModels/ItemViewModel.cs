@@ -1,6 +1,7 @@
 ﻿using Domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
+using WebApp.ViewModels.Validation;
 
 namespace WebApp.ViewModels
 {
@@ -9,6 +10,7 @@ namespace WebApp.ViewModels
         public ItemViewModel()
         {
             Id = Guid.NewGuid();
+            Ativo = true;
         }
 
         public Guid Id { get; set; }
@@ -54,7 +56,7 @@ namespace WebApp.ViewModels
 
         [Display(Name = "Preço Registrado")]
         [Required(ErrorMessage = "Campo Obrigatório!")]
-        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
+        [MoreThan(nameof(PrecoMercado), ErrorMessage = "O {0} não pode ser maior que Preço de Mercado")]
         public decimal PrecoRegistrado { get; set; }
         public bool Ativo { get; set; }
     }

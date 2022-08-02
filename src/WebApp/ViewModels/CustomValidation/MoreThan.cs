@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApp.ViewModels.Validation
+namespace WebApp.ViewModels.CustomValidation
 {
     public sealed class MoreThan : ValidationAttribute, IClientModelValidator
     {
@@ -63,7 +63,7 @@ namespace WebApp.ViewModels.Validation
 
         private string GetValidationClientErrorMessage(ClientModelValidationContext context)
         {
-            var str = (!string.IsNullOrEmpty(ErrorMessage)) ? ErrorMessage : ErrorMessageList[0];
+            var str = !string.IsNullOrEmpty(ErrorMessage) ? ErrorMessage : ErrorMessageList[0];
             return string.Format(str, context.ModelMetadata?.GetDisplayName(), PropertyName);
         }
 

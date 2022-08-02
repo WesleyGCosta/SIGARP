@@ -1,4 +1,4 @@
-﻿@model WebApp.ViewModels.AtaParticipanteViewModel
+﻿@model ItemParticipanteViewModel
 
 @{
     ViewData["Title"] = "IncluirParticipante";
@@ -14,7 +14,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col-2">
                 <label asp-for="AnoAta" class="control-label"></label>
-                <input asp-for="AnoAta" class="form-control" />
+                <select asp-for="AnoAta" class="custom-select" asp-items="new SelectList(ViewBag.ListYears)">
+                    <option value="">Selecione um Ano</option>
+                </select>
                 <span asp-validation-for="AnoAta" class="text-danger"></span>
             </div>
             <div class="col-2">
@@ -32,7 +34,7 @@
                 <input asp-for="CodigoItem" class="form-control" />
                 <span asp-validation-for="CodigoItem" class="text-danger"></span>
             </div>
-            
+
         </div>
         <div class="card-footer d-flex">
             <div class="mr-2">
@@ -47,5 +49,7 @@
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

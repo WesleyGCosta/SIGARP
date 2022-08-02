@@ -22,5 +22,14 @@ namespace Infra.Persistencia
                 .OrderByDescending(i => i.NumeroItem)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<List<Item>> GetListItemByCodeAtaAndYearAta(int year, int code)
+        {
+            return await _db.Itens
+                .AsNoTracking()
+                .Where(i => i.CodigoAta.Equals(code) && i.AnoAta.Equals(year))
+                .OrderBy(i => i.NumeroItem)
+                .ToListAsync();
+        }
     }
 }

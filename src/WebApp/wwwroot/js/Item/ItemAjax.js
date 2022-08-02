@@ -10,37 +10,52 @@
                 data: { yearAta: year },
                 success: function (response) {
                     $('#CodigoAta').find('option').remove();
+                    $('<option>').val("").text("...").appendTo($('#CodigoAta'))
                     if (response.length > 0) {
                         $.each(response, function (i, d) {
                             $('<option>').val(d).text(d).appendTo($('#CodigoAta'))
                         })
-                        GetCodeItemByCodeAta($("#AnoAta").val() , 1)
                     }
-                    else {
-                        $('<option>').val("").text("...").appendTo($('#CodigoAta'))
-                    }  
                 }
             })
         } else {
+            $('#CodigoAta').find('option').remove();
             $('<option>').val("").text("...").appendTo($('#CodigoAta'))
         }
     })
 
     $('#CodigoAta').change(function () {
-        var anoAta = $('#AnoAta').val();
-        var codeAta = $('#CodigoAta').val();
-        GetCodeItemByCodeAta(anoAta, codeAta)
+        var pathname = window.location.pathname.split('/');
+        console.log(pathname[1])
+        if (pathname[2] == "Create") {
+            $.ajax({
+                type: 'GET',
+                url: '/Item/AutoCompleteCodeItem/',
+                data: { yearAta: $('#AnoAta').val(), codeAta: $('#CodigoAta').val() },
+                success: function (response) {
+                    $('#CodigoItem').attr('value', response)
+                }
+            })
+        } else {
+            $.ajax({
+                type: 'GET',
+                url: '/Item/AutoCompleteListCodeItem/',
+                data: { yearAta: $('#AnoAta').val(), codeAta: $('#CodigoAta').val() },
+                success: function (response) {
+                    $('#CodigoItem').find('option').remove();
+                    $('<option>').val("").text("...").appendTo($('#CodigoItem'))
+                    if (response.length > 0) {
+                        $.each(response, function (i, d) {
+                            console.log(d)
+                            $('<option>').val(d.id).text(d.numeroItem + " - " + d.descricao).appendTo($('#CodigoItem'))
+                        })
+                    }
+                    else {
+                        $('#CodigoItem').find('option').remove();
+                        $('<option>').val("").text("...").appendTo($('#CodigoItem'))
+                    }  
+                }
+            })
+        }
     })
-
-    function GetCodeItemByCodeAta(yearAta, codeAta) {
-        console.log(yearAta, codeAta)
-        $.ajax({
-            type: 'GET',
-            url: '/Item/AutoCompleteCodeItem/',
-            data: { yearAta: yearAta, codeAta: codeAta },
-            success: function (response) {
-                $('#CodigoItem').attr('value', response)
-            }
-        })
-    }
 })

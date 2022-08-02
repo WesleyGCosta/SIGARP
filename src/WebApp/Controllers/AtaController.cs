@@ -51,8 +51,5 @@ namespace WebApp.Controllers
 
             return Json(ata.CodigoAta + 1);
         }
-
-        public IActionResult IncluirDetentora() => View();
-        public IActionResult IncluirParticipante() => View();
     }
 }

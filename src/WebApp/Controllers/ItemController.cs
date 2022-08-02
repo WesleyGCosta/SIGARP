@@ -1,8 +1,11 @@
 ﻿using Domain.IRepositories;
 using Domain.Notifications.Interface;
 using Historia.Atas;
+using Historia.Detentoras;
+using Historia.DetentorasItem;
 using Historia.Itens;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
@@ -13,15 +16,21 @@ namespace WebApp.Controllers
     {
         private readonly SearchAta _searchAta;
         private readonly SearchItem _searchItem;
+        private readonly SearchDetentora _searchDetentora;
         private readonly CreateItem _createItem;
+        private readonly CreateDetentoraItem _createDetentoraItem;
         public ItemController(
             IAtaRepository ataRepository,
             IItemRepository itemRepository,
+            IDetentoraRepository detentoraRepository,
+            IDetentoraItemRepository detentoraItemRepository,
             INotifier notifier) : base(notifier)
         {
             _searchAta = new SearchAta(ataRepository);
             _searchItem = new SearchItem(itemRepository);
+            _searchDetentora = new SearchDetentora(detentoraRepository);
             _createItem = new CreateItem(itemRepository);
+            _createDetentoraItem = new CreateDetentoraItem(detentoraItemRepository);
         }
 
         public IActionResult Create()
@@ -49,12 +58,51 @@ namespace WebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public async Task<IActionResult> IncludeDetentora()
+        {
+            var detentoras = await _searchDetentora.GetAll();
+
+            ViewBag.ListYears = LoadDropYear();
+            ViewBag.ListDetentora = new SelectList(detentoras, "Id", "RazaoSocial");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> IncludeDetentora(ItemDetentoraViewModel itemDetentoraViewModel)
+        {
+            if (!ModelState.IsValid) 
+            {
+                ViewBag.ListYears = LoadDropYear();
+                return View(itemDetentoraViewModel);
+            }
+
+            var itemDetentora = ItemDetentoraFactory.ToEntityDetentoraItem(itemDetentoraViewModel);
+
+            await _createDetentoraItem.Run(itemDetentora);
+
+            TempData["Success"] = "Detentora Incluído com Sucesso";
+           
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        public IActionResult IncludeParticipante() => View();
+
+
+        //Consultas dinâmica
         public async Task<JsonResult> AutoCompleteListCodeAta(int yearAta)
         {
-
             var listCodeAta = await _searchAta.GetListCodeByYear(yearAta);
 
             return Json(listCodeAta);
+        }
+
+        public async Task<JsonResult> AutoCompleteListCodeItem(int yearAta, int codeAta)
+        {
+            var listItem = await _searchItem.GetListItemByCodeAtaAndYearAta(yearAta, codeAta);
+
+            return Json(listItem);
         }
 
         public async Task<JsonResult> AutoCompleteCodeItem(int yearAta, int codeAta)

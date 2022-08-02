@@ -3,9 +3,10 @@
     <div class="tn-box tn-box-color-2 tn-box-active">
         <div class="row">
             <div class="col-md-2">
+                <img class="icon-notification" src="/img/error.png" />
             </div>
-            <div class="col-md-10">
-                <h3 id="msgRetorno">Opa! Algo deu errado :(</h3>
+            <div class="col-md-10 pt-2">
+                <p class="text-white" id="msgRetorno">Opa! Algo deu errado :(</p>
             </div>
         </div>
         <div style="padding-top:20px;" asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -26,9 +27,12 @@
 @if (TempData["Success"] != null)
 {
     <div class="tn-box tn-box-color-3 tn-box-active">
-        <div class="row">      
+        <div class="row">    
+            <div class="col-md-2">
+                <img class="icon-notification" src="/img/success.png" />
+            </div>
             <div class="col-md-10 pt-2">
-                <p id="msgRetorno">@Html.Raw(TempData["Success"].ToString())</p>
+                <p class="text-white" id="msgRetorno">@Html.Raw(TempData["Success"].ToString())</p>
             </div>
             <div class="tn-progress"></div>
         </div>
@@ -40,8 +44,9 @@
     <div class="tn-box tn-box-color-1 tn-box-active">
         <div class="row">
             <div class="col-md-2">
+                <img class="icon-notification" src="~/img/warning.png" />
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10 pt-2">
                 <p id="msgRetorno">@Html.Raw(TempData["Warning"].ToString())</p>
             </div>
         </div>

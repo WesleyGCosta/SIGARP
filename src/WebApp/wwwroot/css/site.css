@@ -112,7 +112,7 @@ body {
 
 .tn-box-color-1 {
     background: var(--warning-color);
-    color: var(--primary-color);
+    color: var(--prussian-blue);
 }
 
     .tn-box-color-1 .tn-progress {
@@ -200,3 +200,7 @@ input.fire-check:checked ~ section .tn-box {
     animation-play-state: paused;
 }
 
+.icon-notification{
+    height: 45px;
+    width: 45px;
+}

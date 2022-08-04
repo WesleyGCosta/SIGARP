@@ -46,6 +46,7 @@ namespace WebApp.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ListYears = LoadDropYear();
+                ViewBag.ListCodeAta = new SelectList(await _searchAta.GetListCodeByYear(itemViewModel.AnoAta));
                 return View(itemViewModel);
             }
 
@@ -55,7 +56,7 @@ namespace WebApp.Controllers
 
             TempData["Success"] = "Item Cadastrado com Sucesso";
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("IncludeDetentora");
         }
 
         public async Task<IActionResult> IncludeDetentora()
@@ -71,12 +72,9 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> IncludeDetentora(ItemDetentoraViewModel itemDetentoraViewModel)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
-                ViewBag.ListYears = LoadDropYear();
-                ViewBag.ListCodeItem = new SelectList(await _searchItem.GetListItemByCodeAtaAndYearAta(itemDetentoraViewModel.AnoAta, itemDetentoraViewModel.CodigoAta), "Id", "Exibicao");
-                ViewBag.ListCodeAta = new SelectList(await _searchAta.GetListCodeByYear(itemDetentoraViewModel.AnoAta));
-                ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
+                await FillViewBags(itemDetentoraViewModel.AnoAta, itemDetentoraViewModel.CodigoAta);
                 return View(itemDetentoraViewModel);
             }
 
@@ -88,7 +86,6 @@ namespace WebApp.Controllers
            
             return RedirectToAction("Index", "Home");
         }
-
 
         public IActionResult IncludeParticipante() => View();
 
@@ -117,5 +114,24 @@ namespace WebApp.Controllers
 
             return Json(lastItem.NumeroItem + 1);
         }
+
+        public async Task<IActionResult> GetListDetentoraRegistered(int yearAta, int codeAta)
+        {
+            var itens = await _searchItem.GetListItemWithDetentora(yearAta, codeAta);
+
+            var itemViewModel = ItemFactory.ToListItemViewModel(itens);
+
+
+            return PartialView("_listDetentoraRegistered", itemViewModel);
+        }
+
+        public async Task FillViewBags(int yearAta, int codeAta)
+        {
+            ViewBag.ListYears = LoadDropYear();
+            ViewBag.ListCodeItem = new SelectList(await _searchItem.GetListItemByCodeAtaAndYearAta(yearAta, codeAta), "Id", "Exibicao");
+            ViewBag.ListCodeAta = new SelectList(await _searchAta.GetListCodeByYear(yearAta));
+            ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
+        }
+
     }
 }

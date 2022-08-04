@@ -1,0 +1,46 @@
+﻿@model ICollection<ItemViewModel>
+
+
+<div class="card mt-3 shadow">
+    <div class="text-center py-3">
+        <h3>Detentora Cadastrada</h3>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr class="mx-1 row">
+                <th class="col-md-1">
+                    Ano
+                </th>
+                <th class="col-md-1">
+                    Ata
+                </th>
+                <th class="col-md-1">
+                    Item
+                </th>
+                <th class="col-md-9">
+                    Detentora
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var list in Model)
+            {
+                <tr class="mx-1 row">
+                    <td class="col-md-1">
+                        @list.AnoAta
+                    </td>
+                    <td class="col-md-1">
+                        @list.CodigoAta
+                    </td>
+                    <td class="col-md-1">
+                        @list.CodigoItem
+                    </td>
+                    <td class="col-md-9">
+                        @list.Detentora.RazaoSocial
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

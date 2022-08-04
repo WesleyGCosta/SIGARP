@@ -8,5 +8,6 @@ namespace Domain.IRepositories
     {
         Task<Item> GetLastItemByCodeAtaAndYearAta(int year, int code);
         Task<List<Item>> GetListItemByCodeAtaAndYearAta(int year, int code);
+        Task<List<Item>> GetListItemWithDetentora(int year, int code);
     }
 }

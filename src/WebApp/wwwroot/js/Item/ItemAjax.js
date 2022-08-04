@@ -1,8 +1,9 @@
 ﻿$(document).ready(function () {
-    $("#CodigoItem").chosen();
-
     $("#AnoAta").change(function () {
+        $('#CodigoItem').find('option').remove();
+        $('#CodigoItem').trigger("chosen:updated");
         var year = $(this).find("option:selected").val();
+
         if (year != "") {
             $.ajax({
                 type: 'GET',
@@ -38,24 +39,40 @@
                 }
             })
         } else {
+            var yearAta = $('#AnoAta').val()
+            var codeAta = $('#CodigoAta').val()
+
             $.ajax({
                 type: 'GET',
                 url: '/Item/AutoCompleteListCodeItem/',
-                data: { yearAta: $('#AnoAta').val(), codeAta: $('#CodigoAta').val() },
+                data: { yearAta, codeAta },
                 success: function (response) {
                     $('#CodigoItem').find('option').remove();
                     if (response.length > 0) {
                         $.each(response, function (i, d) {
                             $('<option>').val(d.id).text(d.numeroItem + " - " + d.descricao).appendTo($('#CodigoItem'))
-                        })
-                        $('#CodigoItem').trigger("chosen:updated");
+                        })            
                     }
                     else {
                         $('#CodigoItem').find('option').remove();
-                    }  
+                    } 
+                    $('#CodigoItem').trigger("chosen:updated");
                 }
             })
-           
+            GetListDetentoraRegistered(yearAta, codeAta)
         }
     })
+
+    function GetListDetentoraRegistered(yearAta, codeAta) {
+        $.ajax({
+            type: 'GET',
+            url: '/Item/GetListDetentoraRegistered/',
+            data: { yearAta, codeAta },
+            success: function (response) {
+                $('#listDetentoraRegistered').empty()
+                $('#listDetentoraRegistered').append(response)
+            }
+        })
+    }
+
 })

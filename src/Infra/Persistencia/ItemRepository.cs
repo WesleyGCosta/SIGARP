@@ -32,5 +32,16 @@ namespace Infra.Persistencia
                 .OrderBy(i => i.NumeroItem)
                 .ToListAsync();
         }
+
+        public async Task<List<Item>> GetListItemWithDetentora(int year, int code)
+        {
+            return await _db.Itens
+                .AsNoTracking()
+                .Include(i => i.DetentoraItem)
+                .ThenInclude(di => di.Detentora)
+                .Where(i => i.AnoAta.Equals(year) && i.CodigoAta.Equals(code) && i.DetentoraItem != null)
+                .OrderBy(i => i.NumeroItem)
+                .ToListAsync();
+        }
     }
 }

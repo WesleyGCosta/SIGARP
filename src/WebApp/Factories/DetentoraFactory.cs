@@ -19,5 +19,22 @@ namespace WebApp.Factories
 
             return detentora;
         }
+
+        public static DetentoraViewModel ToDetentoraViewModel(Detentora detentora)
+        {
+            var detentoraViewModel = new DetentoraViewModel
+            {
+                Id = detentora.Id,
+                Cnpj = detentora.Cnpj,
+                RazaoSocial = detentora.RazaoSocial,
+                NomeFantasia = detentora.NomeFantasia,
+                Email = detentora.Email,
+                Telefone = detentora.Telefone,
+                Pessoa = detentora.Pessoa
+
+            };
+
+            return detentoraViewModel;
+        }
     }
 }

@@ -74,10 +74,13 @@ namespace WebApp.Controllers
             if (!ModelState.IsValid) 
             {
                 ViewBag.ListYears = LoadDropYear();
+                ViewBag.ListCodeItem = new SelectList(await _searchItem.GetListItemByCodeAtaAndYearAta(itemDetentoraViewModel.AnoAta, itemDetentoraViewModel.CodigoAta), "Id", "Exibicao");
+                ViewBag.ListCodeAta = new SelectList(await _searchAta.GetListCodeByYear(itemDetentoraViewModel.AnoAta));
+                ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
                 return View(itemDetentoraViewModel);
             }
 
-            var itemDetentora = ItemDetentoraFactory.ToEntityDetentoraItem(itemDetentoraViewModel);
+            var itemDetentora = ItemDetentoraFactory.ToListEntityDetentoraItem(itemDetentoraViewModel);
 
             await _createDetentoraItem.Run(itemDetentora);
 

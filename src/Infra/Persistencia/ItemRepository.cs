@@ -27,7 +27,8 @@ namespace Infra.Persistencia
         {
             return await _db.Itens
                 .AsNoTracking()
-                .Where(i => i.CodigoAta.Equals(code) && i.AnoAta.Equals(year))
+                .Include(i => i.DetentoraItem)
+                .Where(i => i.CodigoAta.Equals(code) && i.AnoAta.Equals(year) && i.DetentoraItem.Equals(null))
                 .OrderBy(i => i.NumeroItem)
                 .ToListAsync();
         }

@@ -17,9 +17,10 @@ namespace Historia.DetentorasItem
             _detentoraItemRepository = detentoraItemRepository;
         }
 
-        public async Task Run(DetentoraItem detentoraItem)
+        public async Task Run(List<DetentoraItem> detentorasItem)
         {
-            await _detentoraItemRepository.Create(detentoraItem);
+            foreach(var detentoraItem in detentorasItem)
+                await _detentoraItemRepository.Create(detentoraItem);
         }
     }
 }

@@ -5,12 +5,6 @@ namespace WebApp.ViewModels
 {
     public class ItemDetentoraViewModel
     {
-
-        public ItemDetentoraViewModel()
-        {
-            Id = Guid.NewGuid();
-        }
-
         public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório")]
@@ -23,7 +17,7 @@ namespace WebApp.ViewModels
 
         [Display(Name = "Item")]
         [Required(ErrorMessage = "Campo Obrigatório")]
-        public Guid CodigoItem { get; set; }
+        public Guid[] CodigoItem { get; set; }
 
         [Display(Name = "Detentora")]
         [Required(ErrorMessage = "Campo Obrigatório")]

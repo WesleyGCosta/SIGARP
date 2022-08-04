@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    $("#CodigoItem").chosen();
+
     $("#AnoAta").change(function () {
         var year = $(this).find("option:selected").val();
         if (year != "") {
@@ -26,7 +28,6 @@
 
     $('#CodigoAta').change(function () {
         var pathname = window.location.pathname.split('/');
-        console.log(pathname[1])
         if (pathname[2] == "Create") {
             $.ajax({
                 type: 'GET',
@@ -43,19 +44,18 @@
                 data: { yearAta: $('#AnoAta').val(), codeAta: $('#CodigoAta').val() },
                 success: function (response) {
                     $('#CodigoItem').find('option').remove();
-                    $('<option>').val("").text("...").appendTo($('#CodigoItem'))
                     if (response.length > 0) {
                         $.each(response, function (i, d) {
-                            console.log(d)
                             $('<option>').val(d.id).text(d.numeroItem + " - " + d.descricao).appendTo($('#CodigoItem'))
                         })
+                        $('#CodigoItem').trigger("chosen:updated");
                     }
                     else {
                         $('#CodigoItem').find('option').remove();
-                        $('<option>').val("").text("...").appendTo($('#CodigoItem'))
                     }  
                 }
             })
+           
         }
     })
 })

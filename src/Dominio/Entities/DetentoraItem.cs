@@ -5,9 +5,9 @@ namespace Domain.Entities
 {
     public class DetentoraItem
     {
-        public DetentoraItem(Guid id, Guid itemId, Guid detentoraId)
+        public DetentoraItem(Guid itemId, Guid detentoraId)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             ItemId = itemId;
             DetentoraId = detentoraId;
         }

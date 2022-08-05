@@ -52,6 +52,14 @@ form {
     background-color: rgba(0, 0, 0, 0.1 );
 }
 
+.container-login {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
 .card-login {
     position: relative;
     display: flex;
@@ -62,17 +70,13 @@ form {
     word-wrap: break-word;
 }
 
-.card-login-body {
-    margin-top: 5%;
+form {
+    display: flex;
+    flex-direction: column;
 }
 
-    .card-login-body form {
-        display: flex;
-        flex-direction: column;
-    }
-
-.logoLogin{
-    width:15rem;
+.logoLogin {
+    width: 15rem;
 }
 
 .text-login {

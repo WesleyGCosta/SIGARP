@@ -4,10 +4,14 @@
     ViewData["Title"] = "Login";
     Layout = "_LayoutLogin";
 }
-
+<div class="">
+    <img class="logoLogin" src="/img/logo-sigarp.png" />
+</div>
 <div class="card-login">
     <div class="card-login-body">
         <form class="needs-validation box-shadow" novalidate asp-action="Logar">
+            <span class="text-login">Bem Vindo! Faça o Login</span>
+            <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-4">
                 <div class="text-center"><span asp-validation-for="Cpf" class="text-danger"></span></div>
@@ -28,9 +32,8 @@
                 </div>
             </div>
 
-            <button class="btn btn-primary box-shadow mt-2" type="submit">Acessar</button>
-            <hr />
-            <a asp-controller="Autentication" asp-action="Registro" class="btn btn-secondary box-shadow mt-2" type="submit">Registrar</a>
+            <button class="btn btn-primary box-shadow mt-2" type="submit">Logar</button>
+            <span class="text-muted text-center mt-4">SIGARP - @DateTime.Now.Year </span>
         </form>
     </div>
 </div>

@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 </head>
 <body id="body">
-    @RenderBody()  
+    <div class="container">
+        <div class="row justify-content-center align-items-center vh-100 flex-column">
+            @RenderBody()  
+        </div>
+    </div>
     <partial name="_JavaScriptImport" />
     @await RenderSectionAsync("Scripts", required: false)
 </body>

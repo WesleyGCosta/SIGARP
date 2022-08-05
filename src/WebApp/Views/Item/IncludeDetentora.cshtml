@@ -4,7 +4,7 @@
     ViewData["Title"] = "Incluir Detentora";
 }
 
-<form asp-action="IncludeDetentora">
+<form asp-action="IncludeDetentora" id="formIncludeDetentora">
     <div class="card shadow mt-5">
         <div class="card-header text-center">
             <h2 class="card-title">Incluir Detentora no Item</h2>
@@ -40,7 +40,7 @@
         </div>
         <div class="card-footer d-flex">
             <div class="mr-2">
-                <input type="submit" value="Salvar" class="btn btn-primary shadow" />
+                <input id="includeDetentora" type="submit" value="Salvar" class="btn btn-primary shadow" />
             </div>
             <div>
                 <button class="btn btn-secondary shadow" asp-action="Index">Voltar</button>
@@ -56,7 +56,7 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script type="text/javascript" src="~/js/chosen.jquery.js"></script>
-    <script type="text/javascript" src="~/js/Item/ItemAjax.js"></script>
+    <script type="module" src="~/js/Item/ItemAjax.js"></script>
     <script type="text/javascript">
         $("#CodigoItem").chosen();
     </script>

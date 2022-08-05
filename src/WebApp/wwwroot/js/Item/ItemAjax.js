@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿import { GetMessageDomain } from '../site.js';
+
+$(document).ready(function () {
     $("#AnoAta").change(function () {
         $('#CodigoItem').find('option').remove();
         $('#CodigoItem').trigger("chosen:updated");
@@ -28,6 +30,10 @@
     })
 
     $('#CodigoAta').change(function () {
+        AutoCompleteItem()
+    })
+
+    function AutoCompleteItem() {
         var pathname = window.location.pathname.split('/');
         if (pathname[2] == "Create") {
             $.ajax({
@@ -51,17 +57,18 @@
                     if (response.length > 0) {
                         $.each(response, function (i, d) {
                             $('<option>').val(d.id).text(d.numeroItem + " - " + d.descricao).appendTo($('#CodigoItem'))
-                        })            
+                        })
                     }
                     else {
                         $('#CodigoItem').find('option').remove();
-                    } 
+                    }
                     $('#CodigoItem').trigger("chosen:updated");
+                    
                 }
             })
             GetListDetentoraRegistered(yearAta, codeAta)
         }
-    })
+    }
 
     function GetListDetentoraRegistered(yearAta, codeAta) {
         $.ajax({
@@ -75,4 +82,21 @@
         })
     }
 
+    $("#formIncludeDetentora").submit(function (e) {
+        e.preventDefault()
+        $.ajax({
+            type: 'POST',
+            url: '/Item/IncludeDetentora/',
+            async: true,
+            data: $(this).serialize(),
+            success: function (response) {
+                GetMessageDomain()
+                GetListDetentoraRegistered(response.yearAta, response.codeAta);
+                AutoCompleteItem()
+            },
+            error: function () {
+                GetMessageDomain()
+            }
+        })
+    })
 })

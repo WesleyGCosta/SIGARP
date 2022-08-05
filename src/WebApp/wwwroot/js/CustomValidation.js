@@ -3,3 +3,5 @@
         /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/
             .test(value);
 };
+
+$.validator.setDefaults({ ignore: ":hidden:not(select)" }) 

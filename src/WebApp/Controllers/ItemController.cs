@@ -75,7 +75,7 @@ namespace WebApp.Controllers
             if (!ModelState.IsValid)
             {
                 await FillViewBags(itemDetentoraViewModel.AnoAta, itemDetentoraViewModel.CodigoAta);
-                return View(itemDetentoraViewModel);
+                return NotFound();
             }
 
             var itemDetentora = ItemDetentoraFactory.ToListEntityDetentoraItem(itemDetentoraViewModel);
@@ -83,8 +83,8 @@ namespace WebApp.Controllers
             await _createDetentoraItem.Run(itemDetentora);
 
             TempData["Success"] = "Detentora Incluído com Sucesso";
-           
-            return RedirectToAction("Index", "Home");
+
+            return Ok(new { yearAta = itemDetentoraViewModel.AnoAta, codeAta = itemDetentoraViewModel.CodigoAta });
         }
 
         public IActionResult IncludeParticipante() => View();

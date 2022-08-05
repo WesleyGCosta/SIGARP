@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using WebApp.Extensions;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
@@ -21,10 +23,7 @@ namespace WebApp.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        public IActionResult Notification() => ViewComponent("Summary");
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

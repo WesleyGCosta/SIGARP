@@ -39,7 +39,7 @@ namespace WebApp.Controllers
 
             TempData["Success"] = "Cadastrado com Sucesso";
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Create", "Item");
         }
 
         [HttpGet]

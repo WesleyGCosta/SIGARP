@@ -12,10 +12,13 @@
 <body>
     @if (@User.Identity.IsAuthenticated)
     {
+        <div id="message">
+            <vc:summary></vc:summary>
+        </div>
+        
         <partial name="_Header" />
 
         <main role="main" class="container pb-3">
-            <vc:summary></vc:summary>
             @RenderBody()
         </main>
 

@@ -51,9 +51,20 @@ $(document).ready(function () {
         } else {
             $('#Telefone').mask('(00) 0000-0000');
         }
-    });0
+    }); 0
 
     //Formatação de Texto
     $('.uppercase').upperFirstAll()
     $('.capitalize').upperFirst();
 })
+
+export function GetMessageDomain() {
+    $.ajax({
+        url: '/Home/Notification/',
+        type: 'GET',
+        success: function (response) {
+            $("#message").empty()
+            $("#message").append(response)
+        }
+    })
+}

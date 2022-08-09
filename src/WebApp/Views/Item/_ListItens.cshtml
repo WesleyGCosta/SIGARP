@@ -1,11 +1,15 @@
 ﻿@model ICollection<ItemViewModel>
 
+@{
+    int proxItem = Model.Count + 1;
+}
 
+<input id="proxItem" type="hidden" value="@proxItem" />
 @if (Model.Any())
 {
     <div class="card mt-3 shadow">
         <div class="text-center py-3">
-            <h4>Detentora Cadastrada na Ata</h4>
+            <h4>Lista de Item Cadastrada na Ata</h4>
         </div>
 
         <table class="table text-center">
@@ -46,7 +50,9 @@
             </tbody>
         </table>
     </div>
-}else{
+}
+else
+{
     <div class="card mt-3 shadow">
         <div class="text-center py-3">
             <h4>Nunhuma Detentora incluída</h4>

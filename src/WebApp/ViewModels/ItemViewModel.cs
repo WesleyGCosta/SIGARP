@@ -27,6 +27,11 @@ namespace WebApp.ViewModels
         [Required(ErrorMessage = "Campo Obrigatório!")]
         public int AnoAta { get; set; }
 
+        [Display(Name = "Detentora")]
+        [Required(ErrorMessage = "Campo Obrigatório!")]
+        public Guid CodigoDetentora { get; set; }
+
+
         [Display(Name = "Tipo")]
         [Required(ErrorMessage = "Campo Obrigatório!")]
         public ETipo Tipo { get; set; }

@@ -14,6 +14,14 @@ namespace Infra.Persistencia
         {
         }
 
+        public async Task<Item> GetItemByCodeAtaAndYearAta(int yearAta, int codeAta, int codeItem)
+        {
+            return await _db.Itens
+                .AsNoTracking()
+                .Where(i => i.CodigoAta.Equals(codeAta) && i.AnoAta.Equals(yearAta) && i.NumeroItem.Equals(codeItem))
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<Item> GetLastItemByCodeAtaAndYearAta(int year, int code)
         {
             return await _db.Itens
@@ -28,7 +36,8 @@ namespace Infra.Persistencia
             return await _db.Itens
                 .AsNoTracking()
                 .Include(i => i.DetentoraItem)
-                .Where(i => i.CodigoAta.Equals(code) && i.AnoAta.Equals(year) && i.DetentoraItem.Equals(null))
+                .ThenInclude(di => di.Detentora)
+                .Where(i => i.CodigoAta.Equals(code) && i.AnoAta.Equals(year))
                 .OrderBy(i => i.NumeroItem)
                 .ToListAsync();
         }

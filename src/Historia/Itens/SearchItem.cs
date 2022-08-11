@@ -14,6 +14,11 @@ namespace Historia.Itens
             _itemRepository = itemRepository;
         }
 
+        public async Task<Item> GetItemByCodeAtaAndYearAta(int yearAta, int codeAta, int codeItem)
+        {
+            return await _itemRepository.GetItemByCodeAtaAndYearAta(yearAta, codeAta, codeItem);
+        }
+
         public async Task<Item> GetLastItemByCodeAtaAndYearAta(int year, int code)
         {
             return await _itemRepository.GetLastItemByCodeAtaAndYearAta(year, code);

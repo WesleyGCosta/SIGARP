@@ -6,6 +6,7 @@ using Historia.DetentorasItem;
 using Historia.Itens;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
@@ -33,9 +34,10 @@ namespace WebApp.Controllers
             _createDetentoraItem = new CreateDetentoraItem(detentoraItemRepository);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             ViewBag.ListYears = LoadDropYear();
+            ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
             return View();
         }
 
@@ -45,50 +47,28 @@ namespace WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.ListYears = LoadDropYear();
-                ViewBag.ListCodeAta = new SelectList(await _searchAta.GetListCodeByYear(itemViewModel.AnoAta));
+                await FillViewBags(itemViewModel.AnoAta);
+                return View(itemViewModel);
+            }
+
+            var existe = await _searchItem.GetItemByCodeAtaAndYearAta(itemViewModel.AnoAta, itemViewModel.CodigoAta, itemViewModel.CodigoItem);
+            if(existe != null)
+            {
+                await FillViewBags(itemViewModel.AnoAta);
+                TempData["Warning"] = $"Item {itemViewModel.CodigoItem} já existe na Ata {itemViewModel.CodigoAta}/{itemViewModel.AnoAta}";
                 return View(itemViewModel);
             }
 
             var item = ItemFactory.ToEntityItem(itemViewModel);
+            var itemDetentora = ItemDetentoraFactory.ToEntityDetentoraItem(itemViewModel.CodigoDetentora, itemViewModel.Id);
 
             await _createItem.Run(item);
+            await _createDetentoraItem.Run(itemDetentora);
 
             TempData["Success"] = "Item Cadastrado com Sucesso";
 
-            return RedirectToAction("IncludeDetentora");
+            return RedirectToAction(nameof(Create));
         }
-
-        public async Task<IActionResult> IncludeDetentora()
-        {
-            var detentoras = await _searchDetentora.GetAll();
-
-            ViewBag.ListYears = LoadDropYear();
-            ViewBag.ListDetentora = new SelectList(detentoras, "Id", "RazaoSocial");
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> IncludeDetentora(ItemDetentoraViewModel itemDetentoraViewModel)
-        {
-            if (!ModelState.IsValid)
-            {
-                await FillViewBags(itemDetentoraViewModel.AnoAta, itemDetentoraViewModel.CodigoAta);
-                return NotFound();
-            }
-
-            var itemDetentora = ItemDetentoraFactory.ToListEntityDetentoraItem(itemDetentoraViewModel);
-
-            await _createDetentoraItem.Run(itemDetentora);
-
-            TempData["Success"] = "Detentora Incluído com Sucesso";
-
-            return Ok(new { yearAta = itemDetentoraViewModel.AnoAta, codeAta = itemDetentoraViewModel.CodigoAta });
-        }
-
-        public IActionResult IncludeParticipante() => View();
-
 
         //Consultas dinâmica
         public async Task<JsonResult> AutoCompleteListCodeAta(int yearAta)
@@ -105,30 +85,21 @@ namespace WebApp.Controllers
             return Json(listItem);
         }
 
-        public async Task<JsonResult> AutoCompleteCodeItem(int yearAta, int codeAta)
+        public async Task<IActionResult> AutoCompleteCodeItem(int yearAta, int codeAta)
         {
-            var lastItem = await _searchItem.GetLastItemByCodeAtaAndYearAta(yearAta, codeAta);
+            var itens = await _searchItem.GetListItemByCodeAtaAndYearAta(yearAta, codeAta);
 
-            if (lastItem == null)
-                return Json(1);
+            if (!itens.Any())
+                return NotFound();
 
-            return Json(lastItem.NumeroItem + 1);
+            var listItemViewModel = ItemFactory.ToListItemViewModel(itens);
+
+            return PartialView("_ListItens", listItemViewModel);
         }
 
-        public async Task<IActionResult> GetListDetentoraRegistered(int yearAta, int codeAta)
-        {
-            var itens = await _searchItem.GetListItemWithDetentora(yearAta, codeAta);
-
-            var itemViewModel = ItemFactory.ToListItemViewModel(itens);
-
-
-            return PartialView("_listDetentoraRegistered", itemViewModel);
-        }
-
-        public async Task FillViewBags(int yearAta, int codeAta)
+        public async Task FillViewBags(int yearAta)
         {
             ViewBag.ListYears = LoadDropYear();
-            ViewBag.ListCodeItem = new SelectList(await _searchItem.GetListItemByCodeAtaAndYearAta(yearAta, codeAta), "Id", "Exibicao");
             ViewBag.ListCodeAta = new SelectList(await _searchAta.GetListCodeByYear(yearAta));
             ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
         }

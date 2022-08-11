@@ -6,7 +6,7 @@
 }
 
 <form asp-action="Create">
-    <div class="card shadow mt-5">
+    <div class="card shadow mt-4">
         <div class="card-header text-center">
             <h3 class="card-title">Cadastro de Ata</h3>
         </div>
@@ -60,12 +60,12 @@
             </div>
             <div class="col-6 mt-3">
                 <label asp-for="ObjetoResumido" class="control-label"></label>
-                <textarea rows="4" asp-for="ObjetoResumido" class="form-control"></textarea>
+                <textarea rows="4" asp-for="ObjetoResumido" class="form-control capitalize"></textarea>
                 <span asp-validation-for="ObjetoResumido" class="text-danger"></span>
             </div>
             <div class="col-6 mt-3">
                 <label asp-for="Observacao" class="control-label"></label>
-                <textarea rows="4" asp-for="Observacao" class="form-control"></textarea>
+                <textarea rows="4" asp-for="Observacao" class="form-control capitalize"></textarea>
                 <span asp-validation-for="Observacao" class="text-danger"></span>
             </div>
         </div>

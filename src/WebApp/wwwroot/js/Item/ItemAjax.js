@@ -1,6 +1,27 @@
 ﻿import { GetMessageDomain } from '../site.js';
 
 $(document).ready(function () {
+    //$('#formCreateItem').submit(function (e) {
+    //    e.preventDefault()
+    //    if ($(this).valid()) {
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: '/Item/Create/',
+    //            data: $(this).serialize(),
+    //            success: function (response) {
+    //                GetMessageDomain()
+    //                $('#listItens').empty()
+    //                $('#listItens').append(response)
+    //                $('#CodigoItem').attr('value', $('#proxItem').val())
+    //            },
+    //            error: function () {
+    //                $('#formCreateItem').validate();
+    //                GetMessageDomain()
+    //            }
+    //        })
+    //    }
+    //})
+
     $("#AnoAta").change(function () {
         $('#CodigoItem').find('option').remove();
         $('#CodigoItem').trigger("chosen:updated");
@@ -41,7 +62,13 @@ $(document).ready(function () {
                 url: '/Item/AutoCompleteCodeItem/',
                 data: { yearAta: $('#AnoAta').val(), codeAta: $('#CodigoAta').val() },
                 success: function (response) {
-                    $('#CodigoItem').attr('value', response)
+                    $('#listItens').empty()
+                    $('#listItens').append(response)
+                    $('#CodigoItem').attr('value', $('#proxItem').val())
+                },
+                error: function () {
+                    $('#listItens').empty()
+                    $('#CodigoItem').attr('value', 1)
                 }
             })
         } else {
@@ -63,7 +90,7 @@ $(document).ready(function () {
                         $('#CodigoItem').find('option').remove();
                     }
                     $('#CodigoItem').trigger("chosen:updated");
-                    
+
                 }
             })
             GetListDetentoraRegistered(yearAta, codeAta)

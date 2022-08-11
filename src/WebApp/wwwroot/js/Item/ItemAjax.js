@@ -1,30 +1,26 @@
 ﻿import { GetMessageDomain } from '../site.js';
 
 $(document).ready(function () {
-
-    $('#formCreateItem').submit(function (e) {
-        e.preventDefault()
-        $(this).validate()
-       
-        if ($(this).valid()) {
-            $.ajax({
-                type: 'POST',
-                url: '/Item/Create/',
-                data: $(this).serialize(),
-                success: function (response, status) {
-                    console.log(status)
-                    GetMessageDomain()
-                    $('#listItens').empty()
-                    $('#listItens').append(response)
-                    $('#CodigoItem').attr('value', $('#proxItem').val())
-                },
-                error: function () {
-                    GetMessageDomain()
-                }
-            })
-        }
-    })
-
+    //$('#formCreateItem').submit(function (e) {
+    //    e.preventDefault()
+    //    if ($(this).valid()) {
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: '/Item/Create/',
+    //            data: $(this).serialize(),
+    //            success: function (response) {
+    //                GetMessageDomain()
+    //                $('#listItens').empty()
+    //                $('#listItens').append(response)
+    //                $('#CodigoItem').attr('value', $('#proxItem').val())
+    //            },
+    //            error: function () {
+    //                $('#formCreateItem').validate();
+    //                GetMessageDomain()
+    //            }
+    //        })
+    //    }
+    //})
 
     $("#AnoAta").change(function () {
         $('#CodigoItem').find('option').remove();

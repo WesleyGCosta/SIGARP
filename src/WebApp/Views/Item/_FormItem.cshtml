@@ -1,6 +1,7 @@
 ﻿@model ItemViewModel
 @using Domain.Enums
 
+
 <form asp-action="Create" id="formCreateItem">
     <div class="card shadow mt-4">
         <div class="card-header text-center">
@@ -13,7 +14,7 @@
                 <select asp-for="AnoAta" class="custom-select" asp-items="new SelectList(ViewBag.ListYears)">
                     <option value="">Selecione um Ano</option>
                 </select>
-                <span asp-validation-for="AnoAta" class="text-danger"></span>
+                <span asp-validation-for="AnoAta"  class="text-danger"></span>
             </div>
             <div class="col-2">
                 <label asp-for="CodigoAta" class="control-label"></label>

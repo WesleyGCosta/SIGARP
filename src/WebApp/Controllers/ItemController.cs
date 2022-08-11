@@ -48,7 +48,7 @@ namespace WebApp.Controllers
             if (!ModelState.IsValid)
             {
                 await FillViewBags(itemViewModel.AnoAta);
-                return PartialView("_FormItem", itemViewModel);
+                return View(itemViewModel);
             }
 
             var existe = await _searchItem.GetItemByCodeAtaAndYearAta(itemViewModel.AnoAta, itemViewModel.CodigoAta, itemViewModel.CodigoItem);
@@ -56,7 +56,7 @@ namespace WebApp.Controllers
             {
                 await FillViewBags(itemViewModel.AnoAta);
                 TempData["Warning"] = $"Item {itemViewModel.CodigoItem} já existe na Ata {itemViewModel.CodigoAta}/{itemViewModel.AnoAta}";
-                return PartialView("_FormItem", itemViewModel);
+                return View(itemViewModel);
             }
 
             var item = ItemFactory.ToEntityItem(itemViewModel);
@@ -67,7 +67,7 @@ namespace WebApp.Controllers
 
             TempData["Success"] = "Item Cadastrado com Sucesso";
 
-            return RedirectToAction("AutoCompleteCodeItem", new {yearAta = item.AnoAta, codeAta = item.CodigoAta});
+            return RedirectToAction(nameof(Create));
         }
 
         //Consultas dinâmica

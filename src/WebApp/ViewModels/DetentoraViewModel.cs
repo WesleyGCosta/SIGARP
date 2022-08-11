@@ -1,6 +1,7 @@
 ﻿using Domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
+using WebApp.ViewModels.CustomValidation;
 
 namespace WebApp.ViewModels
 {
@@ -16,6 +17,7 @@ namespace WebApp.ViewModels
         [Display(Name = "CNPJ")]
         [Required(ErrorMessage = "Campo Obrigatório")]
         [MinLength(18, ErrorMessage = "Por favor, insira um {0} válido.")]
+        [CnpjValidation(ErrorMessage = "CNPJ inválido")]
         public string Cnpj { get; set; }
 
         [Display(Name = "Razão Social")]

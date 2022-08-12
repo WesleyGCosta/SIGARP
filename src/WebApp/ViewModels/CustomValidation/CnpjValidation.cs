@@ -19,7 +19,7 @@ namespace WebApp.ViewModels.CustomValidation
                 throw new ArgumentNullException(nameof(context));
             }
             context.Attributes.Add("data-val", "true");
-            context.Attributes.Add("data-val-cnpj-validation", GetValidationClientErrorMessage(context));
+            context.Attributes.Add("data-val-cnpj-validation", GetValidationClientErrorMessage());
         }
 
         public override bool IsValid(object value)
@@ -27,10 +27,10 @@ namespace WebApp.ViewModels.CustomValidation
             if (value == null || string.IsNullOrEmpty(value.ToString()))
                 return false;
 
-            return Validar(value.ToString());
+            return Validate(value.ToString());
         }
 
-        public static bool Validar(string cnpj)
+        public static bool Validate(string cnpj)
         {
             int[] multiplicador1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = new int[13] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -65,7 +65,7 @@ namespace WebApp.ViewModels.CustomValidation
             return cnpj.EndsWith(digito);
         }
 
-        private string GetValidationClientErrorMessage(ClientModelValidationContext context)
+        private string GetValidationClientErrorMessage()
         {
             var str = !string.IsNullOrEmpty(ErrorMessage) ? ErrorMessage : ErrorMessageList[0];
             return string.Format(str);

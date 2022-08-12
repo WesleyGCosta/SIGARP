@@ -25,6 +25,10 @@
     font-family: 'poppins', sans-serif;
 }
 
+form input, select, textarea {
+    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+}
+
 .box-shadow {
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.42) !important;
 }

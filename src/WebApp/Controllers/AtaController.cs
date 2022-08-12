@@ -42,6 +42,8 @@ namespace WebApp.Controllers
             return RedirectToAction("Create", "Item");
         }
 
+        public IActionResult ManagementAta() => View();
+
         [HttpGet]
         public async Task<JsonResult> AutoCompleteNumberAta(int yearAta)
         {

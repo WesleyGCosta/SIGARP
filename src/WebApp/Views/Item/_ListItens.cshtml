@@ -8,42 +8,48 @@
 @if (Model.Any())
 {
     <div class="card mt-3 shadow">
-        <div class="text-center py-3">
-            <h4>Lista de Item Cadastrada na Ata</h4>
+        <div class="card-header text-center py-3">
+            <h4>Lista de Item Cadastrada na Ata </h4>
         </div>
 
-        <table class="table text-center">
+        <table class="table table-bordered text-center">
             <thead>
-                <tr class="mx-1 row">
-                    <th class="col-md-1">
+                <tr class="text-justify table-active">
+                    <th scope="col">
                         Item
                     </th>
-                    <th class="col-md-1">
+                    <th scope="col">
                         Ano
                     </th>
-                    <th class="col-md-1">
+                    <th scope="col">
                         Ata
                     </th>
-                    <th class="col-md-9">
+                    <th scope="col">
                         Detentora
+                    </th>
+                    <th scope="col">
+                        Descrição
                     </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var list in Model)
                 {
-                    <tr class="mx-1 row">
-                        <td class="col-md-1">
+                    <tr class="text-justify">
+                        <td>
                             @list.CodigoItem
                         </td>
-                        <td class="col-md-1">
+                        <td>
                             @list.AnoAta
                         </td>
-                        <td class="col-md-1">
+                        <td>
                             @list.CodigoAta
                         </td>
-                        <td class="col-md-9">
+                        <td>
                             @list.Detentora.RazaoSocial
+                        </td>
+                        <td>
+                            @list.Descricao
                         </td>
                     </tr>
                 }
@@ -55,7 +61,7 @@ else
 {
     <div class="card mt-3 shadow">
         <div class="text-center py-3">
-            <h4>Nunhuma Detentora incluída</h4>
+            <h4>Nenhum Resultado Encontrado</h4>
         </div>
     </div>
 }

@@ -42,7 +42,11 @@ namespace WebApp.Controllers
             return RedirectToAction("Create", "Item");
         }
 
-        public IActionResult ManagementAta() => View();
+        public IActionResult ManagementAta()
+        {
+            ViewBag.ListYears = LoadDropYear();
+            return View();
+        }
 
         [HttpGet]
         public async Task<JsonResult> AutoCompleteNumberAta(int yearAta)

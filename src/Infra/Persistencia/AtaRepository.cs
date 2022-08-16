@@ -23,6 +23,15 @@ namespace Infra.Persistencia
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<Ata> GetByYearAndCode(int year, int code)
+        {
+            return await _db.Atas
+                .AsNoTracking()
+                .Include(a => a.Itens)
+                .Where(a => a.AnoAta.Equals(year) && a.CodigoAta.Equals(code))
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<List<int>> GetListCodeByYear(int year)
         {
             return await _db.Atas

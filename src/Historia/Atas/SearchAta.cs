@@ -21,6 +21,11 @@ namespace Historia.Atas
         {
             return await _ataRepository.GetByYear(year);
         }
+
+        public async Task<Ata> GetAtaByYearAndCode(int year, int code)
+        {
+            return await _ataRepository.GetByYearAndCode(year, code);
+        }
         public async Task<List<int>> GetListCodeByYear(int year)
         {
             return await _ataRepository.GetListCodeByYear(year);

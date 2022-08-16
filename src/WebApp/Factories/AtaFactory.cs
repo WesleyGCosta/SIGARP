@@ -28,5 +28,23 @@ namespace WebApp.Factories
 
             return ata;
         }
+
+        public static AtaViewModel ToViewModel(Ata ata)
+        {
+            return new AtaViewModel
+            {
+                CodigoAta = ata.CodigoAta,
+                AnoAta = ata.AnoAta,
+                NumeroProcesso = ata.NumeroProcesso,
+                NumeroPregao = ata.NumeroPregao,
+                TipoPregao = ata.TipoPregao,
+                DataHomologacao = ata.DataHomologacao,
+                DataPublicacaoDOE = ata.DataPublicacaoDOE,
+                DataFinalVigencia = ata.DataFinalVigencia,
+                DataPublicacaoSistema = ata.DataPublicacaoSistema,
+                DataCadastro = ata.DataCadastro,
+                DataAlteracao = ata.DataAlteracao
+            };
+        }
     }
 }

@@ -48,6 +48,19 @@ namespace WebApp.Controllers
             return View();
         }
 
+        public async Task<IActionResult> GetAta(int yearAta, int codeAta)
+        {
+            var ata = await _searchAta.GetAtaByYearAndCode(yearAta, codeAta);
+            if (ata == null)
+            {
+                TempData["Warning"] = "Ata não Encontrada";
+                return NotFound();
+            }
+                
+            var ataViewModel = AtaFactory.ToViewModel(ata);
+            return PartialView("_GeneralDetails", ataViewModel);
+        }
+
         [HttpGet]
         public async Task<JsonResult> AutoCompleteNumberAta(int yearAta)
         {

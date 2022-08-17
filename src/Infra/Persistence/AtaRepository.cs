@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Infra.Persistencia
+namespace Infra.Persistence
 {
     public class AtaRepository : BaseRepository<Ata>, IAtaRepository
     {
@@ -27,7 +27,9 @@ namespace Infra.Persistencia
         {
             return await _db.Atas
                 .AsNoTracking()
-                .Include(a => a.Itens)
+                .Include(a => a.Itens.OrderBy(i => i.NumeroItem))
+                .ThenInclude(i => i.DetentoraItem)
+                .ThenInclude(d => d.Detentora)
                 .Where(a => a.AnoAta.Equals(year) && a.CodigoAta.Equals(code))
                 .FirstOrDefaultAsync();
         }
@@ -36,7 +38,7 @@ namespace Infra.Persistencia
         {
             return await _db.Atas
                 .AsNoTracking()
-                .Where( a => a.AnoAta.Equals(year))
+                .Where(a => a.AnoAta.Equals(year))
                 .Select(a => a.CodigoAta)
                 .ToListAsync();
         }

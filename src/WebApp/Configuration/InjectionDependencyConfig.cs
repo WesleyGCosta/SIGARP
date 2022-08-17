@@ -2,7 +2,7 @@
 using Domain.Notifications;
 using Domain.Notifications.Interface;
 using Infra.Contexto;
-using Infra.Persistencia;
+using Infra.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 

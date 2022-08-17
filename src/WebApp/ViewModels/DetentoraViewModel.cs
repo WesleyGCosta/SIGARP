@@ -37,6 +37,7 @@ namespace WebApp.ViewModels
 
         [Display(Name = "Telefone")]
         [Required(ErrorMessage = "Campo Obrigatório")]
+        [StringLength(15, ErrorMessage = "Telefone inválido", MinimumLength = 14)]
         public string Telefone { get; set; }
 
         [Display(Name = "Pessoa")]

@@ -31,7 +31,7 @@ namespace WebApp.Factories
 
         public static AtaViewModel ToViewModel(Ata ata)
         {
-            return new AtaViewModel
+            var ataViewModel = new AtaViewModel
             {
                 CodigoAta = ata.CodigoAta,
                 AnoAta = ata.AnoAta,
@@ -45,6 +45,10 @@ namespace WebApp.Factories
                 DataCadastro = ata.DataCadastro,
                 DataAlteracao = ata.DataAlteracao
             };
+            if (ata.Itens != null)
+                ataViewModel.ItensViewModel = ItemFactory.ToListItemViewModel(ata.Itens);
+
+            return ataViewModel;
         }
     }
 }

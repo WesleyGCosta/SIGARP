@@ -47,7 +47,7 @@ namespace WebApp.Factories
             return itemViewModel;
         }
 
-        public static List<ItemViewModel> ToListItemViewModel(List<Item> itens)
+        public static List<ItemViewModel> ToListItemViewModel(IEnumerable<Item> itens)
         {
             var list = new List<ItemViewModel>();
             foreach(var item in itens)

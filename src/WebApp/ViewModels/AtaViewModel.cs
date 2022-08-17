@@ -1,5 +1,6 @@
 ﻿using Domain.Enums;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.ViewModels
@@ -62,5 +63,7 @@ namespace WebApp.ViewModels
         public DateTime DataAlteracao { get; set; }
 
         public int LimiteAdesao { get; set; }
+
+        public ICollection<ItemViewModel> ItensViewModel { get; set; }
     }
 }

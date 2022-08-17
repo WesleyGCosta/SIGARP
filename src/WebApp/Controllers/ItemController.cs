@@ -70,6 +70,12 @@ namespace WebApp.Controllers
             return RedirectToAction(nameof(Create));
         }
 
+        public IActionResult IncludeProgramacaoConsumo()
+        {
+            ViewBag.ListYears = LoadDropYear();
+            return View();
+        }
+
         //Consultas dinâmica
         public async Task<JsonResult> AutoCompleteListCodeAta(int yearAta)
         {

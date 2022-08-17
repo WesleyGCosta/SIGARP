@@ -1,0 +1,65 @@
+﻿@using Domain.Enums
+@model WebApp.ViewModels.ProgramacaoConsumoViewModel
+@{
+    ViewData["Title"] = "Incluir Programação";
+}
+<form asp-action="Create">
+    <div class="card shadow mt-4">
+        <div class="card-header text-center">
+            <h4 class="card-title">Programação de Consumo</h4>
+        </div>
+        <div class="card-body row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-3">
+                <label asp-for="AnoAta" class="control-label"></label>
+                <select asp-for="AnoAta" class="custom-select" asp-items="new SelectList(ViewBag.ListYears)">
+                    <option value="">Selecione um Ano</option>
+                </select>
+                <span asp-validation-for="AnoAta" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="CodigoAta" class="control-label"></label>
+                <select asp-for="CodigoAta" class="custom-select" asp-items="new SelectList(ViewBag.ListYears)">
+                    <option value="">Selecione uma ata</option>
+                </select>
+                <span asp-validation-for="CodigoAta" class="text-danger"></span>
+            </div>
+          
+            <div class="col-3">
+                <label asp-for="CodigoItem" class="control-label"></label>
+                <select asp-for="CodigoItem" class="custom-select" asp-items="new SelectList(ViewBag.ListYears)">
+                    <option value="">Selecione uma item</option>
+                </select>
+                <span asp-validation-for="CodigoItem" class="text-danger"></span>
+            </div>
+
+            
+
+            <div class="col-3">
+                <label asp-for="ConsumoEstimado" class="control-label"></label>
+                <input asp-for="ConsumoEstimado" type="number" class="form-control" placeholder="Consumo Estimado" />
+                <span asp-validation-for="ConsumoEstimado" class="text-danger"></span>
+            </div>
+            <div class="col-12">
+                <label asp-for="CodigoUnidadeAdministrativa" class="control-label"></label>
+                <select asp-for="CodigoUnidadeAdministrativa" class="custom-select" asp-items="new SelectList(ViewBag.ListYears)">
+                    <option value="">Selecione uma orgão</option>
+                </select>
+                <span asp-validation-for="CodigoUnidadeAdministrativa" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="card-footer d-flex">
+            <div class="mr-2">
+                <input type="submit" value="Salvar" class="btn btn-primary shadow" />
+            </div>
+            <div>
+                <button class="btn btn-secondary shadow" asp-action="Index">Voltar</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

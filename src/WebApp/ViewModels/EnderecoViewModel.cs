@@ -15,6 +15,7 @@ namespace WebApp.ViewModels
 
         [Display(Name = "CEP")]
         [Required(ErrorMessage = "Campo Obrigatório")]
+        [MinLength(10, ErrorMessage = "{0} inválido")]
         public string Cep { get; set; }
 
         [Display(Name = "Rua")]

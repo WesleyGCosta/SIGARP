@@ -2,7 +2,7 @@
 using Domain.IRepositories;
 using Infra.Contexto;
 
-namespace Infra.Persistencia
+namespace Infra.Persistence
 {
     public class DetentoraRepository : BaseRepository<Detentora>, IDetentoraRepository
     {

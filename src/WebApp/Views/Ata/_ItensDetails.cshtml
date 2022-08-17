@@ -1,0 +1,62 @@
+﻿@model IEnumerable<WebApp.ViewModels.ItemViewModel>
+
+<table class="table">
+    <thead>
+        <tr class="text-center">
+            <th>
+                N° Item
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marca)
+            </th>
+            <th>
+                Un. Aquisição
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConsumoEstimado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecoMercado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecoRegistrado)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoItem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnidadeAquisicao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConsumoEstimado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecoMercado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecoRegistrado)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

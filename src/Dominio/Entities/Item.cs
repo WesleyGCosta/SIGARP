@@ -1,6 +1,7 @@
 ﻿using Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
@@ -45,14 +46,6 @@ namespace Domain.Entities
         public decimal PrecoMercado { get; private set; }
         public decimal PrecoRegistrado { get; private set; }
         public bool Ativo { get; private set; }
-
-        public string Exibicao 
-        { 
-            get
-            {
-                return string.Format("{0} - {1}", NumeroItem, Descricao);
-            } 
-        }
 
         public Ata Ata { get; private set; }
         public DetentoraItem DetentoraItem { get; private set; }

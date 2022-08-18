@@ -1,30 +1,7 @@
 ﻿import { GetMessageDomain } from '../site.js';
 
 $(document).ready(function () {
-    //$('#formCreateItem').submit(function (e) {
-    //    e.preventDefault()
-    //    if ($(this).valid()) {
-    //        $.ajax({
-    //            type: 'POST',
-    //            url: '/Item/Create/',
-    //            data: $(this).serialize(),
-    //            success: function (response) {
-    //                GetMessageDomain()
-    //                $('#listItens').empty()
-    //                $('#listItens').append(response)
-    //                $('#CodigoItem').attr('value', $('#proxItem').val())
-    //            },
-    //            error: function () {
-    //                $('#formCreateItem').validate();
-    //                GetMessageDomain()
-    //            }
-    //        })
-    //    }
-    //})
-
     $("#AnoAta").change(function () {
-        $('#CodigoItem').find('option').remove();
-        $('#CodigoItem').trigger("chosen:updated");
         var year = $(this).find("option:selected").val();
 
         if (year != "") {
@@ -81,19 +58,20 @@ $(document).ready(function () {
                 data: { yearAta, codeAta },
                 success: function (response) {
                     $('#CodigoItem').find('option').remove();
+                    $('<option>').val("").text("...").appendTo($('#CodigoItem'))
                     if (response.length > 0) {
                         $.each(response, function (i, d) {
-                            $('<option>').val(d.id).text(d.numeroItem + " - " + d.descricao).appendTo($('#CodigoItem'))
+                            $('<option>').val(d.id).text(d.numeroItem).appendTo($('#CodigoItem'))
                         })
                     }
-                    else {
-                        $('#CodigoItem').find('option').remove();
-                    }
-                    $('#CodigoItem').trigger("chosen:updated");
-
                 }
             })
-            GetListDetentoraRegistered(yearAta, codeAta)
+
+            if (pathname[2] == "Create") {
+                console.log("teste")
+
+                GetListDetentoraRegistered(yearAta, codeAta)
+            }
         }
     }
 
@@ -108,22 +86,4 @@ $(document).ready(function () {
             }
         })
     }
-
-    $("#formIncludeDetentora").submit(function (e) {
-        e.preventDefault()
-        $.ajax({
-            type: 'POST',
-            url: '/Item/IncludeDetentora/',
-            async: true,
-            data: $(this).serialize(),
-            success: function (response) {
-                GetMessageDomain()
-                GetListDetentoraRegistered(response.yearAta, response.codeAta);
-                AutoCompleteItem()
-            },
-            error: function () {
-                GetMessageDomain()
-            }
-        })
-    })
 })

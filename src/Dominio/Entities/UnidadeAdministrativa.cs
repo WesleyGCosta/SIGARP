@@ -1,6 +1,7 @@
 ﻿using Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
@@ -31,6 +32,15 @@ namespace Domain.Entities
         public string UnidadeDaFederacao { get; private set; }
         public EhEsferaAdministrativa EsferaAdministrativa { get; private set; }
         public bool Ativo { get; private set; }
+
+        [NotMapped]
+        public string Exibicao
+        {
+            get
+            {
+                return string.Format("{0} - {1}", Sigla, NomeUnidadeAdministrativa);
+            }
+        }
 
         public IEnumerable<ParticipanteItem> ParticipantesItens { get; private set; }
     }

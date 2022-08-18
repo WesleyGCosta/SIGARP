@@ -22,16 +22,16 @@ namespace Infra.Persistence
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<Item> GetLastItemByCodeAtaAndYearAta(int year, int code)
+        public async Task<List<Item>> GetListItemByCodeAtaAndYearAta(int year, int code)
         {
             return await _db.Itens
                 .AsNoTracking()
                 .Where(i => i.CodigoAta.Equals(code) && i.AnoAta.Equals(year))
-                .OrderByDescending(i => i.NumeroItem)
-                .FirstOrDefaultAsync();
+                .OrderBy(i => i.NumeroItem)
+                .ToListAsync();
         }
 
-        public async Task<List<Item>> GetListItemByCodeAtaAndYearAta(int year, int code)
+        public async Task<List<Item>> GetListItemByCodeAtaAndYearAtaIncludeDetentora(int year, int code)
         {
             return await _db.Itens
                 .AsNoTracking()

@@ -23,6 +23,7 @@ namespace WebApp.ViewModels
 
         [Required(ErrorMessage = "Campo Obrigatório!")]
         [Display(Name = "Número do Processo")]
+        [MinLength(18, ErrorMessage = "Número de {0} inválido!")]
         public string NumeroProcesso { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório!")]

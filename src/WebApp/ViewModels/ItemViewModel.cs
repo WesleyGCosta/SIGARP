@@ -50,9 +50,9 @@ namespace WebApp.ViewModels
         [StringLength(20, ErrorMessage = "A {0} deve ter pelo menos {2} caracteres.", MinimumLength = 2)]
         public string UnidadeAquisicao { get; set; }
 
-        [Display(Name = "Consumo Estimado")]
+        [Display(Name = "Quantidade")]
         [Required(ErrorMessage = "Campo Obrigatório!")]
-        public int ConsumoEstimado { get; set; }
+        public int Quantidade { get; set; }
 
         [Display(Name = "Preço de Mercado")]
         [Required(ErrorMessage = "Campo Obrigatório!")]

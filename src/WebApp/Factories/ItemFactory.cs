@@ -17,7 +17,7 @@ namespace WebApp.Factories
                 itemViewModel.Descricao,
                 itemViewModel.Marca,
                 itemViewModel.UnidadeAquisicao,
-                itemViewModel.ConsumoEstimado,
+                itemViewModel.Quantidade,
                 itemViewModel.PrecoMercado,
                 itemViewModel.PrecoRegistrado,
                 itemViewModel.Ativo
@@ -36,7 +36,7 @@ namespace WebApp.Factories
                 Descricao = item.Descricao,
                 Marca = item.Marca,
                 UnidadeAquisicao = item.UnidadeAquisicao,
-                ConsumoEstimado = item.ConsumoEstimado,
+                Quantidade = item.Quantidade,
                 PrecoMercado = item.PrecoMercado,
                 PrecoRegistrado = item.PrecoRegistrado,
                 Ativo = item.Ativo

@@ -5,6 +5,9 @@ namespace WebApp.ViewModels
 {
     public class ProgramacaoConsumoViewModel
     {
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid ParticipanteId { get; set; } = Guid.NewGuid();
+
         [Display(Name = "Código Ata")]
         [Required(ErrorMessage = "Campo Obrigatório")]
         public int CodigoAta { get; set; }
@@ -23,7 +26,7 @@ namespace WebApp.ViewModels
 
         [Display(Name = "Consumo Estimado")]
         [Required(ErrorMessage = "Campo Obrigatório")]
-        public decimal ConsumoEstimado { get; set; }
+        public int ConsumoEstimado { get; set; }
         public decimal Saldo { get; set; }
         public decimal Aditivo { get; set; }
         public decimal Transferido { get; set; }

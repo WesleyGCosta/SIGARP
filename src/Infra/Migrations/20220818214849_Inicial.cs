@@ -81,7 +81,7 @@ namespace Infra.Migrations
                     Descricao = table.Column<string>(type: "Varchar(8000)", nullable: false),
                     Marca = table.Column<string>(type: "Varchar(50)", nullable: false),
                     UnidadeAquisicao = table.Column<string>(type: "Varchar(20)", nullable: false),
-                    ConsumoEstimado = table.Column<int>(type: "int", nullable: false),
+                    Quantidade = table.Column<int>(type: "int", nullable: false),
                     PrecoMercado = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
                     PrecoRegistrado = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false)
@@ -175,7 +175,7 @@ namespace Infra.Migrations
                 name: "ProgamacaoConsumoParticipantes",
                 columns: table => new
                 {
-                    ProgramacaoParticipanteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ParticipanteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ConsumoEstimado = table.Column<int>(type: "int", nullable: false),
                     Saldo = table.Column<decimal>(type: "decimal(15,2)", nullable: false),
@@ -185,7 +185,7 @@ namespace Infra.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProgamacaoConsumoParticipantes", x => x.ProgramacaoParticipanteId);
+                    table.PrimaryKey("PK_ProgamacaoConsumoParticipantes", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProgamacaoConsumoParticipantes_ParticipantesItens_ParticipanteId",
                         column: x => x.ParticipanteId,

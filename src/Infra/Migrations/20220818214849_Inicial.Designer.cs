@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220728115657_Inicial")]
+    [Migration("20220818214849_Inicial")]
     partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -192,9 +192,6 @@ namespace Infra.Migrations
                     b.Property<int>("CodigoAta")
                         .HasColumnType("int");
 
-                    b.Property<int>("ConsumoEstimado")
-                        .HasColumnType("int");
-
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("Varchar(8000)");
@@ -211,6 +208,9 @@ namespace Infra.Migrations
 
                     b.Property<decimal>("PrecoRegistrado")
                         .HasColumnType("decimal(15,2)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
 
                     b.Property<string>("Tipo")
                         .IsRequired()
@@ -251,7 +251,7 @@ namespace Infra.Migrations
 
             modelBuilder.Entity("Domain.Entities.ProgramacaoConsumoParticipante", b =>
                 {
-                    b.Property<Guid>("ProgramacaoParticipanteId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -273,7 +273,7 @@ namespace Infra.Migrations
                     b.Property<decimal>("Transferido")
                         .HasColumnType("decimal(15,2)");
 
-                    b.HasKey("ProgramacaoParticipanteId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ParticipanteId")
                         .IsUnique();

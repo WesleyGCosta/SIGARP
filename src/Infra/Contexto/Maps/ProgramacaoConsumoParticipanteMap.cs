@@ -9,7 +9,7 @@ namespace Infra.Contexto.Maps
         public void Configure(EntityTypeBuilder<ProgramacaoConsumoParticipante> builder)
         {
             builder.ToTable("ProgamacaoConsumoParticipantes");
-            builder.HasKey(p => p.ProgramacaoParticipanteId);
+            builder.HasKey(p => p.Id);
             builder.Property(p => p.ConsumoEstimado).IsRequired().HasColumnType("int");
             builder.Property(p => p.Saldo).IsRequired().HasColumnType("decimal(15,2)");
             builder.Property(p => p.Aditivo).IsRequired().HasColumnType("decimal(15,2)");

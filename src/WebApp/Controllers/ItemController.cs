@@ -22,20 +22,20 @@ namespace WebApp.Controllers
         private readonly SearchUnidadeAdministrativa _searchUnidadeAdministrativa;
         private readonly CreateItem _createItem;
         private readonly CreateDetentoraItem _createDetentoraItem;
+
         public ItemController(
             IAtaRepository ataRepository,
             IItemRepository itemRepository,
             IDetentoraRepository detentoraRepository,
             IDetentoraItemRepository detentoraItemRepository,
-            IUnidadeAdministrativaRepository unidadeAdministrativaRepository,
             INotifier notifier) : base(notifier)
         {
             _searchAta = new SearchAta(ataRepository);
             _searchItem = new SearchItem(itemRepository);
             _searchDetentora = new SearchDetentora(detentoraRepository);
-            _searchUnidadeAdministrativa = new SearchUnidadeAdministrativa(unidadeAdministrativaRepository);
             _createItem = new CreateItem(itemRepository);
             _createDetentoraItem = new CreateDetentoraItem(detentoraItemRepository);
+           
         }
 
         public async Task<IActionResult> Create()
@@ -72,13 +72,6 @@ namespace WebApp.Controllers
             TempData["Success"] = "Item Cadastrado com Sucesso";
 
             return RedirectToAction(nameof(Create));
-        }
-
-        public async Task<IActionResult> IncludeProgramacaoConsumo()
-        {
-            ViewBag.ListYears = LoadDropYear();
-            ViewBag.ListUnidadeAdministrativa = new SelectList(await _searchUnidadeAdministrativa.GetAll(), "Id", "Exibicao");
-            return View();
         }
 
         //Consultas dinâmica

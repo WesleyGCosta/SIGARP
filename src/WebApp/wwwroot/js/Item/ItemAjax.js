@@ -33,7 +33,7 @@ $(document).ready(function () {
 
     function AutoCompleteItem() {
         var pathname = window.location.pathname.split('/');
-        if (pathname[2] == "Create") {
+        if (pathname[1] == "Item") {
             $.ajax({
                 type: 'GET',
                 url: '/Item/AutoCompleteCodeItem/',
@@ -67,7 +67,7 @@ $(document).ready(function () {
                 }
             })
 
-            if (pathname[2] == "Create") {
+            if (pathname[1] == "Item") {
                 console.log("teste")
 
                 GetListDetentoraRegistered(yearAta, codeAta)

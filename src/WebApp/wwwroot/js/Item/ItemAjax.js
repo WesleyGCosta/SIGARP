@@ -68,8 +68,6 @@ $(document).ready(function () {
             })
 
             if (pathname[1] == "Item") {
-                console.log("teste")
-
                 GetListDetentoraRegistered(yearAta, codeAta)
             }
         }

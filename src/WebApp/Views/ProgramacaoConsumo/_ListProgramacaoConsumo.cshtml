@@ -1,0 +1,89 @@
+﻿@model IEnumerable<WebApp.ViewModels.ProgramacaoConsumoViewModel>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParticipanteId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoAta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnoAta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoItem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodigoUnidadeAdministrativa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConsumoEstimado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Saldo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Aditivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transferido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SaldoAnterior)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParticipanteId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoAta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnoAta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoItem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoUnidadeAdministrativa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConsumoEstimado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Saldo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aditivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transferido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaldoAnterior)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

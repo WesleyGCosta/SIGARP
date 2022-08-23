@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Incluir Programação";
 }
-<form asp-action="Create">
+<form id="formProgramacaoConsumo">
     <div class="card shadow mt-4">
         <div class="card-header text-center">
             <h4 class="card-title">Programação de Consumo</h4>
@@ -54,10 +54,12 @@
                 <button class="btn btn-secondary shadow" asp-action="Index">Voltar</button>
             </div>
         </div>
+        <div id="listProgramacao"></div>
     </div>
 </form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="/js/Item/itemAjax.js" type="module"></script>
+    <script src="/js/Programacao/ProgramacaoAjax.js" type="module"></script>
 }

@@ -14,6 +14,7 @@ namespace WebApp.Controllers
     public class ProgramacaoConsumoController : BaseController
     {
         private readonly SearchUnidadeAdministrativa _searchUnidadeAdministrativa;
+        private readonly SearchParticipanteItem _searchParticipanteItem;
         private readonly CreateProgramacaoConsumo _createProgramacaoConsumo;
         private readonly CreateParticipanteItem _createParticipanteItem;
         public ProgramacaoConsumoController(
@@ -23,26 +24,38 @@ namespace WebApp.Controllers
             INotifier notifier) : base(notifier)
         {
             _searchUnidadeAdministrativa = new SearchUnidadeAdministrativa(unidadeAdministrativaRepository);
+            _searchParticipanteItem = new SearchParticipanteItem(participanteItemRepository);
             _createProgramacaoConsumo = new CreateProgramacaoConsumo(programacaoConsumoParticipanteRepository);
             _createParticipanteItem = new CreateParticipanteItem(participanteItemRepository);
         }
 
         public async Task<IActionResult> Create()
         {
-            ViewBag.ListYears = LoadDropYear();
-            ViewBag.ListUnidadeAdministrativa = new SelectList(await _searchUnidadeAdministrativa.GetAll(), "Id", "Exibicao");
+            await FillViewBags();
             return View();
         }
 
+        private async Task FillViewBags()
+        {
+            ViewBag.ListYears = LoadDropYear();
+            ViewBag.ListUnidadeAdministrativa = new SelectList(await _searchUnidadeAdministrativa.GetAll(), "Id", "Exibicao");
+        }
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProgramacaoConsumoViewModel programacaoConsumoViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return View(programacaoConsumoViewModel);
             }
-
+            var existsParticipante = await _searchParticipanteItem.GetByIds(programacaoConsumoViewModel.CodigoUnidadeAdministrativa, programacaoConsumoViewModel.CodigoItem);
+            if (existsParticipante != null)
+            {
+                TempData["Warning"] = $"Programação de Consumo já existe";
+                return NotFound();
+            }
+ 
             var participante = ParticipanteItemFactory.ToEntity(programacaoConsumoViewModel.ParticipanteId, programacaoConsumoViewModel.CodigoItem, programacaoConsumoViewModel.CodigoUnidadeAdministrativa);
             var programacaoConsumo = ProgramacaoConsumoFactory.ToEntity(programacaoConsumoViewModel);
 
@@ -50,7 +63,9 @@ namespace WebApp.Controllers
             await _createProgramacaoConsumo.Run(programacaoConsumo);
 
             TempData["Success"] = "Programação Incluída com Sucesso";
-            return RedirectToAction();
+            await FillViewBags();
+
+            return PartialView("_ListProgramacaoConsumo");
         }
     }
 }

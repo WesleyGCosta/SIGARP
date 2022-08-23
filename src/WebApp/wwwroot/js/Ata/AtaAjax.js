@@ -60,4 +60,24 @@ $(document).ready(function () {
             })
         }
     })
+
+
+    $(".AnoAtaDetete").change(function () {
+        var year = $(this).find("option:selected").val();
+        if (year != null) {
+            $.ajax({
+                type: 'GET',
+                url: '/Ata/GetAtaByYear/',
+                data: { year },
+                success: function (response) {
+                    $('#result').empty()
+                    $('#result').append(response)
+                },
+                error: function () {
+                    $('#result').empty()
+                    GetMessageDomain()
+                }
+            })
+        }
+    })
 })

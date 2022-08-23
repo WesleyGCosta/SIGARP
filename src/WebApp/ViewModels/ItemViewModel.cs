@@ -1,5 +1,6 @@
 ﻿using Domain.Enums;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WebApp.ViewModels.CustomValidation;
 
@@ -66,5 +67,6 @@ namespace WebApp.ViewModels
         public bool Ativo { get; set; }
 
         public DetentoraViewModel Detentora { get; set; }
+        public ICollection<UnidadeAdministrativaViewModel> UnidadeAdministrativa { get; set; }
     }
 }

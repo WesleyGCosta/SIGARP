@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using System.Collections.Generic;
+using System.Linq;
 using WebApp.ViewModels;
 
 namespace WebApp.Factories
@@ -43,6 +44,8 @@ namespace WebApp.Factories
             };
             if (item.DetentoraItem != null)
                 itemViewModel.Detentora = DetentoraFactory.ToDetentoraViewModel(item.DetentoraItem.Detentora);
+            if (item.ParticipantesItens != null)
+                itemViewModel.UnidadeAdministrativa = UnidadeAdministrativaFactory.ToListViewMode(item.ParticipantesItens.Select(pt => pt.UnidadeAdministrativa));
 
             return itemViewModel;
         }

@@ -30,8 +30,19 @@ namespace Infra.Persistence
                 .Include(a => a.Itens.OrderBy(i => i.NumeroItem))
                 .ThenInclude(i => i.DetentoraItem)
                 .ThenInclude(d => d.Detentora)
+                .Include(a => a.Itens.OrderBy(i => i.NumeroItem))
+                .ThenInclude(i => i.ParticipantesItens)
+                .ThenInclude(pt => pt.UnidadeAdministrativa)
                 .Where(a => a.AnoAta.Equals(year) && a.CodigoAta.Equals(code))
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<List<Ata>> GetListAtaByYear(int year)
+        {
+            return await _db.Atas
+                .Where(a => a.AnoAta.Equals(year))
+                .OrderBy(a => a.CodigoAta)
+                .ToListAsync();
         }
 
         public async Task<List<int>> GetListCodeByYear(int year)

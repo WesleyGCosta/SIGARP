@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using System.Collections.Generic;
 using WebApp.ViewModels;
 
 namespace WebApp.Factories
@@ -18,6 +19,33 @@ namespace WebApp.Factories
                 );
 
             return unidadeAdministrativa;
+        }
+
+        public static UnidadeAdministrativaViewModel ToViewModel(UnidadeAdministrativa unidadeAdministrativa)
+        {
+            var unidadeAdministrativaViewModel = new UnidadeAdministrativaViewModel
+            {
+                Id = unidadeAdministrativa.Id,
+                NomeUnidadeAdministrativa = unidadeAdministrativa.NomeUnidadeAdministrativa,
+                Sigla = unidadeAdministrativa.Sigla,
+                OrgaoEx = unidadeAdministrativa.OrgaoEx,
+                UnidadeDaFederacao = unidadeAdministrativa.UnidadeDaFederacao,
+                EsferaAdministrativa = unidadeAdministrativa.EsferaAdministrativa,
+                Ativo = unidadeAdministrativa.Ativo
+            };
+
+             return unidadeAdministrativaViewModel;
+        }
+
+        public static List<UnidadeAdministrativaViewModel> ToListViewMode(IEnumerable<UnidadeAdministrativa> unidadeAdministrativas)
+        {
+            var list = new List<UnidadeAdministrativaViewModel>();
+            foreach(var unidadeAdministrativa in unidadeAdministrativas)
+            {
+                list.Add(ToViewModel(unidadeAdministrativa));
+            }
+
+            return list;
         }
     }
 }

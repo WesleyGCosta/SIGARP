@@ -1,0 +1,44 @@
+﻿@model IEnumerable<WebApp.ViewModels.UnidadeAdministrativaViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeUnidadeAdministrativa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sigla)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrgaoEx)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnidadeDaFederacao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EsferaAdministrativa)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeUnidadeAdministrativa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sigla)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrgaoEx)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnidadeDaFederacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EsferaAdministrativa)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

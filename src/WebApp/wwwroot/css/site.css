@@ -223,3 +223,7 @@ input.fire-check:checked ~ section .tn-box {
     height: 45px;
     width: 45px;
 }
+
+#myTab > li > a{
+    cursor: pointer; 
+}

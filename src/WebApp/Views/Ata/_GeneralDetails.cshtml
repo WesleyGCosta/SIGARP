@@ -1,17 +1,16 @@
 ﻿@model AtaViewModel
 
-@{
-    var teste = Model.ItensViewModel.Select(i => i.Detentora);
-    int t = 0;
-}
+<div class="text-center">
+    <span>Informação Geral da Ata @Model.CodigoAta/@Model.AnoAta</span>
+</div>
 
-<div class="container">
+<div class="container mb-3">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <a class="nav-link active btn" id="ata-tab" data-toggle="tab" data-target="#ata" role="tab" aria-controls="ata" aria-selected="true">ata</a>
+            <a class="nav-link active btn" id="ata-tab" data-toggle="tab" data-target="#ata" role="tab" aria-controls="ata" aria-selected="true">Ata</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" id="item-tab" data-toggle="tab" data-target="#item" role="tab" aria-controls="item" aria-selected="false">item</a>
+            <a class="nav-link" id="item-tab" data-toggle="tab" data-target="#item" role="tab" aria-controls="item" aria-selected="false">Itens</a>
         </li>
         <li class="nav-item" role="presentation">
             <a class="nav-link" id="orgao-tab" data-toggle="tab" data-target="#orgao" role="tab" aria-controls="orgao" aria-selected="false">Orgãos</a>
@@ -27,7 +26,9 @@
         <div class="tab-pane fade" id="item" role="tabpanel" aria-labelledby="item-tab">
             <partial name="_ItensDetails" model="@Model.ItensViewModel" />
         </div>
-        <div class="tab-pane fade" id="orgao" role="tabpanel" aria-labelledby="orgao-tab">Orgão</div>
+        <div class="tab-pane fade" id="orgao" role="tabpanel" aria-labelledby="orgao-tab">
+            <partial name="_UnidadeAdministraticaDetails" model="@Model.ItensViewModel.SelectMany(i => i.UnidadeAdministrativa)"/>
+        </div>
         <div class="tab-pane fade" id="detentora" role="tabpanel" aria-labelledby="detentora-tab">
             <partial name="_DetentoraDetails" model="@Model.ItensViewModel.Select(i => i.Detentora)" />
         </div>

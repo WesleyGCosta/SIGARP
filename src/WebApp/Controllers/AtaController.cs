@@ -61,6 +61,13 @@ namespace WebApp.Controllers
             return PartialView("_GeneralDetails", ataViewModel);
         }
 
+        public async Task<IActionResult> GetAtaByYear(int year)
+        {
+            var atas = await _searchAta.GetListAtaByYear(year);
+            var listAtasViewModel = AtaFactory.ToListViewModel(atas);
+            return View();
+        }
+
         [HttpGet]
         public async Task<JsonResult> AutoCompleteNumberAta(int yearAta)
         {

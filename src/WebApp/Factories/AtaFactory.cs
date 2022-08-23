@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using System.Collections.Generic;
 using WebApp.ViewModels;
 
 namespace WebApp.Factories
@@ -49,6 +50,15 @@ namespace WebApp.Factories
                 ataViewModel.ItensViewModel = ItemFactory.ToListItemViewModel(ata.Itens);
 
             return ataViewModel;
+        }
+
+        public static List<AtaViewModel> ToListViewModel(IEnumerable<Ata> atas)
+        {
+            var list = new List<AtaViewModel>();
+            foreach (var ata in atas)
+                list.Add(ToViewModel(ata));
+
+            return list;
         }
     }
 }

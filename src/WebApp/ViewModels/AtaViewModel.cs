@@ -54,15 +54,19 @@ namespace WebApp.ViewModels
 
         public bool Publicada { get; set; }
 
+        [Display(Name = "Data de Publicação")]
         public DateTime DataPublicacaoSistema { get; set; }
 
         [Display(Name = "Observação")]
         public string Observacao { get; set; }
 
+        [Display(Name = "Data de Cadastro")]
         public DateTime DataCadastro { get; set; }
 
+        [Display(Name = "Data de Alteração")]
         public DateTime DataAlteracao { get; set; }
 
+        [Display(Name = "Limite de Adesão")]
         public int LimiteAdesao { get; set; }
 
         public ICollection<ItemViewModel> ItensViewModel { get; set; }

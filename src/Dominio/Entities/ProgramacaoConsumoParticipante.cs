@@ -8,16 +8,14 @@ namespace Domain.Entities
             Guid id, 
             Guid participanteId, 
             int consumoEstimado, 
-            decimal saldo, 
-            decimal aditivo, 
-            decimal transferido, 
-            decimal saldoAnterior)
+            int saldo, 
+            int transferido, 
+            int saldoAnterior)
         {
             Id = id;
             ParticipanteId = participanteId;
             ConsumoEstimado = consumoEstimado;
             Saldo = saldo;
-            Aditivo = aditivo;
             Transferido = transferido;
             SaldoAnterior = saldoAnterior;
         }
@@ -25,10 +23,9 @@ namespace Domain.Entities
         public Guid Id { get; private set; }
         public Guid ParticipanteId { get; private set; }
         public int ConsumoEstimado { get; private set; }
-        public decimal Saldo { get; private set; }
-        public decimal Aditivo { get; private set; }
-        public decimal Transferido { get; private set; }
-        public decimal SaldoAnterior { get; private set; }
+        public int Saldo { get; private set; }
+        public int Transferido { get; private set; }
+        public int SaldoAnterior { get; private set; }
 
         public ParticipanteItem ParticipanteItem { get; private set; }
 

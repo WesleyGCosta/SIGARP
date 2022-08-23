@@ -15,6 +15,7 @@ namespace Domain.Entities
             DateTime dataHomologacao, 
             DateTime dataPublicacaoDOE, 
             DateTime dataFinalVigencia, 
+            DateTime dataVencimentoAta,
             string objetoResumido, 
             bool publicada, 
             DateTime dataPublicacaoSistema, 
@@ -32,6 +33,7 @@ namespace Domain.Entities
             DataHomologacao = dataHomologacao;
             DataPublicacaoDOE = dataPublicacaoDOE;
             DataFinalVigencia = dataFinalVigencia;
+            DataVencimentoAta = dataVencimentoAta;
             ObjetoResumido = objetoResumido;
             Publicada = publicada;
             DataPublicacaoSistema = dataPublicacaoSistema;
@@ -50,6 +52,7 @@ namespace Domain.Entities
         public DateTime DataHomologacao { get; private set; }
         public DateTime DataPublicacaoDOE { get; private set; }
         public DateTime DataFinalVigencia { get; private set; }
+        public DateTime DataVencimentoAta { get; private set; }
         public string ObjetoResumido { get; private set; }
         public bool Publicada { get; private set; }
         public DateTime DataPublicacaoSistema { get; private set; }

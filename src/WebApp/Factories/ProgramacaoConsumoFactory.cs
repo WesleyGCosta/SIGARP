@@ -13,7 +13,6 @@ namespace WebApp.Factories
                 programacaoConsumoViewModel.ParticipanteId,
                 programacaoConsumoViewModel.ConsumoEstimado,
                 programacaoConsumoViewModel.Saldo,
-                programacaoConsumoViewModel.Aditivo,
                 programacaoConsumoViewModel.Transferido,
                 programacaoConsumoViewModel.SaldoAnterior
                 );

@@ -18,6 +18,7 @@ namespace WebApp.Factories
                 ataViewModel.DataHomologacao,
                 ataViewModel.DataPublicacaoDOE,
                 ataViewModel.DataFinalVigencia,
+                ataViewModel.DataVencimentoAta,
                 ataViewModel.ObjetoResumido,
                 ataViewModel.Publicada,
                 ataViewModel.DataPublicacaoSistema,

@@ -11,10 +11,9 @@ namespace Infra.Contexto.Maps
             builder.ToTable("ProgamacaoConsumoParticipantes");
             builder.HasKey(p => p.Id);
             builder.Property(p => p.ConsumoEstimado).IsRequired().HasColumnType("int");
-            builder.Property(p => p.Saldo).IsRequired().HasColumnType("decimal(15,2)");
-            builder.Property(p => p.Aditivo).IsRequired().HasColumnType("decimal(15,2)");
-            builder.Property(p => p.Transferido).IsRequired().HasColumnType("decimal(15,2)");
-            builder.Property(p => p.SaldoAnterior).IsRequired().HasColumnType("decimal(15,2)");
+            builder.Property(p => p.Saldo).IsRequired().HasColumnType("int");
+            builder.Property(p => p.Transferido).IsRequired().HasColumnType("int");
+            builder.Property(p => p.SaldoAnterior).IsRequired().HasColumnType("int");
 
             builder.HasOne(d => d.ParticipanteItem).WithOne(i => i.ProgramacoesConsumoParticipantes).HasForeignKey<ProgramacaoConsumoParticipante>(i => i.ParticipanteId);
         }

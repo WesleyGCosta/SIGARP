@@ -19,7 +19,6 @@ namespace WebApp.Controllers
         private readonly SearchAta _searchAta;
         private readonly SearchItem _searchItem;
         private readonly SearchDetentora _searchDetentora;
-        private readonly SearchUnidadeAdministrativa _searchUnidadeAdministrativa;
         private readonly CreateItem _createItem;
         private readonly CreateDetentoraItem _createDetentoraItem;
 

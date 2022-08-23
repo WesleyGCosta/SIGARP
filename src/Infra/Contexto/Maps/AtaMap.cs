@@ -19,6 +19,7 @@ namespace Infra.Contexto.Maps
             builder.Property(a => a.DataHomologacao).IsRequired().HasColumnType("date");
             builder.Property(a => a.DataPublicacaoDOE).IsRequired().HasColumnType("date");
             builder.Property(a => a.DataFinalVigencia).IsRequired().HasColumnType("date");
+            builder.Property(a => a.DataVencimentoAta).IsRequired().HasColumnType("date");
             builder.Property(a => a.ObjetoResumido).HasColumnType("text");
             builder.Property(a => a.Publicada).HasColumnType("bit");
             builder.Property(a => a.DataPublicacaoSistema).HasColumnType("date");

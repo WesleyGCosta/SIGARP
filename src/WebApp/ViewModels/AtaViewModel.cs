@@ -49,6 +49,9 @@ namespace WebApp.ViewModels
         [Required(ErrorMessage = "Campo Obrigatório!")]
         public DateTime DataFinalVigencia { get; set; }
 
+
+        public DateTime DataVencimentoAta { get; set; }
+
         [Display(Name = "Objeto Resumido")]
         public string ObjetoResumido { get; set; }
 

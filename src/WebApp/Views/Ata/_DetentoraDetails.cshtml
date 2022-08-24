@@ -1,52 +1,63 @@
 ﻿@model IEnumerable<WebApp.ViewModels.DetentoraViewModel>
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Cnpj)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RazaoSocial)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomeFantasia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Telefone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pessoa)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cnpj)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RazaoSocial)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeFantasia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pessoa)
-            </td>
-        </tr>
+@if (Model.Any())
+{
+    <table class="table table-borderless py-4">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cnpj)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RazaoSocial)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NomeFantasia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Telefone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Pessoa)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cnpj)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RazaoSocial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomeFantasia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Pessoa)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}else{
+    <div class="not-found">
+        <img src="/img/not-found.svg" />
+        <div>
+            <span>Sem Resultados</span>
+            <p>Nenhuma Detentora Registrado</p>
+        </div>
+    </div>
 }
-    </tbody>
-</table>

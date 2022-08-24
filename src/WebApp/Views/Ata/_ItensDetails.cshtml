@@ -1,62 +1,75 @@
 ﻿@model IEnumerable<WebApp.ViewModels.ItemViewModel>
 
-<table class="table">
-    <thead>
-        <tr class="text-center">
-            <th>
-                N° Item
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tipo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Marca)
-            </th>
-            <th>
-                Un. Aquisição
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantidade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrecoMercado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrecoRegistrado)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodigoItem)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tipo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Marca)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnidadeAquisicao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrecoMercado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrecoRegistrado)
-            </td>
-        </tr>
+@if (Model.Any())
+{
+    <table class="table table-borderless py-4">
+        <thead>
+            <tr>
+                <th>
+                    N° Item
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tipo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descricao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Marca)
+                </th>
+                <th>
+                    Un. Aquisição
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantidade)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PrecoMercado)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PrecoRegistrado)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CodigoItem)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descricao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Marca)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnidadeAquisicao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PrecoMercado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PrecoRegistrado)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else{
+    <div class="not-found">
+        <img src="/img/not-found.svg" />
+        <div>
+            <span>Sem Resultados</span>
+            <p>Nenhum Item Registrado</p>
+        </div>
+    </div>
+}

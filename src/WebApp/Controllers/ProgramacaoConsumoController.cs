@@ -55,7 +55,7 @@ namespace WebApp.Controllers
                 TempData["Warning"] = $"Programação de Consumo já existe";
                 return NotFound();
             }
- 
+
             var participante = ParticipanteItemFactory.ToEntity(programacaoConsumoViewModel.ParticipanteId, programacaoConsumoViewModel.CodigoItem, programacaoConsumoViewModel.CodigoUnidadeAdministrativa);
             var programacaoConsumo = ProgramacaoConsumoFactory.ToEntity(programacaoConsumoViewModel);
 
@@ -65,7 +65,7 @@ namespace WebApp.Controllers
             TempData["Success"] = "Programação Incluída com Sucesso";
             await FillViewBags();
 
-            return PartialView("_ListProgramacaoConsumo");
+            return Ok();
         }
     }
 }

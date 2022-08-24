@@ -27,7 +27,9 @@ namespace WebApp.ViewModels
         [Display(Name = "Consumo Estimado")]
         [Required(ErrorMessage = "Campo Obrigatório")]
         public int ConsumoEstimado { get; set; }
-        public int Saldo { get; set; }
+        public int Saldo { 
+            get => ConsumoEstimado; 
+            set => ConsumoEstimado = value; }
         public int Transferido { get; set; }
         public int SaldoAnterior { get; set; }
     }

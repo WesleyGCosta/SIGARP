@@ -31,12 +31,12 @@ form input, select, textarea {
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.42) !important;
 }
 
-.transition.active{
+.transition.active {
     background-color: var(--celadon-blue) !important;
     color: var(--bg-color);
 }
 
-.transition:hover{
+.transition:hover {
     transform: scale(1.1);
     transition: all 0.5s;
 }
@@ -224,6 +224,25 @@ input.fire-check:checked ~ section .tn-box {
     width: 45px;
 }
 
-#myTab > li > a{
-    cursor: pointer; 
+#myTab > li > a {
+    cursor: pointer;
 }
+
+.not-found {
+    padding: 23px;
+    margin: auto 0;
+    color: var(--gray-color);
+    text-align: center;
+}
+
+    .not-found img {
+        height: 150px;
+    }
+
+    .not-found span {
+        font-weight: 700;
+    }
+
+    .not-found p {
+        font-weight: 600;
+    }

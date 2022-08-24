@@ -39,6 +39,7 @@ namespace WebApp.Factories
                 AnoAta = ata.AnoAta,
                 NumeroProcesso = ata.NumeroProcesso,
                 NumeroPregao = ata.NumeroPregao,
+                AnoPregao = ata.AnoPregao,
                 TipoPregao = ata.TipoPregao,
                 DataHomologacao = ata.DataHomologacao,
                 DataPublicacaoDOE = ata.DataPublicacaoDOE,

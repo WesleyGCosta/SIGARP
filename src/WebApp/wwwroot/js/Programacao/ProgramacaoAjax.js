@@ -8,9 +8,8 @@ $(document).ready(function () {
                 type: 'POST',
                 url: '/ProgramacaoConsumo/Create/',
                 data: $(this).serialize(),
-                success: function (response) {              
+                success: function () {              
                     GetMessageDomain();
-                    $("#listProgramacao").html(response)
                 },
                 error: function () {
                     GetMessageDomain();

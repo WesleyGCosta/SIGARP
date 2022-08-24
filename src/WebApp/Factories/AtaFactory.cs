@@ -46,7 +46,9 @@ namespace WebApp.Factories
                 DataFinalVigencia = ata.DataFinalVigencia,
                 DataPublicacaoSistema = ata.DataPublicacaoSistema,
                 DataCadastro = ata.DataCadastro,
-                DataAlteracao = ata.DataAlteracao
+                DataAlteracao = ata.DataAlteracao,
+                ObjetoResumido = ata.ObjetoResumido,
+                Observacao = ata.Observacao
             };
             if (ata.Itens != null)
                 ataViewModel.ItensViewModel = ItemFactory.ToListItemViewModel(ata.Itens);

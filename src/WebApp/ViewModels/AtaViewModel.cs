@@ -47,10 +47,15 @@ namespace WebApp.ViewModels
         public DateTime DataPublicacaoDOE { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório!")]
+        [Display(Name = "Data Final da Vigência")]
         public DateTime DataFinalVigencia { get; set; }
 
 
-        public DateTime DataVencimentoAta { get; set; }
+        [Display(Name = "Data de Vencimento da Ata")]
+        public DateTime DataVencimentoAta 
+        { 
+            get => DataPublicacaoDOE.AddYears(1); 
+        }
 
         [Display(Name = "Objeto Resumido")]
         public string ObjetoResumido { get; set; }

@@ -100,6 +100,18 @@ namespace WebApp.Controllers
             return PartialView("_ListItens", listItemViewModel);
         }
 
+        public async Task<IActionResult> GetItemIncludeUnidadeAdministrativa(int yearAta, int codeAta, int codeItem)
+        {
+            var item = await _searchItem.GetItemByCodeAtaAndYearAtaIncludeUnidadeAdministrativa(yearAta, codeAta, codeItem);
+
+            if (item == null)
+                return NotFound();
+
+            var listItemViewModel = ItemFactory.ToItemViewModel(item);
+
+            return PartialView("_ListItens", listItemViewModel);
+        }
+
         public async Task FillViewBags(int yearAta)
         {
             ViewBag.ListYears = LoadDropYear();

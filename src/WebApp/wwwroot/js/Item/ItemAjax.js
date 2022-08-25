@@ -1,8 +1,9 @@
 ﻿import { GetMessageDomain } from '../site.js';
 
 $(document).ready(function () {
+    const pathname = window.location.pathname.split('/');
     $("#AnoAta").change(function () {
-        var year = $(this).find("option:selected").val();
+        let year = $(this).find("option:selected").val();
 
         if (year != "") {
             $.ajax({
@@ -31,13 +32,32 @@ $(document).ready(function () {
         AutoCompleteItem()
     })
 
+    $('#CodigoItem').change(function () {
+        let yearAta = $('#AnoAta').val()
+        let codeAta = $('#CodigoAta').val()
+        if (pathname[1] == "ProgramacaoConsumo") {
+            $.ajax({
+                type: 'GET',
+                url: '/Item/GetItemIncludeUnidadeAdministrativa/',
+                data: { yearAta, codeAta },
+                success: function (response) {
+                    $('#listItens').empty()
+                    $('#listItens').append(response)
+                }
+            })
+        }
+    })
+
     function AutoCompleteItem() {
-        var pathname = window.location.pathname.split('/');
+        
+        let yearAta = $('#AnoAta').val()
+        let codeAta = $('#CodigoAta').val()
+
         if (pathname[1] == "Item") {
             $.ajax({
                 type: 'GET',
                 url: '/Item/AutoCompleteCodeItem/',
-                data: { yearAta: $('#AnoAta').val(), codeAta: $('#CodigoAta').val() },
+                data: { yearAta, codeAta },
                 success: function (response) {
                     $('#listItens').empty()
                     $('#listItens').append(response)
@@ -48,10 +68,11 @@ $(document).ready(function () {
                     $('#CodigoItem').attr('value', 1)
                 }
             })
-        } else {
-            var yearAta = $('#AnoAta').val()
-            var codeAta = $('#CodigoAta').val()
 
+            GetListDetentoraRegistered(yearAta, codeAta)
+        } 
+        if (pathname[1] == "ProgramacaoConsumo")
+        {
             $.ajax({
                 type: 'GET',
                 url: '/Item/AutoCompleteListCodeItem/',
@@ -66,10 +87,6 @@ $(document).ready(function () {
                     }
                 }
             })
-
-            if (pathname[1] == "Item") {
-                GetListDetentoraRegistered(yearAta, codeAta)
-            }
         }
     }
 

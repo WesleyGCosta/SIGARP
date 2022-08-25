@@ -61,11 +61,11 @@ namespace WebApp.Controllers
             return PartialView("_GeneralDetails", ataViewModel);
         }
 
-        public async Task<IActionResult> GetAtaByYear(int year)
+        public async Task<IActionResult> GetListAtaByYear(int year)
         {
             var atas = await _searchAta.GetListAtaByYear(year);
             var listAtasViewModel = AtaFactory.ToListViewModel(atas);
-            return View();
+            return PartialView("_ListAtas", listAtasViewModel);
         }
 
         [HttpGet]

@@ -109,7 +109,7 @@ namespace WebApp.Controllers
 
             var listItemViewModel = ItemFactory.ToItemViewModel(item);
 
-            return PartialView("_ListItens", listItemViewModel);
+            return PartialView("_ItemDatailsProgramacaoConsumo", listItemViewModel);
         }
 
         public async Task FillViewBags(int yearAta)

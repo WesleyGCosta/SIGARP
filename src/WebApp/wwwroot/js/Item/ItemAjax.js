@@ -33,16 +33,18 @@ $(document).ready(function () {
     })
 
     $('#CodigoItem').change(function () {
-        let yearAta = $('#AnoAta').val()
-        let codeAta = $('#CodigoAta').val()
+        let yearAta = $('#AnoAta').val();
+        let codeAta = $('#CodigoAta').val();
+        let codeItem = $(this).find("option:selected").text();
+
         if (pathname[1] == "ProgramacaoConsumo") {
             $.ajax({
                 type: 'GET',
                 url: '/Item/GetItemIncludeUnidadeAdministrativa/',
-                data: { yearAta, codeAta },
+                data: { yearAta, codeAta, codeItem },
                 success: function (response) {
-                    $('#listItens').empty()
-                    $('#listItens').append(response)
+                    $('#listProgramacao').empty()
+                    $('#listProgramacao').append(response)
                 }
             })
         }

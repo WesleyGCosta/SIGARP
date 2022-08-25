@@ -54,6 +54,7 @@ namespace WebApp.ViewModels
         [Required(ErrorMessage = "Campo Obrigatório!")]
         public int Quantidade { get; set; }
 
+        [Display(Name = "Quantidade Disponível")]
         public int QuantidadeDisponivel
         {
             get => Quantidade;     

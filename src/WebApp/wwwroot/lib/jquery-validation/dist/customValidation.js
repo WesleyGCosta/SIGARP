@@ -11,7 +11,6 @@
     (function ($) {
         $.validator.addMethod('data-val-cnpj-validation',
             function (value, element) {
-                console.log(value)
                 return isCNPJValid(value);
             }, function (element) {
                 var msg = $(element).attr('data-val-cnpj-validation');
@@ -26,9 +25,12 @@
     (function ($) {
         $.validator.addMethod('data-val-more-than',
             function (value, element, params) {
-                var nameCompare = $(element).attr('data-val-more-than-field');
+                var nameCompare = $(element).attr('data-val-more-than-field');// PrecoMercado
                 if (nameCompare) {
                     var valueCompare = $("#" + nameCompare).val();
+                    console.log(nameCompare)
+                    console.log(valueCompare)
+
                     var precoMercado = parseFloat(valueCompare);
                     var precoRegistrado = parseFloat(value);
                     if (precoMercado && precoRegistrado && (precoMercado >= precoRegistrado)) {

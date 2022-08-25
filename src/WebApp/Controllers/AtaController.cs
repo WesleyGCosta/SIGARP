@@ -2,6 +2,7 @@
 using Domain.Notifications.Interface;
 using Historia.Atas;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
@@ -12,10 +13,12 @@ namespace WebApp.Controllers
     {
         private readonly CreateAta _createAta;
         private readonly SearchAta _searchAta;
+        private readonly DeleteAta _deleteAta;
         public AtaController(IAtaRepository ataRepository, INotifier notifier) : base(notifier)
         {
             _createAta = new CreateAta(ataRepository);
             _searchAta = new SearchAta(ataRepository);
+            _deleteAta = new DeleteAta(ataRepository);
         }
 
         public IActionResult Create()
@@ -50,7 +53,7 @@ namespace WebApp.Controllers
 
         public async Task<IActionResult> GetAta(int yearAta, int codeAta)
         {
-            var ata = await _searchAta.GetAtaByYearAndCode(yearAta, codeAta);
+            var ata = await _searchAta.GetAtaFullIncludeByYearAndCode(yearAta, codeAta);
             if (ata == null)
             {
                 TempData["Warning"] = "Ata não Encontrada";
@@ -66,6 +69,23 @@ namespace WebApp.Controllers
             var atas = await _searchAta.GetListAtaByYear(year);
             var listAtasViewModel = AtaFactory.ToListViewModel(atas);
             return PartialView("_ListAtas", listAtasViewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int yearAta, int codeAta)
+        {
+            var ata = await _searchAta.GetAtaByYearAndCode(yearAta, codeAta);
+
+            if(ata == null)
+            {
+                TempData["Warning"] = "Ata não encontrada";
+                return NotFound();
+            }
+
+            await _deleteAta.Run(ata);
+            TempData["Success"] = "Ata Excluído com Sucesso";
+
+            return RedirectToAction(nameof(ManagementAta));
         }
 
         [HttpGet]

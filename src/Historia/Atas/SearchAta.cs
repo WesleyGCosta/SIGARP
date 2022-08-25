@@ -22,14 +22,19 @@ namespace Historia.Atas
             return await _ataRepository.GetByYear(year);
         }
 
+        public async Task<Ata> GetAtaByYearAndCode(int year, int code)
+        {
+            return await _ataRepository.GetAtaByYearAndCode(year, code);
+        }
+
         public async Task<List<Ata>> GetListAtaByYear(int year)
         {
             return await _ataRepository.GetListAtaByYear(year);
         }
 
-        public async Task<Ata> GetAtaByYearAndCode(int year, int code)
+        public async Task<Ata> GetAtaFullIncludeByYearAndCode(int year, int code)
         {
-            return await _ataRepository.GetByYearAndCode(year, code);
+            return await _ataRepository.GetAtaFullIncludeByYearAndCode(year, code);
         }
         public async Task<List<int>> GetListCodeByYear(int year)
         {

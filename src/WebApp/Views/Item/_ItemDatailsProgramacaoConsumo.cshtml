@@ -1,0 +1,13 @@
+﻿@model WebApp.ViewModels.ItemViewModel
+
+<hr />
+<section>
+    <div class="text-center"><h5 class="font-weight-bold text-sapphire">Informação do Item @Model.CodigoItem</h5></div>
+    <div>
+        <span><strong>@Html.DisplayNameFor(model => model.QuantidadeDisponivel)</strong>: @Model.QuantidadeDisponivel</span>
+    </div>
+    <div>
+        <span><strong>@Html.DisplayNameFor(model => model.Descricao)</strong>: @Model.Descricao</span>
+    </div>
+</section>
+<hr />

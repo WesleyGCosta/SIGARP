@@ -20,6 +20,7 @@ namespace Infra.Contexto.Maps
             builder.Property(i => i.Marca).IsRequired().HasColumnType("Varchar(50)");
             builder.Property(i => i.UnidadeAquisicao).IsRequired().HasColumnType("Varchar(20)");
             builder.Property(i => i.Quantidade).IsRequired().HasColumnType("int");
+            builder.Property(i => i.QuantidadeDisponivel).IsRequired().HasColumnType("int");
             builder.Property(i => i.PrecoMercado).IsRequired().HasColumnType("decimal(15,2)");
             builder.Property(i => i.PrecoRegistrado).IsRequired().HasColumnType("decimal(15,2)");
             builder.Property(i => i.Ativo).IsRequired().HasColumnType("bit");

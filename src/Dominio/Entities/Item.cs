@@ -15,7 +15,8 @@ namespace Domain.Entities
             string descricao, 
             string marca, 
             string unidadeAquisicao, 
-            int quantidade, 
+            int quantidade,
+            int quantidadeDisponivel, 
             decimal precoMercado, 
             decimal precoRegistrado, 
             bool ativo)
@@ -29,6 +30,7 @@ namespace Domain.Entities
             Marca = marca;
             UnidadeAquisicao = unidadeAquisicao;
             Quantidade = quantidade;
+            QuantidadeDisponivel = quantidadeDisponivel;
             PrecoMercado = precoMercado;
             PrecoRegistrado = precoRegistrado;
             Ativo = ativo;
@@ -43,6 +45,7 @@ namespace Domain.Entities
         public string Marca { get; private set; }
         public string UnidadeAquisicao { get; private set; }
         public int Quantidade { get; private set; }
+        public int QuantidadeDisponivel { get; private set; }
         public decimal PrecoMercado { get; private set; }
         public decimal PrecoRegistrado { get; private set; }
         public bool Ativo { get; private set; }

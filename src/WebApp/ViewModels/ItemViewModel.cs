@@ -32,7 +32,6 @@ namespace WebApp.ViewModels
         [Required(ErrorMessage = "Campo Obrigatório!")]
         public Guid CodigoDetentora { get; set; }
 
-
         [Display(Name = "Tipo")]
         [Required(ErrorMessage = "Campo Obrigatório!")]
         public ETipo Tipo { get; set; }
@@ -54,6 +53,12 @@ namespace WebApp.ViewModels
         [Display(Name = "Quantidade")]
         [Required(ErrorMessage = "Campo Obrigatório!")]
         public int Quantidade { get; set; }
+
+        [Display(Name = "Quantidade Disponível")]
+        public int QuantidadeDisponivel
+        {
+            get => Quantidade;     
+        }
 
         [Display(Name = "Preço de Mercado")]
         [Required(ErrorMessage = "Campo Obrigatório!")]

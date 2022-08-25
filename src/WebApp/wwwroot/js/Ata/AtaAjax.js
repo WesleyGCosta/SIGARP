@@ -67,7 +67,7 @@ $(document).ready(function () {
         if (year != null) {
             $.ajax({
                 type: 'GET',
-                url: '/Ata/GetAtaByYear/',
+                url: '/Ata/GetListAtaByYear/',
                 data: { year },
                 success: function (response) {
                     $('#result').empty()

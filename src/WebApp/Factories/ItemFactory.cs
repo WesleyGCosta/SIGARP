@@ -19,6 +19,7 @@ namespace WebApp.Factories
                 itemViewModel.Marca,
                 itemViewModel.UnidadeAquisicao,
                 itemViewModel.Quantidade,
+                itemViewModel.QuantidadeDisponivel,
                 itemViewModel.PrecoMercado,
                 itemViewModel.PrecoRegistrado,
                 itemViewModel.Ativo

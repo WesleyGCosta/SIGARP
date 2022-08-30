@@ -67,6 +67,10 @@ namespace WebApp.Controllers
         public async Task<IActionResult> GetListAtaByYear(int yearAta)
         {
             var atas = await _searchAta.GetListAtaByYear(yearAta);
+
+            if (atas.Count.Equals(0))
+                TempData["Warning"] = "Nenhuma Ata Encontrada";
+
             var listAtasViewModel = AtaFactory.ToListViewModel(atas);
             return PartialView("_ListAtas", listAtasViewModel);
         }

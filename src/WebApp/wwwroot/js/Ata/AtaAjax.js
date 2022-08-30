@@ -62,7 +62,7 @@ $(document).ready(function () {
     })
 
 
-    $(".AnoAtaDetete").change(function () {
+    $(".AnoAtaDelete").change(function () {
         var yearAta = $(this).find("option:selected").val();
         if (yearAta != null) {
             $.ajax({
@@ -70,6 +70,7 @@ $(document).ready(function () {
                 url: '/Ata/GetListAtaByYear/',
                 data: { yearAta },
                 success: function (response) {
+                    GetMessageDomain()
                     $('#result').empty()
                     $('#result').append(response)
                 },

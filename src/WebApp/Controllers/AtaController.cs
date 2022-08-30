@@ -64,9 +64,9 @@ namespace WebApp.Controllers
             return PartialView("_GeneralDetails", ataViewModel);
         }
 
-        public async Task<IActionResult> GetListAtaByYear(int year)
+        public async Task<IActionResult> GetListAtaByYear(int yearAta)
         {
-            var atas = await _searchAta.GetListAtaByYear(year);
+            var atas = await _searchAta.GetListAtaByYear(yearAta);
             var listAtasViewModel = AtaFactory.ToListViewModel(atas);
             return PartialView("_ListAtas", listAtasViewModel);
         }
@@ -85,7 +85,7 @@ namespace WebApp.Controllers
             await _deleteAta.Run(ata);
             TempData["Success"] = "Ata Excluído com Sucesso";
 
-            return RedirectToAction(nameof(ManagementAta));
+            return RedirectToAction("GetListAtaByYear", new {yearAta});
         }
 
         [HttpGet]

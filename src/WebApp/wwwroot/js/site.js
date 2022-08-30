@@ -37,6 +37,10 @@
     });
 }(jQuery));
 
+$(document).ajaxStop(function () {
+    $('#myTable').DataTable();
+})
+
 $(document).ready(function () {
     //Mascaras
     $('#NumeroProcesso').mask("0000.00000-00-0000");

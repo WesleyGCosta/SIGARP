@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    
+
     var cardConsult = $('#card-consult');
 
     $('#btnInfo').click(function () {

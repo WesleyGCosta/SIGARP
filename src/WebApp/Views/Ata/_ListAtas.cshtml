@@ -1,58 +1,68 @@
 ﻿@model IEnumerable<WebApp.ViewModels.AtaViewModel>
 
-<div class="text-center mb-3 mt-3">
-    <h5 class="font-weight-bold text-sapphire">Atas do Ano de @Model.Select(a => a.AnoAta).Distinct().FirstOrDefault()</h5>
-</div>
-
-<table class="table table-borderless py-4">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CodigoAta)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AnoAta)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumeroProcesso)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoPregao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumeroPregao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AnoPregao)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodigoAta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnoAta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroProcesso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoPregao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroPregao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnoPregao)
-            </td>
-            <td>
-                @Html.ActionLink("Excluir", "Delete", new {  codeAta=item.CodigoAta, yearAta=item.AnoAta }, new { @class = " btn btn-danger "})
-            </td>
-        </tr>
+@if(Model.Any()){
+    <div class="text-center mb-3 mt-3">
+        <h5 class="font-weight-bold text-sapphire">Atas do Ano de @Model.Select(a => a.AnoAta).Distinct().FirstOrDefault()</h5>
+    </div>
+    <table id="myTable" class="table table-borderless py-4">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CodigoAta)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AnoAta)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumeroProcesso)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoPregao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumeroPregao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AnoPregao)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ata in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => ata.CodigoAta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => ata.AnoAta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => ata.NumeroProcesso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => ata.TipoPregao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => ata.NumeroPregao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => ata.AnoPregao)
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger deleteAta" data-codeAta="@ata.CodigoAta" data-anoAta="@ata.AnoAta">Excluir</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}else{
+    <div class="not-found">
+        <img src="/img/not-found.svg" />
+        <div>
+            <span>Sem Resultados</span>
+            <p>Nenhuma Ata Encontrada</p>
+        </div>
+    </div>
 }
-    </tbody>
-</table>

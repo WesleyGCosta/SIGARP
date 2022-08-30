@@ -63,12 +63,12 @@ $(document).ready(function () {
 
 
     $(".AnoAtaDetete").change(function () {
-        var year = $(this).find("option:selected").val();
-        if (year != null) {
+        var yearAta = $(this).find("option:selected").val();
+        if (yearAta != null) {
             $.ajax({
                 type: 'GET',
                 url: '/Ata/GetListAtaByYear/',
-                data: { year },
+                data: { yearAta },
                 success: function (response) {
                     $('#result').empty()
                     $('#result').append(response)
@@ -79,5 +79,27 @@ $(document).ready(function () {
                 }
             })
         }
+    })
+
+    /*exclusão de ata*/
+
+    $(document).on('click', '.deleteAta', function () {
+        const codeAta = $(this).attr('data-codeata');
+        const yearAta = $(this).attr('data-anoata');
+
+        $.ajax({
+            type: 'GET',
+            url: '/Ata/Delete/',
+            data: { yearAta, codeAta },
+            success: function (response) {
+                $('#result').empty()
+                $('#result').append(response)
+                GetMessageDomain()
+            },
+            error: function () {
+                $('#result').empty()
+                GetMessageDomain()
+            }
+        })
     })
 })

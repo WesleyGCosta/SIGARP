@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebApp.ViewModels.UnidadeAdministrativaViewModel>
 
 <table id="myTable" class="table">
-    <thead>
+    <thead class="text-sapphire">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.NomeUnidadeAdministrativa)
@@ -11,9 +11,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.OrgaoEx)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnidadeDaFederacao)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.EsferaAdministrativa)
@@ -33,9 +30,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.OrgaoEx)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UnidadeDaFederacao)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.EsferaAdministrativa)

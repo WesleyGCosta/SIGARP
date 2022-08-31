@@ -3,13 +3,10 @@
 @if (Model.Any())
 {
     <table id="myTable" class="table table-borderless py-4">
-        <thead class="text-sapphire">
+        <thead class="text-sapphire text-justify">
             <tr>
                 <th>
                     N° Item
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Tipo)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Descricao)
@@ -21,10 +18,7 @@
                     Un. Aquisição
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Quantidade)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PrecoMercado)
+                    Preço Mercado
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.PrecoRegistrado)
@@ -39,9 +33,6 @@
                         @Html.DisplayFor(modelItem => item.CodigoItem)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Tipo)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.Descricao)
                     </td>
                     <td>
@@ -51,13 +42,10 @@
                         @Html.DisplayFor(modelItem => item.UnidadeAquisicao)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Quantidade)
+                        R$ @Html.DisplayFor(modelItem => item.PrecoMercado)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.PrecoMercado)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PrecoRegistrado)
+                        R$ @Html.DisplayFor(modelItem => item.PrecoRegistrado)
                     </td>
                 </tr>
             }

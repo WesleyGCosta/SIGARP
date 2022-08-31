@@ -21,6 +21,7 @@ namespace WebApp.Controllers
             _deleteAta = new DeleteAta(ataRepository);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             ViewBag.ListYears = LoadDropYear();
@@ -45,13 +46,29 @@ namespace WebApp.Controllers
             return RedirectToAction("Create", "Item");
         }
 
+        [HttpGet]
         public IActionResult ManagementAta()
         {
             ViewBag.ListYears = LoadDropYear();
             return View();
         }
 
-        public async Task<IActionResult> GetAta(int yearAta, int codeAta)
+        [HttpGet]
+        public async Task<IActionResult> GetAtaByYearAndCodeEdit(int yearAta, int codeAta)
+        {
+            var ata = await _searchAta.GetAtaFullIncludeByYearAndCode(yearAta, codeAta);
+            if (ata == null)
+            {
+                TempData["Warning"] = "Ata não Encontrada";
+                return NotFound();
+            }
+
+            var ataViewModel = AtaFactory.ToViewModel(ata);
+            return PartialView("_GeneralEdit", ataViewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAtaByYearAndCode(int yearAta, int codeAta)
         {
             var ata = await _searchAta.GetAtaFullIncludeByYearAndCode(yearAta, codeAta);
             if (ata == null)
@@ -64,6 +81,7 @@ namespace WebApp.Controllers
             return PartialView("_GeneralDetails", ataViewModel);
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetListAtaByYear(int yearAta)
         {
             var atas = await _searchAta.GetListAtaByYear(yearAta);

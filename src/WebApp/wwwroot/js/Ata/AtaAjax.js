@@ -37,8 +37,7 @@ $(document).ready(function () {
                 }
             })
         } else {
-            $('.CodigoAtaSelect').find('option').remove();
-            $('<option>').val("").text("...").appendTo($('.CodigoAtaSelect'))
+            cleanSelects();
         }
     })
 
@@ -47,11 +46,28 @@ $(document).ready(function () {
         if (year != "") {
             $.ajax({
                 type: 'GET',
-                url: '/Ata/GetAta/',
+                url: '/Ata/GetAtaByYearAndCode/',
                 data: { yearAta: $('#AnoAtaInfo').val(), codeAta: $('#CodigoAtaInfo').val() },
                 success: function (response) {
+                    fillDivResult(response)
+                },
+                error: function () {
                     $('#result').empty()
-                    $('#result').append(response)
+                    GetMessageDomain()
+                }
+            })
+        }
+    })
+
+    $('#CodigoAtaEdit').change(function () {
+        var yearAta = $(this).find("option:selected").val();
+        if (yearAta != "") {
+            $.ajax({
+                type: 'GET',
+                url: '/Ata/GetAtaByYearAndCodeEdit/',
+                data: { yearAta: $('#AnoAtaEdit').val(), codeAta: $('#CodigoAtaEdit').val() },
+                success: function (response) {
+                    fillDivResult(response)
                 },
                 error: function () {
                     $('#result').empty()
@@ -62,7 +78,7 @@ $(document).ready(function () {
     })
 
 
-    $(".AnoAtaDelete").change(function () {
+    $("#AnoAtaDelete").change(function () {
         var yearAta = $(this).find("option:selected").val();
         if (yearAta != null) {
             $.ajax({
@@ -70,9 +86,8 @@ $(document).ready(function () {
                 url: '/Ata/GetListAtaByYear/',
                 data: { yearAta },
                 success: function (response) {
-                    GetMessageDomain()
-                    $('#result').empty()
-                    $('#result').append(response)
+                    fillDivResult(response);
+                    GetMessageDomain()  
                 },
                 error: function () {
                     $('#result').empty()
@@ -93,8 +108,7 @@ $(document).ready(function () {
             url: '/Ata/Delete/',
             data: { yearAta, codeAta },
             success: function (response) {
-                $('#result').empty()
-                $('#result').append(response)
+                fillDivResult(response)
                 GetMessageDomain()
             },
             error: function () {
@@ -103,4 +117,14 @@ $(document).ready(function () {
             }
         })
     })
+
+    function fillDivResult(response) {
+        $('#result').empty();
+        $('#result').append(response);
+    }
+
+    function cleanSelects() {
+        $('.CodigoAtaSelect').find('option').remove();
+        $('<option>').val("").text("...").appendTo($('.CodigoAtaSelect'));
+    }
 })

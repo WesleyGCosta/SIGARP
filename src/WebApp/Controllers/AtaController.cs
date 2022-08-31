@@ -63,6 +63,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
+            ViewBag.ListYears = LoadDropYear();
             var ataViewModel = AtaFactory.ToViewModel(ata);
             return PartialView("_GeneralEdit", ataViewModel);
         }

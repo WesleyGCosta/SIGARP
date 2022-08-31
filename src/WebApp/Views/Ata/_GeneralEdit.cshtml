@@ -17,16 +17,16 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade show active" id="ata" role="tabpanel" aria-labelledby="ata-tab">
-            <partial name="_AtaDetails" model="@Model" />
+            <partial name="_AtaEdit" model="@Model" />
         </div>
         <div class="tab-pane fade" id="item" role="tabpanel" aria-labelledby="item-tab">
-            <partial name="_ItensDetails" model="@Model.ItensViewModel" />
+            <partial name="_ItensEdit" model="@Model.ItensViewModel" />
         </div>
         <div class="tab-pane fade" id="orgao" role="tabpanel" aria-labelledby="orgao-tab">
-            <partial name="_UnidadeAdministraticaDetails" model="@Model.ItensViewModel.SelectMany(i => i.UnidadeAdministrativa)" />
+            <partial name="_UnidadesAdministrativaEdit" model="@Model.ItensViewModel.SelectMany(i => i.UnidadeAdministrativa)" />
         </div>
         <div class="tab-pane fade" id="detentora" role="tabpanel" aria-labelledby="detentora-tab">
-            <partial name="_DetentoraDetails" model="@Model.ItensViewModel.Select(i => i.Detentora)" />
+            <partial name="_DetentorasEdit" model="@Model.ItensViewModel.Select(i => i.Detentora)" />
         </div>
     </div>
 </div>

@@ -1,5 +1,4 @@
-﻿using Domain.Notifications;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Domain.Notifications.Interface
 {

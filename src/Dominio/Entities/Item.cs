@@ -1,24 +1,23 @@
 ﻿using Domain.Enums;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
 {
     public class Item
     {
-        public Item(Guid id, 
-            int numeroItem, 
-            int codigoAta, 
-            int anoAta, 
-            ETipo tipo, 
-            string descricao, 
-            string marca, 
-            string unidadeAquisicao, 
+        public Item(Guid id,
+            int numeroItem,
+            int codigoAta,
+            int anoAta,
+            ETipo tipo,
+            string descricao,
+            string marca,
+            string unidadeAquisicao,
             int quantidade,
-            int quantidadeDisponivel, 
-            decimal precoMercado, 
-            decimal precoRegistrado, 
+            int quantidadeDisponivel,
+            decimal precoMercado,
+            decimal precoRegistrado,
             bool ativo)
         {
             Id = id;
@@ -53,6 +52,6 @@ namespace Domain.Entities
         public Ata Ata { get; private set; }
         public DetentoraItem DetentoraItem { get; private set; }
         public IEnumerable<ParticipanteItem> ParticipantesItens { get; private set; }
-       
+
     }
 }

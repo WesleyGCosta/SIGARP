@@ -43,7 +43,7 @@ namespace WebApp.ViewModels
         [Display(Name = "Pessoa")]
         [Required(ErrorMessage = "Campo Obrigatório")]
         public EPessoa Pessoa { get; set; }
-       
+
         public EnderecoViewModel Endereco { get; set; }
     }
 }

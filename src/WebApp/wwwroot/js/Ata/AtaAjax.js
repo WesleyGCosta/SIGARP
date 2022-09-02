@@ -1,6 +1,20 @@
 ﻿import { GetMessageDomain } from '../site.js';
 
 $(document).ready(function () {
+    $(document).ajaxStop(function () {
+        jQuery.fn.extend({
+            trackChanges: function () {
+                $(":input", this).change(function () {
+                    $(this.form).data("changed", true);
+                });
+            },
+            isChanged: function () {
+                return this.data("changed");
+            }
+        });
+    })
+
+
     $("#AnoAta").change(function () {
         var year = $(this).find("option:selected").val();
         if (year != "") {
@@ -121,14 +135,27 @@ $(document).ready(function () {
     //Edição de ata
     $(document).on('submit', '#formAtaEdit', function (event) {
         event.preventDefault();
-        if ($('#formAtaEdit').valid()) {
-            console.log("chama")
+
+        if ($(this).valid()) {
+            $.ajax({
+                type: 'POST',
+                url: '/Ata/Edit/',
+                data: $(this).serialize(),
+                success: function () {
+                    GetMessageDomain()
+                },
+                error: function () {
+                    GetMessageDomain()
+                }
+            })
         }
+
     })
 
     function fillDivResult(response) {
         var $container = $("#result");
         $container.html(response)
+
         $container.unbind()
         $container.data("validator", null)
         $.validator.unobtrusive.parse($container);

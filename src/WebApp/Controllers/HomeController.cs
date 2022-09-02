@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using WebApp.Extensions;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers

@@ -14,10 +14,12 @@ namespace WebApp.Controllers
         private readonly CreateAta _createAta;
         private readonly SearchAta _searchAta;
         private readonly DeleteAta _deleteAta;
+        private readonly UpdateAta _updateAta;
         public AtaController(IAtaRepository ataRepository, INotifier notifier) : base(notifier)
         {
             _createAta = new CreateAta(ataRepository);
             _searchAta = new SearchAta(ataRepository);
+            _updateAta = new UpdateAta(ataRepository);
             _deleteAta = new DeleteAta(ataRepository);
         }
 
@@ -53,6 +55,48 @@ namespace WebApp.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(AtaViewModel ataViewModel)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    TempData["Warining"] = "Erro na alteração da Ata";
+                    return NotFound();
+                }
+
+                var item = AtaFactory.ToEntityAta(ataViewModel);
+                await _updateAta.Edit(item);
+
+                TempData["Success"] = "Item Alterado com Sucesso";
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                TempData["Warining"] = $"Erro na alteração da Ata, imformaçõa do problema{ex.Message}";
+                return Ok();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int yearAta, int codeAta)
+        {
+            var ata = await _searchAta.GetAtaByYearAndCode(yearAta, codeAta);
+
+            if (ata == null)
+            {
+                TempData["Warning"] = "Ata não encontrada";
+                return NotFound();
+            }
+
+            await _deleteAta.Run(ata);
+            TempData["Success"] = "Ata Excluído com Sucesso";
+
+            return RedirectToAction("GetListAtaByYear", new { yearAta });
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAtaByYearAndCodeEdit(int yearAta, int codeAta)
         {
@@ -77,7 +121,7 @@ namespace WebApp.Controllers
                 TempData["Warning"] = "Ata não Encontrada";
                 return NotFound();
             }
-                
+
             var ataViewModel = AtaFactory.ToViewModel(ata);
             return PartialView("_GeneralDetails", ataViewModel);
         }
@@ -94,22 +138,7 @@ namespace WebApp.Controllers
             return PartialView("_ListAtas", listAtasViewModel);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Delete(int yearAta, int codeAta)
-        {
-            var ata = await _searchAta.GetAtaByYearAndCode(yearAta, codeAta);
 
-            if(ata == null)
-            {
-                TempData["Warning"] = "Ata não encontrada";
-                return NotFound();
-            }
-
-            await _deleteAta.Run(ata);
-            TempData["Success"] = "Ata Excluído com Sucesso";
-
-            return RedirectToAction("GetListAtaByYear", new {yearAta});
-        }
 
         [HttpGet]
         public async Task<JsonResult> AutoCompleteNumberAta(int yearAta)

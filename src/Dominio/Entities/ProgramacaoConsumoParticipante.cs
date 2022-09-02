@@ -5,11 +5,11 @@ namespace Domain.Entities
     public class ProgramacaoConsumoParticipante
     {
         public ProgramacaoConsumoParticipante(
-            Guid id, 
-            Guid participanteId, 
-            int consumoEstimado, 
-            int saldo, 
-            int transferido, 
+            Guid id,
+            Guid participanteId,
+            int consumoEstimado,
+            int saldo,
+            int transferido,
             int saldoAnterior)
         {
             Id = id;

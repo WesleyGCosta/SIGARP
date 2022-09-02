@@ -57,7 +57,7 @@ namespace WebApp.ViewModels
         [Display(Name = "Quantidade Disponível")]
         public int QuantidadeDisponivel
         {
-            get => Quantidade;     
+            get => Quantidade;
         }
 
         [Display(Name = "Preço de Mercado")]

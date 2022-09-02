@@ -34,13 +34,13 @@ namespace WebApp.Factories
                 Ativo = unidadeAdministrativa.Ativo
             };
 
-             return unidadeAdministrativaViewModel;
+            return unidadeAdministrativaViewModel;
         }
 
         public static List<UnidadeAdministrativaViewModel> ToListViewMode(IEnumerable<UnidadeAdministrativa> unidadeAdministrativas)
         {
             var list = new List<UnidadeAdministrativaViewModel>();
-            foreach(var unidadeAdministrativa in unidadeAdministrativas)
+            foreach (var unidadeAdministrativa in unidadeAdministrativas)
             {
                 list.Add(ToViewModel(unidadeAdministrativa));
             }

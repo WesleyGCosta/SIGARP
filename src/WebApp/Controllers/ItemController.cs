@@ -4,7 +4,6 @@ using Historia.Atas;
 using Historia.Detentoras;
 using Historia.DetentorasItem;
 using Historia.Itens;
-using Historia.UnidadesAdministrativas;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
@@ -34,7 +33,7 @@ namespace WebApp.Controllers
             _searchDetentora = new SearchDetentora(detentoraRepository);
             _createItem = new CreateItem(itemRepository);
             _createDetentoraItem = new CreateDetentoraItem(detentoraItemRepository);
-           
+
         }
 
         public async Task<IActionResult> Create()
@@ -55,7 +54,7 @@ namespace WebApp.Controllers
             }
 
             var existe = await _searchItem.GetItemByCodeAtaAndYearAta(itemViewModel.AnoAta, itemViewModel.CodigoAta, itemViewModel.CodigoItem);
-            if(existe != null)
+            if (existe != null)
             {
                 await FillViewBags(itemViewModel.AnoAta);
                 TempData["Warning"] = $"Item {itemViewModel.CodigoItem} já existe na Ata {itemViewModel.CodigoAta}/{itemViewModel.AnoAta}";

@@ -8,12 +8,12 @@ namespace Domain.Entities
     public class UnidadeAdministrativa
     {
         public UnidadeAdministrativa(
-            Guid id, 
-            string nomeUnidadeAdministrativa, 
-            string sigla, 
-            bool orgaoEx, 
-            string unidadeDaFederacao, 
-            EhEsferaAdministrativa esferaAdministrativa, 
+            Guid id,
+            string nomeUnidadeAdministrativa,
+            string sigla,
+            bool orgaoEx,
+            string unidadeDaFederacao,
+            EhEsferaAdministrativa esferaAdministrativa,
             bool ativo)
         {
             Id = id;

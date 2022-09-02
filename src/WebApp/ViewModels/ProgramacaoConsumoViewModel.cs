@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using WebApp.ViewModels.CustomValidation;
 
 namespace WebApp.ViewModels
 {
@@ -28,7 +27,8 @@ namespace WebApp.ViewModels
         [Display(Name = "Consumo Estimado")]
         [Required(ErrorMessage = "Campo Obrigatório")]
         public int ConsumoEstimado { get; set; }
-        public int Saldo { 
+        public int Saldo
+        {
             get => ConsumoEstimado;
         }
         public int Transferido { get; set; }

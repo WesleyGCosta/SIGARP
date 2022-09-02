@@ -28,7 +28,7 @@ namespace WebApp.Factories
 
         public static ItemViewModel ToItemViewModel(Item item)
         {
-            var itemViewModel = new ItemViewModel 
+            var itemViewModel = new ItemViewModel
             {
                 Id = item.Id,
                 CodigoItem = item.NumeroItem,
@@ -54,7 +54,7 @@ namespace WebApp.Factories
         public static List<ItemViewModel> ToListItemViewModel(IEnumerable<Item> itens)
         {
             var list = new List<ItemViewModel>();
-            foreach(var item in itens)
+            foreach (var item in itens)
                 list.Add(ToItemViewModel(item));
 
             return list;

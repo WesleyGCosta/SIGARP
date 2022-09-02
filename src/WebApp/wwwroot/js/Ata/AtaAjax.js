@@ -87,7 +87,7 @@ $(document).ready(function () {
                 data: { yearAta },
                 success: function (response) {
                     fillDivResult(response);
-                    GetMessageDomain()  
+                    GetMessageDomain()
                 },
                 error: function () {
                     $('#result').empty()
@@ -118,9 +118,20 @@ $(document).ready(function () {
         })
     })
 
+    //Edição de ata
+    $(document).on('submit', '#formAtaEdit', function (event) {
+        event.preventDefault();
+        if ($('#formAtaEdit').valid()) {
+            console.log("chama")
+        }
+    })
+
     function fillDivResult(response) {
-        $('#result').empty();
-        $('#result').append(response);
+        var $container = $("#result");
+        $container.html(response)
+        $container.unbind()
+        $container.data("validator", null)
+        $.validator.unobtrusive.parse($container);
     }
 
     function cleanSelects() {

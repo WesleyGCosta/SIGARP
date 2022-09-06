@@ -92,9 +92,19 @@ $(document).ready(function () {
         }
     }
 
-    $(document).on('click', 'button[data-toggle="ajax-modal-infoItem"]',   function () {
-        alert($(this).data('itemid'))
-        console.log("teste")
+    $(document).on('click', 'button[data-toggle="ajax-modal-infoItem"]', function () {
+        var placeHolderHere = $('#PlaceHolderHere')
+
+        $.ajax({
+            type: 'GET',
+            url: '/Item/Details/',
+            data: { itemId: $(this).data('itemid') },
+            success: function (response) {
+                placeHolderHere.empty()
+                placeHolderHere.html(response)
+                placeHolderHere.find('.modal').modal('show');
+            }
+        })
     })
 
     function GetListDetentoraRegistered(yearAta, codeAta) {

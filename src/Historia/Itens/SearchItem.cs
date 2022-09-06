@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.IRepositories;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,6 +13,10 @@ namespace Historia.Itens
         public SearchItem(IItemRepository itemRepository)
         {
             _itemRepository = itemRepository;
+        }
+        public async Task<Item> GetById(Guid itemId)
+        {
+            return await _itemRepository.GetByPrimaryKey(itemId);
         }
 
         public async Task<Item> GetItemByCodeAtaAndYearAta(int yearAta, int codeAta, int codeItem)

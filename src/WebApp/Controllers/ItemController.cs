@@ -6,6 +6,7 @@ using Historia.DetentorasItem;
 using Historia.Itens;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Factories;
@@ -60,7 +61,7 @@ namespace WebApp.Controllers
                 TempData["Warning"] = $"Item {itemViewModel.CodigoItem} já existe na Ata {itemViewModel.CodigoAta}/{itemViewModel.AnoAta}";
                 return View(itemViewModel);
             }
-
+            itemViewModel.SetQuantidadeAvailable();
             var item = ItemFactory.ToEntityItem(itemViewModel);
             var itemDetentora = ItemDetentoraFactory.ToEntityDetentoraItem(itemViewModel.CodigoDetentora, itemViewModel.Id);
 
@@ -70,6 +71,21 @@ namespace WebApp.Controllers
             TempData["Success"] = "Item Cadastrado com Sucesso";
 
             return RedirectToAction(nameof(Create));
+        }
+
+        public async Task<IActionResult> Details(Guid itemId)
+        {
+            var item = await _searchItem.GetById(itemId);
+
+            if (item.Equals(null))
+            {
+                TempData["Warning"] = "Erro, Item não encontrado";
+                return NotFound();
+            }
+
+            var itemViewModel = ItemFactory.ToItemViewModel(item);
+
+            return PartialView("_DetailsItemModal", itemViewModel);
         }
 
         //Consultas dinâmica

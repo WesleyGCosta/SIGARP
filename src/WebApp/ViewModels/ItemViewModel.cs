@@ -55,10 +55,7 @@ namespace WebApp.ViewModels
         public int Quantidade { get; set; }
 
         [Display(Name = "Quantidade Disponível")]
-        public int QuantidadeDisponivel
-        {
-            get => Quantidade;
-        }
+        public int QuantidadeDisponivel { get; set; }
 
         [Display(Name = "Preço de Mercado")]
         [Required(ErrorMessage = "Campo Obrigatório!")]
@@ -73,5 +70,10 @@ namespace WebApp.ViewModels
 
         public DetentoraViewModel Detentora { get; set; }
         public ICollection<UnidadeAdministrativaViewModel> UnidadeAdministrativa { get; set; }
+
+        public void SetQuantidadeAvailable()
+        {
+            QuantidadeDisponivel = Quantidade;
+        }
     }
 }

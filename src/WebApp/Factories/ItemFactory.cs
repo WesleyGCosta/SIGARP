@@ -39,6 +39,7 @@ namespace WebApp.Factories
                 Marca = item.Marca,
                 UnidadeAquisicao = item.UnidadeAquisicao,
                 Quantidade = item.Quantidade,
+                QuantidadeDisponivel = item.QuantidadeDisponivel,
                 PrecoMercado = item.PrecoMercado,
                 PrecoRegistrado = item.PrecoRegistrado,
                 Ativo = item.Ativo

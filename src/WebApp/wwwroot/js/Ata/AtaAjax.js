@@ -116,13 +116,12 @@ $(document).ready(function () {
     $(document).on('click', '.deleteAta', function () {
         const codeAta = $(this).attr('data-codeata');
         const yearAta = $(this).attr('data-anoata');
-
         $.ajax({
             type: 'GET',
             url: '/Ata/Delete/',
             data: { yearAta, codeAta },
             success: function (response) {
-                fillDivResult(response)
+                fillDivResult(response)   
                 GetMessageDomain()
             },
             error: function () {
@@ -130,6 +129,8 @@ $(document).ready(function () {
                 GetMessageDomain()
             }
         })
+
+        $('#ConfirmDeleteModal-' + codeAta).modal('hide')
     })
 
     //Edição de ata

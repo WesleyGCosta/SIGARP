@@ -52,6 +52,7 @@ namespace WebApp.ViewModels
 
         [Display(Name = "Quantidade")]
         [Required(ErrorMessage = "Campo Obrigatório!")]
+        [Range(1, Double.PositiveInfinity, ErrorMessage = "O {0} tem que ser maior que 0")]
         public int Quantidade { get; set; }
 
         [Display(Name = "Quantidade Disponível")]
@@ -70,10 +71,5 @@ namespace WebApp.ViewModels
 
         public DetentoraViewModel Detentora { get; set; }
         public ICollection<UnidadeAdministrativaViewModel> UnidadeAdministrativa { get; set; }
-
-        public void SetQuantidadeAvailable()
-        {
-            QuantidadeDisponivel = Quantidade;
-        }
     }
 }

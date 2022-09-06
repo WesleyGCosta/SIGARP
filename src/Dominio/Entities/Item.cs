@@ -53,5 +53,10 @@ namespace Domain.Entities
         public DetentoraItem DetentoraItem { get; private set; }
         public IEnumerable<ParticipanteItem> ParticipantesItens { get; private set; }
 
+        public void SetQuantidadeAvailable()
+        {
+            QuantidadeDisponivel = Quantidade;
+        }
+
     }
 }

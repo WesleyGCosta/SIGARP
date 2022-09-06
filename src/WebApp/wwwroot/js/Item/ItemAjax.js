@@ -92,6 +92,11 @@ $(document).ready(function () {
         }
     }
 
+    $(document).on('click', 'button[data-toggle="ajax-modal-infoItem"]',   function () {
+        alert($(this).data('itemid'))
+        console.log("teste")
+    })
+
     function GetListDetentoraRegistered(yearAta, codeAta) {
         $.ajax({
             type: 'GET',

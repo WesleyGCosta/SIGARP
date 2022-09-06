@@ -32,7 +32,7 @@ namespace WebApp.ViewModels
 
         [Required(ErrorMessage = "Campo Obrigatório!")]
         [Display(Name = "Número do Pregão")]
-        [Range(1, Double.PositiveInfinity)]
+        [Range(1, Double.PositiveInfinity, ErrorMessage = "O {0} tem que ser maior que 0")]
         public string NumeroPregao { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório!")]

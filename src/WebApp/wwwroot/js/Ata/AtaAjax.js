@@ -123,14 +123,13 @@ $(document).ready(function () {
             success: function (response) {
                 fillDivResult(response)   
                 GetMessageDomain()
+                $('.modal-backdrop').remove()
             },
             error: function () {
                 $('#result').empty()
                 GetMessageDomain()
             }
-        })
-
-        $('#ConfirmDeleteModal-' + codeAta).modal('hide')
+        })    
     })
 
     //Edição de ata

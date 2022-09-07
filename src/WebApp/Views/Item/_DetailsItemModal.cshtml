@@ -1,0 +1,62 @@
+﻿@model WebApp.ViewModels.ItemViewModel
+
+@{
+    var quantidadeUso= Model.Quantidade - Model.QuantidadeDisponivel;
+}
+
+<div class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content ">
+            <div class="modal-header text-center">
+                <h5 class="modal-title text-sapphire"><strong>Detalhes Geral do Item @Model.CodigoItem da Ata @Model.CodigoAta/@Model.AnoAta</strong></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center flex-lg-wrap">
+                    <div class="mt-4 col-md-3">
+                        <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.PrecoMercado)</span>
+                        <div class="mt-2 text-muted">R$ @Html.DisplayFor(model => model.PrecoMercado)</div>
+                    </div>
+                    <div class="mt-4 col-md-3">
+                        <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.PrecoRegistrado)</span>
+                        <div class="mt-2 text-muted">R$ @Html.DisplayFor(model => model.PrecoRegistrado)</div>
+                    </div>
+                    <div class="mt-4 col-md-3">
+                        <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.Tipo)</span>
+                        <div class="mt-2 text-muted">@Html.DisplayFor(model => model.Tipo)</div>
+                    </div>
+
+                    <div class="mt-4 col-md-3">
+                        <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.Marca)</span>
+                        <div class="mt-2 text-muted">@Html.DisplayFor(model => model.Marca)</div>
+                    </div>
+                    <div class="mt-4 col-md-3">
+                        <span class="font-weight-bold text-sapphire"> @Html.DisplayNameFor(model => model.UnidadeAquisicao)</span>
+                        <div class="mt-2 text-muted">@Html.DisplayFor(model => model.UnidadeAquisicao)</div>
+                    </div>
+                    <div class="mt-4 col-md-3">
+                        <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.Quantidade)</span>
+                        <div class="mt-2 text-muted"> @Html.DisplayFor(model => model.Quantidade)</div>
+                    </div>
+                    <div class="mt-4 col-md-3">
+                        <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.QuantidadeDisponivel)</span>
+                        <div class="mt-2 text-muted">@Html.DisplayFor(model => model.QuantidadeDisponivel)</div>
+                    </div>
+                    <div class="mt-4 col-md-3">
+                        <span class="font-weight-bold text-sapphire">Quantidade Uso</span>
+                        <div class="mt-2 text-muted"> @quantidadeUso</div>
+                    </div>
+                    <div class="mt-4 col-md-12">
+                        <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.Descricao)</span>
+                        <div class="mt-2 text-muted">@Html.DisplayFor(model => model.Descricao)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

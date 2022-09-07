@@ -28,11 +28,9 @@
                 var nameCompare = $(element).attr('data-val-more-than-field');// PrecoMercado
                 if (nameCompare) {
                     var valueCompare = $("#" + nameCompare).val();
-                    console.log(nameCompare)
-                    console.log(valueCompare)
+                    var precoMercado = parseInt(valueCompare.replace(/[^\d]+/g, ''));
+                    var precoRegistrado = parseInt(value.replace(/[^\d]+/g, ''));
 
-                    var precoMercado = parseFloat(valueCompare);
-                    var precoRegistrado = parseFloat(value);
                     if (precoMercado && precoRegistrado && (precoMercado >= precoRegistrado)) {
                         return true;
                     }
@@ -41,7 +39,7 @@
             }, function (params, element) {
                 var msgCompare = $(element).attr('data-val-more-than');
                 if (!msgCompare) {
-                    msgCompare = 'ValueEnds less than ValueInitials';
+                    msgCompare = 'O Preço Registrado não pode ser maior que Preço de Mercado';
                 }
                 return msgCompare;
             });

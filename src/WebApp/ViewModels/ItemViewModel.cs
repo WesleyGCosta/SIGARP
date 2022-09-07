@@ -52,13 +52,11 @@ namespace WebApp.ViewModels
 
         [Display(Name = "Quantidade")]
         [Required(ErrorMessage = "Campo Obrigatório!")]
+        [Range(1, Double.PositiveInfinity, ErrorMessage = "O {0} tem que ser maior que 0")]
         public int Quantidade { get; set; }
 
         [Display(Name = "Quantidade Disponível")]
-        public int QuantidadeDisponivel
-        {
-            get => Quantidade;     
-        }
+        public int QuantidadeDisponivel { get; set; }
 
         [Display(Name = "Preço de Mercado")]
         [Required(ErrorMessage = "Campo Obrigatório!")]

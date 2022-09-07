@@ -32,6 +32,7 @@ namespace WebApp.ViewModels
 
         [Required(ErrorMessage = "Campo Obrigatório!")]
         [Display(Name = "Número do Pregão")]
+        [Range(1, Double.PositiveInfinity, ErrorMessage = "O {0} tem que ser maior que 0")]
         public string NumeroPregao { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório!")]
@@ -52,9 +53,9 @@ namespace WebApp.ViewModels
 
 
         [Display(Name = "Data de Vencimento da Ata")]
-        public DateTime DataVencimentoAta 
-        { 
-            get => DataPublicacaoDOE.AddYears(1); 
+        public DateTime DataVencimentoAta
+        {
+            get => DataPublicacaoDOE.AddYears(1);
         }
 
         [Display(Name = "Objeto Resumido")]

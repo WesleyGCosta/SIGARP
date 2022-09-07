@@ -15,6 +15,7 @@ namespace Historia.Itens
 
         public async Task Run(Item item)
         {
+            item.SetQuantidadeAvailable();
             await _itemRepository.Create(item);
         }
     }

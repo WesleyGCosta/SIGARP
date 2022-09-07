@@ -1,6 +1,20 @@
 ﻿import { GetMessageDomain } from '../site.js';
 
 $(document).ready(function () {
+    $(document).ajaxStop(function () {
+        jQuery.fn.extend({
+            trackChanges: function () {
+                $(":input", this).change(function () {
+                    $(this.form).data("changed", true);
+                });
+            },
+            isChanged: function () {
+                return this.data("changed");
+            }
+        });
+    })
+
+
     $("#AnoAta").change(function () {
         var year = $(this).find("option:selected").val();
         if (year != "") {
@@ -37,8 +51,7 @@ $(document).ready(function () {
                 }
             })
         } else {
-            $('.CodigoAtaSelect').find('option').remove();
-            $('<option>').val("").text("...").appendTo($('.CodigoAtaSelect'))
+            cleanSelects();
         }
     })
 
@@ -47,11 +60,28 @@ $(document).ready(function () {
         if (year != "") {
             $.ajax({
                 type: 'GET',
-                url: '/Ata/GetAta/',
+                url: '/Ata/GetAtaByYearAndCode/',
                 data: { yearAta: $('#AnoAtaInfo').val(), codeAta: $('#CodigoAtaInfo').val() },
                 success: function (response) {
+                    fillDivResult(response)
+                },
+                error: function () {
                     $('#result').empty()
-                    $('#result').append(response)
+                    GetMessageDomain()
+                }
+            })
+        }
+    })
+
+    $('#CodigoAtaEdit').change(function () {
+        var yearAta = $(this).find("option:selected").val();
+        if (yearAta != "") {
+            $.ajax({
+                type: 'GET',
+                url: '/Ata/GetAtaByYearAndCodeEdit/',
+                data: { yearAta: $('#AnoAtaEdit').val(), codeAta: $('#CodigoAtaEdit').val() },
+                success: function (response) {
+                    fillDivResult(response)
                 },
                 error: function () {
                     $('#result').empty()
@@ -62,7 +92,7 @@ $(document).ready(function () {
     })
 
 
-    $(".AnoAtaDelete").change(function () {
+    $("#AnoAtaDelete").change(function () {
         var yearAta = $(this).find("option:selected").val();
         if (yearAta != null) {
             $.ajax({
@@ -70,9 +100,8 @@ $(document).ready(function () {
                 url: '/Ata/GetListAtaByYear/',
                 data: { yearAta },
                 success: function (response) {
+                    fillDivResult(response);
                     GetMessageDomain()
-                    $('#result').empty()
-                    $('#result').append(response)
                 },
                 error: function () {
                     $('#result').empty()
@@ -87,20 +116,53 @@ $(document).ready(function () {
     $(document).on('click', '.deleteAta', function () {
         const codeAta = $(this).attr('data-codeata');
         const yearAta = $(this).attr('data-anoata');
-
         $.ajax({
             type: 'GET',
             url: '/Ata/Delete/',
             data: { yearAta, codeAta },
             success: function (response) {
-                $('#result').empty()
-                $('#result').append(response)
+                fillDivResult(response)   
                 GetMessageDomain()
+                $('.modal-backdrop').remove()
             },
             error: function () {
                 $('#result').empty()
                 GetMessageDomain()
             }
-        })
+        })    
     })
+
+    //Edição de ata
+    $(document).on('submit', '#formAtaEdit', function (event) {
+        event.preventDefault();
+
+        if ($(this).valid()) {
+            $.ajax({
+                type: 'POST',
+                url: '/Ata/Edit/',
+                data: $(this).serialize(),
+                success: function () {
+                    GetMessageDomain()
+                },
+                error: function () {
+                    GetMessageDomain()
+                }
+            })
+        }
+
+    })
+
+    function fillDivResult(response) {
+        var $container = $("#result");
+        $container.html(response)
+
+        $container.unbind()
+        $container.data("validator", null)
+        $.validator.unobtrusive.parse($container);
+    }
+
+    function cleanSelects() {
+        $('.CodigoAtaSelect').find('option').remove();
+        $('<option>').val("").text("...").appendTo($('.CodigoAtaSelect'));
+    }
 })

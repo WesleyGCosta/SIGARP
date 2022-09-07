@@ -55,7 +55,7 @@ namespace WebApp.Controllers
             return View("Registro", model);
         }
 
-        [HttpGet]  
+        [HttpGet]
         public IActionResult Login()
         {
             return View();

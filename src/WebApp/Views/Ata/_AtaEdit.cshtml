@@ -1,0 +1,69 @@
+﻿@using Domain.Enums
+@model WebApp.ViewModels.AtaViewModel
+
+<form class="border-bottom border-right border-left" id="formAtaEdit">
+    <div>
+        <div class="card-body row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-3">
+                <label asp-for="AnoAta" class="control-label"></label>
+                <input asp-for="AnoAta" class="form-control" readonly  />
+                <span asp-validation-for="AnoAta" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="CodigoAta" class="control-label"></label>
+                <input asp-for="CodigoAta" class="form-control"readonly />
+                <span asp-validation-for="CodigoAta" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="AnoPregao" class="control-label"></label>
+                <select asp-for="AnoPregao" class="custom-select" asp-items="new SelectList(ViewBag.ListYears)">
+                    <option value="">Selecione um Ano</option>
+                </select>
+                <span asp-validation-for="AnoPregao" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="NumeroProcesso" class="control-label"></label>
+                <input asp-for="NumeroProcesso" class="form-control" placeholder="Ex. 0000.00000-00-0000" />
+                <span asp-validation-for="NumeroProcesso" class="text-danger"></span>
+            </div>
+            <div class="col-3 mt-3">
+                <label asp-for="TipoPregao" class="control-label"></label>
+                <select asp-for="TipoPregao" asp-items="@Html.GetEnumSelectList<EPregao>()" class="custom-select">
+                    <option value="">Selecione um Tipo</option>
+                </select>
+                <span asp-validation-for="TipoPregao" class="text-danger"></span>
+            </div>
+            <div class="col-3 mt-3">
+                <label asp-for="NumeroPregao" class="control-label"></label>
+                <input asp-for="NumeroPregao" class="form-control" type="number" placeholder="Ex. 0000" />
+                <span asp-validation-for="NumeroPregao" class="text-danger"></span>
+            </div>
+            <div class="col-3 mt-3">
+                <label asp-for="DataHomologacao" class="control-label"></label>
+                <input asp-for="DataHomologacao" class="form-control" type="date" />
+                <span asp-validation-for="DataHomologacao" class="text-danger"></span>
+            </div>
+            <div class="col-3 mt-3">
+                <label asp-for="DataPublicacaoDOE" class="control-label"></label>
+                <input asp-for="DataPublicacaoDOE" class="form-control" type="date" />
+                <span asp-validation-for="DataPublicacaoDOE" class="text-danger"></span>
+            </div>
+            <div class="col-6 mt-3">
+                <label asp-for="ObjetoResumido" class="control-label"></label>
+                <textarea rows="4" asp-for="ObjetoResumido" class="form-control capitalize"></textarea>
+                <span asp-validation-for="ObjetoResumido" class="text-danger"></span>
+            </div>
+            <div class="col-6 mt-3">
+                <label asp-for="Observacao" class="control-label"></label>
+                <textarea rows="4" asp-for="Observacao" class="form-control capitalize"></textarea>
+                <span asp-validation-for="Observacao" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="card-footer d-flex justify-content-end">
+            <div class="mr-2">
+                <button type="submit" class="btn btn-primary shadow">Salvar Alteração</button>
+            </div>
+        </div>
+    </div>
+</form>

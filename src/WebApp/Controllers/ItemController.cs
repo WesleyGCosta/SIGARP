@@ -4,9 +4,9 @@ using Historia.Atas;
 using Historia.Detentoras;
 using Historia.DetentorasItem;
 using Historia.Itens;
-using Historia.UnidadesAdministrativas;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Factories;
@@ -34,7 +34,7 @@ namespace WebApp.Controllers
             _searchDetentora = new SearchDetentora(detentoraRepository);
             _createItem = new CreateItem(itemRepository);
             _createDetentoraItem = new CreateDetentoraItem(detentoraItemRepository);
-           
+
         }
 
         public async Task<IActionResult> Create()
@@ -55,13 +55,12 @@ namespace WebApp.Controllers
             }
 
             var existe = await _searchItem.GetItemByCodeAtaAndYearAta(itemViewModel.AnoAta, itemViewModel.CodigoAta, itemViewModel.CodigoItem);
-            if(existe != null)
+            if (existe != null)
             {
                 await FillViewBags(itemViewModel.AnoAta);
                 TempData["Warning"] = $"Item {itemViewModel.CodigoItem} já existe na Ata {itemViewModel.CodigoAta}/{itemViewModel.AnoAta}";
                 return View(itemViewModel);
             }
-
             var item = ItemFactory.ToEntityItem(itemViewModel);
             var itemDetentora = ItemDetentoraFactory.ToEntityDetentoraItem(itemViewModel.CodigoDetentora, itemViewModel.Id);
 
@@ -71,6 +70,21 @@ namespace WebApp.Controllers
             TempData["Success"] = "Item Cadastrado com Sucesso";
 
             return RedirectToAction(nameof(Create));
+        }
+
+        public async Task<IActionResult> Details(Guid itemId)
+        {
+            var item = await _searchItem.GetById(itemId);
+
+            if (item.Equals(null))
+            {
+                TempData["Warning"] = "Erro, Item não encontrado";
+                return NotFound();
+            }
+
+            var itemViewModel = ItemFactory.ToItemViewModel(item);
+
+            return PartialView("_DetailsItemModal", itemViewModel);
         }
 
         //Consultas dinâmica

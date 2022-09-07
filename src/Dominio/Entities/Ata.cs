@@ -6,22 +6,22 @@ namespace Domain.Entities
 {
     public class Ata
     {
-        public Ata(int codigoAta, 
-            int anoAta, 
-            string numeroProcesso, 
-            string numeroPregao, 
-            int anoPregao, 
-            EPregao tipoPregao, 
-            DateTime dataHomologacao, 
-            DateTime dataPublicacaoDOE, 
-            DateTime dataFinalVigencia, 
+        public Ata(int codigoAta,
+            int anoAta,
+            string numeroProcesso,
+            string numeroPregao,
+            int anoPregao,
+            EPregao tipoPregao,
+            DateTime dataHomologacao,
+            DateTime dataPublicacaoDOE,
+            DateTime dataFinalVigencia,
             DateTime dataVencimentoAta,
-            string objetoResumido, 
-            bool publicada, 
-            DateTime dataPublicacaoSistema, 
-            DateTime dataCadastro, 
-            DateTime dataAlteracao, 
-            string observacao, 
+            string objetoResumido,
+            bool publicada,
+            DateTime dataPublicacaoSistema,
+            DateTime dataCadastro,
+            DateTime dataAlteracao,
+            string observacao,
             float limiteAdesao)
         {
             CodigoAta = codigoAta;
@@ -62,5 +62,20 @@ namespace Domain.Entities
         public float LimiteAdesao { get; private set; }
 
         public IEnumerable<Item> Itens { get; private set; }
+
+        public void Update(Ata ata)
+        {
+            NumeroProcesso = ata.NumeroProcesso;
+            NumeroPregao = ata.NumeroPregao;
+            AnoPregao = ata.AnoPregao;
+            TipoPregao = ata.TipoPregao;
+            DataHomologacao = ata.DataHomologacao;
+            DataPublicacaoDOE = ata.DataPublicacaoDOE;
+            DataFinalVigencia = ata.DataFinalVigencia;
+            DataVencimentoAta = ata.DataVencimentoAta;
+            ObjetoResumido = ata.ObjetoResumido;
+            DataAlteracao = DateTime.Now;
+            Observacao = ata.Observacao;
+        }
     }
 }

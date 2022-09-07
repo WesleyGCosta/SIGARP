@@ -12,6 +12,7 @@
 <body>
     @if (@User.Identity.IsAuthenticated)
     {
+        <div id="PlaceHolderHere"></div>
         <div id="message">
             <vc:summary></vc:summary>
         </div>
@@ -27,6 +28,5 @@
 
     <partial name="_JavaScriptImport" />
     @await RenderSectionAsync("Scripts", required: false)
-    <script type="text/javascript" src="~/lib/jquery-validation/dist/customValidation.js"></script>
 </body>
 </html>

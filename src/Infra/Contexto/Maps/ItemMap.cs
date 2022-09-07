@@ -26,7 +26,7 @@ namespace Infra.Contexto.Maps
             builder.Property(i => i.Ativo).IsRequired().HasColumnType("bit");
 
             //Relacionamento
-            builder.HasOne(i => i.Ata).WithMany(a => a.Itens).HasForeignKey(i => new {i.CodigoAta, i.AnoAta});
+            builder.HasOne(i => i.Ata).WithMany(a => a.Itens).HasForeignKey(i => new { i.CodigoAta, i.AnoAta });
         }
     }
 }

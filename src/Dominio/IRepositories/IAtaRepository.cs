@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Domain.IRepositories
 {
-    public interface IAtaRepository : IBaseRepository<Ata> 
+    public interface IAtaRepository : IBaseRepository<Ata>
     {
         Task<Ata> GetByYear(int year);
         Task<Ata> GetAtaFullIncludeByYearAndCode(int year, int code);

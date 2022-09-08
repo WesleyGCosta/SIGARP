@@ -42,25 +42,50 @@ $(document).ajaxStop(function () {
 })
 
 $(document).ready(function () {
-    //Mascaras
-    $('#NumeroProcesso').mask("0000.00000-00-0000");
-    $('#Cnpj').mask("00.000.000/0000-00");
-    $("#Cpf").mask("000.000.000-00");
-    $('#Endereco_Cep').mask('00.000-000');
-    $('#PrecoMercado').mask('#.##0,00', { reverse: true });
-    $('#PrecoRegistrado').mask('#.##0,00', { reverse: true });
-    $('#Telefone').mask('(00) 00000-0000');
-    $('#Telefone').blur(function (event) {
-        if ($(this).val().length == 15) {
-            $('#Telefone').mask('(00) 00000-0000');
-        } else {
-            $('#Telefone').mask('(00) 0000-0000');
-        }
-    }); 0
+    //Máscaras
+    $(document).on("focus", "#NumeroProcesso", function () {
+        $(this).mask("0000.00000-00-0000");
+    });
+    $(document).on("focus", "#Cnpj", function () {
+        $(this).mask("00.000.000/0000-00");
+    });
+
+    $(document).on("focus", "#Cpf", function () {
+        $(this).mask("000.000.000-00");
+    });
+
+    $(document).on("focus", "#Endereco_Cep", function () {
+        $(this).mask('00.000-000');
+    });
+
+    $(document).on("focus", "#PrecoMercado", function () {
+        $(this).mask('#.##0,00', { reverse: true });
+    });
+
+    $(document).on("focus", "#PrecoRegistrado", function () {
+        $(this).mask('#.##0,00', { reverse: true });
+    });
+
+    $(document).on("focus", "#Telefone", function () {
+        $(this).mask('(00) 00000-0000');
+        $(this).blur(function (event) {
+            if ($(this).val().length == 15) {
+                $('#Telefone').mask('(00) 00000-0000');
+            } else {
+                $('#Telefone').mask('(00) 0000-0000');
+            }
+        }); 0
+    });
 
     //Formatação de Texto
-    $('.uppercase').upperFirstAll()
-    $('.capitalize').upperFirst();
+
+    $(document).on("focus", ".uppercase", function () {
+        $(this).upperFirstAll();
+    });
+
+    $(document).on("focus", ".capitalize", function () {
+        $(this).upperFirst();
+    });
 })
 
 export function GetMessageDomain() {

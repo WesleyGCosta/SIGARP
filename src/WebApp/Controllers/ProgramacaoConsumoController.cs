@@ -3,6 +3,7 @@ using Domain.Notifications.Interface;
 using Historia.ParticipantesItens;
 using Historia.ProgramacoesConsumos;
 using Historia.UnidadesAdministrativas;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     public class ProgramacaoConsumoController : BaseController
     {
         private readonly SearchUnidadeAdministrativa _searchUnidadeAdministrativa;

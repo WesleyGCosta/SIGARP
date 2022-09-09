@@ -4,6 +4,7 @@ using Historia.Atas;
 using Historia.Detentoras;
 using Historia.DetentorasItem;
 using Historia.Itens;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -14,6 +15,7 @@ using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     public class ItemController : BaseController
     {
         private readonly SearchAta _searchAta;
@@ -70,6 +72,13 @@ namespace WebApp.Controllers
             TempData["Success"] = "Item Cadastrado com Sucesso";
 
             return RedirectToAction(nameof(Create));
+        }
+
+        public async Task<IActionResult> Edit(Guid itemId)
+        {
+            var item = await _searchItem.GetById(itemId);
+            var itemViewModel = ItemFactory.ToItemViewModel(item);
+            return PartialView("_EditItem", itemViewModel);
         }
 
         public async Task<IActionResult> Details(Guid itemId)

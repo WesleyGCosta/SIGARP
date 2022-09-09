@@ -1,6 +1,7 @@
 ﻿using Domain.IRepositories;
 using Domain.Notifications.Interface;
 using Historia.UnidadesAdministrativas;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebApp.Factories;
@@ -8,6 +9,7 @@ using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     public class UnidadeAdministrativaController : BaseController
     {
         private readonly CreateUnidadeAdministrativa _createUnidadeAdministrativa;

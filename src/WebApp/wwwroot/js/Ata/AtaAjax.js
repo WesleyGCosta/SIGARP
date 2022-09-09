@@ -1,6 +1,8 @@
 ﻿import { GetMessageDomain } from '../site.js';
 
 $(document).ready(function () {
+
+
     $(document).ajaxStop(function () {
         jQuery.fn.extend({
             trackChanges: function () {
@@ -115,15 +117,15 @@ $(document).ready(function () {
 
     $(document).on('click', '.deleteAta', function () {
         const codeAta = $(this).attr('data-codeata');
-        const yearAta = $(this).attr('data-anoata');
+        const yearAta = $(this).attr('data-anoata');   
+
         $.ajax({
             type: 'GET',
             url: '/Ata/Delete/',
             data: { yearAta, codeAta },
             success: function (response) {
-                fillDivResult(response)   
                 GetMessageDomain()
-                $('.modal-backdrop').remove()
+                fillDivResult(response)   
             },
             error: function () {
                 $('#result').empty()
@@ -156,6 +158,9 @@ $(document).ready(function () {
         var $container = $("#result");
         $container.html(response)
 
+        $('.modal-backdrop').remove();
+        $('body').removeAttr('class')
+        $('body').removeAttr('style');
         $container.unbind()
         $container.data("validator", null)
         $.validator.unobtrusive.parse($container);

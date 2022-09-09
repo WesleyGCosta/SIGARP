@@ -1,6 +1,7 @@
 ﻿using Domain.IRepositories;
 using Domain.Notifications.Interface;
 using Historia.Atas;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     public class AtaController : BaseController
     {
         private readonly CreateAta _createAta;

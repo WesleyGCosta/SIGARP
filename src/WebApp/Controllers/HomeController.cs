@@ -1,4 +1,5 @@
 ﻿using Domain.Notifications.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
@@ -6,7 +7,7 @@ using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;

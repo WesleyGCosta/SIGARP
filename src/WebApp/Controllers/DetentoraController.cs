@@ -2,6 +2,7 @@
 using Domain.Notifications.Interface;
 using Historia.Detentoras;
 using Historia.Enderecos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebApp.Factories;
@@ -9,6 +10,7 @@ using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     public class DetentoraController : BaseController
     {
         private readonly CreateDetentora _createDetentora;

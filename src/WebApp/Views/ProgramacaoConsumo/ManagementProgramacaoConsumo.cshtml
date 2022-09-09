@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Gerenciamento de Programação de Consumo";
+}
+
+<div class="card shadow">
+    <div class="card-header text-center">
+        <h4>Gerenciamento de Programação de Consumo</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="tab-content" id="pills-tabContent">
+            @*Informação*@
+            <div>
+                <div class="text-center">
+                    <span class="text-muted">Escolha uma Ata</span>
+                </div>
+                <div class="d-flex justify-content-center mt-2">
+                    <div class="col-3">
+                        <select id="AnoAtaInfo" class="custom-select AnoAtaSelect" asp-items="new SelectList(ViewBag.ListYears)">
+                            <option value="">Selecione um Ano</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select id="CodigoAtaProgramacaoConsumo" class="custom-select CodigoAtaSelect" asp-items="(SelectList)ViewBag.ListCodeAta">
+                            <option value="">...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="alert alert-warning text-center" role="alert">
+        <strong>Atenção:</strong> Não é permitido alterar e excluir programação de consumo de uma ATA publicado.
+    </div>
+    <div id="result"></div>
+</div>
+
+
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

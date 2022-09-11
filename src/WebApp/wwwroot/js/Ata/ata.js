@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+    $(document).ajaxStop(function () {
+        $('#ListAtaTable').DataTable();
+    })
 
     $('.btnTab').click(function () {
         $('#result').empty()

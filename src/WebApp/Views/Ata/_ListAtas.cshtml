@@ -4,7 +4,7 @@
     <div class="text-center mb-3 mt-3">
         <h5 class="font-weight-bold text-sapphire">Atas do Ano de @Model.Select(a => a.AnoAta).Distinct().FirstOrDefault()</h5>
     </div>
-    <table id="myTable" class="table table-borderless py-4">
+    <table id="ListAtaTable" class="table table-borderless py-4">
         <thead class="text-sapphire">
             <tr>
                 <th>
@@ -61,18 +61,16 @@
                         <div class="modal fade" id="ConfirmDeleteModal-@ata.CodigoAta" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="DeleteModalLabel">Excluir Ata</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+                                    <div class="d-flex pt-3 justify-content-center">
+                                        <img class="icon-warning" src="~/img/warning.png" />
                                     </div>
-                                    <div class="modal-body">
-                                        <span>Deseja excluir a Ata @ata.CodigoAta/@ata.AnoAta ?</span>
+                                    <div class="modal-body text-center">
+                                        <span><strong>Confirmação de Exclusão</strong></span><br/><br/>
+                                        <span>Deseja excluir a Ata @ata.CodigoAta/@ata.AnoAta ?<br/>Essa ação irá excluir tudo relacionado a Ata</span>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                        <button type="button" class="btn btn-danger deleteAta" data-dismiss="modal" data-codeAta="@ata.CodigoAta" data-anoAta="@ata.AnoAta">Excluir</button>
+                                        <button type="button" class="btn btn-primary deleteAta" data-dismiss="modal" data-codeAta="@ata.CodigoAta" data-anoAta="@ata.AnoAta">Confirmar</button>
                                     </div>
                                 </div>
                             </div>

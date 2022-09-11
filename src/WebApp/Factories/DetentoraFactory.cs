@@ -1,4 +1,6 @@
 ﻿using Domain.Entities;
+using System.Collections;
+using System.Collections.Generic;
 using WebApp.ViewModels;
 
 namespace WebApp.Factories
@@ -35,6 +37,15 @@ namespace WebApp.Factories
             };
 
             return detentoraViewModel;
+        }
+
+        public static IList<DetentoraViewModel> ToListViewModel(List<Detentora> detentoras)
+        {
+            var list = new List<DetentoraViewModel>();
+            foreach (var detentora in detentoras)
+                list.Add(ToDetentoraViewModel(detentora));
+
+            return list;
         }
     }
 }

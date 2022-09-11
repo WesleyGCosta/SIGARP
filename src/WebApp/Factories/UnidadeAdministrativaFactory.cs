@@ -41,9 +41,7 @@ namespace WebApp.Factories
         {
             var list = new List<UnidadeAdministrativaViewModel>();
             foreach (var unidadeAdministrativa in unidadeAdministrativas)
-            {
                 list.Add(ToViewModel(unidadeAdministrativa));
-            }
 
             return list;
         }

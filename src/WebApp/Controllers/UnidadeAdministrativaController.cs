@@ -45,6 +45,13 @@ namespace WebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public async Task<IActionResult> Management()
+        {
+            var unidadeAdministrativas = await _searchUnidadeAdministrativa.GetAll();
+            var listUnidadeAdministrativaViewModel = UnidadeAdministrativaFactory.ToListViewMode(unidadeAdministrativas);
+            return View(listUnidadeAdministrativaViewModel);
+        }
+
         [HttpGet]
         public async Task<IActionResult> Delete(Guid unidadeAdministrativaId)
         {

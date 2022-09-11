@@ -1,4 +1,5 @@
-﻿using Domain.IRepositories;
+﻿using Domain.Entities;
+using Domain.IRepositories;
 using Domain.Notifications.Interface;
 using Historia.Atas;
 using Historia.Detentoras;
@@ -23,6 +24,7 @@ namespace WebApp.Controllers
         private readonly SearchDetentora _searchDetentora;
         private readonly CreateItem _createItem;
         private readonly CreateDetentoraItem _createDetentoraItem;
+        private readonly DeleteItem _deleteItem;
 
         public ItemController(
             IAtaRepository ataRepository,
@@ -36,6 +38,7 @@ namespace WebApp.Controllers
             _searchDetentora = new SearchDetentora(detentoraRepository);
             _createItem = new CreateItem(itemRepository);
             _createDetentoraItem = new CreateDetentoraItem(detentoraItemRepository);
+            _deleteItem = new DeleteItem(itemRepository); 
 
         }
 
@@ -63,6 +66,7 @@ namespace WebApp.Controllers
                 TempData["Warning"] = $"Item {itemViewModel.CodigoItem} já existe na Ata {itemViewModel.CodigoAta}/{itemViewModel.AnoAta}";
                 return View(itemViewModel);
             }
+
             var item = ItemFactory.ToEntityItem(itemViewModel);
             var itemDetentora = ItemDetentoraFactory.ToEntityDetentoraItem(itemViewModel.CodigoDetentora, itemViewModel.Id);
 
@@ -94,6 +98,25 @@ namespace WebApp.Controllers
             var itemViewModel = ItemFactory.ToItemViewModel(item);
 
             return PartialView("_DetailsItemModal", itemViewModel);
+        }
+
+        //Excluir
+        public async Task<IActionResult> Delete(Guid itemId)
+        {
+            var item = await _searchItem.GetById(itemId);
+            if (item.Equals(null))
+            {
+                TempData["Warning"] = "Erro ao Excluir Item";
+                return NotFound();
+            }
+
+            await _deleteItem.Run(item);
+            TempData["Success"] = "Item Excluído Com Sucesso";
+
+            var itens = await _searchItem.GetListItemByCodeAtaAndYearAta(item.AnoAta, item.CodigoAta);
+            var listItemViewModel = ItemFactory.ToListItemViewModel(itens);
+
+            return PartialView("_ListItensEdit", listItemViewModel);
         }
 
         //Consultas dinâmica

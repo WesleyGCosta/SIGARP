@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<WebApp.ViewModels.ItemViewModel>
 
 
-@if(Model.Any()){
+@if (Model.Any())
+{
     <table id="ListItemTable" class="table table-borderless">
         <thead class="text-sapphire">
             <tr>
@@ -78,7 +79,9 @@
             }
         </tbody>
     </table>
-}else{
+}
+else
+{
     <div class="not-found">
         <img src="/img/not-found.svg" />
         <div>

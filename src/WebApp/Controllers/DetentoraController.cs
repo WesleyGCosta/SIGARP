@@ -15,6 +15,7 @@ namespace WebApp.Controllers
     {
         private readonly CreateDetentora _createDetentora;
         private readonly CreateEndereco _createEndereco;
+        private readonly SearchDetentora _searchDetentora;
         public DetentoraController(
             IDetentoraRepository detentoraRepository,
             IEnderecoRepository enderecoRepository,
@@ -22,6 +23,7 @@ namespace WebApp.Controllers
         {
             _createDetentora = new CreateDetentora(detentoraRepository);
             _createEndereco = new CreateEndereco(enderecoRepository);
+            _searchDetentora = new SearchDetentora(detentoraRepository);
         }
 
         public IActionResult Create() => View();
@@ -44,6 +46,13 @@ namespace WebApp.Controllers
             TempData["Success"] = "Detentora Cadastrado com Sucesso";
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> Management()
+        {
+            var detentoras = await _searchDetentora.GetAll();
+            var listDetentorasViewModel = DetentoraFactory.ToListViewModel(detentoras);
+            return View(listDetentorasViewModel);
         }
     }
 }

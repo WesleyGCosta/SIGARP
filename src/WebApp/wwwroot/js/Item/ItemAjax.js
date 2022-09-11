@@ -92,6 +92,7 @@ $(document).ready(function () {
         }
     }
 
+    //Detalhes
     $(document).on('click', 'button[data-toggle="ajax-modal-infoItem"]', function () {
         var placeHolderHere = $('#PlaceHolderHere')
 
@@ -106,6 +107,26 @@ $(document).ready(function () {
             }
         })
     })
+
+    //Exclusão de Item
+    $(document).on('click', '.btnDeleteItem', function () {
+        const itemId = $(this).data('itemid')
+        $.ajax({
+            type: 'GET',
+            url: '/Item/Delete/',
+            data: { itemId },
+            success: function (response) {
+                $('#item').empty()
+                $('#item').html(response)
+
+                $('.modal-backdrop').remove();
+                $('body').removeAttr('class')
+                $('body').removeAttr('style');
+                GetMessageDomain()
+            }
+        })
+    })
+
 
     function GetListDetentoraRegistered(yearAta, codeAta) {
         $.ajax({

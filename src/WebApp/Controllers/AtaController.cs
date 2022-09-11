@@ -51,7 +51,7 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult ManagementAta()
+        public IActionResult Management()
         {
             ViewBag.ListYears = LoadDropYear();
             return View();
@@ -85,15 +85,14 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int yearAta, int codeAta)
         {
-            var ata = await _searchAta.GetAtaByYearAndCode(yearAta, codeAta);
+            var result = await _deleteAta.Run(yearAta, codeAta);
 
-            if (ata == null)
+            if (!result)
             {
                 TempData["Warning"] = "Ata não encontrada";
                 return NotFound();
             }
 
-            await _deleteAta.Run(ata);
             TempData["Success"] = "Ata Excluído com Sucesso";
 
             return RedirectToAction("GetListAtaByYear", new { yearAta });

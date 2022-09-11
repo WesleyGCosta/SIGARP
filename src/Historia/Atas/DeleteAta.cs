@@ -13,9 +13,14 @@ namespace Historia.Atas
             _ataRepository = ataRepository;
         }
 
-        public async Task Run(Ata ata)
+        public async Task<bool> Run(int yearAta, int codeAta)
         {
+            var ata = await _ataRepository.GetAtaByYearAndCode(yearAta, codeAta);
+            if (ata.Equals(null))
+                return false;
+
             await _ataRepository.Delete(ata);
+            return true;
         }
     }
 }

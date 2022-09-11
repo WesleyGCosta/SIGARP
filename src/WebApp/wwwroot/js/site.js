@@ -37,10 +37,6 @@
     });
 }(jQuery));
 
-$(document).ajaxStop(function () {
-    $('#myTable').DataTable();
-})
-
 $(document).ready(function () {
     //Máscaras
     $(document).on("focus", "#NumeroProcesso", function () {

@@ -70,7 +70,7 @@ namespace WebApp.Controllers
             return Ok();
         }
 
-        public IActionResult ManagementProgramacaoConsumo()
+        public IActionResult Management()
         {
             ViewBag.ListYears = LoadDropYear();
             return View();

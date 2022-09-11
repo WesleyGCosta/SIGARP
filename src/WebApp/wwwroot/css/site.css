@@ -223,6 +223,12 @@ input.fire-check:checked ~ section .tn-box {
     animation-play-state: paused;
 }
 
+.icon-warning{
+    color: var(--warning-color);
+    height: 70px;
+    width: 70px;
+}
+
 .icon-notification {
     height: 45px;
     width: 45px;

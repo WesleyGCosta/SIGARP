@@ -1,5 +1,6 @@
 ﻿using Domain.IRepositories;
 using Domain.Notifications.Interface;
+using Historia.ParticipantesItens;
 using Historia.UnidadesAdministrativas;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,13 +17,20 @@ namespace WebApp.Controllers
         private readonly CreateUnidadeAdministrativa _createUnidadeAdministrativa;
         private readonly SearchUnidadeAdministrativa _searchUnidadeAdministrativa;
         private readonly DeleteUnidadeAdministrativa _deleteUnidadeAdministrativa;
+
+        private readonly DeleteParticipanteItem _deleteParticipanteItem;
+        private readonly SearchParticipanteItem _searchParticipanteItem;
         public UnidadeAdministrativaController(
             IUnidadeAdministrativaRepository unidadeAdministrativaRepository,
+            IParticipanteItemRepository participanteItemRepository,
             INotifier notifier) : base(notifier)
         {
             _createUnidadeAdministrativa = new CreateUnidadeAdministrativa(unidadeAdministrativaRepository);
             _searchUnidadeAdministrativa = new SearchUnidadeAdministrativa(unidadeAdministrativaRepository);
             _deleteUnidadeAdministrativa = new DeleteUnidadeAdministrativa(unidadeAdministrativaRepository);
+
+            _deleteParticipanteItem = new DeleteParticipanteItem(participanteItemRepository);
+            _searchParticipanteItem = new SearchParticipanteItem(participanteItemRepository);
         }
 
         public IActionResult Create() => View();
@@ -67,6 +75,13 @@ namespace WebApp.Controllers
             TempData["Success"] = "Unidade Administrativa Excluído com Sucesso";
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> DeleteParticipante(Guid unidadeAdmnistrativaId, Guid itemId)
+        {
+            var participante = await _searchParticipanteItem.GetByIds(unidadeAdmnistrativaId, itemId);
+
+            return PartialView("rete");
         }
     }
 }

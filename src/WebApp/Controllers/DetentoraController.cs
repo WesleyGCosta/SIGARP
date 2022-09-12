@@ -3,6 +3,7 @@ using Domain.Notifications.Interface;
 using Historia.Detentoras;
 using Historia.DetentorasItem;
 using Historia.Enderecos;
+using Historia.Itens;
 using Historia.ParticipantesItens;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -76,7 +77,10 @@ namespace WebApp.Controllers
             }
 
             await _deleteDetentoraItem.Run(participante);
-            TempData["Success"] = "Participante excluído do Item com Sucessso";
+            TempData["Success"] = "Detentora excluído do Item com Sucessso";
+
+            var detentoras = await _searchDetentora.GetListDetentoraItemByAta(participante.Item.AnoAta, participante.Item.CodigoAta);
+            var detentorasViewModel = DetentoraFactory.ToListViewModel(detentoras);
 
             return PartialView("rete");
         }

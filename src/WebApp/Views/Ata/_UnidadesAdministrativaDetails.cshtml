@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApp.ViewModels.UnidadeAdministrativaViewModel>
+﻿@model IEnumerable<WebApp.ViewModels.ParticipanteItemViewModel>
 
 @if (Model.Any())
 {
@@ -6,16 +6,16 @@
         <thead class="text-sapphire">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.NomeUnidadeAdministrativa)
+                    N° Item
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Sigla)
+                    @Html.DisplayNameFor(model => model.UnidadeAdministrativaViewModel.NomeUnidadeAdministrativa)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UnidadeDaFederacao)
+                    @Html.DisplayNameFor(model => model.UnidadeAdministrativaViewModel.Sigla)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.EsferaAdministrativa)
+                    @Html.DisplayNameFor(model => model.UnidadeAdministrativaViewModel.EsferaAdministrativa)
                 </th>
             </tr>
         </thead>
@@ -24,16 +24,16 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.NomeUnidadeAdministrativa)
+                        @Html.DisplayFor(modelItem => item.ItemViewModel.CodigoItem)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Sigla)
+                        @Html.DisplayFor(modelItem => item.UnidadeAdministrativaViewModel.NomeUnidadeAdministrativa)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.UnidadeDaFederacao)
+                        @Html.DisplayFor(modelItem => item.UnidadeAdministrativaViewModel.Sigla)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.EsferaAdministrativa)
+                        @Html.DisplayFor(modelItem => item.UnidadeAdministrativaViewModel.EsferaAdministrativa)
                     </td>
                 </tr>
             }

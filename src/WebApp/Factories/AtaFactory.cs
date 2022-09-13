@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using System.Collections.Generic;
+using System.Linq;
 using WebApp.ViewModels;
 
 namespace WebApp.Factories
@@ -50,8 +51,12 @@ namespace WebApp.Factories
                 ObjetoResumido = ata.ObjetoResumido,
                 Observacao = ata.Observacao
             };
+
+            if (ata.Itens != null && ata.Itens.Any(i => i.ParticipantesItens != null))
+                ataViewModel.ParticipanteItemViewModel = ParticipanteItemFactory.ToListViewModel(ata.Itens);
+
             if (ata.Itens != null)
-                ataViewModel.ItensViewModel = ItemFactory.ToListItemViewModel(ata.Itens);
+                ataViewModel.ItensDetentoraViewModel = ItemDetentoraFactory.ToListViewModel(ata.Itens);
 
             return ataViewModel;
         }

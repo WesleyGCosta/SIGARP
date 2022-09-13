@@ -18,5 +18,10 @@ namespace Historia.Detentoras
         {
             return await _detentoraRepository.GetAll();
         }
+
+        public async Task<List<Detentora>> GetListDetentoraItemByAta(int yearAta, int codeAta)
+        {
+            return await _detentoraRepository.GetListDetentoraItemByAta(yearAta, codeAta);
+        }
     }
 }

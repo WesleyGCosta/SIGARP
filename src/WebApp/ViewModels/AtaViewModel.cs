@@ -79,5 +79,8 @@ namespace WebApp.ViewModels
         public int LimiteAdesao { get; set; }
 
         public ICollection<ItemViewModel> ItensViewModel { get; set; }
+        public ICollection<ItemDetentoraViewModel> ItensDetentoraViewModel { get; set; }
+        public ICollection<ParticipanteItemViewModel> ParticipanteItemViewModel { get; set; }
+
     }
 }

@@ -7,7 +7,7 @@ namespace WebApp.Factories
 {
     public static class ItemDetentoraFactory
     {
-        public static DetentoraItem ToEntityDetentoraItem(Guid idDetentora, Guid idItem)
+        public static DetentoraItem ToEntity(Guid idDetentora, Guid idItem)
         {
             var detentoraItem = new DetentoraItem(
                 itemId: idItem,
@@ -17,12 +17,24 @@ namespace WebApp.Factories
             return detentoraItem;
         }
 
-        public static List<DetentoraItem> ToListEntityDetentoraItem(ItemDetentoraViewModel itemDetentoraViewModel)
+        public static ItemDetentoraViewModel ToViewModel(DetentoraItem detentoraItem)
         {
-            var list = new List<DetentoraItem>();
-            foreach (var guidItem in itemDetentoraViewModel.CodigoItem)
+            return new ItemDetentoraViewModel
             {
-                list.Add(ToEntityDetentoraItem(itemDetentoraViewModel.CodigoDetentora, guidItem));
+                Id = detentoraItem.Id,
+                CodigoDetentora = detentoraItem.DetentoraId,
+                CodigoItem = detentoraItem.ItemId,
+                Detentora = DetentoraFactory.ToDetentoraViewModel(detentoraItem.Detentora),
+                Item = ItemFactory.ToViewModel(detentoraItem.Item)
+            };
+        }
+
+        public static List<ItemDetentoraViewModel> ToListViewModel(IEnumerable<Item> Itens)
+        {
+            var list = new List<ItemDetentoraViewModel>();
+            foreach (var item in Itens)
+            {
+                list.Add(ToViewModel(item.DetentoraItem));
             }
 
             return list;

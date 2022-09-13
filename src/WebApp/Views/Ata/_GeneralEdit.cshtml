@@ -20,13 +20,13 @@
             <partial name="_AtaEdit" model="@Model" />
         </div>
         <div class="tab-pane fade" id="item" role="tabpanel" aria-labelledby="item-tab">
-            <partial name="_ItensEdit" model="@Model.ItensViewModel" />
+            <partial name="_ItensEdit" model="@Model.ItensDetentoraViewModel" />
         </div>
         <div class="tab-pane fade" id="orgao" role="tabpanel" aria-labelledby="orgao-tab">
             <partial name="_UnidadesAdministrativaEdit" model="@Model.ItensViewModel.SelectMany(i => i.UnidadeAdministrativa)" />
         </div>
         <div class="tab-pane fade" id="detentora" role="tabpanel" aria-labelledby="detentora-tab">
-            <partial name="_DetentorasEdit" model="@Model.ItensViewModel.Select(i => i.ItemDetentora)" />
+            <partial name="_DetentorasEdit" model="@Model.ItensDetentoraViewModel" />
         </div>
     </div>
 </div>

@@ -7,14 +7,6 @@ namespace WebApp.ViewModels
     {
         public Guid Id { get; set; }
 
-        [Required(ErrorMessage = "Campo Obrigatório")]
-        [Display(Name = "Código da Ata")]
-        public int CodigoAta { get; set; }
-
-        [Display(Name = "Ano da Ata")]
-        [Required(ErrorMessage = "Campo Obrigatório")]
-        public int AnoAta { get; set; }
-
         [Display(Name = "Item")]
         [Required(ErrorMessage = "Campo Obrigatório")]
         public Guid CodigoItem { get; set; }

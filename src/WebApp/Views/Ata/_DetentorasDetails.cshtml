@@ -6,13 +6,13 @@
         <thead class="text-sapphire text-justify">
             <tr>
                 <th>
+                    N° Item
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.Detentora.Cnpj)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Detentora.RazaoSocial)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Detentora.NomeFantasia)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Detentora.Email)
@@ -31,13 +31,13 @@
             {
                 <tr>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Item.CodigoItem)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.Detentora.Cnpj)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Detentora.RazaoSocial)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Detentora.NomeFantasia)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Detentora.Email)

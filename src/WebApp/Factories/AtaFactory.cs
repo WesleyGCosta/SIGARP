@@ -53,6 +53,9 @@ namespace WebApp.Factories
             if (ata.Itens != null)
                 ataViewModel.ItensViewModel = ItemFactory.ToListItemViewModel(ata.Itens);
 
+            if (ata.Itens != null)
+                ataViewModel.ItensDetentoraViewModel = ItemDetentoraFactory.ToListViewModel(ata.Itens);
+
             return ataViewModel;
         }
 

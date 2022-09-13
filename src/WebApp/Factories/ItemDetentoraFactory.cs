@@ -25,18 +25,19 @@ namespace WebApp.Factories
                 CodigoDetentora = detentoraItem.DetentoraId,
                 CodigoItem = detentoraItem.ItemId,
                 Detentora = DetentoraFactory.ToDetentoraViewModel(detentoraItem.Detentora),
+                Item = ItemFactory.ToItemViewModel(detentoraItem.Item)
             };
         }
 
-        //public static List<DetentoraItem> ToListEntityDetentoraItem(ItemDetentoraViewModel itemDetentoraViewModel)
-        //{
-        //    var list = new List<DetentoraItem>();
-        //    foreach (var guidItem in itemDetentoraViewModel.CodigoItem)
-        //    {
-        //        list.Add(ToEntityDetentoraItem(itemDetentoraViewModel.CodigoDetentora, guidItem));
-        //    }
+        public static List<ItemDetentoraViewModel> ToListViewModel(IEnumerable<Item> Itens)
+        {
+            var list = new List<ItemDetentoraViewModel>();
+            foreach (var item in Itens)
+            {
+                list.Add(ToViewModel(item.DetentoraItem));
+            }
 
-        //    return list;
-        //}
+            return list;
+        }
     }
 }

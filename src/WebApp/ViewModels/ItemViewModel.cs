@@ -69,7 +69,7 @@ namespace WebApp.ViewModels
         public decimal PrecoRegistrado { get; set; }
         public bool Ativo { get; set; }
 
-        public DetentoraViewModel Detentora { get; set; }
+        public ItemDetentoraViewModel ItemDetentora { get; set; }
         public ICollection<UnidadeAdministrativaViewModel> UnidadeAdministrativa { get; set; }
     }
 }

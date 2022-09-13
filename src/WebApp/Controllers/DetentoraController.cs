@@ -1,4 +1,5 @@
-﻿using Domain.IRepositories;
+﻿using Domain.Entities;
+using Domain.IRepositories;
 using Domain.Notifications.Interface;
 using Historia.Detentoras;
 using Historia.DetentorasItem;
@@ -79,10 +80,11 @@ namespace WebApp.Controllers
             await _deleteDetentoraItem.Run(participante);
             TempData["Success"] = "Detentora excluído do Item com Sucessso";
 
+
             var detentoras = await _searchDetentora.GetListDetentoraItemByAta(participante.Item.AnoAta, participante.Item.CodigoAta);
             var detentorasViewModel = DetentoraFactory.ToListViewModel(detentoras);
 
-            return PartialView("rete");
+            return PartialView("_DetentorasEdit", detentorasViewModel);
         }
     }
 }

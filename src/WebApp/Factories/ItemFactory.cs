@@ -45,7 +45,7 @@ namespace WebApp.Factories
                 Ativo = item.Ativo
             };
             if (item.DetentoraItem != null)
-                itemViewModel.Detentora = DetentoraFactory.ToDetentoraViewModel(item.DetentoraItem.Detentora);
+                itemViewModel.ItemDetentora = ItemDetentoraFactory.ToViewModel(item.DetentoraItem);
             if (item.ParticipantesItens != null)
                 itemViewModel.UnidadeAdministrativa = UnidadeAdministrativaFactory.ToListViewMode(item.ParticipantesItens.Select(pt => pt.UnidadeAdministrativa));
 

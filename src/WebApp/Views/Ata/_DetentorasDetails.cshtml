@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApp.ViewModels.DetentoraViewModel>
+﻿@model IEnumerable<WebApp.ViewModels.ItemDetentoraViewModel>
 
 @if (Model.Any())
 {
@@ -6,22 +6,22 @@
         <thead class="text-sapphire text-justify">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Cnpj)
+                    @Html.DisplayNameFor(model => model.Detentora.Cnpj)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.RazaoSocial)
+                    @Html.DisplayNameFor(model => model.Detentora.RazaoSocial)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.NomeFantasia)
+                    @Html.DisplayNameFor(model => model.Detentora.NomeFantasia)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Email)
+                    @Html.DisplayNameFor(model => model.Detentora.Email)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Telefone)
+                    @Html.DisplayNameFor(model => model.Detentora.Telefone)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Pessoa)
+                    @Html.DisplayNameFor(model => model.Detentora.Pessoa)
                 </th>
                 <th></th>
             </tr>
@@ -31,22 +31,22 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Cnpj)
+                        @Html.DisplayFor(modelItem => item.Detentora.Cnpj)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.RazaoSocial)
+                        @Html.DisplayFor(modelItem => item.Detentora.RazaoSocial)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.NomeFantasia)
+                        @Html.DisplayFor(modelItem => item.Detentora.NomeFantasia)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Email)
+                        @Html.DisplayFor(modelItem => item.Detentora.Email)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Telefone)
+                        @Html.DisplayFor(modelItem => item.Detentora.Telefone)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Pessoa)
+                        @Html.DisplayFor(modelItem => item.Detentora.Pessoa)
                     </td>
                 </tr>
             }

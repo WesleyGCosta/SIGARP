@@ -17,15 +17,26 @@ namespace WebApp.Factories
             return detentoraItem;
         }
 
-        public static List<DetentoraItem> ToListEntityDetentoraItem(ItemDetentoraViewModel itemDetentoraViewModel)
+        public static ItemDetentoraViewModel ToViewModel(DetentoraItem detentoraItem)
         {
-            var list = new List<DetentoraItem>();
-            foreach (var guidItem in itemDetentoraViewModel.CodigoItem)
+            return new ItemDetentoraViewModel
             {
-                list.Add(ToEntityDetentoraItem(itemDetentoraViewModel.CodigoDetentora, guidItem));
-            }
-
-            return list;
+                Id = detentoraItem.Id,
+                CodigoDetentora = detentoraItem.DetentoraId,
+                CodigoItem = detentoraItem.ItemId,
+                Detentora = DetentoraFactory.ToDetentoraViewModel(detentoraItem.Detentora),
+            };
         }
+
+        //public static List<DetentoraItem> ToListEntityDetentoraItem(ItemDetentoraViewModel itemDetentoraViewModel)
+        //{
+        //    var list = new List<DetentoraItem>();
+        //    foreach (var guidItem in itemDetentoraViewModel.CodigoItem)
+        //    {
+        //        list.Add(ToEntityDetentoraItem(itemDetentoraViewModel.CodigoDetentora, guidItem));
+        //    }
+
+        //    return list;
+        //}
     }
 }

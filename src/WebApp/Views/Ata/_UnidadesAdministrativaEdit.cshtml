@@ -1,20 +1,20 @@
-﻿@model IEnumerable<WebApp.ViewModels.UnidadeAdministrativaViewModel>
+﻿@model IEnumerable<WebApp.ViewModels.ParticipanteItemViewModel>
 
 @if(Model.Any()){
     <table id="myTable" class="table">
         <thead class="text-sapphire">
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.NomeUnidadeAdministrativa)
+                    N° Item
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Sigla)
+                    @Html.DisplayNameFor(model => model.UnidadeAdministrativaViewModel.NomeUnidadeAdministrativa)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.OrgaoEx)
+                    @Html.DisplayNameFor(model => model.UnidadeAdministrativaViewModel.Sigla)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.EsferaAdministrativa)
+                    @Html.DisplayNameFor(model => model.UnidadeAdministrativaViewModel.OrgaoEx)
                 </th>
                 <th>Ação</th>
             </tr>
@@ -24,19 +24,19 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => unidadeAdministrativa.NomeUnidadeAdministrativa)
+                        @Html.DisplayFor(modelItem => unidadeAdministrativa.ItemViewModel.CodigoItem)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => unidadeAdministrativa.Sigla)
+                        @Html.DisplayFor(modelItem => unidadeAdministrativa.UnidadeAdministrativaViewModel.NomeUnidadeAdministrativa)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => unidadeAdministrativa.OrgaoEx)
+                        @Html.DisplayFor(modelItem => unidadeAdministrativa.UnidadeAdministrativaViewModel.Sigla)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => unidadeAdministrativa.EsferaAdministrativa)
+                        @Html.DisplayFor(modelItem => unidadeAdministrativa.UnidadeAdministrativaViewModel.OrgaoEx)
                     </td>
                     <td class="text-white">
-                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#ConfirmDeleteModal-@unidadeAdministrativa.Id">
+                        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#ConfirmDeleteModal-@unidadeAdministrativa.UnidadeAdministrativaViewModel.Id">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                                 <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
                             </svg>
@@ -44,7 +44,7 @@
 
 
                         @*Modal de Confirmação de exclusão*@
-                        <div class="modal fade" id="ConfirmDeleteModal-@unidadeAdministrativa.Id" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="ConfirmDeleteModal-@unidadeAdministrativa.UnidadeAdministrativaViewModel.Id" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -54,7 +54,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body text-dark">
-                                        <span>Deseja excluir a Unidade Administrativa  <strong>@unidadeAdministrativa.NomeUnidadeAdministrativa.ToUpper() - @unidadeAdministrativa.Sigla.ToUpper()?</strong></span>
+                                        <span>Deseja excluir a Unidade Administrativa  <strong>@unidadeAdministrativa.UnidadeAdministrativaViewModel.NomeUnidadeAdministrativa.ToUpper() - @unidadeAdministrativa.UnidadeAdministrativaViewModel.Sigla.ToUpper()?</strong></span>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

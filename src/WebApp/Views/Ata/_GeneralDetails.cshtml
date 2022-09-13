@@ -23,7 +23,7 @@
             <partial name="_ItensDetails" model="@Model.ItensDetentoraViewModel" />
         </div>
         <div class="tab-pane fade" id="orgao" role="tabpanel" aria-labelledby="orgao-tab">
-            <partial name="_UnidadesAdministrativaDetails" model="@Model.ItensViewModel.SelectMany(i => i.UnidadeAdministrativa)"/>
+            <partial name="_UnidadesAdministrativaDetails" model="@Model.ParticipanteItemViewModel"/>
         </div>
         <div class="tab-pane fade" id="detentora" role="tabpanel" aria-labelledby="detentora-tab">
             <partial name="_DetentorasDetails" model="@Model.ItensDetentoraViewModel" />

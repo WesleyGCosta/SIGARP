@@ -26,7 +26,7 @@ namespace WebApp.Factories
                 );
         }
 
-        public static ItemViewModel ToItemViewModel(Item item)
+        public static ItemViewModel ToViewModel(Item item)
         {
             var itemViewModel = new ItemViewModel
             {
@@ -44,11 +44,7 @@ namespace WebApp.Factories
                 PrecoRegistrado = item.PrecoRegistrado,
                 Ativo = item.Ativo
             };
-            //if (item.DetentoraItem != null)
-            //    itemViewModel.ItemDetentora = ItemDetentoraFactory.ToViewModel(item.DetentoraItem);
-            if (item.ParticipantesItens != null)
-                itemViewModel.UnidadeAdministrativa = UnidadeAdministrativaFactory.ToListViewMode(item.ParticipantesItens.Select(pt => pt.UnidadeAdministrativa));
-
+            
             return itemViewModel;
         }
 
@@ -56,7 +52,7 @@ namespace WebApp.Factories
         {
             var list = new List<ItemViewModel>();
             foreach (var item in itens)
-                list.Add(ToItemViewModel(item));
+                list.Add(ToViewModel(item));
 
             return list;
         }

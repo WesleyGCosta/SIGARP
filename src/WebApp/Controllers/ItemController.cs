@@ -68,7 +68,7 @@ namespace WebApp.Controllers
             }
 
             var item = ItemFactory.ToEntityItem(itemViewModel);
-            var itemDetentora = ItemDetentoraFactory.ToEntityDetentoraItem(itemViewModel.CodigoDetentora, itemViewModel.Id);
+            var itemDetentora = ItemDetentoraFactory.ToEntity(itemViewModel.CodigoDetentora, itemViewModel.Id);
 
             await _createItem.Run(item);
             await _createDetentoraItem.Run(itemDetentora);
@@ -81,7 +81,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Edit(Guid itemId)
         {
             var item = await _searchItem.GetById(itemId);
-            var itemViewModel = ItemFactory.ToItemViewModel(item);
+            var itemViewModel = ItemFactory.ToViewModel(item);
             return PartialView("_EditItem", itemViewModel);
         }
 
@@ -95,7 +95,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var itemViewModel = ItemFactory.ToItemViewModel(item);
+            var itemViewModel = ItemFactory.ToViewModel(item);
 
             return PartialView("_DetailsItemModal", itemViewModel);
         }
@@ -153,7 +153,7 @@ namespace WebApp.Controllers
             if (item == null)
                 return NotFound();
 
-            var listItemViewModel = ItemFactory.ToItemViewModel(item);
+            var listItemViewModel = ItemFactory.ToViewModel(item);
 
             return PartialView("_ItemDatailsProgramacaoConsumo", listItemViewModel);
         }

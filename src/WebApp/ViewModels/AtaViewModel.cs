@@ -80,5 +80,7 @@ namespace WebApp.ViewModels
 
         public ICollection<ItemViewModel> ItensViewModel { get; set; }
         public ICollection<ItemDetentoraViewModel> ItensDetentoraViewModel { get; set; }
+        public ICollection<ParticipanteItemViewModel> ParticipanteItemViewModel { get; set; }
+
     }
 }

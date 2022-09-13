@@ -7,7 +7,7 @@ namespace WebApp.Factories
 {
     public static class ItemDetentoraFactory
     {
-        public static DetentoraItem ToEntityDetentoraItem(Guid idDetentora, Guid idItem)
+        public static DetentoraItem ToEntity(Guid idDetentora, Guid idItem)
         {
             var detentoraItem = new DetentoraItem(
                 itemId: idItem,
@@ -25,7 +25,7 @@ namespace WebApp.Factories
                 CodigoDetentora = detentoraItem.DetentoraId,
                 CodigoItem = detentoraItem.ItemId,
                 Detentora = DetentoraFactory.ToDetentoraViewModel(detentoraItem.Detentora),
-                Item = ItemFactory.ToItemViewModel(detentoraItem.Item)
+                Item = ItemFactory.ToViewModel(detentoraItem.Item)
             };
         }
 

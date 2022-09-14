@@ -108,6 +108,22 @@ $(document).ready(function () {
         })
     })
 
+    //Edição
+    $(document).on('click', 'button[data-toggle="ajax-modal-editItem"]', function () {
+        var placeHolderHere = $('#PlaceHolderHere')
+
+        $.ajax({
+            type: 'GET',
+            url: '/Item/Edit/',
+            data: { itemId: $(this).data('itemid') },
+            success: function (response) {
+                placeHolderHere.empty()
+                placeHolderHere.html(response)
+                placeHolderHere.find('.modal').modal('show');
+            }
+        })
+    })
+
     //Exclusão de Item
     $(document).on('click', '.btnDeleteItem', function () {
         const itemId = $(this).data('itemid')

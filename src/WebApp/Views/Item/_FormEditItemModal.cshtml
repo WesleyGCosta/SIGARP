@@ -1,0 +1,84 @@
+﻿@model ItemViewModel
+@using Domain.Enums
+
+
+<div class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content ">
+            <div class="d-flex justify-content-center card-header">
+                <h5 class="modal-title">Editando o Item @Model.CodigoItem</h5>
+            </div>
+            <form id="formEditItem">
+                <div class="modal-body">
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="col-3">
+                            <label asp-for="AnoAta" class="control-label"></label>
+                            <input type="text" asp-for="AnoAta" class="form-control" readonly />
+                            <span asp-validation-for="AnoAta" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            <label asp-for="CodigoAta" class="control-label"></label>
+                            <input asp-for="CodigoAta" class="form-control" readonly />
+                            <span asp-validation-for="CodigoAta" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            <label asp-for="Tipo" class="control-label"></label>
+                            <select asp-for="Tipo" asp-items="@Html.GetEnumSelectList<ETipo>()" class="custom-select">
+                                <option value="">...</option>
+                            </select>
+                            <span asp-validation-for="Tipo" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            <label asp-for="Marca" class="control-label"></label>
+                            <input asp-for="Marca" class="form-control uppercase" placeholder="Marca" />
+                            <span asp-validation-for="Marca" class="text-danger"></span>
+                        </div>
+                        <div class="col-3 mt-3">
+                            <label asp-for="UnidadeAquisicao" class="control-label"></label>
+                            <input asp-for="UnidadeAquisicao" class="form-control uppercase" placeholder="Ex. UND" />
+                            <span asp-validation-for="UnidadeAquisicao" class="text-danger"></span>
+                        </div>
+                        <div class="col-3 mt-3">
+                            <label asp-for="PrecoMercado" class="control-label"></label>
+                            <input asp-for="PrecoMercado" class="form-control" type="text" placeholder="0,00" />
+                            <span asp-validation-for="PrecoMercado" class="text-danger"></span>
+                        </div>
+                        <div class="col-3 mt-3">
+                            <label asp-for="PrecoRegistrado" class="control-label"></label>
+                            <input asp-for="PrecoRegistrado" class="form-control" type="text" placeholder="0,00" />
+                            <span asp-validation-for="PrecoRegistrado" class="text-danger"></span>
+                        </div>
+                        <div class="col-3 mt-3">
+                            <label asp-for="Quantidade" class="control-label"></label>
+                            <input asp-for="Quantidade" class="form-control" placeholder="Quantidade" />
+                            <span asp-validation-for="Quantidade" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label asp-for="CodigoDetentora" class="control-label"></label>
+                            <select asp-for="CodigoDetentora" class="custom-select" asp-items="(SelectList)ViewBag.ListDetentora">
+                                <option value="">...</option>
+                            </select>
+                            <span asp-validation-for="CodigoDetentora" class="text-danger"></span>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label asp-for="Descricao" class="control-label"></label>
+                            <textarea rows="3" asp-for="Descricao" class="form-control"></textarea>
+                            <span asp-validation-for="Descricao" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="mr-2">
+                        <button type="submit" class="btn btn-primary shadow"> Salvar Alteração</button>
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary shadow">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

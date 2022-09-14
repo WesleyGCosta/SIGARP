@@ -78,11 +78,13 @@ namespace WebApp.Controllers
             return RedirectToAction(nameof(Create));
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(Guid itemId)
         {
             var item = await _searchItem.GetById(itemId);
             var itemViewModel = ItemFactory.ToViewModel(item);
-            return PartialView("_EditItem", itemViewModel);
+            ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
+            return PartialView("_FormEditItemModal", itemViewModel);
         }
 
         public async Task<IActionResult> Details(Guid itemId)

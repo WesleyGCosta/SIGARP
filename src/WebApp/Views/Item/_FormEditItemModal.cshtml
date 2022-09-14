@@ -57,9 +57,7 @@
                         </div>
                         <div class="col-12 mt-3">
                             <label asp-for="CodigoDetentora" class="control-label"></label>
-                            <select asp-for="CodigoDetentora" class="custom-select" asp-items="(SelectList)ViewBag.ListDetentora">
-                                <option value="">...</option>
-                            </select>
+                            @Html.DropDownList("codigoDetentora", (SelectList)ViewBag.ListDetentora, "...", new { @class = "custom-select", id = "CodigoDetentora", name = "CodigoDetentora"})
                             <span asp-validation-for="CodigoDetentora" class="text-danger"></span>
                         </div>
                         <div class="col-12 mt-3">
@@ -72,10 +70,10 @@
                 </div>
                 <div class="modal-footer ">
                     <div class="mr-2">
-                        <button type="submit" class="btn btn-primary shadow"> Salvar Alteração</button>
+                        <button type="submit" class="btn btn-primary shadow">Salvar Alteração</button>
                     </div>
                     <div>
-                        <button class="btn btn-secondary shadow">Cancelar</button>
+                        <button class="btn btn-secondary shadow"data-dismiss="modal">Fechar</button>
                     </div>
                 </div>
             </form>

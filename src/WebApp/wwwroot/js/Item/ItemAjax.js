@@ -119,9 +119,22 @@ $(document).ready(function () {
             success: function (response) {
                 placeHolderHere.empty()
                 placeHolderHere.html(response)
+                
+
+
+                placeHolderHere.unbind()
+                placeHolderHere.data("validator", null)
+                $.validator.unobtrusive.parse(placeHolderHere);
+
                 placeHolderHere.find('.modal').modal('show');
+
             }
         })
+    })
+
+    $(document).on('submit', '#formEditItem', function (e) {
+        e.preventDefault()
+        alert("chama")
     })
 
     //Exclusão de Item

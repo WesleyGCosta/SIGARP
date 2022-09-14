@@ -25,6 +25,7 @@ namespace WebApp.Controllers
         private readonly CreateItem _createItem;
         private readonly CreateDetentoraItem _createDetentoraItem;
         private readonly DeleteItem _deleteItem;
+        private readonly UpdateItem _updateItem;
 
         public ItemController(
             IAtaRepository ataRepository,
@@ -39,7 +40,7 @@ namespace WebApp.Controllers
             _createItem = new CreateItem(itemRepository);
             _createDetentoraItem = new CreateDetentoraItem(detentoraItemRepository);
             _deleteItem = new DeleteItem(itemRepository); 
-
+            _updateItem = new UpdateItem(itemRepository);
         }
 
         public async Task<IActionResult> Create()
@@ -81,10 +82,27 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid itemId)
         {
-            var item = await _searchItem.GetById(itemId);
+            var item = await _searchItem.GetByIdInclude(itemId);
             var itemViewModel = ItemFactory.ToViewModel(item);
-            ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
+            ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial", item.DetentoraItem.Detentora.Id);
             return PartialView("_FormEditItemModal", itemViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ItemViewModel itemViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["Warning"] = "Erro ao Editar o Item";
+                return NotFound();
+            }
+
+            var item = ItemFactory.ToEntityItem(itemViewModel);
+            await _updateItem.Run(item);
+
+            TempData["Success"] = "Item alterado com Sucesso";
+
+            return Ok();
         }
 
         public async Task<IActionResult> Details(Guid itemId)

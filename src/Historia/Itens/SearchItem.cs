@@ -19,6 +19,11 @@ namespace Historia.Itens
             return await _itemRepository.GetByPrimaryKey(itemId);
         }
 
+        public async Task<Item> GetByIdInclude(Guid itemId)
+        {
+            return await _itemRepository.GetByIdInclude(itemId);
+        }
+
         public async Task<Item> GetItemByCodeAtaAndYearAta(int yearAta, int codeAta, int codeItem)
         {
             return await _itemRepository.GetItemByCodeAtaAndYearAta(yearAta, codeAta, codeItem);

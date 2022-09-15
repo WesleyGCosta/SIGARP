@@ -22,6 +22,7 @@ namespace WebApp.Controllers
         private readonly SearchAta _searchAta;
         private readonly SearchItem _searchItem;
         private readonly SearchDetentora _searchDetentora;
+        private readonly SearchDetentoraItem _searchDetentoraItem;
         private readonly CreateItem _createItem;
         private readonly CreateDetentoraItem _createDetentoraItem;
         private readonly DeleteItem _deleteItem;
@@ -37,6 +38,7 @@ namespace WebApp.Controllers
             _searchAta = new SearchAta(ataRepository);
             _searchItem = new SearchItem(itemRepository);
             _searchDetentora = new SearchDetentora(detentoraRepository);
+            _searchDetentoraItem = new SearchDetentoraItem(detentoraItemRepository);
             _createItem = new CreateItem(itemRepository);
             _createDetentoraItem = new CreateDetentoraItem(detentoraItemRepository);
             _deleteItem = new DeleteItem(itemRepository); 
@@ -133,10 +135,10 @@ namespace WebApp.Controllers
             await _deleteItem.Run(item);
             TempData["Success"] = "Item Excluído Com Sucesso";
 
-            var itens = await _searchItem.GetListItemByCodeAtaAndYearAta(item.AnoAta, item.CodigoAta);
-            var listItemViewModel = ItemFactory.ToListItemViewModel(itens);
+            var detentorasItens = await _searchDetentoraItem.GetListDetentoraByAta(item.AnoAta, item.CodigoAta);
+            var detentorasItensViewModel = ItemDetentoraFactory.ToListViewModel(detentorasItens);
 
-            return PartialView("_ListItensEdit", listItemViewModel);
+            return PartialView("_ListItensEdit", detentorasItensViewModel);
         }
 
         //Consultas dinâmica

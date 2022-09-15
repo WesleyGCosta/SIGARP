@@ -9,6 +9,7 @@ using Historia.ParticipantesItens;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
@@ -81,10 +82,21 @@ namespace WebApp.Controllers
             TempData["Success"] = "Detentora excluído do Item com Sucessso";
 
 
-            var detentoras = await _searchDetentora.GetListDetentoraItemByAta(participante.Item.AnoAta, participante.Item.CodigoAta);
-            var detentorasViewModel = DetentoraFactory.ToListViewModel(detentoras);
+            var detentoras = await _searchDetentoraItem.GetListDetentoraByAta(participante.Item.AnoAta, participante.Item.CodigoAta);
+            var detentorasViewModel = ItemDetentoraFactory.ToListViewModel(detentoras);
+            return RedirectListDetentoraItem(detentorasViewModel);
+        }
 
-            return PartialView("_DetentorasEdit", detentorasViewModel);
+        public async Task<IActionResult> UpdateListDetentora(int yearAta, int codeAta)
+        {
+            var detentorasItens = await _searchDetentoraItem.GetListDetentoraByAta(yearAta, codeAta);
+            var detentorasItensViewModel = ItemDetentoraFactory.ToListViewModel(detentorasItens);
+            return RedirectListDetentoraItem(detentorasItensViewModel);
+        }
+
+        private IActionResult RedirectListDetentoraItem(IList<ItemDetentoraViewModel> itemDetentorasViewModel)
+        {
+            return PartialView("_DetentorasEdit", itemDetentorasViewModel);
         }
     }
 }

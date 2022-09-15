@@ -1,4 +1,5 @@
 ﻿import { GetMessageDomain } from '../site.js';
+import { UpdateListDetentora } from '../Detentora/detentoraAjax.js';
 
 $(document).ready(function () {
     const pathname = window.location.pathname.split('/');
@@ -51,7 +52,7 @@ $(document).ready(function () {
     })
 
     function AutoCompleteItem() {
-        
+
         let yearAta = $('#AnoAta').val()
         let codeAta = $('#CodigoAta').val()
 
@@ -72,9 +73,8 @@ $(document).ready(function () {
             })
 
             GetListDetentoraRegistered(yearAta, codeAta)
-        } 
-        if (pathname[1] == "ProgramacaoConsumo")
-        {
+        }
+        if (pathname[1] == "ProgramacaoConsumo") {
             $.ajax({
                 type: 'GET',
                 url: '/Item/AutoCompleteListCodeItem/',
@@ -95,7 +95,7 @@ $(document).ready(function () {
     //Detalhes
     $(document).on('click', 'button[data-toggle="ajax-modal-infoItem"]', function () {
         var placeHolderHere = $('#PlaceHolderHere')
-
+    
         $.ajax({
             type: 'GET',
             url: '/Item/Details/',
@@ -119,9 +119,6 @@ $(document).ready(function () {
             success: function (response) {
                 placeHolderHere.empty()
                 placeHolderHere.html(response)
-                
-
-
                 placeHolderHere.unbind()
                 placeHolderHere.data("validator", null)
                 $.validator.unobtrusive.parse(placeHolderHere);
@@ -134,26 +131,45 @@ $(document).ready(function () {
 
     $(document).on('submit', '#formEditItem', function (e) {
         e.preventDefault()
-        alert("chama")
+        if ($(this).valid()) {
+            alert('certo')
+        } else {
+            alert("erro")
+        }
     })
 
     //Exclusão de Item
     $(document).on('click', '.btnDeleteItem', function () {
         const itemId = $(this).data('itemid')
-        $.ajax({
-            type: 'GET',
-            url: '/Item/Delete/',
-            data: { itemId },
-            success: function (response) {
-                $('#item').empty()
-                $('#item').html(response)
+        const numetoItem = $('CodigoItem').val()
+        const yearAta = $('#AnoAta').val()
+        const codeAta = $('#CodigoAta').val()
 
-                $('.modal-backdrop').remove();
-                $('body').removeAttr('class')
-                $('body').removeAttr('style');
-                GetMessageDomain()
+        Swal.fire({
+            title: 'Confirmação de Exclusão',
+            text: "Essa ação irá excluir tudo relacionado ao item " + numetoItem + "!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#247ba0',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Sim, apagar item!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Item/Delete/',
+                    data: { itemId },
+                    success: function (response) {
+                        $('#item').empty()
+                        $('#item').html(response)
+                        GetMessageDomain()
+                        UpdateListDetentora(yearAta, codeAta)        
+                    }
+                })
             }
         })
+
+        
     })
 
 

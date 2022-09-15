@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
     $(document).on('click', '.btnDeleteDetentora', function () {
-        
 
         $.ajax({
             type: 'GET',
@@ -9,10 +8,19 @@
             success: function (response) {
                 $('#detentora').empty()
                 $('#detentora').html(response)
-                $('.modal-backdrop').remove();
-                $('body').removeAttr('class')
-                $('body').removeAttr('style');
             }
         })
     })
 })
+
+export function UpdateListDetentora(yearAta, codeAta) {
+        $.ajax({
+            type: 'GET',
+            url: '/Detentora/UpdateListDetentora/',
+            data: { yearAta, codeAta },
+            success: function (response) {
+                $('#detentora').empty()
+                $('#detentora').html(response)
+            }
+        })
+    }

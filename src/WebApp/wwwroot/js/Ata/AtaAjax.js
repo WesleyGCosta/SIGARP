@@ -117,21 +117,33 @@ $(document).ready(function () {
 
     $(document).on('click', '.deleteAta', function () {
         const codeAta = $(this).attr('data-codeata');
-        const yearAta = $(this).attr('data-anoata');   
+        const yearAta = $(this).attr('data-anoata');
 
-        $.ajax({
-            type: 'GET',
-            url: '/Ata/Delete/',
-            data: { yearAta, codeAta },
-            success: function (response) {
-                GetMessageDomain()
-                fillDivResult(response)   
-            },
-            error: function () {
-                $('#result').empty()
-                GetMessageDomain()
+        Swal.fire({
+            title: 'Confirmação de Exclusão',
+            text: "Essa ação irá excluir tudo relacionado a Ata!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#247ba0',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Sim, apagar ata!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Ata/Delete/',
+                    data: { yearAta, codeAta },
+                    success: function (response) {
+                        GetMessageDomain()
+                        fillDivResult(response)
+                    },
+                    error: function () {
+                        $('#result').empty()
+                        GetMessageDomain()
+                    }
+                })    
             }
-        })    
+        })
     })
 
     //Edição de ata

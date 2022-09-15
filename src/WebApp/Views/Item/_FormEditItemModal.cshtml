@@ -1,7 +1,6 @@
 ﻿@model ItemViewModel
 @using Domain.Enums
 
-
 <div class="modal fade" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content ">
@@ -57,7 +56,7 @@
                         </div>
                         <div class="col-12 mt-3">
                             <label asp-for="CodigoDetentora" class="control-label"></label>
-                            @Html.DropDownList("codigoDetentora", (SelectList)ViewBag.ListDetentora, "...", new { @class = "custom-select"})
+                            @Html.DropDownList("codigoDetentora", (SelectList)ViewBag.ListDetentora, "...", new { @class = "custom-select", id="CodigoDetentora", name="CodigoDetentora", required="required"})
                             <span asp-validation-for="CodigoDetentora" class="text-danger"></span>
                         </div>
                         <div class="col-12 mt-3">

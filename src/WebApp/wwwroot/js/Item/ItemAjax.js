@@ -1,5 +1,6 @@
 ﻿import { GetMessageDomain } from '../site.js';
 import { UpdateListDetentora } from '../Detentora/detentoraAjax.js';
+import { UpdateListParticipanteItem } from '../UnidadeAdministrativa/UnidadeAdministrativaAjax.js';
 
 $(document).ready(function () {
     const pathname = window.location.pathname.split('/');
@@ -163,7 +164,8 @@ $(document).ready(function () {
                         $('#item').empty()
                         $('#item').html(response)
                         GetMessageDomain()
-                        UpdateListDetentora(yearAta, codeAta)        
+                        UpdateListDetentora(yearAta, codeAta)      
+                        UpdateListParticipanteItem(yearAta, codeAta)
                     }
                 })
             }

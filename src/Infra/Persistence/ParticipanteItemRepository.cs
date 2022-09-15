@@ -3,6 +3,7 @@ using Domain.IRepositories;
 using Infra.Contexto;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,16 @@ namespace Infra.Persistence
     {
         public ParticipanteItemRepository(DataContext db) : base(db)
         {
+        }
+
+        public async Task<List<ParticipanteItem>> GetListByAta(int yearAta, int codeAta)
+        {
+            return await _db.ParticipantesItens
+                .Include(pi => pi.Item)
+                .Include(pi => pi.UnidadeAdministrativa)
+                .Where(pi => pi.Item.AnoAta.Equals(yearAta) && pi.Item.CodigoAta.Equals(codeAta))
+                .OrderBy(pi => pi.Item.NumeroItem)
+                .ToListAsync();
         }
 
         public async Task<ParticipanteItem> GetParticipanteItemByIds(Guid unidadeAdministrativaId, Guid itemId)

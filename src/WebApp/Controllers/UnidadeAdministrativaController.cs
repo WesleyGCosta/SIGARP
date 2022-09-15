@@ -83,5 +83,12 @@ namespace WebApp.Controllers
 
             return PartialView("rete");
         }
+
+        public async Task<IActionResult> UpdateListParticipanteItem(int yearAta, int codeAta)
+        {
+            var participantesItens = await _searchParticipanteItem.GetListByAta(yearAta, codeAta);
+            var listParticipantesViewModel = ParticipanteItemFactory.ToListViewModel(participantesItens);
+            return PartialView("_UnidadesAdministrativaEdit", listParticipantesViewModel);
+        }
     }
 }

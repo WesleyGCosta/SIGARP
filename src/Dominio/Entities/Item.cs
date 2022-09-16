@@ -58,6 +58,12 @@ namespace Domain.Entities
             QuantidadeDisponivel = Quantidade;
         }
 
+        public void SetNullIncludes()
+        {
+            DetentoraItem = null;
+            ParticipantesItens = null;
+        }
+
         public void Update(Item item)
         {
             Tipo = item.Tipo;

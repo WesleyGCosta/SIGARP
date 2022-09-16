@@ -69,9 +69,9 @@ namespace WebApp.Controllers
             return View(listDetentorasViewModel);
         }
 
-        public async Task<IActionResult> DeleteDetentoraItem(Guid detentoraId, Guid itemId)
+        public async Task<IActionResult> DeleteDetentoraItem(Guid detentoraId, int yearAta, int codeAta)
         {
-            var participante = await _searchDetentoraItem.GetByIds(detentoraId, itemId);
+            var participante = await _searchDetentoraItem.GetById(detentoraId);
             if (participante.Equals(null))
             {
                 TempData["Warning"] = "Erro ao Excluir Participante do Item";
@@ -82,7 +82,7 @@ namespace WebApp.Controllers
             TempData["Success"] = "Detentora excluído do Item com Sucessso";
 
 
-            var detentoras = await _searchDetentoraItem.GetListDetentoraByAta(participante.Item.AnoAta, participante.Item.CodigoAta);
+            var detentoras = await _searchDetentoraItem.GetListDetentoraByAta(yearAta, codeAta);
             var detentorasViewModel = ItemDetentoraFactory.ToListViewModel(detentoras);
             return RedirectListDetentoraItem(detentorasViewModel);
         }

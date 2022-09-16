@@ -44,11 +44,17 @@ namespace WebApp.Factories
                 PrecoRegistrado = item.PrecoRegistrado,
                 Ativo = item.Ativo
             };
+
+            if (item.DetentoraItem != null)
+                itemViewModel.ItemDetentora = ItemDetentoraFactory.ToViewModel(item.DetentoraItem);
+
+            if (item.ParticipantesItens != null && item.ParticipantesItens.Any())
+                itemViewModel.ParticipanteItems = ParticipanteItemFactory.ToListViewModel(item.ParticipantesItens);
             
             return itemViewModel;
         }
 
-        public static List<ItemViewModel> ToListItemViewModel(IEnumerable<Item> itens)
+        public static List<ItemViewModel> ToListViewModel(IEnumerable<Item> itens)
         {
             var list = new List<ItemViewModel>();
             foreach (var item in itens)

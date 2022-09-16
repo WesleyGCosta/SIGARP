@@ -1,9 +1,5 @@
 ﻿@model AtaViewModel
 
-@{
-    var testse = Model.ParticipanteItemViewModel;
-}
-
 <div class="container my-4">
     <ul class="nav nav-tabs justify-content-center text-muted" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -24,13 +20,13 @@
             <partial name="_AtaEdit" model="@Model" />
         </div>
         <div class="tab-pane fade" id="item" role="tabpanel" aria-labelledby="item-tab">
-            <partial name="_ItensEdit" model="@Model.ItensDetentoraViewModel" />
+            <partial name="_ItensEdit" model="@Model.ItensViewModel" />
         </div>
         <div class="tab-pane fade" id="orgao" role="tabpanel" aria-labelledby="orgao-tab">
-            <partial name="_UnidadesAdministrativaEdit" model="@Model.ParticipanteItemViewModel" />
+            <partial name="_UnidadesAdministrativaEdit" model="@Model.ItensViewModel.SelectMany(i => i.ParticipanteItems)" />
         </div>
         <div class="tab-pane fade" id="detentora" role="tabpanel" aria-labelledby="detentora-tab">
-            <partial name="_DetentorasEdit" model="@Model.ItensDetentoraViewModel" />
+            <partial name="_DetentorasEdit" model="@Model.ItensViewModel.Select(i => i.ItemDetentora)" />
         </div>
     </div>
 </div>

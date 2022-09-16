@@ -135,10 +135,10 @@ namespace WebApp.Controllers
             await _deleteItem.Run(item);
             TempData["Success"] = "Item Excluído Com Sucesso";
 
-            var detentorasItens = await _searchDetentoraItem.GetListDetentoraByAta(item.AnoAta, item.CodigoAta);
-            var detentorasItensViewModel = ItemDetentoraFactory.ToListViewModel(detentorasItens);
+            var itens = await _searchItem.GetListItemByCodeAtaAndYearAta(item.AnoAta, item.CodigoAta);
+            var itensViewModel = ItemFactory.ToListViewModel(itens);
 
-            return PartialView("_ListItensEdit", detentorasItensViewModel);
+            return PartialView("_ListItensEdit", itensViewModel);
         }
 
         //Consultas dinâmica
@@ -163,7 +163,7 @@ namespace WebApp.Controllers
             if (!itens.Any())
                 return NotFound();
 
-            var listItemViewModel = ItemFactory.ToListItemViewModel(itens);
+            var listItemViewModel = ItemFactory.ToListViewModel(itens);
 
             return PartialView("_ListItens", listItemViewModel);
         }

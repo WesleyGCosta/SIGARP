@@ -56,7 +56,7 @@
                         </div>
                         <div class="col-12 mt-3">
                             <label asp-for="CodigoDetentora" class="control-label"></label>
-                            @Html.DropDownList("codigoDetentora", (SelectList)ViewBag.ListDetentora, "...", new { @class = "custom-select", id="CodigoDetentora", name="CodigoDetentora", required="required"})
+                            @Html.DropDownList("codigoDetentora", (SelectList)ViewBag.ListDetentora, "...", new { @class = "custom-select"})
                             <span asp-validation-for="CodigoDetentora" class="text-danger"></span>
                         </div>
                         <div class="col-12 mt-3">

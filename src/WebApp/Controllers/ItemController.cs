@@ -86,7 +86,12 @@ namespace WebApp.Controllers
         {
             var item = await _searchItem.GetByIdInclude(itemId);
             var itemViewModel = ItemFactory.ToViewModel(item);
-            ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial", item.DetentoraItem.Detentora.Id);
+
+            if(itemViewModel.ItemDetentora != null)
+                ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial", itemViewModel.ItemDetentora.Detentora.Id);
+            else
+                ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
+
             return PartialView("_FormEditItemModal", itemViewModel);
         }
 

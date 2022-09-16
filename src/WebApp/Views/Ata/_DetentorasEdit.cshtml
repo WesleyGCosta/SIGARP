@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WebApp.ViewModels.ItemDetentoraViewModel>
 
-@if(Model.Any()){
+@if(Model.Any() && Model != null){
     <table id="ListDetentoraTable" class="table table-borderless">
         <thead class="text-sapphire">
             <tr>

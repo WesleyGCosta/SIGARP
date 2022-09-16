@@ -12,7 +12,7 @@ namespace WebApp.ViewModels
         {
             Id = Guid.NewGuid();
             Ativo = true;
-            ItemDetentora = new ItemDetentoraViewModel();
+            //ItemDetentora = new ItemDetentoraViewModel();
             ParticipanteItems = new List<ParticipanteItemViewModel>();
         }
 

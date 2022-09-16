@@ -26,7 +26,7 @@
             <partial name="_UnidadesAdministrativaEdit" model="@Model.ItensViewModel.SelectMany(i => i.ParticipanteItems)" />
         </div>
         <div class="tab-pane fade" id="detentora" role="tabpanel" aria-labelledby="detentora-tab">
-            <partial name="_DetentorasEdit" model="@Model.ItensViewModel.Select(i => i.ItemDetentora)" />
+            <partial name="_DetentorasEdit" model="@Model.ItensViewModel.Where(i => i.ItemDetentora != null).Select(i => i.ItemDetentora)" />
         </div>
     </div>
 </div>

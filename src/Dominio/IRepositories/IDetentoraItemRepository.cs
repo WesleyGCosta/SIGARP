@@ -8,7 +8,7 @@ namespace Domain.IRepositories
     public interface IDetentoraItemRepository : IBaseRepository<DetentoraItem>
     {
         Task<DetentoraItem> GetByIds(Guid detentoraId, Guid itemId);
-        Task<DetentoraItem> GetByIdIncludes(Guid detentoraItemId);
+        Task<DetentoraItem> GetByItemId(Guid itemId);
         Task<List<DetentoraItem>> GetListDetentoraByAta(int yearAta, int codeAta);
     }
 }

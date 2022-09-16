@@ -15,12 +15,10 @@ namespace Infra.Persistence
         {
         }
 
-        public async Task<DetentoraItem> GetByIdIncludes(Guid detentoraItemId)
+        public async Task<DetentoraItem> GetByItemId(Guid itemId)
         {
             return await _db.DetentorasItens
-                .Include(di => di.Item)
-                .Include(di => di.Detentora)
-                .Where(di => di.Id.Equals(detentoraItemId))
+                .Where(di => di.Item.Id.Equals(itemId))
                 .FirstOrDefaultAsync();
         }
 

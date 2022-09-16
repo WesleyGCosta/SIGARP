@@ -27,6 +27,7 @@ namespace WebApp.Controllers
         private readonly CreateDetentoraItem _createDetentoraItem;
         private readonly DeleteItem _deleteItem;
         private readonly UpdateItem _updateItem;
+        private readonly UpdateDetentoraItem _updateDetentoraItem;
 
         public ItemController(
             IAtaRepository ataRepository,
@@ -43,6 +44,7 @@ namespace WebApp.Controllers
             _createDetentoraItem = new CreateDetentoraItem(detentoraItemRepository);
             _deleteItem = new DeleteItem(itemRepository); 
             _updateItem = new UpdateItem(itemRepository);
+            _updateDetentoraItem = new UpdateDetentoraItem(detentoraItemRepository);
         }
 
         public async Task<IActionResult> Create()
@@ -105,11 +107,22 @@ namespace WebApp.Controllers
             }
 
             var item = ItemFactory.ToEntityItem(itemViewModel);
+            var itemDetentoraEntity = ItemDetentoraFactory.ToEntity(itemViewModel.CodigoDetentora, itemViewModel.Id);
+
             await _updateItem.Run(item);
+
+            var detentoraItem = await _searchDetentoraItem.GetByItemId(item.Id);
+            
+            if (detentoraItem == null)
+                await _createDetentoraItem.Run(itemDetentoraEntity);
+            else
+                await _updateDetentoraItem.Run(itemDetentoraEntity);
+
+            var itemDetentora = ItemDetentoraFactory.ToEntity(itemViewModel.CodigoDetentora, itemViewModel.Id);
 
             TempData["Success"] = "Item alterado com Sucesso";
 
-            return Ok();
+            return await RedirectiListItem(item.AnoAta, item.CodigoAta);
         }
 
         public async Task<IActionResult> Details(Guid itemId)
@@ -140,7 +153,12 @@ namespace WebApp.Controllers
             await _deleteItem.Run(item);
             TempData["Success"] = "Item Excluído Com Sucesso";
 
-            var itens = await _searchItem.GetListItemByCodeAtaAndYearAta(item.AnoAta, item.CodigoAta);
+            return await RedirectiListItem(item.AnoAta, item.CodigoAta);
+        }
+
+        private async Task<IActionResult> RedirectiListItem(int yearAta, int codeAta)
+        {
+            var itens = await _searchItem.GetListItemByCodeAtaAndYearAta(yearAta, codeAta);
             var itensViewModel = ItemFactory.ToListViewModel(itens);
 
             return PartialView("_ListItensEdit", itensViewModel);

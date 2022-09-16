@@ -17,5 +17,11 @@ namespace Domain.Entities
 
         public Item Item { get; private set; }
         public Detentora Detentora { get; private set; }
+
+        public void Update(DetentoraItem detentoraItem)
+        {
+            ItemId = detentoraItem.ItemId;
+            DetentoraId = detentoraItem.DetentoraId;
+        }
     }
 }

@@ -25,6 +25,11 @@ namespace Historia.DetentorasItem
             return await _detentoraItemRepository.GetByIds(detentoraId, itemId);
         }
 
+        public async Task<DetentoraItem> GetByItemId(Guid itemId)
+        {
+            return await _detentoraItemRepository.GetByItemId(itemId);
+        }
+
         public async Task<DetentoraItem> GetById(Guid detentoraItemId)
         {
             return await _detentoraItemRepository.GetByPrimaryKey(detentoraItemId);

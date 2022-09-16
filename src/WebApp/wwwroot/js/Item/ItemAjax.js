@@ -132,10 +132,24 @@ $(document).ready(function () {
 
     $(document).on('submit', '#formEditItem', function (e) {
         e.preventDefault()
+        const placeHolderHere = $('#PlaceHolderHere')
+        const yearAta = $('#AnoAta').val()
+        const codeAta = $('#CodigoAta').val()
+
         if ($(this).valid()) {
-            alert('certo')
-        } else {
-            alert("erro")
+            $.ajax({
+                type: 'POST',
+                url: '/Item/Edit/',
+                data: $(this).serialize(),
+                success: function (response) {
+                    $('#item').empty()
+                    $('#item').html(response)
+                    GetMessageDomain()
+                    UpdateListDetentora(yearAta, codeAta)
+                    UpdateListParticipanteItem(yearAta, codeAta)
+                    placeHolderHere.find('.modal').modal('hide');
+                }
+            })
         }
     })
 

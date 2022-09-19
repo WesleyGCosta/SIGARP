@@ -136,8 +136,6 @@ namespace WebApp.Controllers
             return PartialView("_ListAtas", listAtasViewModel);
         }
 
-
-
         [HttpGet]
         public async Task<JsonResult> AutoCompleteNumberAta(int yearAta)
         {

@@ -2,6 +2,7 @@
 using Domain.IRepositories;
 using Infra.Contexto;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,15 @@ namespace Infra.Persistence
     {
         public ItemRepository(DataContext db) : base(db)
         {
+        }
+
+        public async Task<Item> GetByIdInclude(Guid id)
+        {
+            return await _db.Itens
+                .Include(i => i.DetentoraItem)
+                .ThenInclude(di => di.Detentora)
+                .Where(i => i.Id.Equals(id))
+                .FirstOrDefaultAsync();
         }
 
         public async Task<Item> GetItemByCodeAtaAndYearAta(int yearAta, int codeAta, int codeItem)

@@ -22,9 +22,12 @@ namespace WebApp.Controllers
         private readonly SearchAta _searchAta;
         private readonly SearchItem _searchItem;
         private readonly SearchDetentora _searchDetentora;
+        private readonly SearchDetentoraItem _searchDetentoraItem;
         private readonly CreateItem _createItem;
         private readonly CreateDetentoraItem _createDetentoraItem;
         private readonly DeleteItem _deleteItem;
+        private readonly UpdateItem _updateItem;
+        private readonly UpdateDetentoraItem _updateDetentoraItem;
 
         public ItemController(
             IAtaRepository ataRepository,
@@ -36,10 +39,12 @@ namespace WebApp.Controllers
             _searchAta = new SearchAta(ataRepository);
             _searchItem = new SearchItem(itemRepository);
             _searchDetentora = new SearchDetentora(detentoraRepository);
+            _searchDetentoraItem = new SearchDetentoraItem(detentoraItemRepository);
             _createItem = new CreateItem(itemRepository);
             _createDetentoraItem = new CreateDetentoraItem(detentoraItemRepository);
             _deleteItem = new DeleteItem(itemRepository); 
-
+            _updateItem = new UpdateItem(itemRepository);
+            _updateDetentoraItem = new UpdateDetentoraItem(detentoraItemRepository);
         }
 
         public async Task<IActionResult> Create()
@@ -78,11 +83,46 @@ namespace WebApp.Controllers
             return RedirectToAction(nameof(Create));
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(Guid itemId)
         {
-            var item = await _searchItem.GetById(itemId);
+            var item = await _searchItem.GetByIdInclude(itemId);
             var itemViewModel = ItemFactory.ToViewModel(item);
-            return PartialView("_EditItem", itemViewModel);
+
+            if(itemViewModel.ItemDetentora != null)
+                ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial", itemViewModel.ItemDetentora.Detentora.Id);
+            else
+                ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
+
+            return PartialView("_FormEditItemModal", itemViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ItemViewModel itemViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["Warning"] = "Erro ao Editar o Item";
+                return NotFound();
+            }
+
+            var item = ItemFactory.ToEntityItem(itemViewModel);
+            var itemDetentoraEntity = ItemDetentoraFactory.ToEntity(itemViewModel.CodigoDetentora, itemViewModel.Id);
+
+            await _updateItem.Run(item);
+
+            var detentoraItem = await _searchDetentoraItem.GetByItemId(item.Id);
+            
+            if (detentoraItem == null)
+                await _createDetentoraItem.Run(itemDetentoraEntity);
+            else
+                await _updateDetentoraItem.Run(itemDetentoraEntity);
+
+            var itemDetentora = ItemDetentoraFactory.ToEntity(itemViewModel.CodigoDetentora, itemViewModel.Id);
+
+            TempData["Success"] = "Item alterado com Sucesso";
+
+            return await RedirectiListItem(item.AnoAta, item.CodigoAta);
         }
 
         public async Task<IActionResult> Details(Guid itemId)
@@ -113,10 +153,15 @@ namespace WebApp.Controllers
             await _deleteItem.Run(item);
             TempData["Success"] = "Item Excluído Com Sucesso";
 
-            var itens = await _searchItem.GetListItemByCodeAtaAndYearAta(item.AnoAta, item.CodigoAta);
-            var listItemViewModel = ItemFactory.ToListItemViewModel(itens);
+            return await RedirectiListItem(item.AnoAta, item.CodigoAta);
+        }
 
-            return PartialView("_ListItensEdit", listItemViewModel);
+        private async Task<IActionResult> RedirectiListItem(int yearAta, int codeAta)
+        {
+            var itens = await _searchItem.GetListItemByCodeAtaAndYearAta(yearAta, codeAta);
+            var itensViewModel = ItemFactory.ToListViewModel(itens);
+
+            return PartialView("_ListItensEdit", itensViewModel);
         }
 
         //Consultas dinâmica
@@ -141,7 +186,7 @@ namespace WebApp.Controllers
             if (!itens.Any())
                 return NotFound();
 
-            var listItemViewModel = ItemFactory.ToListItemViewModel(itens);
+            var listItemViewModel = ItemFactory.ToListViewModel(itens);
 
             return PartialView("_ListItens", listItemViewModel);
         }

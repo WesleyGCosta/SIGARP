@@ -9,6 +9,7 @@ using Historia.ParticipantesItens;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
@@ -68,9 +69,9 @@ namespace WebApp.Controllers
             return View(listDetentorasViewModel);
         }
 
-        public async Task<IActionResult> DeleteDetentoraItem(Guid detentoraId, Guid itemId)
+        public async Task<IActionResult> DeleteDetentoraItem(Guid detentoraId, int yearAta, int codeAta)
         {
-            var participante = await _searchDetentoraItem.GetByIds(detentoraId, itemId);
+            var participante = await _searchDetentoraItem.GetById(detentoraId);
             if (participante.Equals(null))
             {
                 TempData["Warning"] = "Erro ao Excluir Participante do Item";
@@ -81,10 +82,21 @@ namespace WebApp.Controllers
             TempData["Success"] = "Detentora excluído do Item com Sucessso";
 
 
-            var detentoras = await _searchDetentora.GetListDetentoraItemByAta(participante.Item.AnoAta, participante.Item.CodigoAta);
-            var detentorasViewModel = DetentoraFactory.ToListViewModel(detentoras);
+            var detentoras = await _searchDetentoraItem.GetListDetentoraByAta(yearAta, codeAta);
+            var detentorasViewModel = ItemDetentoraFactory.ToListViewModel(detentoras);
+            return RedirectListDetentoraItem(detentorasViewModel);
+        }
 
-            return PartialView("_DetentorasEdit", detentorasViewModel);
+        public async Task<IActionResult> UpdateListDetentora(int yearAta, int codeAta)
+        {
+            var detentorasItens = await _searchDetentoraItem.GetListDetentoraByAta(yearAta, codeAta);
+            var detentorasItensViewModel = ItemDetentoraFactory.ToListViewModel(detentorasItens);
+            return RedirectListDetentoraItem(detentorasItensViewModel);
+        }
+
+        private IActionResult RedirectListDetentoraItem(IList<ItemDetentoraViewModel> itemDetentorasViewModel)
+        {
+            return PartialView("_DetentorasEdit", itemDetentorasViewModel);
         }
     }
 }

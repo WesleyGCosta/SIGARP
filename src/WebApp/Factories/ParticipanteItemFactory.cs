@@ -14,6 +14,7 @@ namespace WebApp.Factories
 
         public static ParticipanteItemViewModel ToViewModel(ParticipanteItem participanteItem)
         {
+            participanteItem.Item.SetNullIncludes();
             return new ParticipanteItemViewModel
             {
                 Id = participanteItem.Id,

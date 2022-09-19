@@ -19,6 +19,7 @@ namespace WebApp.Factories
 
         public static ItemDetentoraViewModel ToViewModel(DetentoraItem detentoraItem)
         {
+            detentoraItem.Item.SetNullIncludes();
             return new ItemDetentoraViewModel
             {
                 Id = detentoraItem.Id,
@@ -33,9 +34,16 @@ namespace WebApp.Factories
         {
             var list = new List<ItemDetentoraViewModel>();
             foreach (var item in Itens)
-            {
                 list.Add(ToViewModel(item.DetentoraItem));
-            }
+
+            return list;
+        }
+
+        public static IList<ItemDetentoraViewModel> ToListViewModel(IEnumerable<DetentoraItem> detentorasItens)
+        {
+            var list = new List<ItemDetentoraViewModel>();
+            foreach (var item in detentorasItens)
+                list.Add(ToViewModel(item));
 
             return list;
         }

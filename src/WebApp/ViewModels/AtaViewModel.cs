@@ -11,6 +11,9 @@ namespace WebApp.ViewModels
         {
             DataCadastro = DateTime.Now;
             LimiteAdesao = 100;
+            ItensViewModel = new List<ItemViewModel>();
+            ItensDetentoraViewModel = new List<ItemDetentoraViewModel>();
+            ParticipanteItemViewModel = new List<ParticipanteItemViewModel>();
         }
 
         [Display(Name = "Código da Ata")]

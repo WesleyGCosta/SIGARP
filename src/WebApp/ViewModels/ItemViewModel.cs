@@ -12,6 +12,8 @@ namespace WebApp.ViewModels
         {
             Id = Guid.NewGuid();
             Ativo = true;
+            //ItemDetentora = new ItemDetentoraViewModel();
+            ParticipanteItems = new List<ParticipanteItemViewModel>();
         }
 
         public Guid Id { get; set; }
@@ -69,7 +71,7 @@ namespace WebApp.ViewModels
         public decimal PrecoRegistrado { get; set; }
         public bool Ativo { get; set; }
 
+        public ICollection<ParticipanteItemViewModel> ParticipanteItems { get; set; }
         public ItemDetentoraViewModel ItemDetentora { get; set; }
-        public ICollection<UnidadeAdministrativaViewModel> UnidadeAdministrativa { get; set; }
     }
 }

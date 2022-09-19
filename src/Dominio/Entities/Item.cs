@@ -58,5 +58,22 @@ namespace Domain.Entities
             QuantidadeDisponivel = Quantidade;
         }
 
+        public void SetNullIncludes()
+        {
+            DetentoraItem = null;
+            ParticipantesItens = null;
+        }
+
+        public void Update(Item item)
+        {
+            Tipo = item.Tipo;
+            Marca = item.Marca;
+            UnidadeAquisicao = item.UnidadeAquisicao;
+            PrecoMercado = item.PrecoMercado;
+            PrecoRegistrado = item.PrecoRegistrado;
+            Quantidade = item.Quantidade;
+            Descricao = item.Descricao;
+        }
+
     }
 }

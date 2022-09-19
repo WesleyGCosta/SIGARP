@@ -52,11 +52,8 @@ namespace WebApp.Factories
                 Observacao = ata.Observacao
             };
 
-            if (ata.Itens != null && ata.Itens.Any(i => i.ParticipantesItens != null))
-                ataViewModel.ParticipanteItemViewModel = ParticipanteItemFactory.ToListViewModel(ata.Itens);
-
-            if (ata.Itens != null)
-                ataViewModel.ItensDetentoraViewModel = ItemDetentoraFactory.ToListViewModel(ata.Itens);
+            if(ata.Itens != null)
+                ataViewModel.ItensViewModel = ItemFactory.ToListViewModel(ata.Itens);
 
             return ataViewModel;
         }

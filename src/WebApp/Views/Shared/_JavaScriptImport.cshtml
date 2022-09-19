@@ -1,4 +1,16 @@
-﻿<script src="~/lib/jquery/dist/jquery.min.js"></script>
+﻿<script type="text/javascript">
+    function Loader() {
+        $('#loader').addClass('loader')
+        $('#loader').show()
+    }
+
+    function Finish() {
+        $('#loader').removeClass()
+        $('#loader').hide()
+    }
+</script>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/lib/jquery/dist/jquery.mask.min.js"></script>
 <script src="/lib/jquery/dist/jquery.dataTables.min.js"></script>

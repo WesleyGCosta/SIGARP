@@ -16,6 +16,19 @@
     --list-hover-color: #fffef7;
 }
 
+.loader {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background: rgb(0, 0, 0, 0.8) url(/img/Loader.gif) no-repeat center center;
+    background-size: 350px;
+    z-index: 10000;
+}
+
 * {
     margin: 0;
     padding: 0;

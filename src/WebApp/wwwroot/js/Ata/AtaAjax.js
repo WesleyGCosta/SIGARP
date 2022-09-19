@@ -16,7 +16,7 @@ $(document).ready(function () {
         });
     })
 
-
+    //Select de cadastrar Ata
     $("#AnoAta").change(function () {
         var year = $(this).find("option:selected").val();
         if (year != "") {
@@ -64,6 +64,12 @@ $(document).ready(function () {
                 type: 'GET',
                 url: '/Ata/GetAtaByYearAndCode/',
                 data: { yearAta: $('#AnoAtaInfo').val(), codeAta: $('#CodigoAtaInfo').val() },
+                beforeSend: function () {
+                    Loader()
+                },
+                complete: function () {
+                    Finish()
+                },
                 success: function (response) {
                     fillDivResult(response)
                 },
@@ -82,6 +88,12 @@ $(document).ready(function () {
                 type: 'GET',
                 url: '/Ata/GetAtaByYearAndCodeEdit/',
                 data: { yearAta: $('#AnoAtaEdit').val(), codeAta: $('#CodigoAtaEdit').val() },
+                beforeSend: function () {
+                    Loader()
+                },
+                complete: function () {
+                    Finish()
+                },
                 success: function (response) {
                     fillDivResult(response)
                 },
@@ -101,6 +113,12 @@ $(document).ready(function () {
                 type: 'GET',
                 url: '/Ata/GetListAtaByYear/',
                 data: { yearAta },
+                beforeSend: function () {
+                    Loader()
+                },
+                complete: function () {
+                    Finish()
+                },
                 success: function (response) {
                     fillDivResult(response);
                     GetMessageDomain()
@@ -134,6 +152,12 @@ $(document).ready(function () {
                     type: 'GET',
                     url: '/Ata/Delete/',
                     data: { yearAta, codeAta },
+                    beforeSend: function () {
+                        Loader()
+                    },
+                    complete: function () {
+                        Finish()
+                    },
                     success: function (response) {
                         GetMessageDomain()
                         fillDivResult(response)

@@ -18,7 +18,7 @@ namespace Infra.Persistence
         {
             return await _db.Atas
                 .AsNoTracking()
-                .Where(a => a.AnoAta.Equals(year) && a.CodigoAta.Equals(code))
+                .Where(a => a.AnoAta.Equals(year) && a.CodigoAta.Equals(code) && a.Publicada.Equals(false))
                 .FirstOrDefaultAsync();
         }
 
@@ -57,7 +57,7 @@ namespace Infra.Persistence
         {
             return await _db.Atas
                 .AsNoTracking()
-                .Where(a => a.AnoAta.Equals(year))
+                .Where(a => a.AnoAta.Equals(year) && a.Publicada.Equals(false))
                 .Select(a => a.CodigoAta)
                 .ToListAsync();
         }

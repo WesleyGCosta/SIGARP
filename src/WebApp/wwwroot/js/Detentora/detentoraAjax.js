@@ -10,6 +10,7 @@
             showCancelButton: true,
             confirmButtonColor: '#247ba0',
             cancelButtonColor: '#6c757d',
+            cancelButtonText: 'Cancelar',
             confirmButtonText: 'Sim, apagar Detentoda do Item!'
         }).then((result) => {
             if (result.isConfirmed) {

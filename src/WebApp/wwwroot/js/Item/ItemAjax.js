@@ -156,17 +156,18 @@ $(document).ready(function () {
     //Exclusão de Item
     $(document).on('click', '.btnDeleteItem', function () {
         const itemId = $(this).data('itemid')
-        const numetoItem = $('CodigoItem').val()
+        const codigoItem = $(this).data('codigoitem')
         const yearAta = $('#AnoAta').val()
         const codeAta = $('#CodigoAta').val()
 
         Swal.fire({
             title: 'Confirmação de Exclusão',
-            text: "Essa ação irá excluir tudo relacionado ao item " + numetoItem + "!",
+            text: `Essa ação irá excluir tudo relacionado ao item ${codigoItem}!`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#247ba0',
             cancelButtonColor: '#6c757d',
+            cancelButtonText: 'Cancelar',
             confirmButtonText: 'Sim, apagar item!'
         }).then((result) => {
             if (result.isConfirmed) {

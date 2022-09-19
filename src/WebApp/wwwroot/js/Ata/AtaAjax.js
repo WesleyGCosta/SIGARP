@@ -126,6 +126,7 @@ $(document).ready(function () {
             showCancelButton: true,
             confirmButtonColor: '#247ba0',
             cancelButtonColor: '#6c757d',
+            cancelButtonText: 'Cancelar',
             confirmButtonText: 'Sim, apagar ata!'
         }).then((result) => {
             if (result.isConfirmed) {

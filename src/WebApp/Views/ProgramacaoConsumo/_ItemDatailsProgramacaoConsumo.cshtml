@@ -1,0 +1,14 @@
+﻿@model WebApp.ViewModels.ProgramacaoConsumoViewModel
+
+<hr />
+<section>
+    <div class="text-center"><h5 class="font-weight-bold text-sapphire">Informação do Item @Model.NumeroItem</h5></div>
+    <div>
+        <span><strong>@Html.DisplayNameFor(model => model.QuantidadeDisponivel)</strong>: @Model.QuantidadeDisponivel</span>
+        <input type="hidden" asp-for="QuantidadeDisponivel" />
+    </div>
+    <div>
+        <span><strong>@Html.DisplayNameFor(model => model.Descricao) do Item</strong>: @Model.Descricao</span>
+    </div>
+</section>
+<hr />

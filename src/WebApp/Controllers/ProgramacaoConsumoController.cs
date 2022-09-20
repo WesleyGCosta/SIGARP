@@ -1,5 +1,6 @@
 ﻿using Domain.IRepositories;
 using Domain.Notifications.Interface;
+using Historia.Itens;
 using Historia.ParticipantesItens;
 using Historia.ProgramacoesConsumos;
 using Historia.UnidadesAdministrativas;
@@ -17,16 +18,19 @@ namespace WebApp.Controllers
     {
         private readonly SearchUnidadeAdministrativa _searchUnidadeAdministrativa;
         private readonly SearchParticipanteItem _searchParticipanteItem;
+        private readonly SearchItem _searchItem;
         private readonly CreateProgramacaoConsumo _createProgramacaoConsumo;
         private readonly CreateParticipanteItem _createParticipanteItem;
         public ProgramacaoConsumoController(
             IUnidadeAdministrativaRepository unidadeAdministrativaRepository,
             IProgramacaoConsumoParticipanteRepository programacaoConsumoParticipanteRepository,
             IParticipanteItemRepository participanteItemRepository,
+            IItemRepository itemRepository,
             INotifier notifier) : base(notifier)
         {
             _searchUnidadeAdministrativa = new SearchUnidadeAdministrativa(unidadeAdministrativaRepository);
             _searchParticipanteItem = new SearchParticipanteItem(participanteItemRepository);
+            _searchItem = new SearchItem(itemRepository);
             _createProgramacaoConsumo = new CreateProgramacaoConsumo(programacaoConsumoParticipanteRepository);
             _createParticipanteItem = new CreateParticipanteItem(participanteItemRepository);
         }
@@ -68,6 +72,18 @@ namespace WebApp.Controllers
             await FillViewBags();
 
             return Ok();
+        }
+
+        public async Task<IActionResult> GetItemIncludeUnidadeAdministrativa(int yearAta, int codeAta, int codeItem)
+        {
+            var item = await _searchItem.GetItemByCodeAtaAndYearAtaIncludeUnidadeAdministrativa(yearAta, codeAta, codeItem);
+
+            if (item == null)
+                return NotFound();
+
+            var listItemViewModel = ProgramacaoConsumoFactory.ToViewModel(item);
+
+            return PartialView("_ItemDatailsProgramacaoConsumo", listItemViewModel);
         }
 
         public IActionResult Management()

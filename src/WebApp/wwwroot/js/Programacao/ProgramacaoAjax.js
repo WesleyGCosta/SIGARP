@@ -17,4 +17,20 @@ $(document).ready(function () {
             })
         }
     })
+
+    $('#CodigoItem').change(function () {
+        let yearAta = $('#AnoAta').val();
+        let codeAta = $('#CodigoAta').val();
+        let codeItem = $(this).find("option:selected").text();
+
+        $.ajax({
+            type: 'GET',
+            url: '/ProgramacaoConsumo/GetItemIncludeUnidadeAdministrativa/',
+            data: { yearAta, codeAta, codeItem },
+            success: function (response) {
+                $('#listProgramacao').empty()
+                $('#listProgramacao').append(response)
+            }
+        })
+    })
 })

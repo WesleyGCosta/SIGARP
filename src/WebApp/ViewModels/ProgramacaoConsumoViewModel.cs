@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using WebApp.ViewModels.CustomValidation;
 
 namespace WebApp.ViewModels
 {
@@ -20,12 +21,21 @@ namespace WebApp.ViewModels
         [Required(ErrorMessage = "Campo Obrigatório")]
         public Guid CodigoItem { get; set; }
 
+        public int NumeroItem { get; set; }
+
+        [Display(Name = "Quantidade Disponível")]
+        public int QuantidadeDisponivel { get; set; }
+
+        [Display(Name = "Descrição")]
+        public string Descricao { get; set; }
+
         [Display(Name = "Participante")]
         [Required(ErrorMessage = "Campo Obrigatório")]
         public Guid CodigoUnidadeAdministrativa { get; set; }
 
         [Display(Name = "Consumo Estimado")]
         [Required(ErrorMessage = "Campo Obrigatório")]
+        [MoreThan(nameof(QuantidadeDisponivel), ErrorMessage = "O {0} não pode ser maior que Quantidade Disponível do Item")]
         public int ConsumoEstimado { get; set; }
         public int Saldo
         {

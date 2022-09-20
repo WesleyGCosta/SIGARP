@@ -46,11 +46,18 @@ namespace WebApp.Factories
             };
 
             if (item.DetentoraItem != null)
+            {
                 itemViewModel.ItemDetentora = ItemDetentoraFactory.ToViewModel(item.DetentoraItem);
+                itemViewModel.ItemDetentora.Item = itemViewModel;
+            }
 
             if (item.ParticipantesItens != null && item.ParticipantesItens.Any())
+            {
                 itemViewModel.ParticipanteItems = ParticipanteItemFactory.ToListViewModel(item.ParticipantesItens);
-            
+                foreach (var participante in itemViewModel.ParticipanteItems)
+                    participante.ItemViewModel = itemViewModel;
+            }
+                           
             return itemViewModel;
         }
 

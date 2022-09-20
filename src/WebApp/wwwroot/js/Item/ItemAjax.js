@@ -34,24 +34,6 @@ $(document).ready(function () {
         AutoCompleteItem()
     })
 
-    $('#CodigoItem').change(function () {
-        let yearAta = $('#AnoAta').val();
-        let codeAta = $('#CodigoAta').val();
-        let codeItem = $(this).find("option:selected").text();
-
-        if (pathname[1] == "ProgramacaoConsumo") {
-            $.ajax({
-                type: 'GET',
-                url: '/Item/GetItemIncludeUnidadeAdministrativa/',
-                data: { yearAta, codeAta, codeItem },
-                success: function (response) {
-                    $('#listProgramacao').empty()
-                    $('#listProgramacao').append(response)
-                }
-            })
-        }
-    })
-
     function AutoCompleteItem() {
 
         let yearAta = $('#AnoAta').val()

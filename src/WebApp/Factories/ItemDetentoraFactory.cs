@@ -19,14 +19,12 @@ namespace WebApp.Factories
 
         public static ItemDetentoraViewModel ToViewModel(DetentoraItem detentoraItem)
         {
-            detentoraItem.Item.SetNullIncludes();
             return new ItemDetentoraViewModel
             {
                 Id = detentoraItem.Id,
                 CodigoDetentora = detentoraItem.DetentoraId,
                 CodigoItem = detentoraItem.ItemId,
                 Detentora = DetentoraFactory.ToDetentoraViewModel(detentoraItem.Detentora),
-                Item = ItemFactory.ToViewModel(detentoraItem.Item)
             };
         }
 

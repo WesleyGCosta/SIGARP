@@ -10,6 +10,7 @@ $(document).ready(function () {
                 data: $(this).serialize(),
                 success: function () {              
                     GetMessageDomain();
+                    GetInfoItem()
                 },
                 error: function () {
                     GetMessageDomain();
@@ -19,10 +20,18 @@ $(document).ready(function () {
     })
 
     $('#CodigoItem').change(function () {
+        GetInfoItem();
+    })
+
+    function GetInfoItem() {
         let yearAta = $('#AnoAta').val();
         let codeAta = $('#CodigoAta').val();
-        let codeItem = $(this).find("option:selected").text();
+        let codeItem = $('#CodigoItem').find("option:selected").text();
 
+        GetInfoItemAjax(yearAta, codeAta, codeItem);
+    }
+
+    function GetInfoItemAjax(yearAta, codeAta, codeItem) {
         $.ajax({
             type: 'GET',
             url: '/ProgramacaoConsumo/GetItemIncludeUnidadeAdministrativa/',
@@ -32,5 +41,7 @@ $(document).ready(function () {
                 $('#listProgramacao').append(response)
             }
         })
-    })
+    }
+
+    
 })

@@ -58,6 +58,11 @@ namespace Domain.Entities
             QuantidadeDisponivel = Quantidade;
         }
 
+        public void SubtractQuantityItem(int consumoEstimado)
+        {
+            QuantidadeDisponivel -= consumoEstimado;
+        }
+
         public void SetNullIncludes()
         {
             DetentoraItem = null;

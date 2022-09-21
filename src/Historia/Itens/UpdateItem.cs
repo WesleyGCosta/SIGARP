@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.IRepositories;
+using System;
 using System.Threading.Tasks;
 
 namespace Historia.Itens
@@ -19,6 +20,13 @@ namespace Historia.Itens
 
             itemConsult.Update(item);
             await _itemRepository.Update(itemConsult);
+        }
+
+        public async Task SubtractQuantityItem(Guid itemId, int programacaoConsumo)
+        {
+            var item = await _itemRepository.GetByPrimaryKey(itemId);
+            item.SubtractQuantityItem(programacaoConsumo);
+            await _itemRepository.Update(item);
         }
     }
 }

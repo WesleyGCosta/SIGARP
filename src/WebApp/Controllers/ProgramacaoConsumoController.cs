@@ -19,6 +19,7 @@ namespace WebApp.Controllers
         private readonly SearchUnidadeAdministrativa _searchUnidadeAdministrativa;
         private readonly SearchParticipanteItem _searchParticipanteItem;
         private readonly SearchItem _searchItem;
+        private readonly UpdateItem _updateItem;
         private readonly CreateProgramacaoConsumo _createProgramacaoConsumo;
         private readonly CreateParticipanteItem _createParticipanteItem;
         public ProgramacaoConsumoController(
@@ -31,6 +32,7 @@ namespace WebApp.Controllers
             _searchUnidadeAdministrativa = new SearchUnidadeAdministrativa(unidadeAdministrativaRepository);
             _searchParticipanteItem = new SearchParticipanteItem(participanteItemRepository);
             _searchItem = new SearchItem(itemRepository);
+            _updateItem = new UpdateItem(itemRepository);
             _createProgramacaoConsumo = new CreateProgramacaoConsumo(programacaoConsumoParticipanteRepository);
             _createParticipanteItem = new CreateParticipanteItem(participanteItemRepository);
         }
@@ -48,7 +50,7 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProgramacaoConsumoViewModel programacaoConsumoViewModel)
         {
             if (!ModelState.IsValid)
@@ -67,6 +69,7 @@ namespace WebApp.Controllers
 
             await _createParticipanteItem.Run(participante);
             await _createProgramacaoConsumo.Run(programacaoConsumo);
+            await _updateItem.SubtractQuantityItem(programacaoConsumoViewModel.CodigoItem, programacaoConsumo.ConsumoEstimado);
 
             TempData["Success"] = "Programação Incluída com Sucesso";
             await FillViewBags();

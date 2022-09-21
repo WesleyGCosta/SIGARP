@@ -12,7 +12,6 @@ namespace WebApp.ViewModels
         {
             Id = Guid.NewGuid();
             Ativo = true;
-            //ItemDetentora = new ItemDetentoraViewModel();
             ParticipanteItems = new List<ParticipanteItemViewModel>();
         }
 
@@ -54,11 +53,21 @@ namespace WebApp.ViewModels
 
         [Display(Name = "Quantidade")]
         [Required(ErrorMessage = "Campo Obrigatório!")]
+        [LessThan(nameof(QuantidadeUso), ErrorMessage = "A {0} do Item não pode ser menor que {1}")]
         [Range(1, Double.PositiveInfinity, ErrorMessage = "O {0} tem que ser maior que 0")]
         public int Quantidade { get; set; }
 
         [Display(Name = "Quantidade Disponível")]
         public int QuantidadeDisponivel { get; set; }
+
+        [Display(Name = "Quantidade em Uso")]
+        public int QuantidadeUso
+        {
+            get
+            {
+                return Quantidade - QuantidadeDisponivel;
+            }
+        }
 
         [Display(Name = "Preço de Mercado")]
         [Required(ErrorMessage = "Campo Obrigatório!")]

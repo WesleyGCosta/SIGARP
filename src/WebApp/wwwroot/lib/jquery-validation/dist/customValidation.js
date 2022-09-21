@@ -46,6 +46,31 @@
         $.validator.unobtrusive.adapters.addBool('data-val-more-than');
     })(jQuery);
 
+    (function ($) {
+        $.validator.addMethod('data-val-less-than',
+            function (value, element, params) {
+                var nameCompare = $(element).attr('data-val-less-than-field');// Quantidade
+                if (nameCompare) {
+                    var valueCompare = $("#" + nameCompare).val();
+                    var quantidade = parseInt(valueCompare.replace(/[^\d]+/g, ''));
+                    var quantidadeUso = parseInt(value.replace(/[^\d]+/g, ''));
+
+                    if (quantidade && quantidadeUso && (quantidade <= quantidadeUso)) {
+                        return true;
+                    }
+                }
+                return false;
+            }, function (params, element) {
+                var msgCompare = $(element).attr('data-val-less-than');
+                if (!msgCompare) {
+                    msgCompare = 'O Preço Registrado não pode ser maior que Preço de Mercado';
+                }
+                return msgCompare;
+            });
+        $.validator.unobtrusive.adapters.addBool('data-val-more-than');
+    })(jQuery);
+
+
     function isCNPJValid(cnpj) {
         cnpj = cnpj.replace(/[^\d]+/g, '');
         if (cnpj == '') return false;

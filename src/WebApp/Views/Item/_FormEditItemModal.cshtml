@@ -54,6 +54,18 @@
                             <input asp-for="Quantidade" class="form-control" placeholder="Quantidade" />
                             <span asp-validation-for="Quantidade" class="text-danger"></span>
                         </div>
+
+                        <div class="col-6 mt-3">
+                            <label asp-for="QuantidadeUso" class="control-label"></label>
+                            <input asp-for="QuantidadeUso" class="form-control" readonly />
+                            <span asp-validation-for="QuantidadeUso" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-6 mt-3">
+                            <label asp-for="QuantidadeDisponivel" class="control-label"></label>
+                            <input asp-for="QuantidadeDisponivel" class="form-control" readonly/>
+                            <span asp-validation-for="QuantidadeDisponivel" class="text-danger"></span>
+                        </div>
                         <div class="col-12 mt-3">
                             <label asp-for="CodigoDetentora" class="control-label"></label>
                             @Html.DropDownList("codigoDetentora", (SelectList)ViewBag.ListDetentora, new { @class = "custom-select"})

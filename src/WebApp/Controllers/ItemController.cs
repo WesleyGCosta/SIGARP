@@ -98,6 +98,7 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(ItemViewModel itemViewModel)
         {
             if (!ModelState.IsValid)
@@ -105,7 +106,7 @@ namespace WebApp.Controllers
                 TempData["Warning"] = "Erro ao Editar o Item";
                 return NotFound();
             }
-
+            
             var item = ItemFactory.ToEntityItem(itemViewModel);
             var itemDetentoraEntity = ItemDetentoraFactory.ToEntity(itemViewModel.CodigoDetentora, itemViewModel.Id);
 

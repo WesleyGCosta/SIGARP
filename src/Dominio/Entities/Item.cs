@@ -77,6 +77,7 @@ namespace Domain.Entities
             PrecoMercado = item.PrecoMercado;
             PrecoRegistrado = item.PrecoRegistrado;
             Quantidade = item.Quantidade;
+            QuantidadeDisponivel = item.QuantidadeDisponivel;
             Descricao = item.Descricao;
         }
 

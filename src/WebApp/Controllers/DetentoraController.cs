@@ -23,6 +23,7 @@ namespace WebApp.Controllers
         private readonly CreateEndereco _createEndereco;
         private readonly SearchDetentora _searchDetentora;
 
+        private readonly SearchItem _searchItem;
         private readonly SearchDetentoraItem _searchDetentoraItem;
         private readonly DeleteDetentoraItem _deleteDetentoraItem;
 
@@ -30,12 +31,13 @@ namespace WebApp.Controllers
             IDetentoraRepository detentoraRepository,
             IEnderecoRepository enderecoRepository,
             IDetentoraItemRepository detentoraItemRepository,
+            IItemRepository itemRepository,
             INotifier notifier) : base(notifier)
         {
             _createDetentora = new CreateDetentora(detentoraRepository);
             _createEndereco = new CreateEndereco(enderecoRepository);
             _searchDetentora = new SearchDetentora(detentoraRepository);
-
+            _searchItem = new SearchItem(itemRepository);
             _searchDetentoraItem = new SearchDetentoraItem(detentoraItemRepository);
             _deleteDetentoraItem = new DeleteDetentoraItem(detentoraItemRepository);
         }
@@ -81,20 +83,17 @@ namespace WebApp.Controllers
             await _deleteDetentoraItem.Run(participante);
             TempData["Success"] = "Detentora excluído do Item com Sucessso";
 
-
-            var detentoras = await _searchDetentoraItem.GetListDetentoraByAta(yearAta, codeAta);
-            var detentorasViewModel = ItemDetentoraFactory.ToListViewModel(detentoras);
-            return RedirectListDetentoraItem(detentorasViewModel);
+            return RedirectToAction("UpdateListDetentora", new { yearAta, codeAta });
         }
 
         public async Task<IActionResult> UpdateListDetentora(int yearAta, int codeAta)
         {
-            var detentorasItens = await _searchDetentoraItem.GetListDetentoraByAta(yearAta, codeAta);
-            var detentorasItensViewModel = ItemDetentoraFactory.ToListViewModel(detentorasItens);
-            return RedirectListDetentoraItem(detentorasItensViewModel);
+            var detentorasItens = await _searchItem.GetListItemByCodeAtaAndYearAtaIncludeDetentora(yearAta, codeAta);
+            var itensViewModel = ItemFactory.ToListViewModel(detentorasItens);
+            return PartialView("_DetentorasEdit", itensViewModel);
         }
 
-        private IActionResult RedirectListDetentoraItem(IList<ItemDetentoraViewModel> itemDetentorasViewModel)
+        private IActionResult RedirectListDetentoraItem(IList<ItemViewModel> itemDetentorasViewModel)
         {
             return PartialView("_DetentorasEdit", itemDetentorasViewModel);
         }

@@ -52,6 +52,17 @@ namespace Infra.Persistence
                 .ToListAsync();
         }
 
+        public async Task<List<Item>> GetItemByCodeAtaAndYearAtaIncludeParticipantes(int yearAta, int codeAta)
+        {
+            return await _db.Itens
+                .AsNoTracking()
+                .Include(i => i.ParticipantesItens)
+                .ThenInclude(di => di.UnidadeAdministrativa)
+                .Where(i => i.CodigoAta.Equals(codeAta) && i.AnoAta.Equals(yearAta))
+                .OrderBy(i => i.NumeroItem)
+                .ToListAsync();
+        }
+
         public async Task<Item> GetItemByCodeAtaAndYearAtaIncludeUnidadeAdministrativa(int yearAta, int codeAta, int codeItem)
         {
             return await _db.Itens

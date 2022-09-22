@@ -9,6 +9,7 @@ namespace WebApp.Factories
     {
         public static Item ToEntityItem(ItemViewModel itemViewModel)
         {
+            itemViewModel.UpdateQuantidadeDisponivel();
             return new Item(
                 itemViewModel.Id,
                 itemViewModel.CodigoItem,
@@ -40,6 +41,7 @@ namespace WebApp.Factories
                 UnidadeAquisicao = item.UnidadeAquisicao,
                 Quantidade = item.Quantidade,
                 QuantidadeDisponivel = item.QuantidadeDisponivel,
+                QuantidadeSalvoDbo = item.Quantidade,
                 PrecoMercado = item.PrecoMercado,
                 PrecoRegistrado = item.PrecoRegistrado,
                 Ativo = item.Ativo

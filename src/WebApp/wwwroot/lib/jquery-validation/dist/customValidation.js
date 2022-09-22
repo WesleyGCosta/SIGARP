@@ -52,10 +52,10 @@
                 var nameCompare = $(element).attr('data-val-less-than-field');// Quantidade
                 if (nameCompare) {
                     var valueCompare = $("#" + nameCompare).val();
-                    var quantidade = parseInt(valueCompare.replace(/[^\d]+/g, ''));
-                    var quantidadeUso = parseInt(value.replace(/[^\d]+/g, ''));
+                    var quantidade = parseInt(value.replace(/[^\d]+/g, ''));
+                    var quantidadeUso = parseInt(valueCompare.replace(/[^\d]+/g, ''));
 
-                    if (quantidade && quantidadeUso && (quantidade <= quantidadeUso)) {
+                    if (quantidade >= quantidadeUso) {
                         return true;
                     }
                 }
@@ -63,7 +63,7 @@
             }, function (params, element) {
                 var msgCompare = $(element).attr('data-val-less-than');
                 if (!msgCompare) {
-                    msgCompare = 'O Preço Registrado não pode ser maior que Preço de Mercado';
+                    msgCompare = 'A Quantidade do Item não pode ser menor que Quantidade que estar em uso';
                 }
                 return msgCompare;
             });

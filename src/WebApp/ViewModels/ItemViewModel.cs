@@ -53,8 +53,8 @@ namespace WebApp.ViewModels
 
         [Display(Name = "Quantidade")]
         [Required(ErrorMessage = "Campo Obrigatório!")]
-        [LessThan(nameof(QuantidadeUso), ErrorMessage = "A {0} do Item não pode ser menor que {1}")]
-        [Range(1, Double.PositiveInfinity, ErrorMessage = "O {0} tem que ser maior que 0")]
+        [LessThan(nameof(QuantidadeUso), ErrorMessage = "A {0} do Item não pode ser menor que Quantidade que estar em uso")]
+        [Range(1, double.PositiveInfinity, ErrorMessage = "O {0} tem que ser maior que 0")]
         public int Quantidade { get; set; }
 
         [Display(Name = "Quantidade Disponível")]
@@ -69,6 +69,8 @@ namespace WebApp.ViewModels
             }
         }
 
+        public int QuantidadeSalvoDbo { get; set; }
+
         [Display(Name = "Preço de Mercado")]
         [Required(ErrorMessage = "Campo Obrigatório!")]
         [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
@@ -82,5 +84,13 @@ namespace WebApp.ViewModels
 
         public ICollection<ParticipanteItemViewModel> ParticipanteItems { get; set; }
         public ItemDetentoraViewModel ItemDetentora { get; set; }
+
+        public void UpdateQuantidadeDisponivel()
+        {
+            if (Quantidade >= QuantidadeSalvoDbo)
+                QuantidadeDisponivel += Quantidade - QuantidadeSalvoDbo;
+            else
+                QuantidadeDisponivel -= QuantidadeSalvoDbo - Quantidade;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Domain.IRepositories;
 using Domain.Notifications.Interface;
+using Historia.Itens;
 using Historia.ParticipantesItens;
 using Historia.UnidadesAdministrativas;
 using Microsoft.AspNetCore.Authorization;
@@ -17,18 +18,20 @@ namespace WebApp.Controllers
         private readonly CreateUnidadeAdministrativa _createUnidadeAdministrativa;
         private readonly SearchUnidadeAdministrativa _searchUnidadeAdministrativa;
         private readonly DeleteUnidadeAdministrativa _deleteUnidadeAdministrativa;
-
+        private readonly SearchItem _searchItem;
         private readonly DeleteParticipanteItem _deleteParticipanteItem;
         private readonly SearchParticipanteItem _searchParticipanteItem;
         public UnidadeAdministrativaController(
             IUnidadeAdministrativaRepository unidadeAdministrativaRepository,
             IParticipanteItemRepository participanteItemRepository,
+            IItemRepository itemRepository,
             INotifier notifier) : base(notifier)
         {
             _createUnidadeAdministrativa = new CreateUnidadeAdministrativa(unidadeAdministrativaRepository);
             _searchUnidadeAdministrativa = new SearchUnidadeAdministrativa(unidadeAdministrativaRepository);
             _deleteUnidadeAdministrativa = new DeleteUnidadeAdministrativa(unidadeAdministrativaRepository);
 
+            _searchItem = new SearchItem(itemRepository);
             _deleteParticipanteItem = new DeleteParticipanteItem(participanteItemRepository);
             _searchParticipanteItem = new SearchParticipanteItem(participanteItemRepository);
         }
@@ -86,8 +89,8 @@ namespace WebApp.Controllers
 
         public async Task<IActionResult> UpdateListParticipanteItem(int yearAta, int codeAta)
         {
-            var participantesItens = await _searchParticipanteItem.GetListByAta(yearAta, codeAta);
-            var listParticipantesViewModel = ParticipanteItemFactory.ToListViewModel(participantesItens);
+            var participantesItens = await _searchItem.GetItemByCodeAtaAndYearAtaIncludeParticipantes(yearAta, codeAta);
+            var listParticipantesViewModel = ItemFactory.ToListViewModel(participantesItens);
             return PartialView("_UnidadesAdministrativaEdit", listParticipantesViewModel);
         }
     }

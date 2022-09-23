@@ -1,5 +1,6 @@
 ﻿using Domain.Enums;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WebApp.ViewModels.CustomValidation;
 
@@ -45,5 +46,7 @@ namespace WebApp.ViewModels
         public EPessoa Pessoa { get; set; }
 
         public EnderecoViewModel Endereco { get; set; }
+
+        public IEnumerable<EnderecoViewModel> Enderecos { get; set; }
     }
 }

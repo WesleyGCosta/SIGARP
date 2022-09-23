@@ -52,6 +52,13 @@ namespace WebApp.Controllers
             {
                 return View(detentoraViewModel);
             }
+            var detentoraConsult = await _searchDetentora.GetByCnpj(detentoraViewModel.Cnpj);
+
+            if (detentoraConsult != null)
+            {
+                TempData["Warning"] = "Detentora já cadastrado";
+                return View(detentoraViewModel);
+            }
 
             var detentora = DetentoraFactory.ToEntityDetentora(detentoraViewModel);
             var endereco = EnderecoFactory.ToEntityEndereco(detentoraViewModel.Endereco, detentoraViewModel.Id);
@@ -69,6 +76,21 @@ namespace WebApp.Controllers
             var detentoras = await _searchDetentora.GetAll();
             var listDetentorasViewModel = DetentoraFactory.ToListViewModel(detentoras);
             return View(listDetentorasViewModel);
+        }
+
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var detentora = await _searchDetentora.GetById(id);
+
+            if (detentora == null)
+            {
+                TempData["Warning"] = "Detentora não encontrada";
+                return NotFound();
+            }
+
+            var detentoraViewModel = DetentoraFactory.ToDetentoraViewModel(detentora);
+
+            return PartialView("_DetentoraDetails", detentoraViewModel);
         }
 
         public async Task<IActionResult> DeleteDetentoraItem(Guid detentoraId, int yearAta, int codeAta)
@@ -91,11 +113,6 @@ namespace WebApp.Controllers
             var detentorasItens = await _searchItem.GetListItemByCodeAtaAndYearAtaIncludeDetentora(yearAta, codeAta);
             var itensViewModel = ItemFactory.ToListViewModel(detentorasItens);
             return PartialView("_DetentorasEdit", itensViewModel);
-        }
-
-        private IActionResult RedirectListDetentoraItem(IList<ItemViewModel> itemDetentorasViewModel)
-        {
-            return PartialView("_DetentorasEdit", itemDetentorasViewModel);
         }
     }
 }

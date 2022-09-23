@@ -35,6 +35,8 @@ namespace WebApp.Factories
                 Pessoa = detentora.Pessoa
 
             };
+            if (detentora.Enderecos != null)
+                detentoraViewModel.Enderecos = EnderecoFactory.ToListViewModel(detentora.Enderecos);
 
             return detentoraViewModel;
         }

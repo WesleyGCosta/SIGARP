@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+
+    //deletar participante do item
     $(document).on('click', '.btnDeleteDetentora', function () {
         const yearAta = $('#AnoAta').val()
         const codeAta = $('#CodigoAta').val()
@@ -25,6 +27,24 @@
                 })
             }
         })
+    })
+
+
+    //Detalhes de detantoras
+    $('button[data-toggle="ajax-modal-infoDetentora"]').click(function () {
+        let placeHolderHere = $('#PlaceHolderHere')
+
+        $.ajax({
+            type: 'GET',
+            url: '/Detentora/Details/',
+            data: { id: $(this).parent().data('detentoraid') },
+            success: function (response) {
+                placeHolderHere.empty()
+                placeHolderHere.html(response)
+                placeHolderHere.find('.modal').modal('show');
+            }
+        })
+        
     })
 })
 

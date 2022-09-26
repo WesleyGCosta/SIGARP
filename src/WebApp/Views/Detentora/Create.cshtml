@@ -29,7 +29,7 @@
             </div>
             <div class="col-3 mt-3">
                 <label asp-for="Pessoa" class="control-label"></label>
-                <select asp-items="@Html.GetEnumSelectList<EPessoa>()" class="custom-select"></select>
+                <select asp-for="Pessoa" asp-items="@Html.GetEnumSelectList<EPessoa>()" class="custom-select"></select>
                 <span asp-validation-for="Pessoa" class="text-danger"></span>
             </div>
             <div class="col-4 mt-3">

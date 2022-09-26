@@ -1,6 +1,4 @@
-﻿import { GetMessageDomain } from '../site.js';
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $("#formProgramacaoConsumo").submit(function (e) {
         e.preventDefault();
         if ($(this).valid()) {

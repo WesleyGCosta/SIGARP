@@ -1,5 +1,4 @@
-﻿import { GetMessageDomain } from '../site.js';
-import { UpdateListDetentora } from '../Detentora/detentoraAjax.js';
+﻿import { UpdateListDetentora } from '../Detentora/detentoraAjax.js';
 import { UpdateListParticipanteItem } from '../UnidadeAdministrativa/UnidadeAdministrativaAjax.js';
 
 $(document).ready(function () {

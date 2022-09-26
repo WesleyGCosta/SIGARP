@@ -32,8 +32,7 @@
 
 
     //Detalhes de detantoras
-    $('button[data-toggle="ajax-modal-infoDetentora"]').click(function () {
-
+    $(document).on('click', 'button[data-toggle="ajax-modal-infoDetentora"]', function () {
         $.ajax({
             type: 'GET',
             url: '/Detentora/Details/',
@@ -47,8 +46,7 @@
     })
 
     //Editar Detentora (GET)
-    $('button[data-toggle="ajax-modal-editDetentora"').click(function () {
-
+    $(document).on('click', 'button[data-toggle="ajax-modal-editDetentora"]', function () {
         $.ajax({
             type: 'GET',
             url: '/Detentora/Edit/',
@@ -64,16 +62,22 @@
     //Editar Detentora (POST)
     $(document).on('submit', '#formEditDetentora', function (e) {
         e.preventDefault()
+        console.log($(this).serialize())
 
-        $.ajax({
-            type: 'POST',
-            url: '/Detentora/Edit/',
-            data: $(this).serialize(),
-            success: function (response) {
-
-                placeHolderHere.find('.modal').modal('hide');
-            }
-        })
+        if ($(this).valid()) {
+            $.ajax({
+                type: 'POST',
+                url: '/Detentora/Edit/',
+                data: $(this).serialize(),
+                success: function (response) {
+                    $('#listDetentora').empty()
+                    $('#listDetentora').append(response)
+                    GetMessageDomain()
+                    placeHolderHere.find('.modal').modal('hide');
+                }
+            })
+        }
+        
     })
 })
 

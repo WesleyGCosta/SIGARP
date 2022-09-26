@@ -78,8 +78,7 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Management()
         {
-            IList<DetentoraViewModel> listDetentorasViewModel = await GetListDetentora();
-            return View(listDetentorasViewModel);
+            return View(await GetListDetentora());
         }
 
         private async Task<IList<DetentoraViewModel>> GetListDetentora()
@@ -121,7 +120,7 @@ namespace WebApp.Controllers
 
             TempData["Success"] = "Detentora Alterado com Sucesso";
 
-            return PartialView("");
+            return PartialView("_DetentoraList", await GetListDetentora());
         }
 
         public async Task<IActionResult> Details(Guid id)

@@ -1,0 +1,49 @@
+﻿@model UnidadeAdministrativaViewModel
+
+@{
+    var simOUnao = Model.OrgaoEx.Equals(true) ? "SIM" : "NÃO";
+    var ativo = Model.Ativo.Equals(true) ? "SIM" : "NÂO";
+}
+
+<div class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content ">
+            <div class="mt-3 text-center">
+                <h5 class="modal-title text-sapphire"><strong>Detalhes Geral da Unidade Administrativa <br />@Model.Sigla</strong></h5>
+            </div>
+            <hr />
+            <div class="modal-body">
+                <div class="d-flex flex-lg-wrap">
+                    <div class="mt-4 col-md-4">
+                        <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.NomeUnidadeAdministrativa)</span>
+                        <div class="mt-2 text-muted">@Html.DisplayFor(model => model.NomeUnidadeAdministrativa)</div>
+                    </div>
+                    <div class="mt-4 col-md-4">
+                        <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.Sigla)</span>
+                        <div class="mt-2 text-muted">@Html.DisplayFor(model => model.Sigla)</div>
+                    </div>
+                    <div class="mt-4 col-md-4">
+                        <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.UnidadeDaFederacao)</span>
+                        <div class="mt-2 text-muted">@Html.DisplayFor(model => model.UnidadeDaFederacao)</div>
+                    </div>
+                    <div class="mt-4 col-md-4">
+                        <span class="font-weight-bold text-sapphire"> @Html.DisplayNameFor(model => model.EsferaAdministrativa)</span>
+                        <div class="mt-2 text-muted">@Html.DisplayFor(model => model.EsferaAdministrativa)</div>
+                    </div>
+                    <div class="mt-4 col-md-4">
+                        <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.OrgaoEx)</span>
+                        <div class="mt-2 text-muted">@simOUnao</div>
+                    </div>
+
+                    <div class="mt-4 col-md-4">
+                        <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.Ativo)</span>
+                        <div class="mt-2 text-muted">@ativo</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

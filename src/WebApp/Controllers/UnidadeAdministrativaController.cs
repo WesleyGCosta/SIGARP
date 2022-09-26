@@ -47,7 +47,14 @@ namespace WebApp.Controllers
                 return View(unidadeAdministrativaViewModel);
             }
 
-            var unidadeAdministrativa = UnidadeAdministrativaFactory.ToEntityUnidadeAdministrativa(unidadeAdministrativaViewModel);
+            var unidadeAdministrativa = await _searchUnidadeAdministrativa.GetBySigla(unidadeAdministrativaViewModel.Sigla);
+            if (unidadeAdministrativa != null)
+            {
+                TempData["Warning"] = "Unidade Administrativa com a mesma SIGLA já cadastrado";
+                return View(unidadeAdministrativaViewModel);
+            }
+
+            unidadeAdministrativa = UnidadeAdministrativaFactory.ToEntityUnidadeAdministrativa(unidadeAdministrativaViewModel);
 
             await _createUnidadeAdministrativa.Run(unidadeAdministrativa);
 
@@ -61,6 +68,19 @@ namespace WebApp.Controllers
             var unidadeAdministrativas = await _searchUnidadeAdministrativa.GetAll();
             var listUnidadeAdministrativaViewModel = UnidadeAdministrativaFactory.ToListViewMode(unidadeAdministrativas);
             return View(listUnidadeAdministrativaViewModel);
+        }
+
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var unidadeAdministrativa = await _searchUnidadeAdministrativa.GetById(id);
+            if(unidadeAdministrativa == null)
+            {
+                TempData["Warning"] = "Erro, Unidade Administrativa não encontrada";
+                return NotFound();
+            }
+            var unidadeAdministrativaViewModel = UnidadeAdministrativaFactory.ToViewModel(unidadeAdministrativa);
+
+            return PartialView("_UnidadeAdministrativaDetailsModal", unidadeAdministrativaViewModel);
         }
 
         [HttpGet]

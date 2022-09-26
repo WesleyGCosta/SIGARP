@@ -62,7 +62,6 @@
     //Editar Detentora (POST)
     $(document).on('submit', '#formEditDetentora', function (e) {
         e.preventDefault()
-        console.log($(this).serialize())
 
         if ($(this).valid()) {
             $.ajax({
@@ -74,6 +73,9 @@
                     $('#listDetentora').append(response)
                     GetMessageDomain()
                     placeHolderHere.find('.modal').modal('hide');
+                },
+                error: function () {
+                    GetMessageDomain()
                 }
             })
         }

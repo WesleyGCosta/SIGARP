@@ -17,7 +17,8 @@ namespace WebApp.Factories
                 detentoraViewModel.NomeFantasia,
                 detentoraViewModel.Email,
                 detentoraViewModel.Telefone,
-                detentoraViewModel.Pessoa
+                detentoraViewModel.Pessoa,
+                detentoraViewModel.Ativo
                 );
 
             return detentora;
@@ -33,7 +34,8 @@ namespace WebApp.Factories
                 NomeFantasia = detentora.NomeFantasia,
                 Email = detentora.Email,
                 Telefone = detentora.Telefone,
-                Pessoa = detentora.Pessoa
+                Pessoa = detentora.Pessoa,
+                Ativo = detentora.Ativo
 
             };
             if (detentora.Enderecos != null)

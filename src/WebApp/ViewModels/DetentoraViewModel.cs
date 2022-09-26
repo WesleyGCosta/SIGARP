@@ -11,6 +11,7 @@ namespace WebApp.ViewModels
         public DetentoraViewModel()
         {
             Id = Guid.NewGuid();
+            Ativo = true;
         }
 
         public Guid Id { get; set; }
@@ -44,6 +45,7 @@ namespace WebApp.ViewModels
         [Display(Name = "Pessoa")]
         [Required(ErrorMessage = "Campo Obrigatório")]
         public EPessoa Pessoa { get; set; }
+        public bool Ativo { get; set; }
 
         public EnderecoViewModel Endereco { get; set; }
 

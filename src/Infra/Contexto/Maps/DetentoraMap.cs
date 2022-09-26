@@ -17,7 +17,8 @@ namespace Infra.Contexto.Maps
             builder.Property(d => d.NomeFantasia).HasColumnType("Varchar(100)");
             builder.Property(d => d.Email).HasColumnType("Varchar(100)");
             builder.Property(d => d.Telefone).HasColumnType("Varchar(15)");
-            builder.Property(u => u.Pessoa).HasConversion(y => y.ToString(), y => (EPessoa)Enum.Parse(typeof(EPessoa), y)).HasMaxLength(10).IsRequired();
+            builder.Property(d => d.Pessoa).HasConversion(y => y.ToString(), y => (EPessoa)Enum.Parse(typeof(EPessoa), y)).HasMaxLength(10).IsRequired();
+            builder.Property(d => d.Ativo).IsRequired().HasColumnType("bit");
         }
     }
 }

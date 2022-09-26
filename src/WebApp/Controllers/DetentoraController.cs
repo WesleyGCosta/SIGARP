@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
@@ -22,7 +23,8 @@ namespace WebApp.Controllers
         private readonly CreateDetentora _createDetentora;
         private readonly CreateEndereco _createEndereco;
         private readonly SearchDetentora _searchDetentora;
-
+        private readonly UpdateDetentora _updateDetentora;
+        private readonly UpdateEndereco _updateEndereco;
         private readonly SearchItem _searchItem;
         private readonly SearchDetentoraItem _searchDetentoraItem;
         private readonly DeleteDetentoraItem _deleteDetentoraItem;
@@ -37,6 +39,8 @@ namespace WebApp.Controllers
             _createDetentora = new CreateDetentora(detentoraRepository);
             _createEndereco = new CreateEndereco(enderecoRepository);
             _searchDetentora = new SearchDetentora(detentoraRepository);
+            _updateDetentora = new UpdateDetentora(detentoraRepository);
+            _updateEndereco = new UpdateEndereco(enderecoRepository);
             _searchItem = new SearchItem(itemRepository);
             _searchDetentoraItem = new SearchDetentoraItem(detentoraItemRepository);
             _deleteDetentoraItem = new DeleteDetentoraItem(detentoraItemRepository);
@@ -71,11 +75,53 @@ namespace WebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
         public async Task<IActionResult> Management()
+        {
+            IList<DetentoraViewModel> listDetentorasViewModel = await GetListDetentora();
+            return View(listDetentorasViewModel);
+        }
+
+        private async Task<IList<DetentoraViewModel>> GetListDetentora()
         {
             var detentoras = await _searchDetentora.GetAll();
             var listDetentorasViewModel = DetentoraFactory.ToListViewModel(detentoras);
-            return View(listDetentorasViewModel);
+            return listDetentorasViewModel;
+        }
+
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var detentora = await _searchDetentora.GetById(id);
+
+            if (detentora == null)
+            {
+                TempData["Warning"] = "Detentora não encontrada";
+                return NotFound();
+            }
+
+            var detentoraViewModel = DetentoraFactory.ToDetentoraViewModel(detentora);
+
+            return PartialView("_DetentoraEditModal", detentoraViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(DetentoraViewModel detentoraViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["Warning"] = "Erro ao editar Detentora";
+                return NotFound();
+            }
+
+            var detentora = DetentoraFactory.ToEntityDetentora(detentoraViewModel);
+            var endereco = EnderecoFactory.ToEntityEndereco(detentoraViewModel.Endereco, detentoraViewModel.Id);
+            await _updateDetentora.Run(detentora);
+            await _updateEndereco.Run(endereco);
+
+            TempData["Success"] = "Detentora Alterado com Sucesso";
+
+            return PartialView("");
         }
 
         public async Task<IActionResult> Details(Guid id)
@@ -90,7 +136,7 @@ namespace WebApp.Controllers
 
             var detentoraViewModel = DetentoraFactory.ToDetentoraViewModel(detentora);
 
-            return PartialView("_DetentoraDetails", detentoraViewModel);
+            return PartialView("_DetentoraDetailsModal", detentoraViewModel);
         }
 
         public async Task<IActionResult> DeleteDetentoraItem(Guid detentoraId, int yearAta, int codeAta)
@@ -114,5 +160,7 @@ namespace WebApp.Controllers
             var itensViewModel = ItemFactory.ToListViewModel(detentorasItens);
             return PartialView("_DetentorasEdit", itensViewModel);
         }
+
+
     }
 }

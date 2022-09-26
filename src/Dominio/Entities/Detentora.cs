@@ -27,5 +27,14 @@ namespace Domain.Entities
 
         public IEnumerable<DetentoraItem> DetentorasItens { get; private set; }
         public IEnumerable<Endereco> Enderecos { get; private set; }
+
+        public void Update(Detentora detentora)
+        {
+            RazaoSocial = detentora.RazaoSocial;
+            NomeFantasia = detentora.NomeFantasia;
+            Email = detentora.Email;
+            Telefone = detentora.Telefone;
+            Pessoa = detentora.Pessoa;
+        }
     }
 }

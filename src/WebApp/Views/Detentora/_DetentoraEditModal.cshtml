@@ -1,0 +1,91 @@
+﻿@using Domain.Enums
+@model DetentoraViewModel
+
+
+<div class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content ">
+            <div class="mt-3 text-center">
+                <h5 class="modal-title text-sapphire"><strong>Editando <br />@Model.Cnpj</strong></h5>
+            </div>
+            <hr />
+            <form asp-action="Edit" id="formEditDetentora">
+                <div class="modal-body row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-3">
+                        <label asp-for="Cnpj" class="control-label"></label>
+                        <input asp-for="Cnpj" class="form-control" placeholder="00.000.000/0000-00" readonly/>
+                        <span asp-validation-for="Cnpj" class="text-danger"></span>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="RazaoSocial" class="control-label"></label>
+                        <input asp-for="RazaoSocial" class="form-control capitalize" placeholder="Razão Social" />
+                        <span asp-validation-for="RazaoSocial" class="text-danger"></span>
+                    </div>
+                    <div class="col-5">
+                        <label asp-for="NomeFantasia" class="control-label"></label>
+                        <input asp-for="NomeFantasia" class="form-control capitalize" placeholder="Nome Fantasia" />
+                        <span asp-validation-for="NomeFantasia" class="text-danger"></span>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <label asp-for="Pessoa" class="control-label"></label>
+                        <select asp-items="@Html.GetEnumSelectList<EPessoa>()" class="custom-select"></select>
+                        <span asp-validation-for="Pessoa" class="text-danger"></span>
+                    </div>
+                    <div class="col-4 mt-3">
+                        <label asp-for="Telefone" class="control-label"></label>
+                        <input asp-for="Telefone" class="form-control" placeholder="(00) 0 0000-0000" />
+                        <span asp-validation-for="Telefone" class="text-danger"></span>
+                    </div>
+                    <div class="col-5 mt-3">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control capitalize" placeholder="Exemplo@Gmail.com" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <h4 class="border py-2 text-center title-card shadow-sm">Endereço</h4>
+                    </div>
+
+                    <div class="col-3 mt-3">
+                        <label asp-for="Endereco.Cep" class="control-label"></label>
+                        <input asp-for="Endereco.Cep" class="form-control" placeholder="00.000-000" />
+                        <span asp-validation-for="Endereco.Cep" class="text-danger"></span>
+                    </div>
+                    <div class="col-4 mt-3">
+                        <label asp-for="Endereco.Rua" class="control-label"></label>
+                        <input asp-for="Endereco.Rua" class="form-control capitalize" placeholder="Rua" />
+                        <span asp-validation-for="Endereco.Rua" class="text-danger"></span>
+                    </div>
+                    <div class="col-5 mt-3">
+                        <label asp-for="Endereco.Bairro" class="control-label"></label>
+                        <input asp-for="Endereco.Bairro" class="form-control capitalize" placeholder="Bairro" />
+                        <span asp-validation-for="Endereco.Bairro" class="text-danger"></span>
+                    </div>
+                    <div class="col-3 mt-3">
+                        <label asp-for="Endereco.Numero" class="control-label"></label>
+                        <input asp-for="Endereco.Numero" class="form-control" placeholder="000" />
+                        <span asp-validation-for="Endereco.Numero" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-4 mt-3">
+                        <label asp-for="Endereco.Uf" class="control-label"></label>
+                        <select asp-for="Endereco.Uf" asp-items="@Html.GetEnumSelectList<EUnidadeFederacao>()" class="custom-select">
+                            <option value="">Selecione</option>
+                        </select>
+                        <span asp-validation-for="Endereco.Uf" class="text-danger"></span>
+                    </div>
+                    <div class="col-5 mt-3">
+                        <label asp-for="Endereco.Municipio" class="control-label"></label>
+                        <input asp-for="Endereco.Municipio" class="form-control capitalize" placeholder="Município" />
+                        <span asp-validation-for="Endereco.Municipio" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary shadow">Alterar Detentora</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    let placeHolderHere = $('#PlaceHolderHere')
 
     //deletar participante do item
     $(document).on('click', '.btnDeleteDetentora', function () {
@@ -32,7 +33,6 @@
 
     //Detalhes de detantoras
     $('button[data-toggle="ajax-modal-infoDetentora"]').click(function () {
-        let placeHolderHere = $('#PlaceHolderHere')
 
         $.ajax({
             type: 'GET',
@@ -44,7 +44,36 @@
                 placeHolderHere.find('.modal').modal('show');
             }
         })
-        
+    })
+
+    //Editar Detentora (GET)
+    $('button[data-toggle="ajax-modal-editDetentora"').click(function () {
+
+        $.ajax({
+            type: 'GET',
+            url: '/Detentora/Edit/',
+            data: { id: $(this).parent().data('detentoraid') },
+            success: function (response) {
+                placeHolderHere.empty()
+                placeHolderHere.html(response)
+                placeHolderHere.find('.modal').modal('show');
+            }
+        })
+    })
+
+    //Editar Detentora (POST)
+    $(document).on('submit', '#formEditDetentora', function (e) {
+        e.preventDefault()
+
+        $.ajax({
+            type: 'POST',
+            url: '/Detentora/Edit/',
+            data: $(this).serialize(),
+            success: function (response) {
+
+                placeHolderHere.find('.modal').modal('hide');
+            }
+        })
     })
 })
 

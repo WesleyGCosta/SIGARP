@@ -28,5 +28,14 @@ namespace Domain.Entities
 
         public Detentora Detentora { get; private set; }
 
+        public void Udpate(Endereco endereco)
+        {
+            Cep = endereco.Cep;
+            Rua = endereco.Rua;
+            Numero = endereco.Numero;
+            Bairro = endereco.Bairro;
+            Uf = endereco.Uf;
+            Municipio = endereco.Municipio;
+        }
     }
 }

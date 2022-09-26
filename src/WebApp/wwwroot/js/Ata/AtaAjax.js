@@ -1,8 +1,4 @@
-﻿import { GetMessageDomain } from '../site.js';
-
-$(document).ready(function () {
-
-
+﻿$(document).ready(function () {
     $(document).ajaxStop(function () {
         jQuery.fn.extend({
             trackChanges: function () {

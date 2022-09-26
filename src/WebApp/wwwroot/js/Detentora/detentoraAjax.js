@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    let placeHolderHere = $('#PlaceHolderHere')
 
     //deletar participante do item
     $(document).on('click', '.btnDeleteDetentora', function () {
@@ -31,9 +32,7 @@
 
 
     //Detalhes de detantoras
-    $('button[data-toggle="ajax-modal-infoDetentora"]').click(function () {
-        let placeHolderHere = $('#PlaceHolderHere')
-
+    $(document).on('click', 'button[data-toggle="ajax-modal-infoDetentora"]', function () {
         $.ajax({
             type: 'GET',
             url: '/Detentora/Details/',
@@ -44,6 +43,40 @@
                 placeHolderHere.find('.modal').modal('show');
             }
         })
+    })
+
+    //Editar Detentora (GET)
+    $(document).on('click', 'button[data-toggle="ajax-modal-editDetentora"]', function () {
+        $.ajax({
+            type: 'GET',
+            url: '/Detentora/Edit/',
+            data: { id: $(this).parent().data('detentoraid') },
+            success: function (response) {
+                placeHolderHere.empty()
+                placeHolderHere.html(response)
+                placeHolderHere.find('.modal').modal('show');
+            }
+        })
+    })
+
+    //Editar Detentora (POST)
+    $(document).on('submit', '#formEditDetentora', function (e) {
+        e.preventDefault()
+        console.log($(this).serialize())
+
+        if ($(this).valid()) {
+            $.ajax({
+                type: 'POST',
+                url: '/Detentora/Edit/',
+                data: $(this).serialize(),
+                success: function (response) {
+                    $('#listDetentora').empty()
+                    $('#listDetentora').append(response)
+                    GetMessageDomain()
+                    placeHolderHere.find('.modal').modal('hide');
+                }
+            })
+        }
         
     })
 })

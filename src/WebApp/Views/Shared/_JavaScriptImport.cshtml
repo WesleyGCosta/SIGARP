@@ -1,4 +1,15 @@
 ﻿<script type="text/javascript">
+    function GetMessageDomain() {
+        $.ajax({
+            url: '/Home/Notification/',
+            type: 'GET',
+            success: function (response) {
+                $("#message").empty()
+                $("#message").append(response)
+            }
+        })
+    }
+
     function Loader() {
         $('#loader').addClass('loader')
         $('#loader').show()

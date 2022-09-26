@@ -84,15 +84,4 @@ $(document).ready(function () {
     });
 })
 
-export function GetMessageDomain() {
-    $.ajax({
-        url: '/Home/Notification/',
-        type: 'GET',
-        success: function (response) {
-            $("#message").empty()
-            $("#message").append(response)
-        }
-    })
-}
-
 

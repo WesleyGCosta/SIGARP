@@ -24,5 +24,10 @@ namespace Historia.UnidadesAdministrativas
         {
             return await _unidadeAdministrativaRepository.GetByPrimaryKey(unidadeAdministrativaId);
         }
+
+        public async Task<UnidadeAdministrativa> GetBySigla(string sigla)
+        {
+            return await _unidadeAdministrativaRepository.GetBySigla(sigla);
+        }
     }
 }

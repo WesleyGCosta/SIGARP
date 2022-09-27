@@ -6,7 +6,7 @@ namespace Domain.Entities
 {
     public class Detentora
     {
-        public Detentora(Guid id, string cnpj, string razaoSocial, string nomeFantasia, string email, string telefone, EPessoa pessoa)
+        public Detentora(Guid id, string cnpj, string razaoSocial, string nomeFantasia, string email, string telefone, EPessoa pessoa, bool ativo)
         {
             Id = id;
             Cnpj = cnpj;
@@ -15,6 +15,7 @@ namespace Domain.Entities
             Email = email;
             Telefone = telefone;
             Pessoa = pessoa;
+            Ativo = ativo;
         }
 
         public Guid Id { get; private set; }
@@ -24,6 +25,7 @@ namespace Domain.Entities
         public string Email { get; private set; }
         public string Telefone { get; private set; }
         public EPessoa Pessoa { get; private set; }
+        public bool Ativo { get; private set; }
 
         public IEnumerable<DetentoraItem> DetentorasItens { get; private set; }
         public IEnumerable<Endereco> Enderecos { get; private set; }

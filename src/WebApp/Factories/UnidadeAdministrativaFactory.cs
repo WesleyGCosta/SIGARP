@@ -8,6 +8,7 @@ namespace WebApp.Factories
     {
         public static UnidadeAdministrativa ToEntityUnidadeAdministrativa(UnidadeAdministrativaViewModel unidadeAdministrativaViewModel)
         {
+            unidadeAdministrativaViewModel.UpperCase();
             var unidadeAdministrativa = new UnidadeAdministrativa(
                 unidadeAdministrativaViewModel.Id,
                 unidadeAdministrativaViewModel.NomeUnidadeAdministrativa,

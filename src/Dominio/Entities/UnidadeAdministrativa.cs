@@ -43,5 +43,15 @@ namespace Domain.Entities
         }
 
         public IEnumerable<ParticipanteItem> ParticipantesItens { get; private set; }
+
+        public void Update(UnidadeAdministrativa unidadeAdministrativa)
+        {
+            NomeUnidadeAdministrativa = unidadeAdministrativa.NomeUnidadeAdministrativa;
+            Sigla = unidadeAdministrativa.Sigla;
+            OrgaoEx = unidadeAdministrativa.OrgaoEx;
+            UnidadeDaFederacao = unidadeAdministrativa.UnidadeDaFederacao;
+            EsferaAdministrativa = unidadeAdministrativa.EsferaAdministrativa;
+            Ativo = unidadeAdministrativa.Ativo;
+        }
     }
 }

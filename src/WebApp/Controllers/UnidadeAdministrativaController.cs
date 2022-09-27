@@ -6,6 +6,7 @@ using Historia.UnidadesAdministrativas;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
@@ -18,6 +19,7 @@ namespace WebApp.Controllers
         private readonly CreateUnidadeAdministrativa _createUnidadeAdministrativa;
         private readonly SearchUnidadeAdministrativa _searchUnidadeAdministrativa;
         private readonly DeleteUnidadeAdministrativa _deleteUnidadeAdministrativa;
+        private readonly UpdateUnidadeAdministrativa _updateUnidadeAdministrativa;
         private readonly SearchItem _searchItem;
         private readonly DeleteParticipanteItem _deleteParticipanteItem;
         private readonly SearchParticipanteItem _searchParticipanteItem;
@@ -30,7 +32,7 @@ namespace WebApp.Controllers
             _createUnidadeAdministrativa = new CreateUnidadeAdministrativa(unidadeAdministrativaRepository);
             _searchUnidadeAdministrativa = new SearchUnidadeAdministrativa(unidadeAdministrativaRepository);
             _deleteUnidadeAdministrativa = new DeleteUnidadeAdministrativa(unidadeAdministrativaRepository);
-
+            _updateUnidadeAdministrativa = new UpdateUnidadeAdministrativa(unidadeAdministrativaRepository);
             _searchItem = new SearchItem(itemRepository);
             _deleteParticipanteItem = new DeleteParticipanteItem(participanteItemRepository);
             _searchParticipanteItem = new SearchParticipanteItem(participanteItemRepository);
@@ -65,22 +67,50 @@ namespace WebApp.Controllers
 
         public async Task<IActionResult> Management()
         {
-            var unidadeAdministrativas = await _searchUnidadeAdministrativa.GetAll();
-            var listUnidadeAdministrativaViewModel = UnidadeAdministrativaFactory.ToListViewMode(unidadeAdministrativas);
-            return View(listUnidadeAdministrativaViewModel);
+            return View(await GetList());
         }
 
-        public async Task<IActionResult> Details(Guid id)
+        private async Task<List<UnidadeAdministrativaViewModel>> GetList()
         {
-            var unidadeAdministrativa = await _searchUnidadeAdministrativa.GetById(id);
-            if(unidadeAdministrativa == null)
+            var unidadeAdministrativas = await _searchUnidadeAdministrativa.GetAll();
+            var listUnidadeAdministrativaViewModel = UnidadeAdministrativaFactory.ToListViewMode(unidadeAdministrativas);
+            return listUnidadeAdministrativaViewModel;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            return PartialView("_UnidadeAdministrativaEditModal", await GetUnidadeAdministrativa(id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(UnidadeAdministrativaViewModel unidadeAdministrativaViewModel)
+        {
+            if (!ModelState.IsValid)
             {
-                TempData["Warning"] = "Erro, Unidade Administrativa não encontrada";
+                TempData["Warnig"] = "Erro na Alteração da Unidade Administrativa";
                 return NotFound();
             }
-            var unidadeAdministrativaViewModel = UnidadeAdministrativaFactory.ToViewModel(unidadeAdministrativa);
 
-            return PartialView("_UnidadeAdministrativaDetailsModal", unidadeAdministrativaViewModel);
+            var unidadeAdministrativa = UnidadeAdministrativaFactory.ToEntityUnidadeAdministrativa(unidadeAdministrativaViewModel);
+            await _updateUnidadeAdministrativa.Run(unidadeAdministrativa);
+
+            TempData["Success"] = "Unidade Administratiav alterado com Sucesso";
+
+            return PartialView("_UnidadeAdministrativaList", await GetList());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            return PartialView("_UnidadeAdministrativaDetailsModal", await GetUnidadeAdministrativa(id));
+        }
+
+        private async Task<UnidadeAdministrativaViewModel> GetUnidadeAdministrativa(Guid id)
+        {
+            var unidadeAdministrativa = await _searchUnidadeAdministrativa.GetById(id);
+            return UnidadeAdministrativaFactory.ToViewModel(unidadeAdministrativa);
         }
 
         [HttpGet]

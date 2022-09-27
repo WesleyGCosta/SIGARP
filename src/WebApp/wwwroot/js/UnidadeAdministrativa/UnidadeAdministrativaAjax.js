@@ -54,6 +54,7 @@ $(document).ready(function () {
                 url: '/UnidadeAdministrativa/Edit/',
                 data: $(this).serialize(),
                 success: function (response) {
+                    GetMessageDomain()
                     $('#listUnidadeAministrativa').empty()
                     $('#listUnidadeAministrativa').append(response)
                     GetMessageDomain()

@@ -1,6 +1,10 @@
 ﻿@model IEnumerable<WebApp.ViewModels.ItemViewModel>
 
+@{
+    int cont = Model.Count();
+}
 
+<input id="theAmountItem" value="@cont" type="hidden" />
 @if (Model.Any())
 {
     <table id="ListItemTable" class="table table-borderless table-striped">

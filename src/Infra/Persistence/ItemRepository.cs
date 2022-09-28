@@ -58,6 +58,8 @@ namespace Infra.Persistence
                 .AsNoTracking()
                 .Include(i => i.ParticipantesItens)
                 .ThenInclude(di => di.UnidadeAdministrativa)
+                .Include(i => i.ParticipantesItens)
+                .ThenInclude(di => di.ProgramacoesConsumoParticipantes)
                 .Where(i => i.CodigoAta.Equals(codeAta) && i.AnoAta.Equals(yearAta))
                 .OrderBy(i => i.NumeroItem)
                 .ToListAsync();

@@ -26,5 +26,16 @@ namespace WebApp.Factories
                 QuantidadeDisponivel = item.QuantidadeDisponivel,
             };
         }
+        public static ProgramacaoConsumoViewModel ToViewModel(ProgramacaoConsumoParticipante programacaoConsumo)
+        {
+            return new ProgramacaoConsumoViewModel
+            {
+                Id = programacaoConsumo.Id,
+                ParticipanteId = programacaoConsumo.ParticipanteId,
+                ConsumoEstimado = programacaoConsumo.ConsumoEstimado,
+                SaldoAnterior = programacaoConsumo.SaldoAnterior,
+            };
+        }
+
     }
 }

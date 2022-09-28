@@ -20,6 +20,7 @@ namespace WebApp.Factories
                 UnidadeAdministrativaId = participanteItem.UnidadeAdministrativaId,
                 ItemId = participanteItem.ItemId,
                 UnidadeAdministrativaViewModel = UnidadeAdministrativaFactory.ToViewModel(participanteItem.UnidadeAdministrativa),
+                ProgramacaoConsumoViewModel = ProgramacaoConsumoFactory.ToViewModel(participanteItem.ProgramacoesConsumoParticipantes)
             };
         }
 

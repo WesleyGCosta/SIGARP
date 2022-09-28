@@ -2,12 +2,10 @@
 
 @if (Model.Any())
 {
-    <table id="unidadeAdministrativaTable" class="table">
+    <table id="unidadeAdministrativaTable" class="table table-borderless table-striped">
         <thead class="text-sapphire">
             <tr>
-                <th>
-                    N° Item
-                </th>
+                <th>N° Item</th>
                 <th>
                     @Html.DisplayNameFor(model => model.UnidadeAdministrativaViewModel.NomeUnidadeAdministrativa)
                 </th>
@@ -15,7 +13,7 @@
                     @Html.DisplayNameFor(model => model.UnidadeAdministrativaViewModel.Sigla)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UnidadeAdministrativaViewModel.OrgaoEx)
+                    Consumo Estimado
                 </th>
                 <th>Ação</th>
             </tr>
@@ -34,7 +32,7 @@
                         @Html.DisplayFor(modelItem => unidadeAdministrativa.UnidadeAdministrativaViewModel.Sigla)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => unidadeAdministrativa.UnidadeAdministrativaViewModel.OrgaoEx)
+                        @Html.DisplayFor(modelItem => unidadeAdministrativa.ProgramacaoConsumoViewModel.ConsumoEstimado)
                     </td>
                     <td class="text-white">
                         <button class="btn btn-danger deleteUnidadeAdministrativa" data-unidadeAdministrativaId="@unidadeAdministrativa.UnidadeAdministrativaViewModel.Id" type="button">

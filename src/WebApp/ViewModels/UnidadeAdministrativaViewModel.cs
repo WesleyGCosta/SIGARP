@@ -39,6 +39,8 @@ namespace WebApp.ViewModels
         public EhEsferaAdministrativa EsferaAdministrativa { get; set; }
         public bool Ativo { get; set; }
 
+        public ProgramacaoConsumoViewModel ProgramacaoConsumo { get; set; }
+
         public void UpperCase()
         {
             Sigla = Sigla.ToUpper();

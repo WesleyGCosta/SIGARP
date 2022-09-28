@@ -28,5 +28,17 @@ namespace Historia.Itens
             item.SubtractQuantityItem(programacaoConsumo);
             await _itemRepository.Update(item);
         }
+
+        public async Task Renumber(int numberItem)
+        {
+            var itensConsult = await _itemRepository.GetItensAfterNumber(numberItem);
+            foreach(var item in itensConsult)
+            {
+                item.Renumber(numberItem);
+                await _itemRepository.Update(item);
+                numberItem++;
+            }
+
+        }
     }
 }

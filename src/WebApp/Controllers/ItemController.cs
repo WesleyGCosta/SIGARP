@@ -119,13 +119,12 @@ namespace WebApp.Controllers
             else
                 await _updateDetentoraItem.Run(itemDetentoraEntity);
 
-            var itemDetentora = ItemDetentoraFactory.ToEntity(itemViewModel.CodigoDetentora, itemViewModel.Id);
-
             TempData["Success"] = "Item alterado com Sucesso";
 
             return await RedirectiListItem(item.AnoAta, item.CodigoAta);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Details(Guid itemId)
         {
             var item = await _searchItem.GetById(itemId);
@@ -142,6 +141,7 @@ namespace WebApp.Controllers
         }
 
         //Excluir
+        [HttpGet]
         public async Task<IActionResult> Delete(Guid itemId)
         {
             var item = await _searchItem.GetById(itemId);
@@ -152,6 +152,7 @@ namespace WebApp.Controllers
             }
 
             await _deleteItem.Run(item);
+            await _updateItem.Renumber(item.NumeroItem);
             TempData["Success"] = "Item Excluído Com Sucesso";
 
             return await RedirectiListItem(item.AnoAta, item.CodigoAta);
@@ -166,6 +167,7 @@ namespace WebApp.Controllers
         }
 
         //Consultas dinâmica
+        [HttpGet]
         public async Task<JsonResult> AutoCompleteListCodeAta(int yearAta)
         {
             var listCodeAta = await _searchAta.GetListCodeByYear(yearAta);
@@ -173,6 +175,7 @@ namespace WebApp.Controllers
             return Json(listCodeAta);
         }
 
+        [HttpGet]
         public async Task<JsonResult> AutoCompleteListCodeItem(int yearAta, int codeAta)
         {
             var listItem = await _searchItem.GetListItemByCodeAtaAndYearAta(yearAta, codeAta);
@@ -180,6 +183,7 @@ namespace WebApp.Controllers
             return Json(listItem);
         }
 
+        [HttpGet]
         public async Task<IActionResult> AutoCompleteCodeItem(int yearAta, int codeAta)
         {
             var itens = await _searchItem.GetListItemByCodeAtaAndYearAtaIncludeDetentora(yearAta, codeAta);

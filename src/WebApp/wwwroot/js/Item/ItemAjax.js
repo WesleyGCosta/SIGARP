@@ -162,6 +162,15 @@ $(document).ready(function () {
                         GetMessageDomain()
                         UpdateListDetentora(yearAta, codeAta)      
                         UpdateListParticipanteItem(yearAta, codeAta)
+                        if ($('#theAmountItem').val() > 0) {
+                            Swal.fire({
+                                title: 'Item excluído com sucesso',
+                                text: `Os itens foram renumerado a partir do item excluído!`,
+                                icon: 'success',
+                                confirmButtonColor: '#247ba0',
+                                confirmButtonText: 'Ok'
+                            })
+                        }
                     }
                 })
             }

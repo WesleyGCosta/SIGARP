@@ -84,5 +84,13 @@ namespace Infra.Persistence
                 .OrderBy(i => i.NumeroItem)
                 .ToListAsync();
         }
+
+        public async Task<List<Item>> GetItensAfterNumber(int numberItem)
+        {
+            return await _db.Itens
+                .Where(i => i.NumeroItem > numberItem)
+                .OrderBy(i => i.NumeroItem)
+                .ToListAsync();
+        }
     }
 }

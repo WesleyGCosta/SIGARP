@@ -69,6 +69,11 @@ namespace Domain.Entities
             ParticipantesItens = null;
         }
 
+        public void Renumber(int number)
+        {
+            NumeroItem = number;
+        }
+
         public void Update(Item item)
         {
             Tipo = item.Tipo;

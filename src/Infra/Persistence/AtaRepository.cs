@@ -36,11 +36,14 @@ namespace Infra.Persistence
             return await _db.Atas
                 .AsNoTracking()
                 .Include(a => a.Itens.OrderBy(i => i.NumeroItem))
-                .ThenInclude(i => i.DetentoraItem)
-                .ThenInclude(d => d.Detentora)
+                    .ThenInclude(i => i.DetentoraItem)
+                    .ThenInclude(d => d.Detentora)
                 .Include(a => a.Itens.OrderBy(i => i.NumeroItem))
-                .ThenInclude(i => i.ParticipantesItens)
-                .ThenInclude(pt => pt.UnidadeAdministrativa)
+                    .ThenInclude(i => i.ParticipantesItens)
+                    .ThenInclude(pt => pt.UnidadeAdministrativa)
+                .Include(a => a.Itens.OrderBy(i => i.NumeroItem))
+                    .ThenInclude(i => i.ParticipantesItens)
+                    .ThenInclude(pt => pt.ProgramacoesConsumoParticipantes)
                 .Where(a => a.AnoAta.Equals(year) && a.CodigoAta.Equals(code))
                 .FirstOrDefaultAsync();
         }

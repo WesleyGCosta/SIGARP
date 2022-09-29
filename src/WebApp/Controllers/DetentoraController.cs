@@ -143,14 +143,14 @@ namespace WebApp.Controllers
             var participante = await _searchDetentoraItem.GetById(detentoraId);
             if (participante.Equals(null))
             {
-                TempData["Warning"] = "Erro ao Excluir Participante do Item";
+                TempData["Warning"] = "Erro ao excluir participante do item";
                 return NotFound();
             }
 
             await _deleteDetentoraItem.Run(participante);
-            TempData["Success"] = "Detentora excluído do Item com Sucessso";
+            TempData["Success"] = "Detentora excluído do item com sucesso";
 
-            return RedirectToAction("UpdateListDetentora", new { yearAta, codeAta });
+            return await UpdateListDetentora(yearAta, codeAta);
         }
 
         public async Task<IActionResult> UpdateListDetentora(int yearAta, int codeAta)

@@ -24,6 +24,7 @@
                     success: function (response) {
                         $('#detentora').empty()
                         $('#detentora').html(response)
+                        GetMessageDomain()
                     }
                 })
             }

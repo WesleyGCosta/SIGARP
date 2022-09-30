@@ -1,4 +1,5 @@
-﻿using Domain.IRepositories;
+﻿using Domain.Entities;
+using Domain.IRepositories;
 using Domain.Notifications.Interface;
 using Historia.Itens;
 using Historia.ParticipantesItens;
@@ -7,6 +8,7 @@ using Historia.UnidadesAdministrativas;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
@@ -77,6 +79,15 @@ namespace WebApp.Controllers
             return Ok();
         }
 
+        public async Task<IActionResult> Edit(Guid participanteId)
+        {
+            var participante = await _searchItem.GetByParticipanteId(participanteId);
+
+            var programacaoConsumoViewModel = ProgramacaoConsumoFactory.ToViewModel(participante);
+
+            return PartialView("_ItemDatailsProgramacaoConsumo", programacaoConsumoViewModel);
+        }
+
         public async Task<IActionResult> GetItemIncludeUnidadeAdministrativa(int yearAta, int codeAta, int codeItem)
         {
             var item = await _searchItem.GetItemByCodeAtaAndYearAtaIncludeUnidadeAdministrativa(yearAta, codeAta, codeItem);
@@ -84,9 +95,9 @@ namespace WebApp.Controllers
             if (item == null)
                 return NotFound();
 
-            var listItemViewModel = ProgramacaoConsumoFactory.ToViewModel(item);
+            var programacaoConsumoViewModel = ProgramacaoConsumoFactory.ToViewModel(item);
 
-            return PartialView("_ItemDatailsProgramacaoConsumo", listItemViewModel);
+            return PartialView("_ItemDatailsProgramacaoConsumo", programacaoConsumoViewModel);
         }
 
         public IActionResult Management()

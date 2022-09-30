@@ -1,0 +1,70 @@
+﻿@using Domain.Enums
+@model WebApp.ViewModels.ProgramacaoConsumoViewModel
+@{
+    ViewData["Title"] = "Incluir Programação";
+}
+<div class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content ">
+            <div class="d-flex justify-content-center card-header">
+                <h5 class="modal-title">Editando o Item @Model.CodigoItem</h5>
+            </div>
+            <form id="formProgramacaoConsumoEdit" asp-action="Edit">
+                <div class="modal-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-3">
+                        <label asp-for="AnoAta" class="control-label"></label>
+                        <select asp-for="AnoAta" class="custom-select" asp-items="new SelectList(ViewBag.ListYears)">
+                            <option value="">Selecione um Ano</option>
+                        </select>
+                        <span asp-validation-for="AnoAta" class="text-danger"></span>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="CodigoAta" class="control-label"></label>
+                        <select asp-for="CodigoAta" class="custom-select">
+                            <option value="">...</option>
+                        </select>
+                        <span asp-validation-for="CodigoAta" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-3">
+                        <label asp-for="CodigoItem" class="control-label"></label>
+                        <select asp-for="CodigoItem" class="custom-select">
+                            <option value="">...</option>
+                        </select>
+                        <span asp-validation-for="CodigoItem" class="text-danger"></span>
+                    </div>
+                    <div class="col-3">
+                        <label asp-for="ConsumoEstimado" class="control-label"></label>
+                        <input asp-for="ConsumoEstimado" type="number" class="form-control" placeholder="Consumo Estimado" />
+                        <span asp-validation-for="ConsumoEstimado" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <label asp-for="CodigoUnidadeAdministrativa" class="control-label"></label>
+                        <select asp-for="CodigoUnidadeAdministrativa" class="custom-select" asp-items="(SelectList)ViewBag.ListUnidadeAdministrativa">
+                            <option value="">...</option>
+                        </select>
+                        <span asp-validation-for="CodigoUnidadeAdministrativa" class="text-danger"></span>
+                    </div>
+                    <div class="col-12 mt-3" id="listProgramacao"></div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="mr-2">
+                        <button type="submit" class="btn btn-primary shadow">Salvar Alteração</button>
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary shadow" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="/js/Item/itemAjax.js" type="module"></script>
+    <script src="/js/Programacao/ProgramacaoAjax.js" type="module"></script>
+}

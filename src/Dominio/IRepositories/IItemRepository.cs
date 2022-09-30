@@ -8,6 +8,7 @@ namespace Domain.IRepositories
     public interface IItemRepository : IBaseRepository<Item>
     {
         Task<Item> GetByIdInclude(Guid id);
+        Task<Item> GetByParticipanteId(Guid participanteId);
         Task<Item> GetItemByCodeAtaAndYearAta(int yearAta, int codeAta, int codeItem);
         Task<List<Item>> GetListItemByCodeAtaAndYearAta(int yearAta, int codeAta);
         Task<List<Item>> GetListItemByCodeAtaAndYearAtaIncludeDetentora(int yearAta, int codeAta);

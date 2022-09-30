@@ -94,5 +94,16 @@ namespace Infra.Persistence
                 .OrderBy(i => i.NumeroItem)
                 .ToListAsync();
         }
+
+        public async Task<Item> GetByParticipanteId(Guid participanteId)
+        {
+            return await _db.Itens
+                .Include(i => i.ParticipantesItens)
+                .ThenInclude(pi => pi.UnidadeAdministrativa)
+                .Include(i => i.ParticipantesItens)
+                .ThenInclude(pi => pi.ProgramacoesConsumoParticipantes)
+                .Where(i => i.ParticipantesItens.Any(pi => pi.Id.Equals(participanteId)))
+                .FirstOrDefaultAsync();
+        }
     }
 }

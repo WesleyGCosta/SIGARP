@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    let placeHolderHere = $('#PlaceHolderHere')
+
     $("#formProgramacaoConsumo").submit(function (e) {
         e.preventDefault();
         if ($(this).valid()) {
@@ -15,6 +17,19 @@
                 }
             })
         }
+    })
+
+    $(document).on('click', 'button[data-toggle="ajax-modal-editProgramacaoConsumo"]', function () {
+        $.ajax({
+            type: 'GET',
+            url: '/ProgramacaoConsumo/Edit/',
+            data: { participanteId: $(this).parent().data('participanteid') },
+            success: function (response) {
+                placeHolderHere.empty()
+                placeHolderHere.html(response)
+                placeHolderHere.find('.modal').modal('show');
+            }
+        })
     })
 
     $('#CodigoItem').change(function () {

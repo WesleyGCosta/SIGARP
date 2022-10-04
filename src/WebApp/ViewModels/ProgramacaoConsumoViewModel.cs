@@ -47,8 +47,7 @@ namespace WebApp.ViewModels
 
         public int SumConsumoEstimado()
         {
-            var teste = ConsumoEstimado - SaldoAnterior;
-            return teste;
+            return ConsumoEstimado - SaldoAnterior;
         }
     }
 }

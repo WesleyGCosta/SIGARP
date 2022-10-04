@@ -20,6 +20,7 @@ namespace WebApp.Controllers
         private readonly SearchUnidadeAdministrativa _searchUnidadeAdministrativa;
         private readonly DeleteUnidadeAdministrativa _deleteUnidadeAdministrativa;
         private readonly UpdateUnidadeAdministrativa _updateUnidadeAdministrativa;
+        private readonly UpdateItem _updateItem;
         private readonly SearchItem _searchItem;
         private readonly DeleteParticipanteItem _deleteParticipanteItem;
         private readonly SearchParticipanteItem _searchParticipanteItem;
@@ -33,6 +34,7 @@ namespace WebApp.Controllers
             _searchUnidadeAdministrativa = new SearchUnidadeAdministrativa(unidadeAdministrativaRepository);
             _deleteUnidadeAdministrativa = new DeleteUnidadeAdministrativa(unidadeAdministrativaRepository);
             _updateUnidadeAdministrativa = new UpdateUnidadeAdministrativa(unidadeAdministrativaRepository);
+            _updateItem = new UpdateItem(itemRepository);
             _searchItem = new SearchItem(itemRepository);
             _deleteParticipanteItem = new DeleteParticipanteItem(participanteItemRepository);
             _searchParticipanteItem = new SearchParticipanteItem(participanteItemRepository);
@@ -130,11 +132,21 @@ namespace WebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> DeleteParticipante(Guid unidadeAdmnistrativaId, Guid itemId)
+        public async Task<IActionResult> DeleteParticipante(Guid participanteId, int programacaoConsumo)
         {
-            var participante = await _searchParticipanteItem.GetByIds(unidadeAdmnistrativaId, itemId);
+            var participante = await _searchParticipanteItem.GetByParticipanteId(participanteId);
 
-            return PartialView("rete");
+            if(participante == null)
+            {
+                TempData["Warning"] = "Erro ao deletar participante";
+                return NotFound();
+            }
+
+            await _deleteParticipanteItem.Run(participante);
+            await _updateItem.SubtractQuantityItem(participante.ItemId, -programacaoConsumo);
+            TempData["Success"] = "Participante excluído com sucesso";
+
+            return Ok();
         }
 
         public async Task<IActionResult> UpdateListParticipanteItem(int yearAta, int codeAta)

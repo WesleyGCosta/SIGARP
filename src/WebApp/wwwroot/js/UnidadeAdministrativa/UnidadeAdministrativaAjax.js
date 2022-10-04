@@ -62,6 +62,33 @@ $(document).ready(function () {
                 }
             })
         }
+    })
 
+    $(document).on('click', 'button[data-toggle="ajax-modal-deleteParticipante"]', function () {
+        const yearAta = $('#AnoAta').val()
+        const codeAta = $('#CodigoAta').val()
+
+        Swal.fire({
+            title: 'Confirmação de Exclusão',
+            text: `Essa ação irá excluir tudo relacionado ao participante!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#247ba0',
+            cancelButtonColor: '#6c757d',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Sim, apagar participante!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/UnidadeAdministrativa/DeleteParticipante/',
+                    data: { participanteId: $(this).parent().data('participanteid'), programacaoConsumo: $(this).data('programacaoconsumo') },
+                    success: function () {
+                        GetMessageDomain()
+                        UpdateListParticipanteItem(yearAta, codeAta)
+                    }
+                })
+            }
+        })
     })
 })

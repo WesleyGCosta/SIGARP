@@ -21,6 +21,11 @@ namespace Historia.ParticipantesItens
             return await _participanteItemRepository.GetParticipanteItemByIds(unidadeAdministrativaId, itemId);
         }
 
+        public async Task<ParticipanteItem> GetByParticipanteId(Guid participanteId)
+        {
+            return await _participanteItemRepository.GetByParticipanteId(participanteId);
+        }
+
         public async Task<IEnumerable<ParticipanteItem>> GetListByAta(int yearAta, int codeAta)
         {
             return await _participanteItemRepository.GetListByAta(yearAta, codeAta);

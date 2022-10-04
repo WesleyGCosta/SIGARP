@@ -1,0 +1,66 @@
+﻿@model ProgramacaoConsumoViewModel
+
+@{
+    var quantidadeDosponivel = Model.QuantidadeDisponivel;
+    Model.SaldoAnterior = Model.ConsumoEstimado;
+    Model.QuantidadeDisponivel += Model.ConsumoEstimado;
+}
+
+<div class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content ">
+            <div class="d-flex justify-content-center text-center card-header">
+                <h5 class="modal-title">Editando Programacao Consumo<br /><strong>@Model.NomeUnidadeAdministrativa</strong></h5>
+            </div>
+            <form id="formEditProgramacaoConsumo" asp-action="Edit">
+                <div class="modal-body row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input asp-for="Id" type="hidden" />
+                    <input asp-for="CodigoItem" type="hidden" />
+                    <input asp-for="SaldoAnterior" type="hidden" />
+                    <div class="col-md-12">
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="AnoAta" class="control-label"></label>
+                        <input asp-for="AnoAta" class="form-control" readonly />
+                        <span asp-validation-for="AnoAta" class="text-danger"></span>
+                    </div>
+                    <div class="col-4">
+                        <label asp-for="CodigoAta" class="control-label"></label>
+                        <input asp-for="CodigoAta" class="form-control" readonly />
+                        <span asp-validation-for="CodigoAta" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-4">
+                        <label asp-for="NumeroItem" class="control-label">N° Item</label>
+                        <input asp-for="NumeroItem" class="form-control" readonly />
+                        <span asp-validation-for="NumeroItem" class="text-danger"></span>
+                    </div>
+                    <div class="col-4 mt-3">
+                        <label asp-for="QuantidadeDisponivel" class="control-label"></label>
+                        <input asp-for="@quantidadeDosponivel" type="number" class="form-control" readonly />
+                    </div>
+                    <div class="col-4 mt-3">
+                        <label asp-for="QuantidadeDisponivel" class="control-label">Quantidade Disponível para o participante</label>
+                        <input asp-for="QuantidadeDisponivel" type="number" class="form-control" readonly />
+                        <span asp-validation-for="QuantidadeDisponivel" class="text-danger"></span>
+                    </div>
+                    <div class="col-4 mt-3">
+                        <label asp-for="ConsumoEstimado" class="control-label"></label>
+                        <input asp-for="ConsumoEstimado" type="number" class="form-control"  />
+                        <span asp-validation-for="ConsumoEstimado" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="modal-footer ">
+                    <div class="mr-2">
+                        <button type="submit" class="btn btn-primary shadow">Salvar Alteração</button>
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary shadow" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

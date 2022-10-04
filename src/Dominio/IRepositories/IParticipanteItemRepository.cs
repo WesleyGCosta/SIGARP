@@ -8,6 +8,7 @@ namespace Domain.IRepositories
     public interface IParticipanteItemRepository : IBaseRepository<ParticipanteItem>
     {
         Task<ParticipanteItem> GetParticipanteItemByIds(Guid unidadeAdministrativaId, Guid itemId);
+        Task<ParticipanteItem> GetByParticipanteId(Guid participanteId);
         Task<List<ParticipanteItem>> GetListByAta(int yearAta, int codeAta);
     }
 }

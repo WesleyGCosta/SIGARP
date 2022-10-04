@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using System.Linq;
 using WebApp.ViewModels;
 
 namespace WebApp.Factories
@@ -19,12 +20,24 @@ namespace WebApp.Factories
 
         public static ProgramacaoConsumoViewModel ToViewModel(Item item)
         {
-            return new ProgramacaoConsumoViewModel
+            var programacaoViewModel = new ProgramacaoConsumoViewModel
             {
                 NumeroItem = item.NumeroItem,
                 Descricao = item.Descricao,
                 QuantidadeDisponivel = item.QuantidadeDisponivel,
             };
+
+            if (item.ParticipantesItens.Any(i => i.ProgramacoesConsumoParticipantes != null))
+            {
+                programacaoViewModel.Id = item.ParticipantesItens.Select(i => i.ProgramacoesConsumoParticipantes.Id).First();
+                programacaoViewModel.ConsumoEstimado = item.ParticipantesItens.Select(i => i.ProgramacoesConsumoParticipantes.ConsumoEstimado).First();
+                programacaoViewModel.NomeUnidadeAdministrativa = item.ParticipantesItens.Select(i => i.UnidadeAdministrativa.NomeUnidadeAdministrativa).First();
+                programacaoViewModel.CodigoItem = item.Id;
+                programacaoViewModel.AnoAta = item.AnoAta;
+                programacaoViewModel.CodigoAta = item.CodigoAta;  
+            }
+
+            return programacaoViewModel;
         }
         public static ProgramacaoConsumoViewModel ToViewModel(ProgramacaoConsumoParticipante programacaoConsumo)
         {

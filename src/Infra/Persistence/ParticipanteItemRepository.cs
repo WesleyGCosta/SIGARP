@@ -15,6 +15,16 @@ namespace Infra.Persistence
         {
         }
 
+        public async Task<ParticipanteItem> GetByParticipanteId(Guid participanteId)
+        {
+            return await _db.ParticipantesItens
+                .Include(pi => pi.Item)
+                .Include(pi => pi.ProgramacoesConsumoParticipantes)
+                .Include(pi => pi.UnidadeAdministrativa)
+                .Where(pi => pi.Id.Equals(participanteId))
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<List<ParticipanteItem>> GetListByAta(int yearAta, int codeAta)
         {
             return await _db.ParticipantesItens

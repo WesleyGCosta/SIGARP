@@ -22,6 +22,7 @@ namespace WebApp.Controllers
         private readonly SearchParticipanteItem _searchParticipanteItem;
         private readonly SearchItem _searchItem;
         private readonly UpdateItem _updateItem;
+        private readonly UpdateProgramacoesConsumos _updateProgramacoesConsumos;
         private readonly CreateProgramacaoConsumo _createProgramacaoConsumo;
         private readonly CreateParticipanteItem _createParticipanteItem;
         public ProgramacaoConsumoController(
@@ -35,6 +36,7 @@ namespace WebApp.Controllers
             _searchParticipanteItem = new SearchParticipanteItem(participanteItemRepository);
             _searchItem = new SearchItem(itemRepository);
             _updateItem = new UpdateItem(itemRepository);
+            _updateProgramacoesConsumos = new UpdateProgramacoesConsumos(programacaoConsumoParticipanteRepository);
             _createProgramacaoConsumo = new CreateProgramacaoConsumo(programacaoConsumoParticipanteRepository);
             _createParticipanteItem = new CreateParticipanteItem(participanteItemRepository);
         }
@@ -81,11 +83,27 @@ namespace WebApp.Controllers
 
         public async Task<IActionResult> Edit(Guid participanteId)
         {
-            var participante = await _searchItem.GetByParticipanteId(participanteId);
+            var itemContainsParticipante = await _searchItem.GetByParticipanteId(participanteId);
 
-            var programacaoConsumoViewModel = ProgramacaoConsumoFactory.ToViewModel(participante);
+            var programacaoConsumoViewModel = ProgramacaoConsumoFactory.ToViewModel(itemContainsParticipante);
 
-            return PartialView("_ItemDatailsProgramacaoConsumo", programacaoConsumoViewModel);
+            return PartialView("_ProgramacaoConsumoEditModal", programacaoConsumoViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(ProgramacaoConsumoViewModel programacaoConsumoViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["Warning"] = "Erro na Alteração da Programação de Consumo";
+                return NotFound();
+            }
+            var programacaoConsumo = ProgramacaoConsumoFactory.ToEntity(programacaoConsumoViewModel);
+            await _updateProgramacoesConsumos.Run(programacaoConsumo);
+            await _updateItem.SubtractQuantityItem(programacaoConsumoViewModel.CodigoItem, programacaoConsumoViewModel.SumConsumoEstimado());
+            TempData["Success"] = "Programação de consumo alterado com sucesso";
+            return Ok();
         }
 
         public async Task<IActionResult> GetItemIncludeUnidadeAdministrativa(int yearAta, int codeAta, int codeItem)

@@ -31,6 +31,10 @@ namespace WebApp.Factories
             {
                 programacaoViewModel.Id = item.ParticipantesItens.Select(i => i.ProgramacoesConsumoParticipantes.Id).First();
                 programacaoViewModel.ConsumoEstimado = item.ParticipantesItens.Select(i => i.ProgramacoesConsumoParticipantes.ConsumoEstimado).First();
+                programacaoViewModel.NomeUnidadeAdministrativa = item.ParticipantesItens.Select(i => i.UnidadeAdministrativa.NomeUnidadeAdministrativa).First();
+                programacaoViewModel.CodigoItem = item.Id;
+                programacaoViewModel.AnoAta = item.AnoAta;
+                programacaoViewModel.CodigoAta = item.CodigoAta;  
             }
 
             return programacaoViewModel;

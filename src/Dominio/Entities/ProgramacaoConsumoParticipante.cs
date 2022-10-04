@@ -29,5 +29,10 @@ namespace Domain.Entities
 
         public ParticipanteItem ParticipanteItem { get; private set; }
 
+        public void Update(int consumoEstimado)
+        {
+            ConsumoEstimado = consumoEstimado;
+        }
+
     }
 }

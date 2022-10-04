@@ -32,6 +32,7 @@ namespace WebApp.ViewModels
         [Display(Name = "Participante")]
         [Required(ErrorMessage = "Campo Obrigatório")]
         public Guid CodigoUnidadeAdministrativa { get; set; }
+        public string NomeUnidadeAdministrativa { get; set; }
 
         [Display(Name = "Consumo Estimado")]
         [Required(ErrorMessage = "Campo Obrigatório")]
@@ -43,5 +44,11 @@ namespace WebApp.ViewModels
         }
         public int Transferido { get; set; }
         public int SaldoAnterior { get; set; }
+
+        public int SumConsumoEstimado()
+        {
+            var teste = ConsumoEstimado - SaldoAnterior;
+            return teste;
+        }
     }
 }

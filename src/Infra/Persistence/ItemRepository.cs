@@ -100,7 +100,7 @@ namespace Infra.Persistence
             return await _db.Itens
                 .Include(i => i.ParticipantesItens)
                 .ThenInclude(pi => pi.UnidadeAdministrativa)
-                .Include(i => i.ParticipantesItens)
+                .Include(i => i.ParticipantesItens.Where(pi => pi.Id == participanteId))
                 .ThenInclude(pi => pi.ProgramacoesConsumoParticipantes)
                 .Where(i => i.ParticipantesItens.Any(pi => pi.Id.Equals(participanteId)))
                 .FirstOrDefaultAsync();

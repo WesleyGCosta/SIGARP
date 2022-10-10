@@ -13,6 +13,13 @@ namespace Infra.Persistence
         {
         }
 
+        public async Task<int> CountAll()
+        {
+            return await _db.UnidadesAdministrativas
+                .AsNoTracking()
+                .CountAsync();
+        }
+
         public async Task<UnidadeAdministrativa> GetBySigla(string sigla)
         {
             return await _db.UnidadesAdministrativas

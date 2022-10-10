@@ -33,5 +33,10 @@ namespace Historia.Detentoras
         {
             return await _detentoraRepository.GetListDetentoraItemByAta(yearAta, codeAta);
         }
+
+        public async Task<int> CountDetentoras()
+        {
+            return await _detentoraRepository.CountDetentoras();
+        }
     }
 }

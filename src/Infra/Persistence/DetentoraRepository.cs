@@ -15,6 +15,13 @@ namespace Infra.Persistence
         {
         }
 
+        public Task<int> CountDetentoras()
+        {
+            return _db.Detentoras
+                .AsNoTracking()
+                .CountAsync();
+        }
+
         public async Task<Detentora> GetByCnpj(string cnpj)
         {
             return await _db.Detentoras

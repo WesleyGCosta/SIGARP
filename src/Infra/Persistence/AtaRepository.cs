@@ -1,7 +1,9 @@
-﻿using Domain.Entities;
+﻿using Domain.Dtos;
+using Domain.Entities;
 using Domain.IRepositories;
 using Infra.Contexto;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -63,6 +65,52 @@ namespace Infra.Persistence
                 .Where(a => a.AnoAta.Equals(year) && a.Publicada.Equals(false))
                 .Select(a => a.CodigoAta)
                 .ToListAsync();
+        }
+
+        public async Task<int> CountAtasByPublish(bool publish)
+        {
+            return await _db.Atas
+                 .AsNoTracking()
+                 .Where(a => a.Publicada.Equals(publish))
+                 .CountAsync();
+        }
+
+        public async Task<List<AtaYearDto>> GetAtasCountByYear(List<int> years)
+        {
+            var atas = await _db.Atas.ToListAsync();
+            var list = new List<AtaYearDto>();
+            int count = 0;
+
+            foreach (var year in years)
+            {
+                foreach (var ata in atas.Where(a => a.AnoAta.Equals(year)))
+                {
+                    count++;
+                }
+                list.Add(new AtaYearDto { Year = year, Count = count });
+                count = 0;
+            }
+            return list;
+        }
+
+        public async Task<List<AtaMonthDto>> GetAtasCountByMonth()
+        {
+            var currentDate = DateTime.Now.Year;
+            var atas = await _db.Atas.Where(a => a.DataCadastro.Year.Equals(currentDate)).ToListAsync();
+            var list = new List<AtaMonthDto>();
+            int count = 0;   
+
+            for (int month = 1; month <= 12; month++)
+            {
+                var date = new DateTime(currentDate, month, 1);
+                foreach (var ata in atas.Where(a => a.DataCadastro.Month.Equals(month)))
+                {
+                    count++;
+                }
+                list.Add(new AtaMonthDto { Month = date.ToString("MMM"), Count = count });
+                count = 0;
+            }
+            return list;
         }
     }
 }

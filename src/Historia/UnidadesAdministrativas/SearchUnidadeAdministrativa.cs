@@ -29,5 +29,10 @@ namespace Historia.UnidadesAdministrativas
         {
             return await _unidadeAdministrativaRepository.GetBySigla(sigla);
         }
+
+        public async Task<int> CountUnidadesAdministrativas()
+        {
+            return await _unidadeAdministrativaRepository.CountAll();
+        }
     }
 }

@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WebApp.Controllers
 {
@@ -30,6 +31,16 @@ namespace WebApp.Controllers
         {
             ViewBag.ListYears = LoadDropYear();
             return View();
+        }
+
+        public async Task<JsonResult> GetAtasGraphicsByYears()
+        {
+            return Json(await _searchAta.GetAtasCountByYear(LoadDropYear()));
+        }
+
+        public async Task<JsonResult> GetAtasGraphicsByMonths()
+        {
+            return Json(await _searchAta.GetAtasCountByMonths());
         }
 
         [HttpPost]

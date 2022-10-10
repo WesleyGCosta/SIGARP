@@ -10,5 +10,6 @@ namespace Domain.IRepositories
         Task<List<Detentora>> GetListDetentoraItemByAta(int yearAta, int codeAta);
         Task<Detentora> GetByCnpj(string cnpj);
         Task<Detentora> GetIdInclude(Guid id);
+        Task<int> CountDetentoras();
     }
 }

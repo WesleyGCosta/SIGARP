@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Dtos;
+using Domain.Entities;
 using Domain.IRepositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,6 +13,16 @@ namespace Historia.Atas
         public SearchAta(IAtaRepository ataRepository)
         {
             _ataRepository = ataRepository;
+        }
+
+        public async Task<List<AtaYearDto>> GetAtasCountByYear(List<int> years)
+        {
+            return await _ataRepository.GetAtasCountByYear(years);
+        }
+
+        public async Task<List<AtaMonthDto>> GetAtasCountByMonths()
+        {
+            return await _ataRepository.GetAtasCountByMonth();
         }
 
         public async Task<Ata> GetAtaByYear(int year)
@@ -36,6 +47,11 @@ namespace Historia.Atas
         public async Task<List<int>> GetListCodeByYear(int year)
         {
             return await _ataRepository.GetListCodeByYear(year);
+        }
+
+        public async Task<int> CountAtasByPublish(bool publish)
+        {
+            return await _ataRepository.CountAtasByPublish(publish);
         }
     }
 }

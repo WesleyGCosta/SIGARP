@@ -31,6 +31,29 @@
         })
     })
 
+    $('.btnOption').click(function () {
+        GetDetentorasByStatus(this.value)
+    })
+
+
+    function GetDetentorasByStatus(status) {
+        $.ajax({
+            type: 'GET',
+            url: '/Detentora/GetDetentorasByStatus/',
+            data: { status },
+            success: function (response) {
+                if (status == 'true') {
+                    $('#listDetentorasActive').empty()
+                    $('#listDetentorasActive').append(response)
+                }
+                else {
+                    $('#listDetentorasInactive').empty()
+                    $('#listDetentorasInactive').append(response)
+                }
+            }
+        })
+    }
+
 
     //Detalhes de detantoras
     $(document).on('click', 'button[data-toggle="ajax-modal-infoDetentora"]', function () {
@@ -55,6 +78,10 @@
             success: function (response) {
                 placeHolderHere.empty()
                 placeHolderHere.html(response)
+                placeHolderHere.unbind()
+                placeHolderHere.data("validator", null)
+                $.validator.unobtrusive.parse(placeHolderHere);
+
                 placeHolderHere.find('.modal').modal('show');
             }
         })
@@ -64,14 +91,18 @@
     $(document).on('submit', '#formEditDetentora', function (e) {
         e.preventDefault()
 
+        var teste = $('button[aria-selected="true"]').value
+        console.log(teste)
+        console.log(teste.value)
+
         if ($(this).valid()) {
             $.ajax({
                 type: 'POST',
                 url: '/Detentora/Edit/',
                 data: $(this).serialize(),
                 success: function (response) {
-                    $('#listDetentora').empty()
-                    $('#listDetentora').append(response)
+                    $('.listDetentora').empty()
+                    $('.listDetentora').append(response)
                     GetMessageDomain()
                     placeHolderHere.find('.modal').modal('hide');
                 },

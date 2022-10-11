@@ -7019,6 +7019,11 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
     justify-content: space-around !important
 }
 
+.justify-content-evenly {
+    -ms-flex-pack: distribute !important;
+    justify-content: space-evenly !important
+}
+
 .align-items-start {
     -ms-flex-align: start !important;
     align-items: flex-start !important

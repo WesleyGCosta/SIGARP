@@ -36,8 +36,6 @@ namespace WebApp.Controllers
         {
             ViewBag.AtasPublicada = await _searchAta.CountAtasByPublish(publish: true);
             ViewBag.Pendentes = await _searchAta.CountAtasByPublish(publish: false);
-            ViewBag.Detentoras = await _searchDetentora.CountDetentoras();
-            ViewBag.UnidadesAdministrativas = await _searchUnidadeAdministrativa.CountUnidadesAdministrativas();
             return View();
         }
 

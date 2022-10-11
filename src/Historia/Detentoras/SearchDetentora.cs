@@ -20,10 +20,16 @@ namespace Historia.Detentoras
             return await _detentoraRepository.GetIdInclude(id);
         }
 
+        public async Task<List<Detentora>> GetByStatus(bool status)
+        {
+            return await _detentoraRepository.GetByStatus(status);
+        }
+
         public async Task<List<Detentora>> GetAll()
         {
             return await _detentoraRepository.GetAll();
         }
+
         public async Task<Detentora> GetByCnpj(string cnpj)
         {
             return await _detentoraRepository.GetByCnpj(cnpj);

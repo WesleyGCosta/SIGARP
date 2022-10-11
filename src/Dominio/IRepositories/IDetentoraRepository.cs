@@ -8,6 +8,7 @@ namespace Domain.IRepositories
     public interface IDetentoraRepository : IBaseRepository<Detentora>
     {
         Task<List<Detentora>> GetListDetentoraItemByAta(int yearAta, int codeAta);
+        Task<List<Detentora>> GetByStatus(bool status);
         Task<Detentora> GetByCnpj(string cnpj);
         Task<Detentora> GetIdInclude(Guid id);
         Task<int> CountDetentoras();

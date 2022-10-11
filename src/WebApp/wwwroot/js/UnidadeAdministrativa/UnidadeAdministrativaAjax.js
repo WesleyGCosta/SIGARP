@@ -39,6 +39,10 @@ $(document).ready(function () {
             success: function (response) {
                 placeHolderHere.empty()
                 placeHolderHere.html(response)
+                placeHolderHere.unbind()
+                placeHolderHere.data("validator", null)
+                $.validator.unobtrusive.parse(placeHolderHere);
+
                 placeHolderHere.find('.modal').modal('show');
             }
         })

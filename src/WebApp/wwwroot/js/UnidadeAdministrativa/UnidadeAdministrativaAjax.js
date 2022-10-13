@@ -30,7 +30,7 @@ $(document).ready(function () {
         })
     })
 
-    //Editar Detentora (GET)
+    //Editar Unidade Administrativa (GET)
     $(document).on('click', 'button[data-toggle="ajax-modal-editUnidadeAdministrativa"]', function () {
         $.ajax({
             type: 'GET',
@@ -49,7 +49,8 @@ $(document).ready(function () {
     })
 
     $('.btnOption').click(function () {
-        GetUnidadesAdministrativasByStatus(this.value)
+        let status = (this.value == 'true')
+        GetUnidadesAdministrativasByStatus(status)
     })
 
     function GetUnidadesAdministrativasByStatus(status) {
@@ -58,19 +59,61 @@ $(document).ready(function () {
             url: '/UnidadeAdministrativa/GetUnidadesAdministrativasByStatus/',
             data: { status },
             success: function (response) {
-                if (status == 'true') {
-                    $('#listUnidadeAdministrativaActive').empty()
-                    $('#listUnidadeAdministrativaActive').append(response)
-                }
-                else {
-                    $('#listUnidadeAdministrativaInactive').empty()
-                    $('#listUnidadeAdministrativaInactive').append(response)
-                }
+                FillListUnidadeAdministrativa(response, status)
+                GetMessageDomain()
             }
         })
     }
 
-    //Editar Detentora (POST)
+    function FillListUnidadeAdministrativa(response, status) {
+        $('#listUnidadeAdministrativaActive').empty()
+        $('#listUnidadeAdministrativaInactive').empty()
+
+        if (status == true) {
+            $('#listUnidadeAdministrativaActive').html(response)
+        }
+        else {   
+            $('#listUnidadeAdministrativaInactive').html(response)
+        }
+    }
+
+    $(document).on('click', 'button[data-toggle="update"]', function () {
+
+        let status = (this.value == 'true');
+        let sigla = $(this).parent().data('sigla');
+       
+        let mensagem = '';
+        if (status == true) {
+            mensagem = "Ativar"
+        } else {
+            mensagem = "Desativar"
+        }
+
+        Swal.fire({
+            title: 'Confirmação',
+            text: `Deseja ${mensagem} a Unidade Administrativa ${sigla}?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#247ba0',
+            cancelButtonColor: '#6c757d',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: `Sim, ${mensagem}!`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/UnidadeAdministrativa/UpdateStatus/',
+                    data: { id: $(this).parent().data('unidadeadministrativaid'), status },
+                    success: function (response) {
+                        FillListUnidadeAdministrativa(response, !status)
+                        GetMessageDomain()
+                    }
+                })
+            }
+        })
+    })
+
+    //Editar Unidade Administrativa (POST)
     $(document).on('submit', '#formEditUnidadeAdministrativa', function (e) {
         e.preventDefault()
 
@@ -83,7 +126,6 @@ $(document).ready(function () {
                     GetMessageDomain()
                     $('.listUnidadeAdministrativa').empty()
                     $('.listUnidadeAdministrativa').append(response)
-                    GetMessageDomain()
                     placeHolderHere.find('.modal').modal('hide');
                 }
             })

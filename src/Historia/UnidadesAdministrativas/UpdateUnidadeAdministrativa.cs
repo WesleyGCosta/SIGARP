@@ -24,5 +24,17 @@ namespace Historia.UnidadesAdministrativas
             await _unidadeAdministrativaRepository.Update(unidadeAdministrativaConsult);
 
         }
+
+        public async Task<bool> Run(Guid id, bool status)
+        {
+            var unidadeAdministrativaConsult = await _unidadeAdministrativaRepository.GetByPrimaryKey(id);
+            if (unidadeAdministrativaConsult == null)
+                return false;
+
+            unidadeAdministrativaConsult.UpdateStatus(status);
+            await _unidadeAdministrativaRepository.Update(unidadeAdministrativaConsult);
+
+            return true;
+        }
     }
 }

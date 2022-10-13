@@ -68,31 +68,7 @@ namespace WebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Management() => View();
-
-        private async Task<List<UnidadeAdministrativaViewModel>> GetList()
-        {
-            var unidadeAdministrativas = await _searchUnidadeAdministrativa.GetAll();
-            var listUnidadeAdministrativaViewModel = UnidadeAdministrativaFactory.ToListViewMode(unidadeAdministrativas);
-            return listUnidadeAdministrativaViewModel;
-        }
-
-        public async Task<IActionResult> GetUnidadesAdministrativasByStatus(bool status)
-        {
-            if (status)
-            {
-                return PartialView("_UnidadesAdministrativaActive", await GetListUnidadesAdministrativaByStatus(status));
-            }
-
-            return PartialView("_UnidadesAdministrativaInactive", await GetListUnidadesAdministrativaByStatus(status));
-        }
-
-        private async Task<IList<UnidadeAdministrativaViewModel>> GetListUnidadesAdministrativaByStatus(bool status)
-        {
-            var unidadesAdministrativas = await _searchUnidadeAdministrativa.GetByStatus(status);
-            var listDetentorasViewModel = UnidadeAdministrativaFactory.ToListViewMode(unidadesAdministrativas);
-            return listDetentorasViewModel;
-        }
+        public IActionResult Management() => View();    
 
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
@@ -117,6 +93,24 @@ namespace WebApp.Controllers
 
             return RedirectToAction(nameof(GetUnidadesAdministrativasByStatus), new {status = unidadeAdministrativaViewModel.Ativo});
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateStatus(Guid id, bool status)
+        {
+            var unidadeAdministrativa = await _searchUnidadeAdministrativa.GetById(id);
+            var success = await _updateUnidadeAdministrativa.Run(id, status);
+
+            if (!success)
+            {
+                TempData["Warning"] = "Erro na alteração da Unidade Administrativa";
+                return NotFound();
+            }
+
+            TempData["Success"] = "Unidade Administrativa Alterado com Sucesso";
+
+            return RedirectToAction(nameof(GetUnidadesAdministrativasByStatus), new { status = !status });
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> Details(Guid id)
@@ -169,6 +163,24 @@ namespace WebApp.Controllers
             var participantesItens = await _searchItem.GetItemByCodeAtaAndYearAtaIncludeParticipantes(yearAta, codeAta);
             var listParticipantesViewModel = ItemFactory.ToListViewModel(participantesItens);
             return PartialView("_UnidadesAdministrativaEdit", listParticipantesViewModel);
+        }
+
+
+        public async Task<IActionResult> GetUnidadesAdministrativasByStatus(bool status)
+        {
+            if (status)
+            {
+                return PartialView("_UnidadesAdministrativaActive", await GetListUnidadesAdministrativaByStatus(status));
+            }
+
+            return PartialView("_UnidadesAdministrativaInactive", await GetListUnidadesAdministrativaByStatus(status));
+        }
+
+        private async Task<IList<UnidadeAdministrativaViewModel>> GetListUnidadesAdministrativaByStatus(bool status)
+        {
+            var unidadesAdministrativas = await _searchUnidadeAdministrativa.GetByStatus(status);
+            var listDetentorasViewModel = UnidadeAdministrativaFactory.ToListViewMode(unidadesAdministrativas);
+            return listDetentorasViewModel;
         }
     }
 }

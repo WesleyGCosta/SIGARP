@@ -13,7 +13,8 @@
                 <div class="modal-body row">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
-                    <input type="hidden" asp-for="Endereco.Id" />
+                    <input type="hidden" asp-for="Endereco.Id"/>
+                    <input type="hidden" asp-for="Ativo" />
                     <div class="col-3">
                         <label asp-for="Cnpj" class="control-label"></label>
                         <input asp-for="Cnpj" class="form-control" placeholder="00.000.000/0000-00" readonly/>
@@ -41,7 +42,7 @@
                     </div>
                     <div class="col-5 mt-3">
                         <label asp-for="Email" class="control-label"></label>
-                        <input asp-for="Email" class="form-control capitalize" placeholder="Exemplo@Gmail.com" />
+                        <input asp-for="Email" class="form-control" placeholder="Exemplo@Gmail.com" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 

@@ -1,16 +1,13 @@
-﻿using Domain.Entities;
-using Domain.IRepositories;
+﻿using Domain.IRepositories;
 using Domain.Notifications.Interface;
 using Historia.Detentoras;
 using Historia.DetentorasItem;
 using Historia.Enderecos;
 using Historia.Itens;
-using Historia.ParticipantesItens;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
@@ -76,9 +73,24 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Management()
+        public IActionResult Management() => View();
+
+        public async Task<IActionResult> GetDetentorasByStatus(bool status)
         {
-            return View(await GetListDetentora());
+            if (status)
+            {
+                return PartialView("_DetentorasActive", await GetListDetentoraByStatus(status));
+            }
+
+            return PartialView("_DetentorasInactive", await GetListDetentoraByStatus(status));
+        }
+
+
+        private async Task<IList<DetentoraViewModel>> GetListDetentoraByStatus(bool status)
+        {
+            var detentoras = await _searchDetentora.GetByStatus(status);
+            var listDetentorasViewModel = DetentoraFactory.ToListViewModel(detentoras);
+            return listDetentorasViewModel;
         }
 
         private async Task<IList<DetentoraViewModel>> GetListDetentora()
@@ -120,7 +132,7 @@ namespace WebApp.Controllers
 
             TempData["Success"] = "Detentora Alterado com Sucesso";
 
-            return PartialView("_DetentoraList", await GetListDetentora());
+            return RedirectToAction(nameof(GetDetentorasByStatus), new {status = detentoraViewModel.Ativo});
         }
 
         public async Task<IActionResult> Details(Guid id)

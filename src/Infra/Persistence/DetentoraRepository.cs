@@ -29,6 +29,14 @@ namespace Infra.Persistence
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<List<Detentora>> GetByStatus(bool status)
+        {
+            return await _db.Detentoras
+                .AsNoTracking()
+                .Where(d => d.Ativo.Equals(status))
+                .ToListAsync();
+        }
+
         public async Task<Detentora> GetIdInclude(Guid id)
         {
             return await _db.Detentoras

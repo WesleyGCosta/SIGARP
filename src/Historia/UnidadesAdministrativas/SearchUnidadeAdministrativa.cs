@@ -34,5 +34,10 @@ namespace Historia.UnidadesAdministrativas
         {
             return await _unidadeAdministrativaRepository.CountAll();
         }
+
+        public async Task<List<UnidadeAdministrativa>> GetByStatus(bool status)
+        {
+            return await _unidadeAdministrativaRepository.GetByStatus(status);
+        }
     }
 }

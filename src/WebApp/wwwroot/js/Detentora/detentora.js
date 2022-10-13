@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
-    $('#listDetentoraTable').DataTable();
+    $('.listDetentoraTable').DataTable();
 
     $(document).ajaxStop(function () {
-        $('#listDetentoraTable').DataTable();
+        $('.listDetentoraTable').DataTable();
     })
 })

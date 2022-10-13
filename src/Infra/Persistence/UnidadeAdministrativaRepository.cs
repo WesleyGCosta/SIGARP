@@ -2,6 +2,7 @@
 using Domain.IRepositories;
 using Infra.Contexto;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,6 +27,14 @@ namespace Infra.Persistence
                 .AsNoTracking()
                 .Where(ua => ua.Sigla.Equals(sigla))
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<List<UnidadeAdministrativa>> GetByStatus(bool status)
+        {
+            return await _db.UnidadesAdministrativas
+                .AsNoTracking()
+                .Where(u => u.Ativo.Equals(status))
+                .ToListAsync();
         }
     }
 }

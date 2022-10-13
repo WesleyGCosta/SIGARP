@@ -39,10 +39,36 @@ $(document).ready(function () {
             success: function (response) {
                 placeHolderHere.empty()
                 placeHolderHere.html(response)
+                placeHolderHere.unbind()
+                placeHolderHere.data("validator", null)
+                $.validator.unobtrusive.parse(placeHolderHere);
+
                 placeHolderHere.find('.modal').modal('show');
             }
         })
     })
+
+    $('.btnOption').click(function () {
+        GetUnidadesAdministrativasByStatus(this.value)
+    })
+
+    function GetUnidadesAdministrativasByStatus(status) {
+        $.ajax({
+            type: 'GET',
+            url: '/UnidadeAdministrativa/GetUnidadesAdministrativasByStatus/',
+            data: { status },
+            success: function (response) {
+                if (status == 'true') {
+                    $('#listUnidadeAdministrativaActive').empty()
+                    $('#listUnidadeAdministrativaActive').append(response)
+                }
+                else {
+                    $('#listUnidadeAdministrativaInactive').empty()
+                    $('#listUnidadeAdministrativaInactive').append(response)
+                }
+            }
+        })
+    }
 
     //Editar Detentora (POST)
     $(document).on('submit', '#formEditUnidadeAdministrativa', function (e) {
@@ -55,8 +81,8 @@ $(document).ready(function () {
                 data: $(this).serialize(),
                 success: function (response) {
                     GetMessageDomain()
-                    $('#listUnidadeAministrativa').empty()
-                    $('#listUnidadeAministrativa').append(response)
+                    $('.listUnidadeAdministrativa').empty()
+                    $('.listUnidadeAdministrativa').append(response)
                     GetMessageDomain()
                     placeHolderHere.find('.modal').modal('hide');
                 }

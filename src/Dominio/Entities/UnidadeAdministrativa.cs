@@ -53,5 +53,10 @@ namespace Domain.Entities
             EsferaAdministrativa = unidadeAdministrativa.EsferaAdministrativa;
             Ativo = unidadeAdministrativa.Ativo;
         }
+
+        public void UpdateStatus(bool status)
+        {
+            Ativo = status;
+        }
     }
 }

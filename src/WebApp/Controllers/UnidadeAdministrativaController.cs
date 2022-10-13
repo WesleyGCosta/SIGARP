@@ -1,5 +1,6 @@
 ﻿using Domain.IRepositories;
 using Domain.Notifications.Interface;
+using Historia.Detentoras;
 using Historia.Itens;
 using Historia.ParticipantesItens;
 using Historia.UnidadesAdministrativas;
@@ -67,16 +68,30 @@ namespace WebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Management()
-        {
-            return View(await GetList());
-        }
+        public IActionResult Management() => View();
 
         private async Task<List<UnidadeAdministrativaViewModel>> GetList()
         {
             var unidadeAdministrativas = await _searchUnidadeAdministrativa.GetAll();
             var listUnidadeAdministrativaViewModel = UnidadeAdministrativaFactory.ToListViewMode(unidadeAdministrativas);
             return listUnidadeAdministrativaViewModel;
+        }
+
+        public async Task<IActionResult> GetUnidadesAdministrativasByStatus(bool status)
+        {
+            if (status)
+            {
+                return PartialView("_UnidadesAdministrativaActive", await GetListUnidadesAdministrativaByStatus(status));
+            }
+
+            return PartialView("_UnidadesAdministrativaInactive", await GetListUnidadesAdministrativaByStatus(status));
+        }
+
+        private async Task<IList<UnidadeAdministrativaViewModel>> GetListUnidadesAdministrativaByStatus(bool status)
+        {
+            var unidadesAdministrativas = await _searchUnidadeAdministrativa.GetByStatus(status);
+            var listDetentorasViewModel = UnidadeAdministrativaFactory.ToListViewMode(unidadesAdministrativas);
+            return listDetentorasViewModel;
         }
 
         [HttpGet]
@@ -100,7 +115,7 @@ namespace WebApp.Controllers
 
             TempData["Success"] = "Unidade Administratiav alterado com Sucesso";
 
-            return PartialView("_UnidadeAdministrativaList", await GetList());
+            return RedirectToAction(nameof(GetUnidadesAdministrativasByStatus), new {status = unidadeAdministrativaViewModel.Ativo});
         }
 
         [HttpGet]

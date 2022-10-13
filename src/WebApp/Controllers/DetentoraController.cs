@@ -1,16 +1,13 @@
-﻿using Domain.Entities;
-using Domain.IRepositories;
+﻿using Domain.IRepositories;
 using Domain.Notifications.Interface;
 using Historia.Detentoras;
 using Historia.DetentorasItem;
 using Historia.Enderecos;
 using Historia.Itens;
-using Historia.ParticipantesItens;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;

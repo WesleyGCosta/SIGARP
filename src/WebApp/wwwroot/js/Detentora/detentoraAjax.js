@@ -93,7 +93,7 @@
 
         var teste = $('button[aria-selected="true"]').value
         console.log(teste)
-        console.log(teste.value)
+        console.log(teste)
 
         if ($(this).valid()) {
             $.ajax({

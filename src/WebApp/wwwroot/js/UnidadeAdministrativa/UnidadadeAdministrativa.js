@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
-    $('#unidadeAdministrativaTable').DataTable()
+    $('.unidadeAdministrativaTable').DataTable()
 
     $(document).ajaxStop(function () {
-        $('#unidadeAdministrativaTable').DataTable()
+        $('.unidadeAdministrativaTable').DataTable()
     })
 })

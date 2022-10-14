@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.IRepositories;
+using System;
 using System.Threading.Tasks;
 
 namespace Historia.Detentoras
@@ -19,6 +20,19 @@ namespace Historia.Detentoras
 
             detentoraConsult.Update(detentora);
             await _detentoraRepository.Update(detentoraConsult);
+        }
+
+        public async Task<bool> Run(Guid id, bool status)
+        {
+            var detentoraConsult = await _detentoraRepository.GetByPrimaryKey(id);
+
+            if (detentoraConsult == null)
+                return false;
+
+            detentoraConsult.UpdateStatus(status);
+            await _detentoraRepository.Update(detentoraConsult);
+
+            return true;
         }
     }
 }

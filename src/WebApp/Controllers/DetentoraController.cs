@@ -4,6 +4,7 @@ using Historia.Detentoras;
 using Historia.DetentorasItem;
 using Historia.Enderecos;
 using Historia.Itens;
+using Historia.UnidadesAdministrativas;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -75,30 +76,6 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Management() => View();
 
-        public async Task<IActionResult> GetDetentorasByStatus(bool status)
-        {
-            if (status)
-            {
-                return PartialView("_DetentorasActive", await GetListDetentoraByStatus(status));
-            }
-
-            return PartialView("_DetentorasInactive", await GetListDetentoraByStatus(status));
-        }
-
-
-        private async Task<IList<DetentoraViewModel>> GetListDetentoraByStatus(bool status)
-        {
-            var detentoras = await _searchDetentora.GetByStatus(status);
-            var listDetentorasViewModel = DetentoraFactory.ToListViewModel(detentoras);
-            return listDetentorasViewModel;
-        }
-
-        private async Task<IList<DetentoraViewModel>> GetListDetentora()
-        {
-            var detentoras = await _searchDetentora.GetAll();
-            var listDetentorasViewModel = DetentoraFactory.ToListViewModel(detentoras);
-            return listDetentorasViewModel;
-        }
 
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -133,6 +110,23 @@ namespace WebApp.Controllers
             TempData["Success"] = "Detentora Alterado com Sucesso";
 
             return RedirectToAction(nameof(GetDetentorasByStatus), new {status = detentoraViewModel.Ativo});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateStatus(Guid id, bool status)
+        {
+            var detentora = await _searchDetentora.GetById(id);
+            var success = await _updateDetentora.Run(id, status);
+
+            if (!success)
+            {
+                TempData["Warning"] = "Erro na alteração da Unidade Administrativa";
+                return NotFound();
+            }
+
+            TempData["Success"] = "Unidade Administrativa Alterado com Sucesso";
+
+            return RedirectToAction(nameof(GetDetentorasByStatus), new { status = !status });
         }
 
         public async Task<IActionResult> Details(Guid id)
@@ -173,5 +167,22 @@ namespace WebApp.Controllers
         }
 
 
+        public async Task<IActionResult> GetDetentorasByStatus(bool status)
+        {
+            if (status)
+            {
+                return PartialView("_DetentorasActive", await GetListDetentoraByStatus(status));
+            }
+
+            return PartialView("_DetentorasInactive", await GetListDetentoraByStatus(status));
+        }
+
+
+        private async Task<IList<DetentoraViewModel>> GetListDetentoraByStatus(bool status)
+        {
+            var detentoras = await _searchDetentora.GetByStatus(status);
+            var listDetentorasViewModel = DetentoraFactory.ToListViewModel(detentoras);
+            return listDetentorasViewModel;
+        }
     }
 }

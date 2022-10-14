@@ -32,7 +32,8 @@
     })
 
     $('.btnOption').click(function () {
-        GetDetentorasByStatus(this.value)
+        let status = (this.value == 'true')
+        GetDetentorasByStatus(status)
     })
 
 
@@ -42,17 +43,58 @@
             url: '/Detentora/GetDetentorasByStatus/',
             data: { status },
             success: function (response) {
-                if (status == 'true') {
-                    $('#listDetentorasActive').empty()
-                    $('#listDetentorasActive').append(response)
-                }
-                else {
-                    $('#listDetentorasInactive').empty()
-                    $('#listDetentorasInactive').append(response)
-                }
+                FillListUnidadeAdministrativa(response, status)
+                GetMessageDomain()
             }
         })
     }
+
+    function FillListUnidadeAdministrativa(response, status) {
+        if (status == true) {
+            $('#listDetentorasActive').empty()
+            $('#listDetentorasActive').append(response)
+        }
+        else {
+            $('#listDetentorasInactive').empty()
+            $('#listDetentorasInactive').append(response)
+        }
+    }
+
+    $(document).on('click', 'button[data-toggle="update"]', function () {
+
+        let status = (this.value == 'true');
+        let name = $(this).parent().data('name');
+
+        let mensagem = '';
+        if (status == true) {
+            mensagem = "Ativar"
+        } else {
+            mensagem = "Desativar"
+        }
+
+        Swal.fire({
+            title: 'Confirmação',
+            text: `Deseja ${mensagem} a Detentora ${name}?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#247ba0',
+            cancelButtonColor: '#6c757d',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: `Sim, ${mensagem}!`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Detentora/UpdateStatus/',
+                    data: { id: $(this).parent().data('detentoraid'), status },
+                    success: function (response) {
+                        FillListUnidadeAdministrativa(response, !status)
+                        GetMessageDomain()
+                    }
+                })
+            }
+        })
+    })
 
 
     //Detalhes de detantoras

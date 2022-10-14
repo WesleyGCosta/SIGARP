@@ -38,5 +38,10 @@ namespace Domain.Entities
             Telefone = detentora.Telefone;
             Pessoa = detentora.Pessoa;
         }
+
+        public void UpdateStatus(bool status)
+        {
+            Ativo = status;
+        }
     }
 }

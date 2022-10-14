@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Retificação";
+}
+
+<div class="card shadow">
+    <div class="card-header text-center">
+        <h4>Retificação de Ata</h4>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-warning" role="alert">
+            <h6>
+                <strong>ORIENTAÇÃO:</strong> Nesta página você irá Suspender a Ata para realizar retificações da mesma.
+                Após essa ação a Ata deverá ser publicada novamente.
+            </h6>
+        </div>
+
+        <div class="text-center">
+            <span class="text-muted">Selecione uma Ata</span>
+        </div>
+        <div class="d-flex justify-content-center text-black-50 mt-2">
+            <div class="col-3">
+                <select id="AnoAtaEdit" class="custom-select AnoAtaSelect" asp-items="new SelectList(ViewBag.ListYears)">
+                    <option value="">Selecione um Ano</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <select id="CodigoAtaEdit" class="custom-select CodigoAtaSelect" asp-items="(SelectList)ViewBag.ListCodeAta">
+                    <option value="">...</option>
+                </select>
+            </div>
+        </div>
+        <hr />
+
+    </div>
+</div>

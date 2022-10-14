@@ -33,6 +33,20 @@ namespace WebApp.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Publish()
+        {
+            ViewBag.ListYears = LoadDropYear();
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Rectify()
+        {
+            ViewBag.ListYears = LoadDropYear();
+            return View();
+        }
+
         public async Task<JsonResult> GetAtasGraphicsByYears()
         {
             return Json(await _searchAta.GetAtasCountByYear(LoadDropYear()));

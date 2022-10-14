@@ -11,6 +11,19 @@
             }
         });
     })
+    const pathname = window.location.pathname.split('/');
+    if (pathname[2] == "Management") {
+        Swal.fire({
+            title: 'Atenção',
+            text: 'Não é possível "EDITAR" ou "EXCLUIR" atas publicadas.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#247ba0',
+            cancelButtonColor: '#6c757d',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Ok'
+        })
+    }
 
     //Select de cadastrar Ata
     $("#AnoAta").change(function () {

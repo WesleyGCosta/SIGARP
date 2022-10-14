@@ -33,23 +33,11 @@
             </div>
             <div class="dropdown">
                 <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                    Consultas
-                </a>
-
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="#">Atas de Registros de Preços</a>
-                    <a class="dropdown-item" href="#">Programação de Consumo</a>
-                    <a class="dropdown-item" href="#">Detentora</a>
-                    <a class="dropdown-item" href="#">Unidade ou Órgão</a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
                     Publicações
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="#">Publicar Ata</a>
-                    <a class="dropdown-item" href="#">Retificar Ata</a>
+                    <a class="dropdown-item" asp-controller="Ata" asp-action="Publish">Publicar Ata</a>
+                    <a class="dropdown-item" asp-controller="Ata" asp-action="Rectify">Retificar Ata</a>
                 </div>
             </div>
             <div class="dropdown">
@@ -60,7 +48,6 @@
                     <a class="dropdown-item" href="#">Ordem de Fornecimento</a>
                     <a class="dropdown-item" href="#">Ordem Fornecimento Carona</a>
                     <a class="dropdown-item" href="#">Estorno Solicitação OF</a>
-                    <a class="dropdown-item" href="#">Estorno Aditivo</a>
                     <a class="dropdown-item" href="#">Alterar Adesão Carona</a>
                     <a class="dropdown-item" href="#">Transferência de Saldo</a>
                 </div>

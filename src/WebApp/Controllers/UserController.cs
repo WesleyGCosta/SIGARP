@@ -7,7 +7,6 @@ using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
-    [AllowAnonymous]
     public class UserController : BaseController
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -25,9 +24,11 @@ namespace WebApp.Controllers
             _roleManager = roleManager;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Create() => View();
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(RegistroViewModel model)
         {
@@ -60,12 +61,14 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Logar(LoginViewModel user)
         {
             if (ModelState.IsValid)

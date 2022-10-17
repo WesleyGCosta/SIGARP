@@ -3,7 +3,9 @@ using Domain.Notifications;
 using Domain.Notifications.Interface;
 using Infra.Contexto;
 using Infra.Persistence;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -44,6 +46,13 @@ namespace WebApp.Configuration
                 options.SlidingExpiration = true;
             });
 
+            services.AddControllersWithViews(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                       .RequireAuthenticatedUser()
+                       .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
 
             return services;
         }

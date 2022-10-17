@@ -41,10 +41,34 @@ namespace WebApp.Controllers
 
         public IActionResult Notification() => ViewComponent("Summary");
 
+        [Route("erro/{id:length(3,3)}")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var modelErro = new ErrorViewModel();
+            if (id == 500)
+            {
+                modelErro.Message = "Essa página está indisponível. Tente novamente mais tarde ou contate o suporte.";
+                modelErro.Title = "Ocorreu um erro!";
+                modelErro.ErroCode = id;
+            }
+            else if (id == 404)
+            {
+                modelErro.Message = "Verifique se digitou o endereço corretamente.";
+                modelErro.Title = "Ops! Página não encontrada.";
+                modelErro.ErroCode = id;
+            }
+            else if (id == 403)
+            {
+                modelErro.Message = "Seu usuário não tem permissão para realizar essa ação.";
+                modelErro.Title = "Acesso negado.";
+                modelErro.ErroCode = id;
+            }
+            else
+            {
+                return StatusCode(404);
+            }
+            return View("Error", modelErro);
         }
     }
 }

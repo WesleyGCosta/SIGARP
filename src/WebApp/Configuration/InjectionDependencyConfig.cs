@@ -5,6 +5,7 @@ using Infra.Contexto;
 using Infra.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace WebApp.Configuration
 {
@@ -23,8 +24,27 @@ namespace WebApp.Configuration
             services.AddScoped<INotifier, Notifier>();
 
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<IdentityContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.User.RequireUniqueEmail = true;
+                options.SignIn.RequireConfirmedEmail = false;
+
+            }).AddEntityFrameworkStores<IdentityContext>()
+            .AddDefaultTokenProviders();
+
+            services.AddAuthorization();
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.LoginPath = "/User/Login/";
+                options.LogoutPath = "/Home/Index/";
+                options.SlidingExpiration = true;
+            });
+
+
             return services;
         }
     }

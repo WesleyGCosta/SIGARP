@@ -8,24 +8,28 @@ using WebApp.ViewModels;
 namespace WebApp.Controllers
 {
     [AllowAnonymous]
-    public class AutenticationController : BaseController
+    public class UserController : BaseController
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        public AutenticationController(
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        public UserController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
             INotifier notifier) : base(notifier)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
-        public IActionResult Registro() => View();
+        public IActionResult Create() => View();
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Registrar(RegistroViewModel model)
+        public async Task<IActionResult> Create(RegistroViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -52,7 +56,7 @@ namespace WebApp.Controllers
                 ModelState.AddModelError(string.Empty, "Login inválido");
 
             }
-            return View("Registro", model);
+            return View(model);
         }
 
         [HttpGet]

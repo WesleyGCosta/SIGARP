@@ -7,7 +7,6 @@ using System;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace WebApp.Controllers
 {

@@ -1,0 +1,13 @@
+﻿@model ErrorViewModel
+
+<div class="text-center">
+    <h2>@Html.DisplayFor(model => model.Title)</h2>
+    <div class="d-flex justify-content-around">
+        <img src="~/Img/ERRO404.png" />
+    </div>
+    <p>
+        @Html.DisplayFor(model => model.Message) <br />
+        Código do erro: @Html.DisplayFor(model => model.ErroCode).
+    </p>
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Voltar à Página Principal</a>
+</div>

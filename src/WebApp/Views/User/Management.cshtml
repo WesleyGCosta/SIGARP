@@ -1,0 +1,26 @@
+﻿@model IEnumerable<IdentityUser>
+
+<div class="container">
+    <div class="text-center mb-3 mt-3">
+    </div>
+    <a class="btn btn-primary" asp-action="Create">Novo</a>
+    <table id="ListAtaTable" class="table table-borderless table-striped py-4">
+        <thead class="text-sapphire">
+            <tr>
+                <th>
+                    Nome
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ata in Model)
+            {
+                <tr>
+                    <td>
+                        @ata.UserName
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -31,7 +31,7 @@
                     <a class="dropdown-item" asp-controller="UnidadeAdministrativa" asp-action="Management">Unidade ou Órgão</a>
                     @if (Context.User.IsInRole("Admin"))
                     {
-                        <a class="dropdown-item" asp-controller="User" asp-action="Create">Usuários</a>
+                        <a class="dropdown-item" asp-controller="User" asp-action="Management">Usuários</a>
                     }
                 </div>
             </div>

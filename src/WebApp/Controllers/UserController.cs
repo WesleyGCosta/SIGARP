@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using WebApp.ViewModels;
 
@@ -25,22 +26,30 @@ namespace WebApp.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Management()
+        {
+            var users = await _userManager.Users.AsNoTracking().ToListAsync();
+            return View(users);
+        }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Create() => View();
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(RegistroViewModel model)
+        public async Task<IActionResult> Create(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser
                 {
-                    UserName = model.Cpf,
+                    UserName = model.Email,
+                    Email = model.Email,
                     EmailConfirmed = true
                 };
 
-                var result = await _userManager.CreateAsync(user, model.Senha);
+                var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
@@ -86,6 +95,7 @@ namespace WebApp.Controllers
             return View("Login");
         }
 
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

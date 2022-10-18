@@ -1,4 +1,5 @@
-﻿using Domain.IRepositories;
+﻿using Domain.Entities;
+using Domain.IRepositories;
 using Domain.Notifications;
 using Domain.Notifications.Interface;
 using Infra.Contexto;
@@ -26,7 +27,7 @@ namespace WebApp.Configuration
             services.AddScoped<INotifier, Notifier>();
 
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.User.RequireUniqueEmail = true;

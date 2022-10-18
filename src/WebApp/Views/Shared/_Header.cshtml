@@ -1,4 +1,10 @@
-﻿<header>
+﻿@using Domain.Entities
+@inject UserManager<User> _userManager
+@{
+    var user = await _userManager.GetUserAsync(Context.User);
+}
+
+<header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light mb-3">
         <div class="container d-flex justify-content-start">
             <a class="navbar-brand text-white " asp-controller="Home" asp-action="Index"><img src="/img/logo-header.png" /></a>
@@ -68,7 +74,7 @@
             </div>
             <div class="dropdown">
                 <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                    @Context.User.Identity.Name
+                    Olá, @user.FirstName
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" asp-controller="User" asp-action="Logout">Sair</a>

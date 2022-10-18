@@ -21,6 +21,9 @@ namespace WebApp.ViewModels
         [Display(Name = "Telefone *")]
         public string PhoneNumber { get; set; }
 
+        [Required(ErrorMessage = "Campo Obrigatório!")]
+        [Display(Name = "Cargo *")]
+        public string Role { get; set; }
 
         [Required(ErrorMessage = "Campo Obrigatório!")]
         [Display(Name = "Senha *")]

@@ -3,13 +3,17 @@ using Domain.Notifications.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     public class UserController : BaseController
     {
         private readonly UserManager<User> _userManager;
@@ -27,19 +31,26 @@ namespace WebApp.Controllers
             _roleManager = roleManager;
         }
 
-        [AllowAnonymous]
         public async Task<IActionResult> Management()
         {
             var users = await _userManager.Users.AsNoTracking().ToListAsync();
+            foreach(var user in users)
+            {
+                user.Role = new List<string>(await _userManager.GetRolesAsync(user));
+            }
             return View(users);
         }
 
-        [AllowAnonymous]
-        public IActionResult Create() => View();
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create()
+        {
+            ViewBag.Roles = new SelectList(await _roleManager.Roles.AsNoTracking().OrderBy(r => r.Name).ToListAsync(), "Id", "Name");
+            return View();
+        }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -50,8 +61,6 @@ namespace WebApp.Controllers
 
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-
                     return RedirectToAction("index", "Home");
                 }
 

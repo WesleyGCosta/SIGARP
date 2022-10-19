@@ -10,26 +10,28 @@
         <div class="card-header text-center">
             <h4 class="card-title">Novo Usuário</h4>
         </div>
-        <div class="card-body row">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card-body row">  
+            <div class="col-12">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            </div>
             <div class="col-4">
                 <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
+                <input asp-for="FirstName" class="form-control" placeholder="Nome do Usuário"/>
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
              <div class="col-4">
                 <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
+                <input asp-for="LastName" class="form-control" placeholder="Sobrenome do Usuário" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="col-4">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" class="form-control" placeholder="Email de Login do Usuário" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="col-3 mt-3">
                 <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
+                <input asp-for="PhoneNumber" id="Telefone" class="form-control" placeholder="(00) 0 0000-0000" />
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="col-3 mt-3">
@@ -41,13 +43,13 @@
             </div>
             <div class="col-3 mt-3">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" class="form-control" placeholder="Senha" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="col-3 mt-3">
                 <div class="form-group">
                     <label asp-for="ConfirmPassword" class="control-label"></label>
-                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirmação de Senha" />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
             </div>
@@ -57,7 +59,7 @@
                 <input type="submit" value="Salvar" class="btn btn-primary shadow" />
             </div>
             <div>
-                <button class="btn btn-secondary shadow" asp-action="Index">Voltar</button>
+                <a class="btn btn-secondary shadow" asp-action="Management">Voltar</a>
             </div>
         </div>
     </div>

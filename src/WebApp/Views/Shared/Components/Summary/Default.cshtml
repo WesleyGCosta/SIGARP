@@ -1,15 +1,15 @@
 ﻿@if (ViewData.ModelState.ErrorCount > 0)
 {
-    <div class="tn-box tn-box-color-2 tn-box-active">
+    <div class="tn-box tn-box-color-2 tn-box-active text-white">
         <div class="row">
             <div class="col-md-2">
                 <img class="icon-notification" src="/img/error.png" />
             </div>
             <div class="col-md-10 pt-2">
-                <p class="text-white" id="msgRetorno">Opa! Algo deu errado :(</p>
+                <p id="msgRetorno">Opa! Algo deu errado :(</p>
             </div>
         </div>
-        <div style="padding-top:20px;" asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div style="padding-top:20px;" asp-validation-summary="ModelOnly"></div>
         <div class="tn-progress"></div>
     </div>
 }

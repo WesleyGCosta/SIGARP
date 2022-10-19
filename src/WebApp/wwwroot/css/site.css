@@ -231,8 +231,8 @@ input.fire-check:checked ~ section .tn-box {
         animation: runProgress 4s linear forwards 0.5s;
     }
 
-.tn-box.tn-box-hoverpause:hover,
-.tn-box.tn-box-hoverpause:hover .tn-progress {
+.tn-box:hover,
+.tn-box:hover .tn-progress {
     animation-play-state: paused;
 }
 
@@ -269,3 +269,7 @@ input.fire-check:checked ~ section .tn-box {
     .not-found p {
         font-weight: 600;
     }
+
+.validation-summary-errors ul {
+    list-style: none !important;
+}

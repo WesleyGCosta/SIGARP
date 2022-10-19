@@ -6,30 +6,10 @@
         <div class="card-header text-center">
             <h4>Gerenciamento de Usuários</h4>
         </div>
-        <div class="card-body">
-            <table id="listUsers" class="table table-borderless table-striped py-4">
-                <thead class="text-sapphire">
-                    <tr>
-                        <th>Nome Completo</th>
-                        <th>Email</th>
-                        <th>Telefone</th>
-                        <th>Cargo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var user in Model)
-                    {
-                        <tr>
-                            <td>@user.FirstName @user.LastName</td>
-                            <td>@user.Email</td>
-                            <td>@user.PhoneNumber</td>
-                            <td>@user.Role.FirstOrDefault()</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div id="listUser" class="card-body">
+            <partial name="_ListUser" model="Model" />
         </div> 
-        <div class="card-footer">
+        <div class="card-footer d-flex justify-content-end">
             <a class="btn btn-primary" asp-action="Create">Novo</a>
         </div>
     </div>

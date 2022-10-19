@@ -34,7 +34,8 @@ namespace WebApp.Configuration
                 options.SignIn.RequireConfirmedEmail = false;
 
             }).AddEntityFrameworkStores<IdentityContext>()
-            .AddDefaultTokenProviders();
+            .AddDefaultTokenProviders()
+            .AddPortugueseIdentityErrorDescriber();
 
             services.AddAuthorization();
 

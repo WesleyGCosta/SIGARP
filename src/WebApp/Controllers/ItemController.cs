@@ -189,7 +189,7 @@ namespace WebApp.Controllers
             var itens = await _searchItem.GetListItemByCodeAtaAndYearAtaIncludeDetentora(yearAta, codeAta);
 
             if (!itens.Any())
-                return NotFound();
+                return Ok("Error");
 
             var listItemViewModel = ItemFactory.ToListViewModel(itens);
 

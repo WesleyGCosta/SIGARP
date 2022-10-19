@@ -44,17 +44,16 @@ $(document).ready(function () {
                 url: '/Item/AutoCompleteCodeItem/',
                 data: { yearAta, codeAta },
                 success: function (response) {
-                    $('#listItens').empty()
-                    $('#listItens').append(response)
-                    $('#CodigoItem').attr('value', $('#proxItem').val())
+                    if (response == "Error") {
+                        $('#listItens').empty()
+                        $('#CodigoItem').attr('value', 1)
+                    } else {
+                        $('#listItens').empty()
+                        $('#listItens').append(response)
+                        $('#CodigoItem').attr('value', $('#proxItem').val())
+                    }      
                 },
-                error: function () {
-                    $('#listItens').empty()
-                    $('#CodigoItem').attr('value', 1)
-                }
             })
-
-            GetListDetentoraRegistered(yearAta, codeAta)
         }
         if (pathname[1] == "ProgramacaoConsumo") {
             $.ajax({
@@ -178,17 +177,4 @@ $(document).ready(function () {
 
         
     })
-
-
-    function GetListDetentoraRegistered(yearAta, codeAta) {
-        $.ajax({
-            type: 'GET',
-            url: '/Item/GetListDetentoraRegistered/',
-            data: { yearAta, codeAta },
-            success: function (response) {
-                $('#listDetentoraRegistered').empty()
-                $('#listDetentoraRegistered').append(response)
-            }
-        })
-    }
 })

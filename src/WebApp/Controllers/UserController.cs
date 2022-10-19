@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace WebApp.Controllers
             _roleManager = roleManager;
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Management()
         {
             var users = await _userManager.Users.AsNoTracking().ToListAsync();
@@ -44,7 +46,7 @@ namespace WebApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
-            ViewBag.Roles = new SelectList(await _roleManager.Roles.AsNoTracking().OrderBy(r => r.Name).ToListAsync(), "Id", "Name");
+            ViewBag.Roles = new SelectList(await _roleManager.Roles.AsNoTracking().OrderBy(r => r.Name).ToListAsync(), "Name", "Name");
             return View();
         }
 
@@ -57,22 +59,63 @@ namespace WebApp.Controllers
             {
                 var user = UserFactory.ToIdentityUser(model);
 
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var resultCreate = await _userManager.CreateAsync(user, model.Password);
+                var resultAddRole = await _userManager.AddToRoleAsync(user, model.Role);
 
-                if (result.Succeeded)
+                if (resultCreate.Succeeded && resultAddRole.Succeeded)
                 {
-                    return RedirectToAction("index", "Home");
+                    return RedirectToAction(nameof(Management));
                 }
+
+                foreach (var error in resultCreate.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+            ViewBag.Roles = new SelectList(await _roleManager.Roles.AsNoTracking().OrderBy(r => r.Name).ToListAsync(), "Name", "Name");
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(User user)
+        {
+            var userConsult = await _userManager.FindByIdAsync(user.Id);
+            if (userConsult != null)
+            {
+                var result = await _userManager.UpdateAsync(user);
 
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-
-                ModelState.AddModelError(string.Empty, "Login inválido");
-
             }
-            return View(model);
+
+            var users = await _userManager.Users.ToListAsync();
+
+            return PartialView("_ListUser", users);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if(user != null)
+            {
+                var result = await _userManager.DeleteAsync(user);
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            }
+
+            var users = await _userManager.Users.ToListAsync();
+            
+            return PartialView("_ListUser", users);
         }
 
         [HttpGet]

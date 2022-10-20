@@ -1,0 +1,57 @@
+﻿@using Domain.Entities
+@model User
+
+<div class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content ">
+            <div class="d-flex justify-content-center card-header">
+                <h5 class="modal-title">Editando o Usuário @Model.FirstName @Model.LastName</h5>
+            </div>
+            <form id="formEditUser" asp-action="Edit">
+                <input asp-for="Id" type="hidden" />
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        </div>
+                        <div class="col-4">
+                            <label asp-for="FirstName" class="control-label"></label>
+                            <input asp-for="FirstName" class="form-control" placeholder="Nome do Usuário" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-4">
+                            <label asp-for="LastName" class="control-label"></label>
+                            <input asp-for="LastName" class="form-control" placeholder="Sobrenome do Usuário" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="col-4">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" placeholder="Email de Login do Usuário" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-3 mt-3">
+                            <label asp-for="PhoneNumber" class="control-label"></label>
+                            <input asp-for="PhoneNumber" id="Telefone" class="form-control" placeholder="(00) 0 0000-0000" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="col-3 mt-3">
+                            <label asp-for="Role" class="control-label"></label>
+                            <select asp-for="Role" class="custom-select" asp-items="@ViewBag.Roles">
+                                <option value="">Selecione um Cargo</option>
+                            </select>
+                            <span asp-validation-for="Role" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="mr-2">
+                        <button type="submit" class="btn btn-primary shadow">Salvar Alteração</button>
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary shadow" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

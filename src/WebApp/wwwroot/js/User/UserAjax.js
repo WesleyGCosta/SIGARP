@@ -1,11 +1,13 @@
 ﻿$(document).ready(function () {
     //edit
-    $(document).on('click', 'button[data-toggle="ajax-modal-editProgramacaoConsumo"]', function () {
+    $(document).on('click', 'button[data-btnUser="edit"]', function () {
+        var placeHolderHere = $('#PlaceHolderHere')
         $.ajax({
             type: 'GET',
-            url: '/ProgramacaoConsumo/Edit/',
-            data: { participanteId: $(this).parent().data('participanteid') },
+            url: '/User/Edit/',
+            data: { id: $(this).parent().data('userid') },
             success: function (response) {
+                console.log(response)
                 placeHolderHere.empty()
                 placeHolderHere.html(response)
                 placeHolderHere.unbind()

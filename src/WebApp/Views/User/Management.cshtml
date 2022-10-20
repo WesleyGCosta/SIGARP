@@ -1,6 +1,10 @@
 ﻿@using Domain.Entities
 @model IEnumerable<User>
 
+@{
+    ViewData["Title"] = "Gerenciamento";
+}
+
 <div class="container">
     <div class="card shadow">
         <div class="card-header text-center">
@@ -16,7 +20,9 @@
 </div>
 
 @section Scripts {
-
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     <script src="/js/User/User.js" type="text/javascript"></script>
     <script src="~/js/User/UserAjax.js" type="text/javascript"></script>
 }

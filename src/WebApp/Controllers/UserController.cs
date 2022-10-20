@@ -52,7 +52,7 @@ namespace WebApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
-            ViewBag.Roles = new SelectList(await _roleManager.Roles.AsNoTracking().OrderBy(r => r.Name).ToListAsync(), "Name", "Name");
+            await ViewBagRoles();
             return View();
         }
 
@@ -79,8 +79,28 @@ namespace WebApp.Controllers
                     ModelState.AddModelError("", error.Description);
                 }
             }
-            ViewBag.Roles = new SelectList(await _roleManager.Roles.AsNoTracking().OrderBy(r => r.Name).ToListAsync(), "Name", "Name");
+            await ViewBagRoles();
             return View(model);
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, Gerente")]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                TempData["Warning"] = "Usuário não encontrado";
+                return NotFound();
+            }
+            await ViewBagRoles();
+            return PartialView("_FormEditUserModal", user);
+        }
+
+        private async Task ViewBagRoles()
+        {
+            ViewBag.Roles = new SelectList(await _roleManager.Roles.AsNoTracking().OrderBy(r => r.Name).ToListAsync(), "Name", "Name");
         }
 
         [HttpPost]

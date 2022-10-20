@@ -1,6 +1,8 @@
+using Domain.Entities;
 using Infra.Contexto;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,7 +33,9 @@ namespace WebApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+            UserManager<User> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             if (!env.IsDevelopment())
             {
@@ -63,6 +67,7 @@ namespace WebApp
                     name: "default",
                     pattern: "{controller=User}/{action=Login}/{id?}");
             });
+            StartUserConfig.StartIdentity(userManager, roleManager);
         }
     }
 }

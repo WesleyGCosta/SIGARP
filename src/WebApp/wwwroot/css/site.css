@@ -273,3 +273,16 @@ input.fire-check:checked ~ section .tn-box {
 .validation-summary-errors ul {
     list-style: none !important;
 }
+
+.erro403 {
+    width: 67%;
+
+}
+
+.erro404 {
+    width: 85%;
+}
+
+.erro500 {
+    width: 72%;
+}

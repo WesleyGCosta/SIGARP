@@ -45,6 +45,7 @@ namespace WebApp.Configuration
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
                 options.LoginPath = "/User/Login/";
                 options.LogoutPath = "/Home/Index/";
+                options.AccessDeniedPath = "/User/RestrictedAcess/";
                 options.SlidingExpiration = true;
             });
 

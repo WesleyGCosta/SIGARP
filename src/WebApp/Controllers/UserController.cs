@@ -35,12 +35,18 @@ namespace WebApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Management()
         {
+            return View(await GetAsyncListUsers());
+        }
+
+        private async Task<List<User>> GetAsyncListUsers()
+        {
             var users = await _userManager.Users.AsNoTracking().ToListAsync();
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 user.Role = new List<string>(await _userManager.GetRolesAsync(user));
             }
-            return View(users);
+
+            return users;
         }
 
         [Authorize(Roles = "Admin")]
@@ -59,12 +65,13 @@ namespace WebApp.Controllers
             {
                 var user = UserFactory.ToIdentityUser(model);
 
-                var resultCreate = await _userManager.CreateAsync(user, model.Password);
-                var resultAddRole = await _userManager.AddToRoleAsync(user, model.Role);
+                var resultCreate = await _userManager.CreateAsync(user, model.Password);            
 
-                if (resultCreate.Succeeded && resultAddRole.Succeeded)
+                if (resultCreate.Succeeded)
                 {
-                    return RedirectToAction(nameof(Management));
+                    var resultAddRole = await _userManager.AddToRoleAsync(user, model.Role);
+                    if (resultAddRole.Succeeded)
+                        return RedirectToAction(nameof(Management));
                 }
 
                 foreach (var error in resultCreate.Errors)
@@ -92,13 +99,9 @@ namespace WebApp.Controllers
                 }
             }
 
-            var users = await _userManager.Users.ToListAsync();
-
-            return PartialView("_ListUser", users);
+            return PartialView("_ListUser", await GetAsyncListUsers());
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
@@ -113,9 +116,9 @@ namespace WebApp.Controllers
                 }
             }
 
-            var users = await _userManager.Users.ToListAsync();
-            
-            return PartialView("_ListUser", users);
+            TempData["Success"] = "Usuário excluído com sucesso";
+
+            return PartialView("_ListUser", await GetAsyncListUsers());
         }
 
         [HttpGet]
@@ -144,7 +147,12 @@ namespace WebApp.Controllers
             return View("Login");
         }
 
-        [Authorize]
+        public IActionResult RestrictedAcess()
+        {
+            return StatusCode(403);
+        }
+
+
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

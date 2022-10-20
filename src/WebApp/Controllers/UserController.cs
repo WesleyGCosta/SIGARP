@@ -59,7 +59,7 @@ namespace WebApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create(RegisterViewModel model)
+        public async Task<IActionResult> Create(UserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -89,36 +89,41 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
+            var roleUser = await _userManager.GetRolesAsync(user);
+
             if (user == null)
             {
                 TempData["Warning"] = "Usuário não encontrado";
                 return NotFound();
             }
             await ViewBagRoles();
-            return PartialView("_FormEditUserModal", user);
-        }
-
-        private async Task ViewBagRoles()
-        {
-            ViewBag.Roles = new SelectList(await _roleManager.Roles.AsNoTracking().OrderBy(r => r.Name).ToListAsync(), "Name", "Name");
+            var userViewModel = UserFactory.ToViewModel(user, roleUser.First());
+            return PartialView("_FormEditUserModal", userViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(User user)
+        public async Task<IActionResult> Edit(UserViewModel userViewModel)
         {
-            var userConsult = await _userManager.FindByIdAsync(user.Id);
+            var user = UserFactory.ToIdentityUser(userViewModel);
+            var userConsult = await _userManager.FindByIdAsync(userViewModel.Id);
+            var roleUser = await _userManager.GetRolesAsync(userConsult);
+
             if (userConsult != null)
             {
-                var result = await _userManager.UpdateAsync(user);
+                userConsult.Update(user);
+                var resultUser = await _userManager.UpdateAsync(userConsult);
+                var resultRoles = await _userManager.RemoveFromRolesAsync(userConsult, roleUser);
+                await _userManager.AddToRoleAsync(userConsult, userViewModel.Role);
 
-                foreach (var error in result.Errors)
+                foreach (var error in resultUser.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
             }
 
+            TempData["Success"] = "Usuário alterado com sucesso";
             return PartialView("_ListUser", await GetAsyncListUsers());
         }
 
@@ -170,6 +175,11 @@ namespace WebApp.Controllers
         public IActionResult RestrictedAcess()
         {
             return StatusCode(403);
+        }
+
+        private async Task ViewBagRoles()
+        {
+            ViewBag.Roles = new SelectList(await _roleManager.Roles.AsNoTracking().OrderBy(r => r.Name).ToListAsync(), "Name", "Name");
         }
 
 

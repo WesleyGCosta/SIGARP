@@ -5,7 +5,7 @@ namespace WebApp.Factories
 {
     public static class UserFactory
     {
-        public static User ToIdentityUser(RegisterViewModel registerViewModel)
+        public static User ToIdentityUser(UserViewModel registerViewModel)
         {
             return new User
             {
@@ -15,6 +15,19 @@ namespace WebApp.Factories
                 PhoneNumber = registerViewModel.PhoneNumber,
                 Email = registerViewModel.Email,
                 EmailConfirmed = true
+            };
+        }
+
+        internal static UserViewModel ToViewModel(User user, string role)
+        {
+            return new UserViewModel
+            {
+                Id = user.Id,
+                LastName = user.LastName,
+                FirstName = user.FirstName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Role = role,
             };
         }
     }

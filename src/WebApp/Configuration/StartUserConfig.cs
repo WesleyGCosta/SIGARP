@@ -19,14 +19,14 @@ namespace WebApp.Configuration
 
         private static void StartUser(UserManager<User> userManager)
         {
-            if(userManager.FindByNameAsync("admin@gmail.com").Result == null)
+            if(userManager.FindByNameAsync("Admin@sigarp.com").Result == null)
             {
                 var user = new User
                 {
                     UserName = "Admin@gmail.com",
                     FirstName = "Adminstrador",
                     LastName = "Sistema",
-                    Email = "Admin@gmail.com",
+                    Email = "Admin@sigarp.com",
                     PhoneNumber = "(99) 9 9999-9999"
                 };
                 var result = userManager.CreateAsync(user, "Admin@123").Result;

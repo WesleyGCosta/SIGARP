@@ -14,7 +14,7 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="mb-4">
             <i class="bi bi-info-square"></i>
-            <div class="text-center"><span asp-validation-for="Cpf" class="text-danger"></span></div>
+            <div class="text-center"><span asp-validation-for="Email" class="text-danger"></span></div>
             <div class="input-group box-shadow">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
@@ -24,11 +24,11 @@
                     </span>
 
                 </div>
-                <input type="text" class="form-control" asp-for="Cpf" placeholder="CPF" required>
+                <input type="text" class="form-control" asp-for="Email" placeholder="Email" required>
             </div>
         </div>
         <div class="mb-4">
-            <div class="text-center"><span asp-validation-for="Senha" class="text-danger"></span></div>
+            <div class="text-center"><span asp-validation-for="Password" class="text-danger"></span></div>
             <div class="input-group box-shadow">
                 <div class="input-group-prepend">
                     <span class="input-group-text">
@@ -38,7 +38,7 @@
                         </svg>
                     </span>
                 </div>
-                <input type="password" class="form-control" asp-for="Senha" placeholder="Senha" required>
+                <input type="password" class="form-control" asp-for="Password" placeholder="Senha" required>
             </div>
         </div>
         

@@ -1,74 +1,86 @@
-﻿<header>
+﻿@using Domain.Entities
+@inject UserManager<User> _userManager
+@{
+    var user = await _userManager.GetUserAsync(Context.User);
+}
+
+<header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light mb-3">
-        <div class="container d-flex justify-content-start">
+        <div class="container d-flex justify-content-around">
             <a class="navbar-brand text-white " asp-controller="Home" asp-action="Index"><img src="/img/logo-header.png" /></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="dropdown">
-                <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                    Cadastros
-                </a>
+            <div class="d-flex justify-content-between">
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                        Cadastros
+                    </a>
 
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" asp-controller="Ata" asp-action="Create">Cadastrar Ata</a>
-                    <a class="dropdown-item" asp-controller="Item" asp-action="Create">Cadastrar Item</a>
-                    <a class="dropdown-item" asp-controller="UnidadeAdministrativa" asp-action="Create">Cadastrar Unidade ou Órgão</a>
-                    <a class="dropdown-item" asp-controller="Detentora" asp-action="Create">Cadastrar Detentora</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" asp-controller="ProgramacaoConsumo" asp-action="Create">Incluir Programação de Consumo</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" asp-controller="Ata" asp-action="Create">Cadastrar Ata</a>
+                        <a class="dropdown-item" asp-controller="Item" asp-action="Create">Cadastrar Item</a>
+                        <a class="dropdown-item" asp-controller="UnidadeAdministrativa" asp-action="Create">Cadastrar Unidade ou Órgão</a>
+                        <a class="dropdown-item" asp-controller="Detentora" asp-action="Create">Cadastrar Detentora</a>
+                        @if (Context.User.IsInRole("Admin"))
+                        {
+                            <a class="dropdown-item" asp-controller="User" asp-action="Create">Cadastrar Usuários</a>
+                        }
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" asp-controller="ProgramacaoConsumo" asp-action="Create">Incluir Programação de Consumo</a>
+                    </div>
                 </div>
-            </div>
-            <div class="dropdown">
-                <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                    Gerenciar
-                </a>
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                        Gerenciar
+                    </a>
 
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" asp-controller="Ata" asp-action="Management">Atas de Registros de Preços</a>
-                    <a class="dropdown-item" asp-controller="Detentora" asp-action="Management">Detentora</a>
-                    <a class="dropdown-item" asp-controller="UnidadeAdministrativa" asp-action="Management">Unidade ou Órgão</a>
-                    @if (Context.User.IsInRole("Admin"))
-                    {
-                        <a class="dropdown-item" asp-controller="User" asp-action="Create">Usuários</a>
-                    }
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" asp-controller="Ata" asp-action="Management">Atas de Registros de Preços</a>
+                        <a class="dropdown-item" asp-controller="Detentora" asp-action="Management">Detentora</a>
+                        <a class="dropdown-item" asp-controller="UnidadeAdministrativa" asp-action="Management">Unidade ou Órgão</a>
+                        @if (Context.User.IsInRole("Admin"))
+                        {
+                            <a class="dropdown-item" asp-controller="User" asp-action="Management">Usuários</a>
+                        }
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                        Publicações
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" asp-controller="Ata" asp-action="Publish">Publicar Ata</a>
+                        <a class="dropdown-item" asp-controller="Ata" asp-action="Rectify">Retificar Ata</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                        Liberações
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">Ordem de Fornecimento</a>
+                        <a class="dropdown-item" href="#">Ordem Fornecimento Carona</a>
+                        <a class="dropdown-item" href="#">Estorno Solicitação OF</a>
+                        <a class="dropdown-item" href="#">Alterar Adesão Carona</a>
+                        <a class="dropdown-item" href="#">Transferência de Saldo</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                        Realiamento de Preço
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">Suspender Item</a>
+                        <a class="dropdown-item" href="#">Realinhar Preço</a>
+                        <a class="dropdown-item" href="#">Consultar Realinhamentos</a>
+                    </div>
                 </div>
             </div>
             <div class="dropdown">
                 <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                    Publicações
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" asp-controller="Ata" asp-action="Publish">Publicar Ata</a>
-                    <a class="dropdown-item" asp-controller="Ata" asp-action="Rectify">Retificar Ata</a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                    Liberações
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="#">Ordem de Fornecimento</a>
-                    <a class="dropdown-item" href="#">Ordem Fornecimento Carona</a>
-                    <a class="dropdown-item" href="#">Estorno Solicitação OF</a>
-                    <a class="dropdown-item" href="#">Alterar Adesão Carona</a>
-                    <a class="dropdown-item" href="#">Transferência de Saldo</a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                    Realiamento de Preço
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="#">Suspender Item</a>
-                    <a class="dropdown-item" href="#">Realinhar Preço</a>
-                    <a class="dropdown-item" href="#">Consultar Realinhamentos</a>
-                </div>
-            </div>
-            <div class="dropdown">
-                <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                    @Context.User.Identity.Name
+                    Olá, @user.FirstName
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" asp-controller="User" asp-action="Logout">Sair</a>

@@ -1,0 +1,28 @@
+﻿@using Domain.Entities
+@model IEnumerable<User>
+
+@{
+    ViewData["Title"] = "Gerenciamento";
+}
+
+<div class="container">
+    <div class="card shadow">
+        <div class="card-header text-center">
+            <h4>Gerenciamento de Usuários</h4>
+        </div>
+        <div id="listUser" class="card-body">
+            <partial name="_ListUser" model="Model" />
+        </div> 
+        <div class="card-footer d-flex justify-content-end">
+            <a class="btn btn-primary" asp-action="Create">Novo</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="/js/User/User.js" type="text/javascript"></script>
+    <script src="~/js/User/UserAjax.js" type="text/javascript"></script>
+}

@@ -3,65 +3,53 @@
 @{
     int proxItem = Model.Count + 1;
 }
-
-<input id="proxItem" type="hidden" value="@proxItem" />
-@if (Model.Any())
-{
-    <div class="card mt-3 shadow">
-        <div class="card-header text-center py-3">
-            <h4>Lista de Item Cadastrada na Ata </h4>
-        </div>
-
-        <table class="table table-borderless table-striped text-center">
-            <thead>
-                <tr class="text-justify table-active">
-                    <th scope="col">
-                        Item
-                    </th>
-                    <th scope="col">
-                        Ano
-                    </th>
-                    <th scope="col">
-                        Ata
-                    </th>
-                    <th scope="col">
-                        Detentora
-                    </th>
-                    <th scope="col">
-                        Descrição
-                    </th>
+<hr />
+<div class="col-12">
+    <input id="proxItem" type="hidden" value="@proxItem" />
+    <div class="text-center">
+        <h4 class="card-title text-sapphire">Itens Cadastradas na Ata</h4>
+    </div>
+    <table class="table table-borderless text-center align-middle">
+        <thead class="text-sapphire table-light">
+            <tr class="text-justify">
+                <th scope="col">
+                    Item
+                </th>
+                <th scope="col">
+                    Quantidade
+                </th>
+                <th scope="col">
+                    Preço Registrado
+                </th>
+                <th scope="col">
+                    Detentora
+                </th>
+                <th scope="col">
+                    Descrição
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var list in Model)
+            {
+                <tr class="text-justify ">
+                    <td>
+                        @list.CodigoItem
+                    </td>
+                    <td>
+                        @list.Quantidade
+                    </td>
+                    <td>
+                        R$ @list.PrecoRegistrado
+                    </td>
+                    <td>
+                        @list.ItemDetentora.Detentora.RazaoSocial
+                    </td>
+                    <td>
+                        @list.Descricao
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var list in Model)
-                {
-                    <tr class="text-justify">
-                        <td>
-                            @list.CodigoItem
-                        </td>
-                        <td>
-                            @list.AnoAta
-                        </td>
-                        <td>
-                            @list.CodigoAta
-                        </td>
-                        <td>
-                            @*@list.ItemDetentora.Detentora.RazaoSocial*@
-                        </td>
-                        <td>
-                            @list.Descricao
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
-else
-{
-    <div class="card mt-3 shadow">
-        <div class="text-center py-3">
-            <h4>Nenhum Resultado Encontrado</h4>
-        </div>
-    </div>
-}
+            }
+        </tbody>
+    </table>
+</div>

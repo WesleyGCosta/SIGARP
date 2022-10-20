@@ -1,4 +1,5 @@
-﻿using Domain.IRepositories;
+﻿using Domain.Entities;
+using Domain.IRepositories;
 using Domain.Notifications;
 using Domain.Notifications.Interface;
 using Infra.Contexto;
@@ -26,14 +27,15 @@ namespace WebApp.Configuration
             services.AddScoped<INotifier, Notifier>();
 
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<User, IdentityRole>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedEmail = false;
 
             }).AddEntityFrameworkStores<IdentityContext>()
-            .AddDefaultTokenProviders();
+            .AddDefaultTokenProviders()
+            .AddPortugueseIdentityErrorDescriber();
 
             services.AddAuthorization();
 
@@ -43,6 +45,7 @@ namespace WebApp.Configuration
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
                 options.LoginPath = "/User/Login/";
                 options.LogoutPath = "/Home/Index/";
+                options.AccessDeniedPath = "/User/RestrictedAcess/";
                 options.SlidingExpiration = true;
             });
 

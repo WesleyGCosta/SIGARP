@@ -1,53 +1,70 @@
-﻿@model RegistroViewModel
+﻿@model WebApp.ViewModels.UserViewModel
+
 
 @{
-    ViewData["Title"] = "Registro";
-    Layout = "_LayoutLogin";
+    ViewData["Title"] = "Cadastrar";
 }
 
-<div class="card-login">
-    <div class="card-login-body">
-        <form class="needs-validation" novalidate asp-action="Registrar">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="mb-4">
-                <div class="text-center"><span asp-validation-for="Cpf" class="text-danger"></span></div>
-                <div class="input-group box-shadow">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text bi bi-postcard"></span>
-                    </div>
-                    <input type="text" class="form-control" asp-for="Cpf" placeholder="CPF" required>
+<form asp-action="Create">
+    <div class="card shadow mt-4">
+        <div class="card-header text-center">
+            <h4 class="card-title">Novo Usuário</h4>
+        </div>
+        <div class="card-body row">  
+            <div class="col-12">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            </div>
+            <div class="col-4">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" placeholder="Nome do Usuário"/>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+             <div class="col-4">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" placeholder="Sobrenome do Usuário" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="col-4">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" placeholder="Email de Login do Usuário" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="col-3 mt-3">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" id="Telefone" class="form-control" placeholder="(00) 0 0000-0000" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="col-3 mt-3">
+                <label asp-for="Role" class="control-label"></label>
+                <select asp-for="Role" class="custom-select" asp-items="@ViewBag.Roles">
+                    <option value="">Selecione um Cargo</option>
+                </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <div class="col-3 mt-3">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" placeholder="Senha" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="col-3 mt-3">
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="control-label"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirmação de Senha" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
             </div>
-            <div class="mb-4">
-                <div class="text-center"><span asp-validation-for="Senha" class="text-danger"></span></div>
-                <div class="input-group box-shadow">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text bi bi-lock"></span>
-                    </div>
-                    <input type="password" class="form-control" asp-for="Senha" placeholder="Senha" required>
-                </div>
+        </div>
+        <div class="card-footer d-flex justify-content-end">
+            <div class="mr-2">
+                <input type="submit" value="Salvar" class="btn btn-primary shadow" />
             </div>
-            <div class="mb-4">
-                <div class="text-center"><span asp-validation-for="ConfirmarSenha" class="text-danger"></span></div>
-                <div class="input-group box-shadow">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text bi bi-lock"></span>
-                    </div>
-                    <input type="password" class="form-control" asp-for="ConfirmarSenha" placeholder="Senha" required>
-                </div>
+            <div>
+                <a class="btn btn-secondary shadow" asp-action="Management">Voltar</a>
             </div>
-
-            <button class="btn btn-primary box-shadow mt-2" type="submit">Registrar</button>
-            <hr />
-            <a asp-controller="User" asp-action="Login" class="btn btn-secondary box-shadow mt-2" type="submit">Acessar</a>
-        </form>
+        </div>
     </div>
-</div>
+</form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-    <script>
-        $("#Cpf").mask("000.000.000-00");
-    </script>
 }

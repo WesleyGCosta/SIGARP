@@ -17,10 +17,7 @@
             title: 'Atenção',
             text: 'Não é possível "EDITAR" ou "EXCLUIR" atas publicadas.',
             icon: 'warning',
-            showCancelButton: true,
             confirmButtonColor: '#247ba0',
-            cancelButtonColor: '#6c757d',
-            cancelButtonText: 'Cancelar',
             confirmButtonText: 'Ok'
         })
     }

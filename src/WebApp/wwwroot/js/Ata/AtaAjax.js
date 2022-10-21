@@ -41,13 +41,17 @@
 
     $('.AnoAtaSelect').change(function () {
         var year = $(this).find("option:selected").val();
+        let publish = false;
         if (year != "") {
+            if (pathname[2] == "Rectify" ) {
+                publish = true;
+            }
             $.ajax({
                 type: 'GET',
-                url: '/Item/AutoCompleteListCodeAta/',
+                url: '/Item/AutoCompleteListCodeAtaPublish/',
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
-                data: { yearAta: year },
+                data: { yearAta: year, publish },
                 success: function (response) {
                     $('.CodigoAtaSelect').find('option').remove();
                     $('<option>').val("").text("...").appendTo($('.CodigoAtaSelect'))

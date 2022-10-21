@@ -114,8 +114,11 @@ namespace WebApp.Controllers
             {
                 userConsult.Update(user);
                 var resultUser = await _userManager.UpdateAsync(userConsult);
-                var resultRoles = await _userManager.RemoveFromRolesAsync(userConsult, roleUser);
-                await _userManager.AddToRoleAsync(userConsult, userViewModel.Role);
+                if (resultUser.Succeeded)
+                {
+                    await _userManager.RemoveFromRolesAsync(userConsult, roleUser);
+                    await _userManager.AddToRoleAsync(userConsult, userViewModel.Role);
+                }
 
                 foreach (var error in resultUser.Errors)
                 {

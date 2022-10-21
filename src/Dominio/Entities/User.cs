@@ -16,8 +16,9 @@ namespace Domain.Entities
         {
             FirstName = user.FirstName;
             LastName = user.LastName;
-            this.Email = user.Email;
-            this.PhoneNumber = user.PhoneNumber;
+            Email = user.Email;
+            PhoneNumber = user.PhoneNumber;
+            UserName = user.UserName;
         }
     }
 }

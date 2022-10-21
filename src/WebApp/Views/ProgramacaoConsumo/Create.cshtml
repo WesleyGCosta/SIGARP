@@ -12,14 +12,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col-3">
                 <label asp-for="AnoAta" class="control-label"></label>
-                <select asp-for="AnoAta" class="custom-select" asp-items="new SelectList(ViewBag.ListYears)">
+                <select asp-for="AnoAta" class="custom-select AnoAtaSelect" asp-items="new SelectList(ViewBag.ListYears)">
                     <option value="">Selecione um Ano</option>
                 </select>
                 <span asp-validation-for="AnoAta" class="text-danger"></span>
             </div>
             <div class="col-3">
                 <label asp-for="CodigoAta" class="control-label"></label>
-                <select asp-for="CodigoAta" class="custom-select">
+                <select asp-for="CodigoAta" class="custom-select CodigoAtaSelect">
                     <option value="">...</option>
                 </select>
                 <span asp-validation-for="CodigoAta" class="text-danger"></span>
@@ -60,5 +60,6 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script src="/js/Item/itemAjax.js" type="module"></script>
+    <script src="/js/Ata/AtaAjax.js"></script>
     <script src="/js/Programacao/ProgramacaoAjax.js" type="module"></script>
 }

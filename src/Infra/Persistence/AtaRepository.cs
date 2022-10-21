@@ -58,11 +58,11 @@ namespace Infra.Persistence
                 .ToListAsync();
         }
 
-        public async Task<List<int>> GetListCodeByYear(int year)
+        public async Task<List<int>> GetListCodeByYearPublish(int year, bool publish)
         {
             return await _db.Atas
                 .AsNoTracking()
-                .Where(a => a.AnoAta.Equals(year) && a.Publicada.Equals(false))
+                .Where(a => a.AnoAta.Equals(year) && a.Publicada.Equals(publish))
                 .Select(a => a.CodigoAta)
                 .ToListAsync();
         }

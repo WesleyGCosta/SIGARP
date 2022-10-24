@@ -23,7 +23,7 @@ namespace WebApp.Configuration
             {
                 var user = new User
                 {
-                    UserName = "Admin@gmail.com",
+                    UserName = "Admin@sigarp.com",
                     FirstName = "Adminstrador",
                     LastName = "Sistema",
                     Email = "Admin@sigarp.com",

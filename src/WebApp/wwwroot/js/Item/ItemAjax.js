@@ -3,31 +3,6 @@ import { UpdateListParticipanteItem } from '../UnidadeAdministrativa/UnidadeAdmi
 
 $(document).ready(function () {
     const pathname = window.location.pathname.split('/');
-    $("#AnoAta").change(function () {
-        let year = $(this).find("option:selected").val();
-
-        if (year != "") {
-            $.ajax({
-                type: 'GET',
-                url: '/Item/AutoCompleteListCodeAta/',
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                data: { yearAta: year },
-                success: function (response) {
-                    $('#CodigoAta').find('option').remove();
-                    $('<option>').val("").text("...").appendTo($('#CodigoAta'))
-                    if (response.length > 0) {
-                        $.each(response, function (i, d) {
-                            $('<option>').val(d).text(d).appendTo($('#CodigoAta'))
-                        })
-                    }
-                }
-            })
-        } else {
-            $('#CodigoAta').find('option').remove();
-            $('<option>').val("").text("...").appendTo($('#CodigoAta'))
-        }
-    })
 
     $('#CodigoAta').change(function () {
         AutoCompleteItem()

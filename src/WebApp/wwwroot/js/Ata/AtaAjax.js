@@ -41,13 +41,17 @@
 
     $('.AnoAtaSelect').change(function () {
         var year = $(this).find("option:selected").val();
+        let publish = false;
         if (year != "") {
+            if (pathname[2] == "Rectify" ) {
+                publish = true;
+            }
             $.ajax({
                 type: 'GET',
-                url: '/Item/AutoCompleteListCodeAta/',
+                url: '/Item/AutoCompleteListCodeAtaPublish/',
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
-                data: { yearAta: year },
+                data: { yearAta: year, publish },
                 success: function (response) {
                     $('.CodigoAtaSelect').find('option').remove();
                     $('<option>').val("").text("...").appendTo($('.CodigoAtaSelect'))
@@ -195,6 +199,37 @@
             })
         }
 
+    })
+
+
+    $('#CodigoAtaPublish').change(function () {
+        var yearAta = $(this).find("option:selected").val();
+        if (yearAta != "") {
+            var publish = true
+
+            if (pathname[2] == "Publish") {
+                publish = false
+            }
+            
+            $.ajax({
+                type: 'GET',
+                url: '/Ata/GetAtaPublish/',
+                data: { yearAta: $('#AnoAtaEdit').val(), codeAta: $(this).val(), publish },
+                beforeSend: function () {
+                    Loader()
+                },
+                complete: function () {
+                    Finish()
+                },
+                success: function (response) {
+                    fillDivResult(response)
+                },
+                error: function () {
+                    $('#result').empty()
+                    GetMessageDomain()
+                }
+            })
+        }
     })
 
     function fillDivResult(response) {

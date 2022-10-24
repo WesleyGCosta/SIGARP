@@ -2,7 +2,7 @@
 @model UserViewModel
 
 <div class="modal fade" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content ">
             <div class="d-flex justify-content-center card-header">
                 <h5 class="modal-title">Editando o Usuário @Model.FirstName @Model.LastName</h5>
@@ -29,12 +29,12 @@
                             <input asp-for="Email" class="form-control" placeholder="Email de Login do Usuário" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
-                        <div class="col-3 mt-3">
+                        <div class="col-6 mt-3">
                             <label asp-for="PhoneNumber" class="control-label"></label>
                             <input asp-for="PhoneNumber" id="Telefone" class="form-control" placeholder="(00) 0 0000-0000" />
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
-                        <div class="col-3 mt-3">
+                        <div class="col-6 mt-3">
                             <label asp-for="Role" class="control-label"></label>
                             <select asp-for="Role" class="custom-select" asp-items="@ViewBag.Roles">
                                 <option value="">Selecione um Cargo</option>

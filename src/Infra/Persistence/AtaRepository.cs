@@ -58,11 +58,11 @@ namespace Infra.Persistence
                 .ToListAsync();
         }
 
-        public async Task<List<int>> GetListCodeByYear(int year)
+        public async Task<List<int>> GetListCodeByYearPublish(int year, bool publish)
         {
             return await _db.Atas
                 .AsNoTracking()
-                .Where(a => a.AnoAta.Equals(year) && a.Publicada.Equals(false))
+                .Where(a => a.AnoAta.Equals(year) && a.Publicada.Equals(publish))
                 .Select(a => a.CodigoAta)
                 .ToListAsync();
         }
@@ -111,6 +111,14 @@ namespace Infra.Persistence
                 count = 0;
             }
             return list;
+        }
+
+        public async Task<Ata> GetAtaPublish(int year, int code, bool publish)
+        {
+            return await _db.Atas
+                .AsNoTracking()
+                .Where(a => a.CodigoAta.Equals(code) && a.AnoAta.Equals(year) && a.Publicada.Equals(publish))
+                .FirstOrDefaultAsync();
         }
     }
 }

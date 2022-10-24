@@ -4,6 +4,7 @@ using Historia.Atas;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
@@ -44,16 +45,6 @@ namespace WebApp.Controllers
         {
             ViewBag.ListYears = LoadDropYear();
             return View();
-        }
-
-        public async Task<JsonResult> GetAtasGraphicsByYears()
-        {
-            return Json(await _searchAta.GetAtasCountByYear(LoadDropYear()));
-        }
-
-        public async Task<JsonResult> GetAtasGraphicsByMonths()
-        {
-            return Json(await _searchAta.GetAtasCountByMonths());
         }
 
         [HttpPost]
@@ -122,6 +113,19 @@ namespace WebApp.Controllers
             return RedirectToAction("GetListAtaByYear", new { yearAta });
         }
 
+        #region "Consultas dinâmicas"
+        [HttpGet]
+        public async Task<JsonResult> GetAtasGraphicsByYears()
+        {
+            return Json(await _searchAta.GetAtasCountByYear(LoadDropYear()));
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetAtasGraphicsByMonths()
+        {
+            return Json(await _searchAta.GetAtasCountByMonths());
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAtaByYearAndCodeEdit(int yearAta, int codeAta)
         {
@@ -135,6 +139,14 @@ namespace WebApp.Controllers
             ViewBag.ListYears = LoadDropYear();
             var ataViewModel = AtaFactory.ToViewModel(ata);
             return PartialView("_GeneralEdit", ataViewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAtaPublish(int yearAta, int codeAta, bool publish)
+        {
+            var ata = await _searchAta.GetAtaPublish(yearAta, codeAta, publish);
+            var ataViewModel = AtaFactory.ToViewModel(ata);
+            return PartialView("_AtaDetails", ataViewModel);
         }
 
         [HttpGet]
@@ -169,5 +181,6 @@ namespace WebApp.Controllers
 
             return Json(ata.CodigoAta + 1);
         }
+        #endregion
     }
 }

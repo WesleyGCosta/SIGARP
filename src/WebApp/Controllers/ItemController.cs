@@ -47,6 +47,7 @@ namespace WebApp.Controllers
             _updateDetentoraItem = new UpdateDetentoraItem(detentoraItemRepository);
         }
 
+        #region "GETs"
         public async Task<IActionResult> Create()
         {
             ViewBag.ListYears = LoadDropYear();
@@ -54,6 +55,58 @@ namespace WebApp.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid itemId)
+        {
+            var item = await _searchItem.GetByIdInclude(itemId);
+            var itemViewModel = ItemFactory.ToViewModel(item);
+
+            if (itemViewModel.ItemDetentora != null)
+                ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial", itemViewModel.ItemDetentora.Detentora.Id);
+            else
+                ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
+
+            return PartialView("_FormEditItemModal", itemViewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid itemId)
+        {
+            var item = await _searchItem.GetById(itemId);
+
+            if (item.Equals(null))
+            {
+                TempData["Warning"] = "Erro, Item não encontrado";
+                return NotFound();
+            }
+
+            var itemViewModel = ItemFactory.ToViewModel(item);
+
+            return PartialView("_DetailsItemModal", itemViewModel);
+        }
+
+
+        //Excluir
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid itemId)
+        {
+            var item = await _searchItem.GetById(itemId);
+            if (item.Equals(null))
+            {
+                TempData["Warning"] = "Erro ao Excluir Item";
+                return NotFound();
+            }
+
+            await _deleteItem.Run(item);
+            await _updateItem.Renumber(item.NumeroItem);
+            TempData["Success"] = "Item Excluído Com Sucesso";
+
+            return await RedirectiListItem(item.AnoAta, item.CodigoAta);
+        }
+
+        #endregion
+
+        #region "POSTs"
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ItemViewModel itemViewModel)
@@ -83,20 +136,6 @@ namespace WebApp.Controllers
             return RedirectToAction(nameof(Create));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Edit(Guid itemId)
-        {
-            var item = await _searchItem.GetByIdInclude(itemId);
-            var itemViewModel = ItemFactory.ToViewModel(item);
-
-            if(itemViewModel.ItemDetentora != null)
-                ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial", itemViewModel.ItemDetentora.Detentora.Id);
-            else
-                ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
-
-            return PartialView("_FormEditItemModal", itemViewModel);
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(ItemViewModel itemViewModel)
@@ -106,14 +145,14 @@ namespace WebApp.Controllers
                 TempData["Warning"] = "Erro ao Editar o Item";
                 return NotFound();
             }
-            
+
             var item = ItemFactory.ToEntityItem(itemViewModel);
             var itemDetentoraEntity = ItemDetentoraFactory.ToEntity(itemViewModel.CodigoDetentora, itemViewModel.Id);
 
             await _updateItem.Run(item);
 
             var detentoraItem = await _searchDetentoraItem.GetByItemId(item.Id);
-            
+
             if (detentoraItem == null)
                 await _createDetentoraItem.Run(itemDetentoraEntity);
             else
@@ -124,40 +163,9 @@ namespace WebApp.Controllers
             return await RedirectiListItem(item.AnoAta, item.CodigoAta);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Details(Guid itemId)
-        {
-            var item = await _searchItem.GetById(itemId);
+        #endregion
 
-            if (item.Equals(null))
-            {
-                TempData["Warning"] = "Erro, Item não encontrado";
-                return NotFound();
-            }
-
-            var itemViewModel = ItemFactory.ToViewModel(item);
-
-            return PartialView("_DetailsItemModal", itemViewModel);
-        }
-
-        //Excluir
-        [HttpGet]
-        public async Task<IActionResult> Delete(Guid itemId)
-        {
-            var item = await _searchItem.GetById(itemId);
-            if (item.Equals(null))
-            {
-                TempData["Warning"] = "Erro ao Excluir Item";
-                return NotFound();
-            }
-
-            await _deleteItem.Run(item);
-            await _updateItem.Renumber(item.NumeroItem);
-            TempData["Success"] = "Item Excluído Com Sucesso";
-
-            return await RedirectiListItem(item.AnoAta, item.CodigoAta);
-        }
-
+        #region "Functions"
         private async Task<IActionResult> RedirectiListItem(int yearAta, int codeAta)
         {
             var itens = await _searchItem.GetListItemByCodeAtaAndYearAta(yearAta, codeAta);
@@ -166,11 +174,20 @@ namespace WebApp.Controllers
             return PartialView("_ListItensEdit", itensViewModel);
         }
 
-        //Consultas dinâmica
-        [HttpGet]
-        public async Task<JsonResult> AutoCompleteListCodeAta(int yearAta)
+
+        public async Task FillViewBags(int yearAta)
         {
-            var listCodeAta = await _searchAta.GetListCodeByYear(yearAta);
+            ViewBag.ListYears = LoadDropYear();
+            ViewBag.ListCodeAta = new SelectList(await _searchAta.GetListCodeByYearPublish(yearAta, false));
+            ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
+        }
+        #endregion
+
+        #region "Consultas dinâmicas"
+        [HttpGet]
+        public async Task<JsonResult> AutoCompleteListCodeAtaPublish(int yearAta, bool publish)
+        {
+            var listCodeAta = await _searchAta.GetListCodeByYearPublish(yearAta, publish);
 
             return Json(listCodeAta);
         }
@@ -195,13 +212,6 @@ namespace WebApp.Controllers
 
             return PartialView("_ListItens", listItemViewModel);
         }
-
-        public async Task FillViewBags(int yearAta)
-        {
-            ViewBag.ListYears = LoadDropYear();
-            ViewBag.ListCodeAta = new SelectList(await _searchAta.GetListCodeByYear(yearAta));
-            ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
-        }
-
+        #endregion
     }
 }

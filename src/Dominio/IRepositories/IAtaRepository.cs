@@ -7,6 +7,7 @@ namespace Domain.IRepositories
 {
     public interface IAtaRepository : IBaseRepository<Ata>
     {
+        Task<Ata> GetAtaPublish(int year, int code, bool publish);
         Task<Ata> GetByYear(int year);
         Task<Ata> GetAtaFullIncludeByYearAndCode(int year, int code);
         Task<Ata> GetAtaByYearAndCode(int year, int code);

@@ -201,6 +201,37 @@
 
     })
 
+
+    $('#CodigoAtaPublish').change(function () {
+        var yearAta = $(this).find("option:selected").val();
+        if (yearAta != "") {
+            var publish = true
+
+            if (pathname[2] == "Publish") {
+                publish = false
+            }
+            
+            $.ajax({
+                type: 'GET',
+                url: '/Ata/GetAtaPublish/',
+                data: { yearAta: $('#AnoAtaEdit').val(), codeAta: $(this).val(), publish },
+                beforeSend: function () {
+                    Loader()
+                },
+                complete: function () {
+                    Finish()
+                },
+                success: function (response) {
+                    fillDivResult(response)
+                },
+                error: function () {
+                    $('#result').empty()
+                    GetMessageDomain()
+                }
+            })
+        }
+    })
+
     function fillDivResult(response) {
         var $container = $("#result");
         $container.html(response)

@@ -112,5 +112,13 @@ namespace Infra.Persistence
             }
             return list;
         }
+
+        public async Task<Ata> GetAtaPublish(int year, int code, bool publish)
+        {
+            return await _db.Atas
+                .AsNoTracking()
+                .Where(a => a.CodigoAta.Equals(code) && a.AnoAta.Equals(year) && a.Publicada.Equals(publish))
+                .FirstOrDefaultAsync();
+        }
     }
 }

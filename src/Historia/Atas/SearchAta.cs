@@ -15,6 +15,11 @@ namespace Historia.Atas
             _ataRepository = ataRepository;
         }
 
+        public async Task<Ata> GetAtaPublish(int year, int code, bool publish)
+        {
+            return await _ataRepository.GetAtaPublish(year, code, publish);
+        }
+
         public async Task<List<AtaYearDto>> GetAtasCountByYear(List<int> years)
         {
             return await _ataRepository.GetAtasCountByYear(years);
@@ -44,6 +49,7 @@ namespace Historia.Atas
         {
             return await _ataRepository.GetAtaFullIncludeByYearAndCode(year, code);
         }
+
         public async Task<List<int>> GetListCodeByYearPublish(int year, bool publish)
         {
             return await _ataRepository.GetListCodeByYearPublish(year, publish);

@@ -117,7 +117,16 @@ namespace Infra.Persistence
         {
             return await _db.Atas
                 .AsNoTracking()
-                .Where(a => a.CodigoAta.Equals(code) && a.AnoAta.Equals(year) && a.Publicada.Equals(publish))
+                .Include(a => a.Itens.OrderBy(i => i.NumeroItem))
+                    .ThenInclude(i => i.DetentoraItem)
+                    .ThenInclude(d => d.Detentora)
+                .Include(a => a.Itens.OrderBy(i => i.NumeroItem))
+                    .ThenInclude(i => i.ParticipantesItens)
+                    .ThenInclude(pt => pt.UnidadeAdministrativa)
+                .Include(a => a.Itens.OrderBy(i => i.NumeroItem))
+                    .ThenInclude(i => i.ParticipantesItens)
+                    .ThenInclude(pt => pt.ProgramacoesConsumoParticipantes)
+                .Where(a => a.AnoAta.Equals(year) && a.CodigoAta.Equals(code) && a.Publicada.Equals(publish))
                 .FirstOrDefaultAsync();
         }
     }

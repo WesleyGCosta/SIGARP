@@ -146,7 +146,7 @@ namespace WebApp.Controllers
         {
             var ata = await _searchAta.GetAtaPublish(yearAta, codeAta, publish);
             var ataViewModel = AtaFactory.ToViewModel(ata);
-            return PartialView("_AtaDetails", ataViewModel);
+            return PartialView("_AtaDetailsPublish", ataViewModel);
         }
 
         [HttpGet]

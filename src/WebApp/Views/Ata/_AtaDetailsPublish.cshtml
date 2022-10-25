@@ -1,0 +1,114 @@
+﻿@model AtaViewModel
+
+<section class="border-bottom border-right border-left">
+    <div class="py-4 text-center">
+        <div class="text-center mb-3">
+            <h5 class="font-weight-bold text-sapphire">Informações da Ata @Model.CodigoAta/@Model.AnoAta</h5>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="mt-4 col-md-3">
+                <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.NumeroProcesso)</span>
+                <div class="mt-2 text-muted">@Html.DisplayFor(model => model.NumeroProcesso)</div>
+            </div>
+            <div class="mt-4 col-md-3">
+                <span class="font-weight-bold text-sapphire"> @Html.DisplayNameFor(model => model.TipoPregao)</span>
+                <div class="mt-2 text-muted">@Html.DisplayFor(model => model.TipoPregao)</div>
+            </div>
+            <div class="mt-4 col-md-3">
+                <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.NumeroPregao)</span>
+                <div class="mt-2 text-muted"> @Html.DisplayFor(model => model.NumeroPregao)</div>
+            </div>
+            <div class="mt-4 col-md-3">
+                <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.AnoPregao)</span>
+                <div class="mt-2 text-muted">@Html.DisplayFor(model => model.AnoPregao)</div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <div class="mt-5 col-md-3">
+                <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.DataHomologacao)</span>
+                <div class="mt-2 text-muted">@Model.DataHomologacao.ToString("dd/MM/yyy")</div>
+            </div>
+            <div class="mt-5 col-md-3">
+                <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.DataPublicacaoDOE)</span>
+                <div class="mt-2 text-muted">@Model.DataPublicacaoDOE.ToString("dd/MM/yyy")</div>
+            </div>
+            <div class="mt-5 col-md-3">
+                <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.DataVencimentoAta)</span>
+                <div class="mt-2 text-muted">@Model.DataVencimentoAta.ToString("dd/MM/yyy")</div>
+            </div>
+            <div class="mt-5 col-md-3">
+                <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.DataCadastro)</span>
+                <div class="mt-2 text-muted">@Model.DataCadastro.ToString("dd/MM/yyy")</div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div class="mt-5 col-md-3">
+                <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.ObjetoResumido)</span>
+                <div class="mt-2 text-muted">@Html.DisplayFor(model => model.ObjetoResumido)</div>
+            </div>
+            <div class="mt-5 col-md-3">
+                <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.Observacao)</span>
+                <div class="mt-2 text-muted">@Html.DisplayFor(model => model.Observacao)</div>
+            </div>
+        </div>
+    </div>
+
+    @foreach (var item in Model.ItensViewModel)
+    {
+        <div class="accordion mt-2">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0">
+                        <button class="btn text-white btn-block text-center" type="button" data-toggle="collapse" aria-expanded="false" data-target="#@item.Id" aria-controls="@item.Id">
+                            Item N° @item.CodigoItem
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="@item.Id" class="collapse" data-parent="#@item.Id">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="font-weight-bold text-sapphire">Preço Mercado</span>
+                                <div class="mt-2 text-muted">R$ @item.PrecoMercado</div>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="font-weight-bold text-sapphire">Preço Registrado</span>
+                                <div class="mt-2 text-muted">R$ @item.PrecoRegistrado</div>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="font-weight-bold text-sapphire">Quantidade</span>
+                                <div class="mt-2 text-muted">@item.Quantidade</div>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="font-weight-bold text-sapphire">Quant. Disponível</span>
+                                <div class="mt-2 text-muted">@item.QuantidadeDisponivel</div>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="font-weight-bold text-sapphire">Quant. em Uso</span>
+                                <div class="mt-2 text-muted">@item.QuantidadeUso</div>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="font-weight-bold text-sapphire">Detentora</span>
+                                @if(item.ItemDetentora != null){
+                                    <div class="mt-2 text-muted">@item.ItemDetentora.Detentora.RazaoSocial</div>
+                                }else{
+                                    <div class="mt-2 text-muted">Detentora não registrada</div>
+                                }
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <span class="font-weight-bold text-sapphire">Descrição</span>
+                                <div class="mt-2 text-muted">@item.Descricao</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="d-flex justify-content-center mt-5 mb-3">
+        <button class="btn btn-primary">Publicar Ata @Model.CodigoAta/@Model.AnoAta</button>
+    </div>
+</section>

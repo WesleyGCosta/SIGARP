@@ -19,5 +19,17 @@ namespace Historia.Atas
             ataConsult.Update(ataUpdate);
             await _ataRepository.Update(ataConsult);
         }
+
+        public async Task Publish(Ata ataPublish)
+        {
+            ataPublish.Publish();
+            await _ataRepository.Update(ataPublish);
+        }
+
+        public async Task Rectify(Ata ataPublish)
+        {
+            ataPublish.Rectify();
+            await _ataRepository.Update(ataPublish);
+        }
     }
 }

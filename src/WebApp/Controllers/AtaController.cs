@@ -1,9 +1,12 @@
-﻿using Domain.IRepositories;
+﻿using Domain.Entities;
+using Domain.IRepositories;
 using Domain.Notifications.Interface;
 using Historia.Atas;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Policy;
 using System.Threading.Tasks;
 using WebApp.Factories;
@@ -112,6 +115,110 @@ namespace WebApp.Controllers
 
             return RedirectToAction("GetListAtaByYear", new { yearAta });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Publish(int codeAta, int yearAta)
+        {
+            var ata = await _searchAta.GetAtaFullIncludeByYearAndCode(yearAta, codeAta);
+            if(ata == null)
+            {
+                TempData["Warning"] = "Erro ao Publicar Ata";
+                return NotFound();
+            }
+
+            if(!ValidationAta(ata))
+            {
+                return Ok("NotValidated");
+            }
+
+            await _updateAta.Publish(ata);
+
+            TempData["Success"] = "Ata Publicada com Sucesso";
+            return Ok();
+            
+        }
+
+        
+
+        [HttpPost]
+        public async Task<IActionResult> Rectify(int codeAta, int yearAta)
+        {
+            var ata = await _searchAta.GetAtaByYearAndCode(yearAta, codeAta);
+            if (ata == null)
+            {
+                TempData["Warning"] = "Erro ao Retificar Ata";
+                return NotFound();
+            }
+            await _updateAta.Rectify(ata);
+
+            TempData["Success"] = "Ata Retificada com Sucesso";
+            return Ok();
+        }
+
+        #region "Médodo(s)"
+        private bool ValidationAta(Ata ata)
+        {
+            var valid = true;
+
+            if (ata.DataVencimentoAta < DateTime.Now)
+            {
+                TempData["Warning"] = "A Ata estar Vencida";
+                return false;
+            }
+
+            if (!ata.Itens.Any())
+            {
+                TempData["Warning"] += "A Ata precisa ter pelo menos um Item Cadastrado";
+                return false;
+            }
+
+            var itemDetentora = "";
+            var itensQuantidade = "";
+
+            foreach (var item in ata.Itens)
+            {
+                //valida se tem Detentora
+                if (item.DetentoraItem == null)
+                {
+                    if(itemDetentora != "")
+                    {
+                        itemDetentora = " ," + item.NumeroItem.ToString();
+                    }
+                    else
+                    {
+                        itemDetentora = item.NumeroItem.ToString();
+                    }            
+                }
+
+                //valida sem a quantidade de itens estão sendo todas utilizadas
+                if(item.QuantidadeDisponivel > 0)
+                {
+                    if (itensQuantidade != "")
+                    {
+                        itensQuantidade = " ," + item.NumeroItem.ToString();
+                    }
+                    else
+                    {
+                        itensQuantidade = item.NumeroItem.ToString();
+                    }
+                }
+            }
+
+            if(itemDetentora != "")
+            {
+                TempData["Warning"] += $"O(s) Item(s): {itemDetentora} não possuem detentora cadastrada</br>";
+                valid = false;
+            }
+
+            if (itensQuantidade != "")
+            {
+                TempData["Warning"] += $"O(s) Item(s): {itensQuantidade} possuem quantidade disponível a ser usado</br>";
+                valid = false;
+            }
+
+            return valid;
+        }
+        #endregion
 
         #region "Consultas dinâmicas"
         [HttpGet]

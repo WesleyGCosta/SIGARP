@@ -19,12 +19,12 @@
         </div>
         <div class="d-flex justify-content-center text-black-50 mt-2">
             <div class="col-3">
-                <select id="AnoAtaEdit" class="custom-select AnoAtaSelect" asp-items="new SelectList(ViewBag.ListYears)">
+                <select class="custom-select AnoAtaSelect" asp-items="new SelectList(ViewBag.ListYears)">
                     <option value="">Selecione um Ano</option>
                 </select>
             </div>
             <div class="col-3">
-                <select id="CodigoAtaPublish" class="custom-select CodigoAtaSelect" asp-items="(SelectList)ViewBag.ListCodeAta">
+                <select class="custom-select CodigoAtaSelect" asp-items="(SelectList)ViewBag.ListCodeAta">
                     <option value="">...</option>
                 </select>
             </div>
@@ -33,3 +33,10 @@
 
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="/js/Ata/AtaAjax.js"></script>
+    }

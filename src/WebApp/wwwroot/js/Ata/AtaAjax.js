@@ -232,6 +232,27 @@
         }
     })
 
+    //Publicar Ata
+    $(document).on('click', '#btnPublicarAta', function () {
+        var codeAta = $(this).data('codeata')
+        var yearAta = $(this).data('yearata')
+        $.ajax({
+            type: 'POST',
+            url: '/Ata/Publish/',
+            data: { codeAta, yearAta },
+            success: function (response) {
+                GetMessageDomain()
+                if (response != "NotValidated") {
+                    $('#result').empty()
+                }              
+            },
+            error: function () {
+                $('#result').empty()
+                GetMessageDomain()
+            }
+        })
+    })
+
     function fillDivResult(response) {
         var $container = $("#result");
         $container.html(response)

@@ -77,5 +77,15 @@ namespace Domain.Entities
             DataAlteracao = DateTime.Now;
             Observacao = ata.Observacao;
         }
+
+        public void Publish()
+        {
+            Publicada = true;
+        }
+
+        public void Rectify()
+        {
+            Publicada = false;
+        }
     }
 }

@@ -214,7 +214,7 @@
             $.ajax({
                 type: 'GET',
                 url: '/Ata/GetAtaPublish/',
-                data: { yearAta: $('#AnoAtaEdit').val(), codeAta: $(this).val(), publish },
+                data: { yearAta: $('#AnoAta').val(), codeAta: $(this).val(), publish },
                 beforeSend: function () {
                     Loader()
                 },
@@ -257,6 +257,40 @@
                         if (response != "NotValidated") {
                             $('#result').empty()
                         }
+                    },
+                    error: function () {
+                        $('#result').empty()
+                        GetMessageDomain()
+                    }
+                })
+            }
+        })
+    })
+
+
+    $(document).on('click', '#btnRetificarAta', function () {
+        Swal.fire({
+            title: 'Confirmar Retificação?',
+            text: 'Após essa ação, não será possível realizar "LIBERAÇÔES" e "REALIAMENTO DE PREÇO"!',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#247ba0',
+            cancelButtonColor: '#6c757d',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Sim, retificar ata!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var codeAta = $(this).data('codeata')
+                var yearAta = $(this).data('yearata')
+                $.ajax({
+                    type: 'POST',
+                    url: '/Ata/Rectify/',
+                    data: { codeAta, yearAta },
+                    success: function (response) {
+                        if (response != "NotValidated") {
+                            $('#result').empty()
+                        }
+                        GetMessageDomain()
                     },
                     error: function () {
                         $('#result').empty()

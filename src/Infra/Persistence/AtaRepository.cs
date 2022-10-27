@@ -129,5 +129,13 @@ namespace Infra.Persistence
                 .Where(a => a.AnoAta.Equals(year) && a.CodigoAta.Equals(code) && a.Publicada.Equals(publish))
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<Ata> GetAtaByYearAndCodeAndPublish(int year, int code, bool publish)
+        {
+            return await _db.Atas
+                .AsNoTracking()
+                .Where(a => a.AnoAta.Equals(year) && a.CodigoAta.Equals(code) && a.Publicada.Equals(publish))
+                .FirstOrDefaultAsync();
+        }
     }
 }

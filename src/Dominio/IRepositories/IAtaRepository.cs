@@ -11,6 +11,7 @@ namespace Domain.IRepositories
         Task<Ata> GetByYear(int year);
         Task<Ata> GetAtaFullIncludeByYearAndCode(int year, int code);
         Task<Ata> GetAtaByYearAndCode(int year, int code);
+        Task<Ata> GetAtaByYearAndCodeAndPublish(int year, int code, bool publish);
         Task<List<Ata>> GetListAtaByYear(int year);
         Task<List<int>> GetListCodeByYearPublish(int year, bool publish);
         Task<int> CountAtasByPublish(bool publish);

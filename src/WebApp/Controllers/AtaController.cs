@@ -95,7 +95,7 @@ namespace WebApp.Controllers
             }
             catch (Exception ex)
             {
-                TempData["Warining"] = $"Erro na alteração da Ata, imformaçõa do problema{ex.Message}";
+                TempData["Warning"] = $"Erro na alteração da Ata, imformaçõa do problema{ex.Message}";
                 return Ok();
             }
         }
@@ -131,7 +131,7 @@ namespace WebApp.Controllers
                 return Ok("NotValidated");
             }
 
-            await _updateAta.Publish(ata);
+            await _updateAta.Publish(codeAta, yearAta);
 
             TempData["Success"] = "Ata Publicada com Sucesso";
             return Ok();

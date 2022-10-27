@@ -235,21 +235,34 @@
 
     //Publicar Ata
     $(document).on('click', '#btnPublicarAta', function () {
-        var codeAta = $(this).data('codeata')
-        var yearAta = $(this).data('yearata')
-        $.ajax({
-            type: 'POST',
-            url: '/Ata/Publish/',
-            data: { codeAta, yearAta },
-            success: function (response) {
-                GetMessageDomain()
-                if (response != "NotValidated") {
-                    $('#result').empty()
-                }              
-            },
-            error: function () {
-                $('#result').empty()
-                GetMessageDomain()
+        Swal.fire({
+            title: 'Confirmar Publicação?',
+            text: 'Após essa ação, será possível realizar "LIBERAÇÔES" e "REALIAMENTO DE PREÇO"!',
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#247ba0',
+            cancelButtonColor: '#6c757d',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Sim, publicar ata!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var codeAta = $(this).data('codeata')
+                var yearAta = $(this).data('yearata')
+                $.ajax({
+                    type: 'POST',
+                    url: '/Ata/Publish/',
+                    data: { codeAta, yearAta },
+                    success: function (response) {
+                        GetMessageDomain()
+                        if (response != "NotValidated") {
+                            $('#result').empty()
+                        }
+                    },
+                    error: function () {
+                        $('#result').empty()
+                        GetMessageDomain()
+                    }
+                })
             }
         })
     })

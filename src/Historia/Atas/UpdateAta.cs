@@ -20,8 +20,9 @@ namespace Historia.Atas
             await _ataRepository.Update(ataConsult);
         }
 
-        public async Task Publish(Ata ataPublish)
+        public async Task Publish(int codeAta, int yearAta)
         {
+            var ataPublish = await _ataRepository.GetAtaByYearAndCode(yearAta, codeAta);
             ataPublish.Publish();
             await _ataRepository.Update(ataPublish);
         }

@@ -138,12 +138,10 @@ namespace WebApp.Controllers
             
         }
 
-        
-
         [HttpPost]
         public async Task<IActionResult> Rectify(int codeAta, int yearAta)
         {
-            var ata = await _searchAta.GetAtaByYearAndCode(yearAta, codeAta);
+            var ata = await _searchAta.GetAtaByYearAndCodeAndPublish(yearAta, codeAta, true);
             if (ata == null)
             {
                 TempData["Warning"] = "Erro ao Retificar Ata";

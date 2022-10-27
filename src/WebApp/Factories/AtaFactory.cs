@@ -49,7 +49,8 @@ namespace WebApp.Factories
                 DataCadastro = ata.DataCadastro,
                 DataAlteracao = ata.DataAlteracao,
                 ObjetoResumido = ata.ObjetoResumido,
-                Observacao = ata.Observacao
+                Observacao = ata.Observacao,
+                Publicada = ata.Publicada
             };
 
             if(ata.Itens != null)

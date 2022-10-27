@@ -182,7 +182,7 @@ namespace WebApp.Controllers
                 {
                     if(itemDetentora != "")
                     {
-                        itemDetentora = " ," + item.NumeroItem.ToString();
+                        itemDetentora += " ," + item.NumeroItem.ToString();
                     }
                     else
                     {
@@ -195,7 +195,7 @@ namespace WebApp.Controllers
                 {
                     if (itensQuantidade != "")
                     {
-                        itensQuantidade = " ," + item.NumeroItem.ToString();
+                        itensQuantidade += " ," + item.NumeroItem.ToString();
                     }
                     else
                     {
@@ -212,7 +212,7 @@ namespace WebApp.Controllers
 
             if (itensQuantidade != "")
             {
-                TempData["Warning"] += $"O(s) Item(s): {itensQuantidade} possuem quantidade disponível a ser usado</br>";
+                TempData["Warning"] += $"A quantidade do(s) Item(s): {itensQuantidade} precisa(m) ser utilizada(s) 100%!</br>";
                 valid = false;
             }
 

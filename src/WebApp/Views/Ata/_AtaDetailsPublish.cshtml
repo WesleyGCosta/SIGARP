@@ -1,4 +1,11 @@
-﻿@model AtaViewModel
+﻿@using System.Text.RegularExpressions
+@model AtaViewModel
+
+@{
+    var setClass = "";
+    int contItemOk = 0;
+    int contItenPend = 0;
+}
 
 <section class="border-bottom border-right border-left">
     <div class="py-4 text-center">
@@ -54,61 +61,79 @@
         </div>
     </div>
 
-    @foreach (var item in Model.ItensViewModel)
+    @if (Model.ItensViewModel.Count() > 0)
     {
-        <div class="accordion mt-2">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="mb-0">
-                        <button class="btn text-white btn-block text-center" type="button" data-toggle="collapse" aria-expanded="false" data-target="#@item.Id" aria-controls="@item.Id">
-                            Item N° @item.CodigoItem
-                        </button>
-                    </h2>
-                </div>
+        @foreach (var item in Model.ItensViewModel)
+        {
+            setClass = item.QuantidadeDisponivel > 0 || item.ItemDetentora == null ? "table-danger" : "table-success";
+            contItenPend += setClass == "table-danger" ? 1 : +0;
+            contItemOk += setClass == "table-success" ? 1 : +0;
+            <hr />
+            <br />
+            <table class="table table-bordered text-center @setClass">
+                <thead>
+                    <tr>
+                        <th colspan="6" class="font-weight-bold text-sapphire"> Item N° @item.CodigoItem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">
+                            <span class="font-weight-bold text-sapphire">Preço Mercado</span>
+                            <div class="mt-2 text-muted">R$ @item.PrecoMercado</div>
+                        </th>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Preço Registrado</span>
+                            <div class="mt-2 text-muted">R$ @item.PrecoRegistrado</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Quantidade</span>
+                            <div class="mt-2 text-muted">@item.Quantidade</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Quant. Disponível</span>
+                            <div class="mt-2 text-muted">@item.QuantidadeDisponivel</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Quant. em Uso</span>
+                            <div class="mt-2 text-muted">@item.QuantidadeUso</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Detentora</span>
+                            @if (item.ItemDetentora != null)
+                            {
+                                <div class="mt-2 text-muted">@item.ItemDetentora.Detentora.RazaoSocial</div>
+                            }
+                            else
+                            {
+                                <div class="mt-2 text-muted">Detentora não registrada</div>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <span class="font-weight-bold text-sapphire">Descrição</span>
+                            <div class="mt-2 text-muted">@item.Descricao</div>
+                        </td>
+                    </tr>
 
-                <div id="@item.Id" class="collapse" data-parent="#@item.Id">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <span class="font-weight-bold text-sapphire">Preço Mercado</span>
-                                <div class="mt-2 text-muted">R$ @item.PrecoMercado</div>
-                            </div>
-                            <div class="col-md-2">
-                                <span class="font-weight-bold text-sapphire">Preço Registrado</span>
-                                <div class="mt-2 text-muted">R$ @item.PrecoRegistrado</div>
-                            </div>
-                            <div class="col-md-2">
-                                <span class="font-weight-bold text-sapphire">Quantidade</span>
-                                <div class="mt-2 text-muted">@item.Quantidade</div>
-                            </div>
-                            <div class="col-md-2">
-                                <span class="font-weight-bold text-sapphire">Quant. Disponível</span>
-                                <div class="mt-2 text-muted">@item.QuantidadeDisponivel</div>
-                            </div>
-                            <div class="col-md-2">
-                                <span class="font-weight-bold text-sapphire">Quant. em Uso</span>
-                                <div class="mt-2 text-muted">@item.QuantidadeUso</div>
-                            </div>
-                            <div class="col-md-2">
-                                <span class="font-weight-bold text-sapphire">Detentora</span>
-                                @if(item.ItemDetentora != null){
-                                    <div class="mt-2 text-muted">@item.ItemDetentora.Detentora.RazaoSocial</div>
-                                }else{
-                                    <div class="mt-2 text-muted">Detentora não registrada</div>
-                                }
-                            </div>
-                            <div class="col-md-12 mt-2">
-                                <span class="font-weight-bold text-sapphire">Descrição</span>
-                                <div class="mt-2 text-muted">@item.Descricao</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </tbody>
+            </table>
+        }
+        <hr />
+        <div class="d-flex justify-content-center mt-3 text-center font-weight-bold">
+            <div class="col-md-2 alert-danger mr-3 p-2">
+                <div><span>Itens Pendêntes</span></div>
+                <div>@contItenPend</div>
+            </div>
+            <div class="col-md-2 alert-success p-2">
+                <div> <span>Itens Ok</span></div>
+                <div>@contItemOk</div>
             </div>
         </div>
     }
 
-    <div class="d-flex justify-content-center mt-5 mb-3">
-        <button id="btnPublicarAta" class="btn btn-primary" data-codeAta="@Model.CodigoAta" data-yearAta="@Model.AnoAta" >Publicar Ata @Model.CodigoAta/@Model.AnoAta</button>
+    <div class="d-flex justify-content-center mt-4 mb-3">
+        <button id="btnPublicarAta" class="btn btn-primary" data-codeAta="@Model.CodigoAta" data-yearAta="@Model.AnoAta">Publicar Ata @Model.CodigoAta/@Model.AnoAta</button>
     </div>
 </section>

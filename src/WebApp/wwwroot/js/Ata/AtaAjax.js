@@ -222,6 +222,7 @@
                     Finish()
                 },
                 success: function (response) {
+                    GetMessageDomain()
                     fillDivResult(response)
                 },
                 error: function () {

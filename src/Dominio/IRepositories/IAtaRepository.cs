@@ -17,5 +17,6 @@ namespace Domain.IRepositories
         Task<int> CountAtasByPublish(bool publish);
         Task<List<AtaYearDto>> GetAtasCountByYear(List<int> years);
         Task<List<AtaMonthDto>> GetAtasCountByMonth();
+        Task<int> CountAtasExpiredAll();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Domain.Dtos;
 using Domain.Entities;
 using Domain.IRepositories;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -63,6 +64,11 @@ namespace Historia.Atas
         public async Task<int> CountAtasByPublish(bool publish)
         {
             return await _ataRepository.CountAtasByPublish(publish);
+        }
+
+        public async Task<int> CountAtasExpiredAll()
+        {
+            return await _ataRepository.CountAtasExpiredAll();
         }
     }
 }

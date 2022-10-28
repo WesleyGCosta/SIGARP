@@ -36,6 +36,7 @@ namespace WebApp.Controllers
         {
             ViewBag.AtasPublicada = await _searchAta.CountAtasByPublish(publish: true);
             ViewBag.Pendentes = await _searchAta.CountAtasByPublish(publish: false);
+            ViewBag.Vencidas = await _searchAta.CountAtasExpiredAll();
             return View();
         }
 

@@ -60,7 +60,7 @@
             const data = {
                 labels: labels,
                 datasets: [{
-                    label: `Atas Cadastradas por Mês - ${anoAtual}`,
+                    label: `Atas por Mês - ${anoAtual}`,
                     data: datas,
                     backgroundColor: 'rgba(19, 41, 61, 1)',
                     borderColor: 'rgba(36, 123, 160, 1)',

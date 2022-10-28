@@ -4,6 +4,7 @@ using Domain.Notifications;
 using Domain.Notifications.Interface;
 using Infra.Contexto;
 using Infra.Persistence;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -42,9 +43,11 @@ namespace WebApp.Configuration
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.Cookie.Name = "SIGARPCookieName";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
                 options.LoginPath = "/User/Login/";
                 options.LogoutPath = "/Home/Index/";
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.AccessDeniedPath = "/User/RestrictedAcess/";
                 options.SlidingExpiration = true;
             });

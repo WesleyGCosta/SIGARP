@@ -81,6 +81,7 @@ namespace Domain.Entities
         public void Publish()
         {
             Publicada = true;
+            DataPublicacaoSistema = DateTime.Now;
         }
 
         public void Rectify()

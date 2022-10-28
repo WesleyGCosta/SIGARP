@@ -10,13 +10,13 @@ $(document).ready(function () {
                 type: 'POST',
                 url: '/ProgramacaoConsumo/Create/',
                 data: $(this).serialize(),
-                success: function () {              
+                success: function (response) {              
                     GetMessageDomain();
-                    GetInfoItem()
+                    if (response != 'Error') {
+                        GetInfoItem()
+                    }
+                    
                 },
-                error: function () {
-                    GetMessageDomain();
-                }
             })
         }
     })

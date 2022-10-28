@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using WebApp.ViewModels;
 
@@ -43,6 +44,15 @@ namespace WebApp.Factories
             var list = new List<UnidadeAdministrativaViewModel>();
             foreach (var unidadeAdministrativa in unidadeAdministrativas)
                 list.Add(ToViewModel(unidadeAdministrativa));
+
+            return list;
+        }
+
+        internal static ICollection<UnidadeAdministrativaViewModel> ToListViewModel(IEnumerable<ParticipanteItem> participantesItens)
+        {
+            var list = new List<UnidadeAdministrativaViewModel>();
+            foreach (var participante in participantesItens)
+                list.Add(ToViewModel(participante.UnidadeAdministrativa));
 
             return list;
         }

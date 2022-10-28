@@ -151,8 +151,9 @@ namespace WebApp.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
+            await _signInManager.SignOutAsync();
             return View();
         }
 

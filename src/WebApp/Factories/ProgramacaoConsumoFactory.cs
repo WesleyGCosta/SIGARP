@@ -34,7 +34,12 @@ namespace WebApp.Factories
                 programacaoViewModel.NomeUnidadeAdministrativa = item.ParticipantesItens.Select(i => i.UnidadeAdministrativa.NomeUnidadeAdministrativa).First();
                 programacaoViewModel.CodigoItem = item.Id;
                 programacaoViewModel.AnoAta = item.AnoAta;
-                programacaoViewModel.CodigoAta = item.CodigoAta;  
+                programacaoViewModel.CodigoAta = item.CodigoAta;
+            }
+
+            if (item.ParticipantesItens.Any())
+            {
+                programacaoViewModel.ParticipanteItemViewModel = UnidadeAdministrativaFactory.ToListViewModel(item.ParticipantesItens);
             }
 
             return programacaoViewModel;

@@ -253,10 +253,11 @@
                     url: '/Ata/Publish/',
                     data: { codeAta, yearAta },
                     success: function (response) {
-                        GetMessageDomain()
                         if (response != "NotValidated") {
                             $('#result').empty()
+                            $('.CodigoAtaSelect').find('option:selected').remove();
                         }
+                        GetMessageDomain()
                     },
                     error: function () {
                         $('#result').empty()
@@ -289,6 +290,7 @@
                     success: function (response) {
                         if (response != "NotValidated") {
                             $('#result').empty()
+                            $('.CodigoAtaSelect').find('option:selected').remove();
                         }
                         GetMessageDomain()
                     },

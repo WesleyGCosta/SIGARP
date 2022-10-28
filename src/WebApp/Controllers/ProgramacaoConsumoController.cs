@@ -50,7 +50,7 @@ namespace WebApp.Controllers
         private async Task FillViewBags()
         {
             ViewBag.ListYears = LoadDropYear();
-            ViewBag.ListUnidadeAdministrativa = new SelectList(await _searchUnidadeAdministrativa.GetAll(), "Id", "Exibicao");
+            ViewBag.ListUnidadeAdministrativa = new SelectList(await _searchUnidadeAdministrativa.GetAllUnidadeActive(), "Id", "Exibicao");
         }
 
         [HttpPost]
@@ -64,8 +64,8 @@ namespace WebApp.Controllers
             var existsParticipante = await _searchParticipanteItem.GetByIds(programacaoConsumoViewModel.CodigoUnidadeAdministrativa, programacaoConsumoViewModel.CodigoItem);
             if (existsParticipante != null)
             {
-                TempData["Warning"] = $"Programação de Consumo já existe";
-                return NotFound();
+                TempData["Warning"] = "Já existe uma programação de consumo para esse participante";
+                return Ok("Error");
             }
 
             var participante = ParticipanteItemFactory.ToEntity(programacaoConsumoViewModel.ParticipanteId, programacaoConsumoViewModel.CodigoItem, programacaoConsumoViewModel.CodigoUnidadeAdministrativa);
@@ -76,7 +76,6 @@ namespace WebApp.Controllers
             await _updateItem.SubtractQuantityItem(programacaoConsumoViewModel.CodigoItem, programacaoConsumo.ConsumoEstimado);
 
             TempData["Success"] = "Programação Incluída com Sucesso";
-            await FillViewBags();
 
             return Ok();
         }
@@ -114,7 +113,7 @@ namespace WebApp.Controllers
                 return NotFound();
 
             var programacaoConsumoViewModel = ProgramacaoConsumoFactory.ToViewModel(item);
-
+            await FillViewBags();
             return PartialView("_ItemDatailsProgramacaoConsumo", programacaoConsumoViewModel);
         }
 

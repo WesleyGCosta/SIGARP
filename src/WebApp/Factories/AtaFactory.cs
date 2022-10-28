@@ -44,7 +44,6 @@ namespace WebApp.Factories
                 TipoPregao = ata.TipoPregao,
                 DataHomologacao = ata.DataHomologacao,
                 DataPublicacaoDOE = ata.DataPublicacaoDOE,
-                DataFinalVigencia = ata.DataFinalVigencia,
                 DataPublicacaoSistema = ata.DataPublicacaoSistema,
                 DataCadastro = ata.DataCadastro,
                 DataAlteracao = ata.DataAlteracao,

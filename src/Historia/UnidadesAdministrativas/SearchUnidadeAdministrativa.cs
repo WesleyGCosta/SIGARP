@@ -15,9 +15,9 @@ namespace Historia.UnidadesAdministrativas
             _unidadeAdministrativaRepository = unidadeAdministrativaRepository;
         }
 
-        public async Task<ICollection<UnidadeAdministrativa>> GetAll()
+        public async Task<ICollection<UnidadeAdministrativa>> GetAllUnidadeActive()
         {
-            return await _unidadeAdministrativaRepository.GetAll();
+            return await _unidadeAdministrativaRepository.GetByStatus(true);
         }
 
         public async Task<UnidadeAdministrativa> GetById(Guid unidadeAdministrativaId)

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WebApp.ViewModels.CustomValidation;
 
@@ -6,6 +8,11 @@ namespace WebApp.ViewModels
 {
     public class ProgramacaoConsumoViewModel
     {
+        public ProgramacaoConsumoViewModel()
+        {
+            ParticipanteItemViewModel = new List<UnidadeAdministrativaViewModel>();
+        }
+
         public Guid Id { get; set; } = Guid.NewGuid();
         public Guid ParticipanteId { get; set; } = Guid.NewGuid();
 
@@ -44,6 +51,7 @@ namespace WebApp.ViewModels
         }
         public int Transferido { get; set; }
         public int SaldoAnterior { get; set; }
+        public ICollection<UnidadeAdministrativaViewModel> ParticipanteItemViewModel { get; set; }
 
         public int SumConsumoEstimado()
         {

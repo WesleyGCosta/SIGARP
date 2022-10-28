@@ -52,8 +52,10 @@ namespace WebApp.ViewModels
 
         [Required(ErrorMessage = "Campo Obrigatório!")]
         [Display(Name = "Data Final da Vigência")]
-        public DateTime DataFinalVigencia { get; set; }
-
+        public DateTime DataFinalVigencia
+        {
+            get => DataPublicacaoDOE.AddYears(1);
+        }
 
         [Display(Name = "Data de Vencimento da Ata")]
         public DateTime DataVencimentoAta

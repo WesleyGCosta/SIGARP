@@ -29,6 +29,16 @@ namespace WebApp.Controllers
             _deleteAta = new DeleteAta(ataRepository);
         }
 
+        #region HttpGet
+
+
+        [HttpGet]
+        public IActionResult Management()
+        {
+            ViewBag.ListYears = LoadDropYear();
+            return View();
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -50,6 +60,26 @@ namespace WebApp.Controllers
             return View();
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int yearAta, int codeAta)
+        {
+            var result = await _deleteAta.Run(yearAta, codeAta);
+
+            if (!result)
+            {
+                TempData["Warning"] = "Ata não encontrada";
+                return NotFound();
+            }
+
+            TempData["Success"] = "Ata Excluído com Sucesso";
+
+            return RedirectToAction("GetListAtaByYear", new { yearAta });
+        }
+
+        #endregion
+
+        #region HttPost
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AtaViewModel ataViewModel)
@@ -66,13 +96,6 @@ namespace WebApp.Controllers
             TempData["Success"] = "Cadastrado com Sucesso";
 
             return RedirectToAction("Create", "Item");
-        }
-
-        [HttpGet]
-        public IActionResult Management()
-        {
-            ViewBag.ListYears = LoadDropYear();
-            return View();
         }
 
         [HttpPost]
@@ -100,21 +123,7 @@ namespace WebApp.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Delete(int yearAta, int codeAta)
-        {
-            var result = await _deleteAta.Run(yearAta, codeAta);
-
-            if (!result)
-            {
-                TempData["Warning"] = "Ata não encontrada";
-                return NotFound();
-            }
-
-            TempData["Success"] = "Ata Excluído com Sucesso";
-
-            return RedirectToAction("GetListAtaByYear", new { yearAta });
-        }
+        
 
         [HttpPost]
         public async Task<IActionResult> Publish(int codeAta, int yearAta)
@@ -152,6 +161,7 @@ namespace WebApp.Controllers
             TempData["Success"] = "Ata Retificada com Sucesso";
             return Ok();
         }
+        #endregion
 
         #region "Médodo(s)"
         private bool ValidationAta(Ata ata)

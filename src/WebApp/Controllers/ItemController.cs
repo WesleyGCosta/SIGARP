@@ -104,6 +104,15 @@ namespace WebApp.Controllers
             return await RedirectiListItem(item.AnoAta, item.CodigoAta);
         }
 
+        //Suspender  Item
+        [HttpGet]
+        public IActionResult SuspendItem()
+        {
+            ViewBag.ListYears = LoadDropYear();
+
+            return View();
+        }
+
         #endregion
 
         #region "POSTs"
@@ -184,6 +193,22 @@ namespace WebApp.Controllers
         #endregion
 
         #region "Consultas dinâmicas"
+
+        [HttpGet]
+        public async Task<IActionResult> GetListItemSuspend(int yearAta, int codeAta)
+        {
+            var itens = await _searchItem.GetListItemByCodeAtaAndYearAta(yearAta, codeAta);
+            if(itens == null)
+            {
+                TempData["Warning"] = "Itens não encontrado";
+                return Json("Error");
+            }
+
+            var itemViewModel = ItemFactory.ToListViewModel(itens);
+
+            return PartialView("_ListItensSuspend", itemViewModel);
+        }
+
         [HttpGet]
         public async Task<JsonResult> AutoCompleteListCodeAtaPublish(int yearAta, bool publish)
         {

@@ -14,21 +14,37 @@ $(document).ready(function () {
         let codeAta = $('#CodigoAta').val()
 
         if (pathname[1] == "Item") {
-            $.ajax({
-                type: 'GET',
-                url: '/Item/AutoCompleteCodeItem/',
-                data: { yearAta, codeAta },
-                success: function (response) {
-                    if (response == "Error") {
-                        $('#listItens').empty()
-                        $('#CodigoItem').attr('value', 1)
-                    } else {
-                        $('#listItens').empty()
-                        $('#listItens').append(response)
-                        $('#CodigoItem').attr('value', $('#proxItem').val())
-                    }      
-                },
-            })
+            if (pathname[2] != "SuspendItem") {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Item/AutoCompleteCodeItem/',
+                    data: { yearAta, codeAta },
+                    success: function (response) {
+                        if (response == "Error") {
+                            $('#listItens').empty()
+                            $('#CodigoItem').attr('value', 1)
+                        } else {
+                            $('#listItens').empty()
+                            $('#listItens').append(response)
+                            $('#CodigoItem').attr('value', $('#proxItem').val())
+                        }
+                    },
+                })
+            } else {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Item/GetListItemSuspend/',
+                    data: { yearAta, codeAta },
+                    success: function (response) {
+                        if (response == "Error") {
+                            GetMessageDomain()
+                        } else {
+                            $('#result').empty()
+                            $('#result').append(response)
+                        }
+                    },
+                })
+            }
         }
         if (pathname[1] == "ProgramacaoConsumo") {
             $.ajax({
@@ -148,8 +164,6 @@ $(document).ready(function () {
                     }
                 })
             }
-        })
-
-        
+        })      
     })
 })

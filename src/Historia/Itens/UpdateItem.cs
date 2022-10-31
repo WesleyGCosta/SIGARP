@@ -40,5 +40,11 @@ namespace Historia.Itens
             }
 
         }
+
+        public async Task ActiveInactiveItem(Item item, bool status)
+        {
+            item.ActiveInactiveItem(status);
+            await _itemRepository.Update(item);
+        }
     }
 }

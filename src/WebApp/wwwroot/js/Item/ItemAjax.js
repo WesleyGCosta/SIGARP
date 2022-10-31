@@ -36,12 +36,7 @@ $(document).ready(function () {
                     url: '/Item/GetListItemSuspend/',
                     data: { yearAta, codeAta },
                     success: function (response) {
-                        if (response == "Error") {
-                            GetMessageDomain()
-                        } else {
-                            $('#result').empty()
-                            $('#result').append(response)
-                        }
+                        FillItensSuspend(response);
                     },
                 })
             }
@@ -166,4 +161,28 @@ $(document).ready(function () {
             }
         })      
     })
+
+    $(document).on('click', '.checkBoxActiveInactive', function () {
+        let itemId = $(this).parent().data('itemid')
+        let status = $(this).val()
+
+        $.ajax({
+            type: 'POST',
+            url: '/Item/ActiveInactiveItem/',
+            data: { itemId, status },
+            success: function (response) {
+                FillItensSuspend(response)
+            }
+        })
+    })
+
+
+    function FillItensSuspend(response) {
+        if (response == "Error") {
+            GetMessageDomain();
+        } else {
+            $('#result').empty();
+            $('#result').append(response);
+        }
+    }
 })

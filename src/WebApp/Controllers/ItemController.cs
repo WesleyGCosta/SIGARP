@@ -172,6 +172,25 @@ namespace WebApp.Controllers
             return await RedirectiListItem(item.AnoAta, item.CodigoAta);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> ActiveInactiveItem(Guid itemId, bool status)
+        {
+            var item = await _searchItem.GetById(itemId);
+
+            if(item == null)
+            {
+                TempData["Warning"] = "Erro na alteração do item";
+                return Json("Error");
+            }
+
+            await _updateItem.ActiveInactiveItem(item, !status);
+
+            TempData["Success"] = "Item alterado com Sucesso";
+
+
+            return RedirectToAction(nameof(GetListItemSuspend), new {yearAta = item.AnoAta, codeAta = item.CodigoAta});
+        }
+
         #endregion
 
         #region "Functions"

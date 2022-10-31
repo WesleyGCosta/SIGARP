@@ -86,5 +86,10 @@ namespace Domain.Entities
             Descricao = item.Descricao;
         }
 
+        public void ActiveInactiveItem(bool status)
+        {
+            Ativo = status;
+        }
+
     }
 }

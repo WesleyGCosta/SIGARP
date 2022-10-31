@@ -43,7 +43,7 @@
         var year = $(this).find("option:selected").val();
         let publish = false;
         if (year != "") {
-            if (pathname[2] == "Rectify" ) {
+            if (pathname[2] == "Rectify" || pathname[2] == "SuspendItem" ) {
                 publish = true;
             }
             $.ajax({

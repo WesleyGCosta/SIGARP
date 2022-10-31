@@ -14,21 +14,32 @@ $(document).ready(function () {
         let codeAta = $('#CodigoAta').val()
 
         if (pathname[1] == "Item") {
-            $.ajax({
-                type: 'GET',
-                url: '/Item/AutoCompleteCodeItem/',
-                data: { yearAta, codeAta },
-                success: function (response) {
-                    if (response == "Error") {
-                        $('#listItens').empty()
-                        $('#CodigoItem').attr('value', 1)
-                    } else {
-                        $('#listItens').empty()
-                        $('#listItens').append(response)
-                        $('#CodigoItem').attr('value', $('#proxItem').val())
-                    }      
-                },
-            })
+            if (pathname[2] != "SuspendItem") {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Item/AutoCompleteCodeItem/',
+                    data: { yearAta, codeAta },
+                    success: function (response) {
+                        if (response == "Error") {
+                            $('#listItens').empty()
+                            $('#CodigoItem').attr('value', 1)
+                        } else {
+                            $('#listItens').empty()
+                            $('#listItens').append(response)
+                            $('#CodigoItem').attr('value', $('#proxItem').val())
+                        }
+                    },
+                })
+            } else {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Item/GetListItemSuspend/',
+                    data: { yearAta, codeAta },
+                    success: function (response) {
+                        FillItensSuspend(response);
+                    },
+                })
+            }
         }
         if (pathname[1] == "ProgramacaoConsumo") {
             $.ajax({
@@ -148,8 +159,52 @@ $(document).ready(function () {
                     }
                 })
             }
-        })
-
-        
+        })      
     })
+
+    //Ativar e desativar item
+    $(document).on('click', '.checkBoxActiveInactive', function () {
+        let itemId = $(this).parent().data('itemid')
+        let status = $(this).data('value')
+        let item = $(this).data('item')
+        let textMessage = `Deseja ativar o item ${item}?`;
+        let confirmButtonText = "Sim, ativar Item"
+
+        if (status == "False") {
+            textMessage = `Deseja desativar o item ${item}?`
+            confirmButtonText = 'Sim, desativar Item'
+        }
+
+        Swal.fire({
+            title: 'Confirmação',
+            text: textMessage,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#247ba0',
+            cancelButtonColor: '#6c757d',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: confirmButtonText
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Item/ActiveInactiveItem/',
+                    data: { itemId, status },
+                    success: function (response) {
+                        GetMessageDomain();
+                        FillItensSuspend(response)
+                    }
+                })
+            }
+        })      
+    })
+
+    function FillItensSuspend(response) {
+        if (response == "Error") {
+            GetMessageDomain();
+        } else {
+            $('#result').empty();
+            $('#result').append(response);
+        }
+    }
 })

@@ -37,9 +37,9 @@
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" asp-controller="Ata" asp-action="Management">Atas de Registros de Preços</a>
-                        <a class="dropdown-item" asp-controller="Detentora" asp-action="Management">Detentora</a>
+                        <a class="dropdown-item" asp-controller="Ata" asp-action="Management">Atas de Registros de Preços</a>                     
                         <a class="dropdown-item" asp-controller="UnidadeAdministrativa" asp-action="Management">Unidade ou Órgão</a>
+                        <a class="dropdown-item" asp-controller="Detentora" asp-action="Management">Detentora</a>
                         @if (Context.User.IsInRole("Admin"))
                         {
                             <a class="dropdown-item" asp-controller="User" asp-action="Management">Usuários</a>
@@ -61,10 +61,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="#">Ordem de Fornecimento</a>
-                        <a class="dropdown-item" href="#">Ordem Fornecimento Carona</a>
                         <a class="dropdown-item" href="#">Estorno Solicitação OF</a>
-                        <a class="dropdown-item" href="#">Alterar Adesão Carona</a>
-                        <a class="dropdown-item" href="#">Transferência de Saldo</a>
                     </div>
                 </div>
                 <div class="dropdown">
@@ -72,7 +69,7 @@
                         Realiamento
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Suspender Item</a>
+                        <a class="dropdown-item" asp-controller="Item" asp-action="SuspendItem">Suspender Item</a>
                         <a class="dropdown-item" href="#">Realinhar Preço</a>
                         <a class="dropdown-item" href="#">Consultar Realinhamentos</a>
                     </div>

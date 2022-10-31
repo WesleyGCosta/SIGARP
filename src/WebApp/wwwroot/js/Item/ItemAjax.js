@@ -14,7 +14,7 @@ $(document).ready(function () {
         let codeAta = $('#CodigoAta').val()
 
         if (pathname[1] == "Item") {
-            if (pathname[2] != "SuspendItem") {
+            if (pathname[2] == "Create") {
                 $.ajax({
                     type: 'GET',
                     url: '/Item/AutoCompleteCodeItem/',
@@ -30,13 +30,24 @@ $(document).ready(function () {
                         }
                     },
                 })
-            } else {
+            }
+            if (pathname[2] == "SuspendItem") {
                 $.ajax({
                     type: 'GET',
                     url: '/Item/GetListItemSuspend/',
                     data: { yearAta, codeAta },
                     success: function (response) {
-                        FillItensSuspend(response);
+                        FillItens(response);
+                    },
+                })
+            }
+            if (pathname[2] == "RealignPrice") {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Item/GetListItemRealignPrice/',
+                    data: { yearAta, codeAta },
+                    success: function (response) {
+                        FillItens(response);
                     },
                 })
             }
@@ -62,7 +73,7 @@ $(document).ready(function () {
     //Detalhes
     $(document).on('click', 'button[data-toggle="ajax-modal-infoItem"]', function () {
         var placeHolderHere = $('#PlaceHolderHere')
-    
+
         $.ajax({
             type: 'GET',
             url: '/Item/Details/',
@@ -145,7 +156,7 @@ $(document).ready(function () {
                         $('#item').empty()
                         $('#item').html(response)
                         GetMessageDomain()
-                        UpdateListDetentora(yearAta, codeAta)      
+                        UpdateListDetentora(yearAta, codeAta)
                         UpdateListParticipanteItem(yearAta, codeAta)
                         if ($('#theAmountItem').val() > 0) {
                             Swal.fire({
@@ -159,7 +170,7 @@ $(document).ready(function () {
                     }
                 })
             }
-        })      
+        })
     })
 
     //Ativar e desativar item
@@ -192,14 +203,14 @@ $(document).ready(function () {
                     data: { itemId, status },
                     success: function (response) {
                         GetMessageDomain();
-                        FillItensSuspend(response)
+                        FillItens(response)
                     }
                 })
             }
-        })      
+        })
     })
 
-    function FillItensSuspend(response) {
+    function FillItens(response) {
         if (response == "Error") {
             GetMessageDomain();
         } else {

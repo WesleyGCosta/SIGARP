@@ -11,13 +11,13 @@
                 @Html.DisplayNameFor(model => model.Descricao)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Quantidade)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PrecoMercado)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PrecoRegistrado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantidade)
             </th>
             <th>Ativo</th>
         </tr>
@@ -33,13 +33,13 @@
                     @Html.DisplayFor(modelItem => item.Descricao)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Quantidade)
+                </td>
+                <td>
                     R$ @Html.DisplayFor(modelItem => item.PrecoMercado)
                 </td>
                 <td>
                     R$ @Html.DisplayFor(modelItem => item.PrecoRegistrado)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantidade)
                 </td>
                 <td data-ItemId="@item.Id">
                     <button type="button" class="btn checkBoxActiveInactive" data-item="@item.CodigoItem" data-value="@item.Ativo">

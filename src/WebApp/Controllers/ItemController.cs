@@ -98,7 +98,7 @@ namespace WebApp.Controllers
             }
 
             await _deleteItem.Run(item);
-            await _updateItem.Renumber(item.NumeroItem);
+            await _updateItem.Renumber(item.AnoAta, item.CodigoAta, item.NumeroItem);
             TempData["Success"] = "Item Excluído Com Sucesso";
 
             return await RedirectiListItem(item.AnoAta, item.CodigoAta);
@@ -109,7 +109,13 @@ namespace WebApp.Controllers
         public IActionResult SuspendItem()
         {
             ViewBag.ListYears = LoadDropYear();
+            return View();
+        }
 
+        [HttpGet]
+        public IActionResult RealignPrice()
+        {
+            ViewBag.ListYears = LoadDropYear();
             return View();
         }
 
@@ -212,6 +218,21 @@ namespace WebApp.Controllers
         #endregion
 
         #region "Consultas dinâmicas"
+
+        [HttpGet]
+        public async Task<IActionResult> GetListItemRealignPrice(int yearAta, int codeAta)
+        {
+            var itens = await _searchItem.GetListItemByCodeAtaAndYearAta(yearAta, codeAta);
+            if (itens == null)
+            {
+                TempData["Warning"] = "Itens não encontrado";
+                return Json("Error");
+            }
+
+            var itemViewModel = ItemFactory.ToListViewModel(itens);
+
+            return PartialView("_ListItensRealignPrice", itemViewModel);
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetListItemSuspend(int yearAta, int codeAta)

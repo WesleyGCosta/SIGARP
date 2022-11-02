@@ -52,6 +52,7 @@ namespace Domain.Entities
         public Ata Ata { get; private set; }
         public DetentoraItem DetentoraItem { get; private set; }
         public IEnumerable<ParticipanteItem> ParticipantesItens { get; private set; }
+        public IEnumerable<RealinhamentoPreco> RealinhamentosPrecos { get; private set; }
 
         public void SetQuantidadeAvailable()
         {

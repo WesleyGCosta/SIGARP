@@ -5,12 +5,13 @@ using WebApp.ViewModels.CustomValidation;
 
 namespace WebApp.ViewModels
 {
-    public class RealinhamentoViewModel
+    public class RealinhamentoPrecoViewModel
     {
-        public RealinhamentoViewModel()
+        public RealinhamentoPrecoViewModel()
         {
             Id = Guid.NewGuid();
             DataRegistro = DateTime.Now;
+            PrecoAtual = true;
         }
 
         public Guid Id { get; set; }
@@ -26,6 +27,7 @@ namespace WebApp.ViewModels
         [Required(ErrorMessage = "Campo Obrigatório!")]
         [MoreThan(nameof(PrecoMercado), ErrorMessage = "O {0} não pode ser maior que Preço de Mercado")]
         public decimal PrecoRegistrado { get; set; }
+        public bool PrecoAtual { get; set; }
 
         [Display(Name = "Justificativa")]
         [Required(ErrorMessage = "Campo Obrigatório!")]

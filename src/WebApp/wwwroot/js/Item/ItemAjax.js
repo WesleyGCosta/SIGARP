@@ -181,7 +181,7 @@ $(document).ready(function () {
         let textMessage = `Deseja ativar o item ${item}?`;
         let confirmButtonText = "Sim, ativar Item"
 
-        if (status == "False") {
+        if (status == "True") {
             textMessage = `Deseja desativar o item ${item}?`
             confirmButtonText = 'Sim, desativar Item'
         }

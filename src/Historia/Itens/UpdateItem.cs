@@ -46,5 +46,11 @@ namespace Historia.Itens
             item.ActiveInactiveItem(status);
             await _itemRepository.Update(item);
         }
+
+        public async Task RealignPrice(decimal precoMercado, decimal precoRegistrado, Item item)
+        {
+            item.RealignPrice(precoMercado, precoRegistrado);
+            await _itemRepository.Update(item);
+        }
     }
 }

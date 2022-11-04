@@ -28,10 +28,13 @@ namespace WebApp.ViewModels
         [MoreThan(nameof(PrecoMercado), ErrorMessage = "O {0} não pode ser maior que Preço de Mercado")]
         public decimal PrecoRegistrado { get; set; }
         public bool PrecoAtual { get; set; }
+        public decimal PrecoMercadoAnterior { get; set; }
+        public decimal PrecoRegistradoAnterior { get; set; }
 
         [Display(Name = "Justificativa")]
         [Required(ErrorMessage = "Campo Obrigatório!")]
         [StringLength(250, ErrorMessage = "A {0} deve ter pelo menos {2} caracteres e máxima de {1}.", MinimumLength = 10)]
         public string Justificativa { get; set; }
+        public string Usuario { get; set; }
     }
 }

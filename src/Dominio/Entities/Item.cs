@@ -92,5 +92,10 @@ namespace Domain.Entities
             Ativo = status;
         }
 
+        public void RealignPrice(decimal precoMercado, decimal precoRegistrado)
+        {
+            PrecoMercado = precoMercado;
+            PrecoRegistrado = precoRegistrado;
+        }
     }
 }

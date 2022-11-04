@@ -210,12 +210,65 @@ $(document).ready(function () {
         })
     })
 
+    //Realinhar Item
+    $(document).on('click', '.btnRealinhar', function () {
+        let itemId = $(this).data('itemid');
+        const placeHolderHere = $('#PlaceHolderHere')
+
+        $.ajax({
+            type: 'GET',
+            url: '/Item/GetRealinhamento/',
+            data: { itemId },
+            success: function (response) {
+                placeHolderHere.empty()
+                placeHolderHere.html(response)
+                placeHolderHere.unbind()
+                placeHolderHere.data("validator", null)
+                $.validator.unobtrusive.parse(placeHolderHere);
+
+                placeHolderHere.find('.modal').modal('show');
+            },
+        })
+    })
+
+    $(document).on('submit', '#formRealignPrice', function (e) {
+        e.preventDefault()
+
+        if ($(this).valid()) {
+            Swal.fire({
+                title: 'Confirmação',
+                text: "Deseja Realinhar Preço do Item?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#247ba0',
+                cancelButtonColor: '#6c757d',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: "Sim, realinhar preço"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Item/RealignPrice/',
+                        data: $(this).serialize(),
+                        success: function (response) {
+                            if (response != "Error") {
+                                $('#PlaceHolderHere').find('.modal').modal('hide');
+                                FillItens(response);
+                            }
+                            GetMessageDomain()
+                        }
+                    })
+                }
+            })
+        }
+    })
+
     function FillItens(response) {
         if (response == "Error") {
             GetMessageDomain();
         } else {
             $('#result').empty();
-            $('#result').append(response);
+            $('#result').html(response);
         }
     }
 })

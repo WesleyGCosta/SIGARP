@@ -1,0 +1,89 @@
+﻿@using Domain.Entities
+@using Domain.Enums
+@model ItemViewModel
+@inject UserManager<User> _userManager
+@{
+    var dif = (Model.PrecoMercado - Model.PrecoRegistrado) * 100 / Model.PrecoMercado;
+    var precoItemMercado = Model.PrecoMercado;
+    var precoItemRegistrado = Model.PrecoRegistrado;
+    var userManege = await _userManager.GetUserAsync(Context.User);
+    var userNameComplet = $"{userManege.FirstName} {userManege.LastName}";
+}
+
+<div class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content ">
+            <div class="d-flex justify-content-center card-header">
+                <h5 class="modal-title">Realinhando os preços do Item @Model.CodigoItem</h5>
+            </div>
+            <table class="table table-borderless text-center">
+                <thead>
+                    <tr>
+                        <th colspan="6" class="font-weight-bold text-sapphire">Informações do Item @Model.CodigoItem</th>
+                    </tr>
+                </thead>
+                <tbody class="text-justify">
+                    <tr>
+                        <td>
+                            <span class="text-sapphire font-weight-bold">@Html.DisplayNameFor(model => model.CodigoAta)</span>
+                            <div class="mt-2 text-muted">@Html.DisplayFor(model => model.CodigoAta)</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire"> @Html.DisplayNameFor(model => model.AnoAta)</span>
+                            <div class="mt-2 text-muted">@Html.DisplayFor(model => model.AnoAta)</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.CodigoItem)</span>
+                            <div class="mt-2 text-muted"> @Html.DisplayFor(model => model.CodigoItem)</div>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.PrecoMercado)</span>
+                            <div class="mt-2 text-muted">R$ @Html.DisplayFor(model => model.PrecoMercado)</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.PrecoRegistrado)</span>
+                            <div class="mt-2 text-muted">R$ @Html.DisplayFor(model => model.PrecoRegistrado)</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">DIF (%)</span>
+                            <div class="mt-2 text-muted">@dif.ToString("F2") %</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <form id="formRealignPrice" asp-action="RealignPrice">
+                <div class="modal-body">
+                    <hr />
+                    <div class="row">
+                        <input asp-for="RealinhamentoPreco.ItemId" name="ItemId" value="@Model.Id" type="hidden" />
+                        <input asp-for="RealinhamentoPreco.PrecoMercadoAnterior" name="PrecoMercadoAnterior" value="@precoItemMercado" type="hidden" />
+                        <input asp-for="RealinhamentoPreco.PrecoRegistradoAnterior" name="PrecoRegistradoAnterior" value="@precoItemRegistrado" type="hidden" />
+                        <input asp-for="RealinhamentoPreco.Usuario" name="Usuario" value="@userNameComplet" type="hidden" />
+                        <div class="col-md-6">
+                            <label asp-for="RealinhamentoPreco.PrecoMercado" class="control-label"></label>
+                            <input asp-for="RealinhamentoPreco.PrecoMercado" name="PrecoMercado" id="PrecoMercado" class="form-control" type="text" placeholder="0,00" />
+                            <span asp-validation-for="RealinhamentoPreco.PrecoMercado" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="RealinhamentoPreco.PrecoRegistrado" class="control-label"></label>
+                            <input asp-for="RealinhamentoPreco.PrecoRegistrado" name="PrecoRegistrado" id="PrecoRegistrado" class="form-control" type="text" placeholder="0,00" />
+                            <span asp-validation-for="RealinhamentoPreco.PrecoRegistrado" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <label asp-for="RealinhamentoPreco.Justificativa" class="control-label"></label>
+                            <textarea asp-for="RealinhamentoPreco.Justificativa" name="Justificativa" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="RealinhamentoPreco.Justificativa" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="mr-2">
+                        <button type="submit" class="btn btn-primary shadow">Salvar</button>
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary shadow" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

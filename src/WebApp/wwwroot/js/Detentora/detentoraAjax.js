@@ -133,10 +133,6 @@
     $(document).on('submit', '#formEditDetentora', function (e) {
         e.preventDefault()
 
-        var teste = $('button[aria-selected="true"]').value
-        console.log(teste)
-        console.log(teste)
-
         if ($(this).valid()) {
             $.ajax({
                 type: 'POST',

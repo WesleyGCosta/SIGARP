@@ -1,0 +1,17 @@
+﻿@model RealinhamentoPrecoViewModel
+
+<div class="col-md-6">
+    <label asp-for="PrecoMercado" class="control-label"></label>
+    <input asp-for="PrecoMercado" id="PrecoMercado" class="form-control" type="text" placeholder="0,00" />
+    <span asp-validation-for="PrecoMercado" class="text-danger"></span>
+</div>
+<div class="col-md-6">
+    <label asp-for="PrecoRegistrado" class="control-label"></label>
+    <input asp-for="PrecoRegistrado" id="PrecoRegistrado" class="form-control" type="text" placeholder="0,00" />
+    <span asp-validation-for="PrecoRegistrado" class="text-danger"></span>
+</div>
+<div class="col-md-12 mt-3">
+    <label asp-for="Justificativa" class="control-label"></label>
+    <textarea asp-for="Justificativa" class="form-control" rows="3"></textarea>
+    <span asp-validation-for="Justificativa" class="text-danger"></span>
+</div>

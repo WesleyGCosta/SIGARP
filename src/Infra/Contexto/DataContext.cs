@@ -16,6 +16,7 @@ namespace Infra.Contexto
         public DbSet<UnidadeAdministrativa> UnidadesAdministrativas { get; set; }
         public DbSet<DetentoraItem> DetentorasItens { get; set; }
         public DbSet<ParticipanteItem> ParticipantesItens { get; set; }
+        public DbSet<RealinhamentoPreco> RealinhamentoPrecos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +28,7 @@ namespace Infra.Contexto
             modelBuilder.ApplyConfiguration(new DetentoraItemMap());
             modelBuilder.ApplyConfiguration(new ParticipanteItemMap());
             modelBuilder.ApplyConfiguration(new EnderecoMap());
+            modelBuilder.ApplyConfiguration(new RealinhamentoPrecoMap());
         }
     }
 }

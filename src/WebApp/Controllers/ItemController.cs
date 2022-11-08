@@ -5,6 +5,7 @@ using Historia.Atas;
 using Historia.Detentoras;
 using Historia.DetentorasItem;
 using Historia.Itens;
+using Historia.RealinhamentosPrecos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,6 +26,7 @@ namespace WebApp.Controllers
         private readonly SearchDetentoraItem _searchDetentoraItem;
         private readonly CreateItem _createItem;
         private readonly CreateDetentoraItem _createDetentoraItem;
+        private readonly CreateRealinhamentoPreco _createRealinhamentoPreco;
         private readonly DeleteItem _deleteItem;
         private readonly UpdateItem _updateItem;
         private readonly UpdateDetentoraItem _updateDetentoraItem;
@@ -34,6 +36,7 @@ namespace WebApp.Controllers
             IItemRepository itemRepository,
             IDetentoraRepository detentoraRepository,
             IDetentoraItemRepository detentoraItemRepository,
+            IRealinhamentoPrecoRepository realinhamentoPrecoRepository,
             INotifier notifier) : base(notifier)
         {
             _searchAta = new SearchAta(ataRepository);
@@ -41,6 +44,7 @@ namespace WebApp.Controllers
             _searchDetentora = new SearchDetentora(detentoraRepository);
             _searchDetentoraItem = new SearchDetentoraItem(detentoraItemRepository);
             _createItem = new CreateItem(itemRepository);
+            _createRealinhamentoPreco = new CreateRealinhamentoPreco(realinhamentoPrecoRepository);
             _createDetentoraItem = new CreateDetentoraItem(detentoraItemRepository);
             _deleteItem = new DeleteItem(itemRepository); 
             _updateItem = new UpdateItem(itemRepository);
@@ -98,7 +102,7 @@ namespace WebApp.Controllers
             }
 
             await _deleteItem.Run(item);
-            await _updateItem.Renumber(item.NumeroItem);
+            await _updateItem.Renumber(item.AnoAta, item.CodigoAta, item.NumeroItem);
             TempData["Success"] = "Item Excluído Com Sucesso";
 
             return await RedirectiListItem(item.AnoAta, item.CodigoAta);
@@ -109,8 +113,24 @@ namespace WebApp.Controllers
         public IActionResult SuspendItem()
         {
             ViewBag.ListYears = LoadDropYear();
-
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult RealignPrice()
+        {
+            ViewBag.ListYears = LoadDropYear();
+            return View();
+        }
+
+        //Realinhar Preco Item
+        [HttpGet]
+        public async Task<IActionResult> GetRealinhamento(Guid itemId)
+        {
+            var item = await _searchItem.GetById(itemId);
+            var itemViewModel = ItemFactory.ToViewModel(item);
+
+            return PartialView("_InfoItemRealinhamento", itemViewModel);
         }
 
         #endregion
@@ -191,6 +211,27 @@ namespace WebApp.Controllers
             return RedirectToAction(nameof(GetListItemSuspend), new {yearAta = item.AnoAta, codeAta = item.CodigoAta});
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RealignPrice(RealinhamentoPrecoViewModel realinhamentoPrecoViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["Warning"] = "Erro ao RealinharItem o Item";
+                return Ok("Error");
+            }
+
+
+            var realinhamentoPreco = RealinhamentoPrecoFactory.ToEntity(realinhamentoPrecoViewModel);
+            var item = await _searchItem.GetById(realinhamentoPreco.ItemId);
+            await _updateItem.RealignPrice(realinhamentoPreco.PrecoMercado, realinhamentoPreco.PrecoRegistrado, item);
+            await _createRealinhamentoPreco.Run(realinhamentoPreco);
+
+            TempData["Success"] = "Realinhamento feito com sucesso";
+            return RedirectToAction(nameof(GetListItemRealignPrice), new { yearAta = item.AnoAta, codeAta = item.CodigoAta});
+        }
+
         #endregion
 
         #region "Functions"
@@ -212,6 +253,21 @@ namespace WebApp.Controllers
         #endregion
 
         #region "Consultas dinâmicas"
+
+        [HttpGet]
+        public async Task<IActionResult> GetListItemRealignPrice(int yearAta, int codeAta)
+        {
+            var itens = await _searchItem.GetListItemByCodeAtaAndYearAta(yearAta, codeAta);
+            if (itens == null)
+            {
+                TempData["Warning"] = "Itens não encontrado";
+                return Json("Error");
+            }
+
+            var itemViewModel = ItemFactory.ToListViewModel(itens);
+
+            return PartialView("_ListItensRealignPrice", itemViewModel);
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetListItemSuspend(int yearAta, int codeAta)

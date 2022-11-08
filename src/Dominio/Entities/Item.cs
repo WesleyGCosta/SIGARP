@@ -52,6 +52,7 @@ namespace Domain.Entities
         public Ata Ata { get; private set; }
         public DetentoraItem DetentoraItem { get; private set; }
         public IEnumerable<ParticipanteItem> ParticipantesItens { get; private set; }
+        public IEnumerable<RealinhamentoPreco> RealinhamentosPrecos { get; private set; }
 
         public void SetQuantidadeAvailable()
         {
@@ -91,5 +92,10 @@ namespace Domain.Entities
             Ativo = status;
         }
 
+        public void RealignPrice(decimal precoMercado, decimal precoRegistrado)
+        {
+            PrecoMercado = precoMercado;
+            PrecoRegistrado = precoRegistrado;
+        }
     }
 }

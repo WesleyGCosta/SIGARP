@@ -14,7 +14,7 @@ $(document).ready(function () {
         let codeAta = $('#CodigoAta').val()
 
         if (pathname[1] == "Item") {
-            if (pathname[2] != "SuspendItem") {
+            if (pathname[2] == "Create") {
                 $.ajax({
                     type: 'GET',
                     url: '/Item/AutoCompleteCodeItem/',
@@ -30,13 +30,24 @@ $(document).ready(function () {
                         }
                     },
                 })
-            } else {
+            }
+            if (pathname[2] == "SuspendItem") {
                 $.ajax({
                     type: 'GET',
                     url: '/Item/GetListItemSuspend/',
                     data: { yearAta, codeAta },
                     success: function (response) {
-                        FillItensSuspend(response);
+                        FillItens(response);
+                    },
+                })
+            }
+            if (pathname[2] == "RealignPrice") {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Item/GetListItemRealignPrice/',
+                    data: { yearAta, codeAta },
+                    success: function (response) {
+                        FillItens(response);
                     },
                 })
             }
@@ -62,7 +73,7 @@ $(document).ready(function () {
     //Detalhes
     $(document).on('click', 'button[data-toggle="ajax-modal-infoItem"]', function () {
         var placeHolderHere = $('#PlaceHolderHere')
-    
+
         $.ajax({
             type: 'GET',
             url: '/Item/Details/',
@@ -145,7 +156,7 @@ $(document).ready(function () {
                         $('#item').empty()
                         $('#item').html(response)
                         GetMessageDomain()
-                        UpdateListDetentora(yearAta, codeAta)      
+                        UpdateListDetentora(yearAta, codeAta)
                         UpdateListParticipanteItem(yearAta, codeAta)
                         if ($('#theAmountItem').val() > 0) {
                             Swal.fire({
@@ -159,7 +170,7 @@ $(document).ready(function () {
                     }
                 })
             }
-        })      
+        })
     })
 
     //Ativar e desativar item
@@ -170,7 +181,7 @@ $(document).ready(function () {
         let textMessage = `Deseja ativar o item ${item}?`;
         let confirmButtonText = "Sim, ativar Item"
 
-        if (status == "False") {
+        if (status == "True") {
             textMessage = `Deseja desativar o item ${item}?`
             confirmButtonText = 'Sim, desativar Item'
         }
@@ -192,19 +203,72 @@ $(document).ready(function () {
                     data: { itemId, status },
                     success: function (response) {
                         GetMessageDomain();
-                        FillItensSuspend(response)
+                        FillItens(response)
                     }
                 })
             }
-        })      
+        })
     })
 
-    function FillItensSuspend(response) {
+    //Realinhar Item
+    $(document).on('click', '.btnRealinhar', function () {
+        let itemId = $(this).data('itemid');
+        const placeHolderHere = $('#PlaceHolderHere')
+
+        $.ajax({
+            type: 'GET',
+            url: '/Item/GetRealinhamento/',
+            data: { itemId },
+            success: function (response) {
+                placeHolderHere.empty()
+                placeHolderHere.html(response)
+                placeHolderHere.unbind()
+                placeHolderHere.data("validator", null)
+                $.validator.unobtrusive.parse(placeHolderHere);
+
+                placeHolderHere.find('.modal').modal('show');
+            },
+        })
+    })
+
+    $(document).on('submit', '#formRealignPrice', function (e) {
+        e.preventDefault()
+
+        if ($(this).valid()) {
+            Swal.fire({
+                title: 'Confirmação',
+                text: "Deseja Realinhar Preço do Item?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#247ba0',
+                cancelButtonColor: '#6c757d',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: "Sim, realinhar preço"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Item/RealignPrice/',
+                        data: $(this).serialize(),
+                        success: function (response) {
+                            if (response != "Error") {
+                                $('#PlaceHolderHere').find('.modal').modal('hide');
+                                FillItens(response);
+                            }
+                            GetMessageDomain()
+                        }
+                    })
+                }
+            })
+        }
+    })
+
+    function FillItens(response) {
         if (response == "Error") {
             GetMessageDomain();
         } else {
             $('#result').empty();
-            $('#result').append(response);
+            $('#result').html(response);
         }
     }
 })

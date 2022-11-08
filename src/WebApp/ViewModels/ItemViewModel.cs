@@ -84,6 +84,7 @@ namespace WebApp.ViewModels
 
         public ICollection<ParticipanteItemViewModel> ParticipanteItems { get; set; }
         public ItemDetentoraViewModel ItemDetentora { get; set; }
+        public RealinhamentoPrecoViewModel RealinhamentoPreco { get; set; }
 
         public void UpdateQuantidadeDisponivel()
         {

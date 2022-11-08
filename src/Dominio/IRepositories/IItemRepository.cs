@@ -15,7 +15,7 @@ namespace Domain.IRepositories
         Task<List<Item>> GetItemByCodeAtaAndYearAtaIncludeParticipantes(int yearAta, int codeAta);
         Task<Item> GetItemByCodeAtaAndYearAtaIncludeUnidadeAdministrativa(int yearAta, int codeAta, int codeItem);
 
-        Task<List<Item>> GetItensAfterNumber(int numberItem);
+        Task<List<Item>> GetItensAfterNumber(int yearAta, int codeAta, int numberItem);
         Task<List<Item>> GetListItemWithDetentora(int year, int code);
     }
 }

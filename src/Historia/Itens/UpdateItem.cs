@@ -29,9 +29,9 @@ namespace Historia.Itens
             await _itemRepository.Update(item);
         }
 
-        public async Task Renumber(int numberItem)
+        public async Task Renumber(int yearAta, int codeAta, int numberItem)
         {
-            var itensConsult = await _itemRepository.GetItensAfterNumber(numberItem);
+            var itensConsult = await _itemRepository.GetItensAfterNumber(yearAta, codeAta, numberItem);
             foreach(var item in itensConsult)
             {
                 item.Renumber(numberItem);
@@ -44,6 +44,12 @@ namespace Historia.Itens
         public async Task ActiveInactiveItem(Item item, bool status)
         {
             item.ActiveInactiveItem(status);
+            await _itemRepository.Update(item);
+        }
+
+        public async Task RealignPrice(decimal precoMercado, decimal precoRegistrado, Item item)
+        {
+            item.RealignPrice(precoMercado, precoRegistrado);
             await _itemRepository.Update(item);
         }
     }

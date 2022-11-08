@@ -87,10 +87,10 @@ namespace Infra.Persistence
                 .ToListAsync();
         }
 
-        public async Task<List<Item>> GetItensAfterNumber(int numberItem)
+        public async Task<List<Item>> GetItensAfterNumber(int yearAta, int codeAta, int numberItem)
         {
             return await _db.Itens
-                .Where(i => i.NumeroItem > numberItem)
+                .Where(i => i.AnoAta.Equals(yearAta) && i.CodigoAta.Equals(codeAta) && i.NumeroItem > numberItem)
                 .OrderBy(i => i.NumeroItem)
                 .ToListAsync();
         }

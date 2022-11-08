@@ -81,6 +81,7 @@ namespace WebApp.ViewModels
         [MoreThan(nameof(PrecoMercado), ErrorMessage = "O {0} não pode ser maior que Preço de Mercado")]
         public decimal PrecoRegistrado { get; set; }
         public bool Ativo { get; set; }
+        public DateTime DataVirgencia { get; set; }
 
         public ICollection<ParticipanteItemViewModel> ParticipanteItems { get; set; }
         public ItemDetentoraViewModel ItemDetentora { get; set; }

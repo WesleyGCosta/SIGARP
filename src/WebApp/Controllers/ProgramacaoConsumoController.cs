@@ -122,5 +122,23 @@ namespace WebApp.Controllers
             ViewBag.ListYears = LoadDropYear();
             return View();
         }
+
+
+        //Ordem de Fornecimento
+        [HttpGet]
+        public async Task<IActionResult> OrderOfSupply()
+        {
+            ViewBag.ListYears = LoadDropYear();
+            ViewBag.ListUnidadeAdministrativa = new SelectList(await _searchUnidadeAdministrativa.GetAllUnidadeActive(), "Id", "Exibicao");
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProgramacaoConsumo(Guid unidadeAdministrativaId, int yearAta)
+        {
+            var participantes = await _searchParticipanteItem.GetListByUnidadeAdministrativaIdAndYearAta(unidadeAdministrativaId, yearAta);
+            var itensViewModel = ItemFactory.ToListViewModel(participantes);
+            return PartialView("_ListProgramacoesConsumo", itensViewModel);
+        }
     }
 }

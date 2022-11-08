@@ -78,5 +78,19 @@ $(document).ready(function () {
         })
     }
 
-    
+    $('.OrderSelect').change(function () {
+        if ($('#AnoAta').val() != '' && $('#UnidadeAdministrativaa').find("option:selected").val() != '') {
+            
+            $.ajax({
+                type: 'GET',
+                url: '/ProgramacaoConsumo/GetProgramacaoConsumo/',
+                data: { unidadeAdministrativaId: $('#UnidadeAdministrativaa').find("option:selected").val(), yearAta: $('#AnoAta').val() },
+                success: function (response) {
+                    $('#result').empty()
+                    $('#result').html(response)
+                }
+            })
+        }
+    })
+
 })

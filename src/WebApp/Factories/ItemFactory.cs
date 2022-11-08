@@ -47,6 +47,11 @@ namespace WebApp.Factories
                 Ativo = item.Ativo
             };
 
+            if(item.Ata != null)
+            {
+                itemViewModel.DataVirgencia = item.Ata.DataVencimentoAta;
+            }
+
             if (item.DetentoraItem != null)
             {
                 itemViewModel.ItemDetentora = ItemDetentoraFactory.ToViewModel(item.DetentoraItem);
@@ -68,6 +73,15 @@ namespace WebApp.Factories
             var list = new List<ItemViewModel>();
             foreach (var item in itens)
                 list.Add(ToViewModel(item));
+
+            return list;
+        }
+
+        public static List<ItemViewModel> ToListViewModel(IEnumerable<ParticipanteItem> participantes)
+        {
+            var list = new List<ItemViewModel>();
+            foreach (var participante in participantes)
+                list.Add(ToViewModel(participante.Item));
 
             return list;
         }

@@ -10,5 +10,6 @@ namespace Domain.IRepositories
         Task<ParticipanteItem> GetParticipanteItemByIds(Guid unidadeAdministrativaId, Guid itemId);
         Task<ParticipanteItem> GetByParticipanteId(Guid participanteId);
         Task<List<ParticipanteItem>> GetListByAta(int yearAta, int codeAta);
+        Task<IEnumerable<ParticipanteItem>> GetListByUnidadeAdministrativaIdAndYearAta(Guid unidadeAdministrativaId, int yearAta);
     }
 }

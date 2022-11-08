@@ -130,7 +130,7 @@ namespace WebApp.Controllers
             var item = await _searchItem.GetById(itemId);
             var itemViewModel = ItemFactory.ToViewModel(item);
 
-            return PartialView("_FormRealinhamento", itemViewModel);
+            return PartialView("_InfoItemRealinhamento", itemViewModel);
         }
 
         #endregion

@@ -10,12 +10,12 @@ $(document).ready(function () {
                 type: 'POST',
                 url: '/ProgramacaoConsumo/Create/',
                 data: $(this).serialize(),
-                success: function (response) {              
+                success: function (response) {
                     GetMessageDomain();
                     if (response != 'Error') {
                         GetInfoItem()
                     }
-                    
+
                 },
             })
         }
@@ -25,7 +25,7 @@ $(document).ready(function () {
         e.preventDefault()
         const yearAta = $('#AnoAta').val()
         const codeAta = $('#CodigoAta').val()
-        
+
         $.ajax({
             type: 'POST',
             url: '/ProgramacaoConsumo/Edit/',
@@ -80,7 +80,7 @@ $(document).ready(function () {
 
     $('.OrderSelect').change(function () {
         if ($('#AnoAta').val() != '' && $('#UnidadeAdministrativaa').find("option:selected").val() != '') {
-            
+
             $.ajax({
                 type: 'GET',
                 url: '/ProgramacaoConsumo/GetProgramacaoConsumo/',
@@ -91,6 +91,10 @@ $(document).ready(function () {
                 }
             })
         }
+    })
+
+    $(document).on('click', '.liberarFornecimento', function() {
+        alert($(this).data('id'))
     })
 
 })

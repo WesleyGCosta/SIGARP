@@ -11,6 +11,7 @@ namespace WebApp.ViewModels
         public ProgramacaoConsumoViewModel()
         {
             ParticipanteItemViewModel = new List<UnidadeAdministrativaViewModel>();
+            OrdemFornecimentoViewModel = new OrdemFornecimentoViewModel();
         }
 
         public Guid Id { get; set; } = Guid.NewGuid();
@@ -45,14 +46,11 @@ namespace WebApp.ViewModels
         [Required(ErrorMessage = "Campo Obrigatório")]
         [MoreThan(nameof(QuantidadeDisponivel), ErrorMessage = "O {0} não pode ser maior que Quantidade Disponível do Item")]
         public int ConsumoEstimado { get; set; }
-        public int Saldo
-        {
-            get => ConsumoEstimado;
-        }
-        public int SaldoDisponivel { get; set; }
-        public int Transferido { get; set; }
+        public int Saldo { get; set; }
 
         [Display(Name = "Saldo Disponível")]
+        public int SaldoDisponivel { get; set; }
+        public int Transferido { get; set; }
         public int SaldoAnterior { get; set; }
         public OrdemFornecimentoViewModel OrdemFornecimentoViewModel { get; set; }
         public ICollection<UnidadeAdministrativaViewModel> ParticipanteItemViewModel { get; set; }
@@ -60,6 +58,11 @@ namespace WebApp.ViewModels
         public int SumConsumoEstimado()
         {
             return ConsumoEstimado - SaldoAnterior;
+        }
+
+        internal void FillSaldo()
+        {
+            Saldo = ConsumoEstimado;
         }
     }
 }

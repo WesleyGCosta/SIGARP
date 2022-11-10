@@ -2,6 +2,7 @@
 using Domain.IRepositories;
 using Domain.Notifications.Interface;
 using Historia.Itens;
+using Historia.OrdensFornecimentos;
 using Historia.ParticipantesItens;
 using Historia.ProgramacoesConsumos;
 using Historia.UnidadesAdministrativas;
@@ -25,12 +26,14 @@ namespace WebApp.Controllers
         private readonly UpdateItem _updateItem;
         private readonly UpdateProgramacoesConsumos _updateProgramacoesConsumos;
         private readonly CreateProgramacaoConsumo _createProgramacaoConsumo;
+        private readonly CreateOrdemFornecimento _createOrdemFornecimento;
         private readonly CreateParticipanteItem _createParticipanteItem;
         public ProgramacaoConsumoController(
             IUnidadeAdministrativaRepository unidadeAdministrativaRepository,
             IProgramacaoConsumoParticipanteRepository programacaoConsumoParticipanteRepository,
             IParticipanteItemRepository participanteItemRepository,
             IItemRepository itemRepository,
+            IOrdemFornecimentoRepository ordemFornecimentoRepository,
             INotifier notifier) : base(notifier)
         {
             _searchUnidadeAdministrativa = new SearchUnidadeAdministrativa(unidadeAdministrativaRepository);
@@ -40,6 +43,7 @@ namespace WebApp.Controllers
             _updateItem = new UpdateItem(itemRepository);
             _updateProgramacoesConsumos = new UpdateProgramacoesConsumos(programacaoConsumoParticipanteRepository);
             _createProgramacaoConsumo = new CreateProgramacaoConsumo(programacaoConsumoParticipanteRepository);
+            _createOrdemFornecimento = new CreateOrdemFornecimento(ordemFornecimentoRepository);
             _createParticipanteItem = new CreateParticipanteItem(participanteItemRepository);
         }
 
@@ -141,6 +145,26 @@ namespace WebApp.Controllers
             var programacaoConsumo = await _searchProgramacoesConsumos.GetById(programacaoConsumoId);
             var programacaoConsumoViewModel = ProgramacaoConsumoFactory.ToViewModel(programacaoConsumo);
             return PartialView("_FormSupply", programacaoConsumoViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReleaseSupply(OrdemFornecimentoViewModel ordemFornecimentoViewModel)
+        {
+            if(!ModelState.IsValid || !await _updateProgramacoesConsumos.SubtractSaldo(ordemFornecimentoViewModel.ProgramacaoConsumoId, ordemFornecimentoViewModel.Consumo))
+            {
+                TempData["Warning"] = "Erro na liberação de fornecimento";
+                return Ok("Error");
+            }
+
+            var ordemFornecimento  = OrdemForncecimentoFactory.ToEntity(ordemFornecimentoViewModel);
+
+            await _createOrdemFornecimento.Run(ordemFornecimento);
+
+
+            TempData["Success"] = "Ordem fornecimento realizado com Sucesso";
+
+            return Ok();
         }
 
         [HttpGet]

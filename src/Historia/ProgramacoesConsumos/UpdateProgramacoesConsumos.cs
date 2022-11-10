@@ -23,5 +23,18 @@ namespace Historia.ProgramacoesConsumos
             programacaoConsumoConsult.Update(programacaoConsumoParticipante.ConsumoEstimado);
             await _programacaoConsumoParticipanteRepository.Update(programacaoConsumoConsult);
         }
+
+        public async Task<bool> SubtractSaldo(Guid programacaoConsumoId, int saldo)
+        {
+            var programacaoConsumo = await _programacaoConsumoParticipanteRepository.GetByPrimaryKey(programacaoConsumoId);
+            if (!programacaoConsumo.SubtractSaldo(saldo))
+            {
+                return false;
+            }
+
+            await _programacaoConsumoParticipanteRepository.Update(programacaoConsumo);
+
+            return true;
+        }
     }
 }

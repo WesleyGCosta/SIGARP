@@ -81,17 +81,21 @@ $(document).ready(function () {
     $('.OrderSelect').change(function () {
         if ($('#AnoAta').val() != '' && $('#UnidadeAdministrativaa').find("option:selected").val() != '') {
 
-            $.ajax({
-                type: 'GET',
-                url: '/ProgramacaoConsumo/GetProgramacaoConsumo/',
-                data: { unidadeAdministrativaId: $('#UnidadeAdministrativaa').find("option:selected").val(), yearAta: $('#AnoAta').val() },
-                success: function (response) {
-                    $('#result').empty()
-                    $('#result').html(response)
-                }
-            })
+            GetProgramacaoConsumo($('#UnidadeAdministrativaa').find("option:selected").val(), $('#AnoAta').val())
         }
     })
+
+    function GetProgramacaoConsumo(unidadeAdministrativaId, yearAta,) {
+        $.ajax({
+            type: 'GET',
+            url: '/ProgramacaoConsumo/GetProgramacaoConsumo/',
+            data: { unidadeAdministrativaId: unidadeAdministrativaId, yearAta: yearAta },
+            success: function (response) {
+                $('#result').empty()
+                $('#result').html(response)
+            }
+        })
+    }
 
     $(document).on('click', '.liberarFornecimento', function () {
         $.ajax({
@@ -109,4 +113,22 @@ $(document).ready(function () {
         })
     })
 
+    $(document).on('submit', '#formFornecimento', function (e) {
+        e.preventDefault()
+
+        if ($(this).valid()) {
+            $.ajax({
+                type: 'POST',
+                url: '/ProgramacaoConsumo/ReleaseSupply/',
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response != 'Error') {
+                        placeHolderHere.find('.modal').modal('hide');
+                        GetProgramacaoConsumo($('#UnidadeAdministrativaa').find("option:selected").val(), $('#AnoAta').val())
+                    }
+                    GetMessageDomain();
+                }
+            })
+        }
+    })
 })

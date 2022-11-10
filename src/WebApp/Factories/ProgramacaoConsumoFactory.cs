@@ -8,7 +8,8 @@ namespace WebApp.Factories
     {
         public static ProgramacaoConsumoParticipante ToEntity(ProgramacaoConsumoViewModel programacaoConsumoViewModel)
         {
-            return new ProgramacaoConsumoParticipante(
+            programacaoConsumoViewModel.FillSaldo();
+             var programacaoConsumo = new ProgramacaoConsumoParticipante(
                 programacaoConsumoViewModel.Id,
                 programacaoConsumoViewModel.ParticipanteId,
                 programacaoConsumoViewModel.ConsumoEstimado,
@@ -16,6 +17,8 @@ namespace WebApp.Factories
                 programacaoConsumoViewModel.Transferido,
                 programacaoConsumoViewModel.SaldoAnterior
                 );
+
+            return programacaoConsumo;
         }
 
         public static ProgramacaoConsumoViewModel ToViewModel(Item item)
@@ -51,6 +54,7 @@ namespace WebApp.Factories
                 Id = programacaoConsumo.Id,
                 ParticipanteId = programacaoConsumo.ParticipanteId,
                 ConsumoEstimado = programacaoConsumo.ConsumoEstimado,
+                Saldo = programacaoConsumo.Saldo,
                 SaldoAnterior = programacaoConsumo.SaldoAnterior,
                 SaldoDisponivel = programacaoConsumo.Saldo
             };

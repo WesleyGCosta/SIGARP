@@ -1,0 +1,50 @@
+﻿@model ProgramacaoConsumoViewModel
+
+<div class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content ">
+            <div class="d-flex justify-content-center card-header">
+                <h5 class="modal-title">Ordem de Fornecimento</h5>
+            </div>
+            <table class="table table-borderless text-center">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="font-weight-bold text-sapphire">Informação</th>
+                    </tr>
+                </thead>
+                <tbody class="text-justify">
+                    <tr>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.ConsumoEstimado)</span>
+                            <div class="mt-2 text-muted">R$ @Html.DisplayFor(model => model.ConsumoEstimado)</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.SaldoDisponivel)</span>
+                            <div class="mt-2 text-muted">R$ @Html.DisplayFor(model => model.SaldoDisponivel)</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            @*<form id="formRealignPrice" asp-action="RealignPrice">
+            <div class="modal-body">
+            <hr />
+            <div class="row">
+            <input asp-for="RealinhamentoPreco.ItemId" name="ItemId" value="@Model.Id" type="hidden" />
+            <input asp-for="RealinhamentoPreco.PrecoMercadoAnterior" name="PrecoMercadoAnterior" value="@precoItemMercado" type="hidden" />
+            <input asp-for="RealinhamentoPreco.PrecoRegistradoAnterior" name="PrecoRegistradoAnterior" value="@precoItemRegistrado" type="hidden" />
+            <input asp-for="RealinhamentoPreco.Usuario" name="Usuario" value="@userNameComplet" type="hidden" />
+            <partial name="_FormRealinhamento" model="Model.RealinhamentoPreco" />
+            </div>
+            </div>
+            <div class="modal-footer ">
+            <div class="mr-2">
+            <button type="submit" class="btn btn-primary shadow">Salvar</button>
+            </div>
+            <div>
+            <button class="btn btn-secondary shadow" data-dismiss="modal">Fechar</button>
+            </div>
+            </div>
+            </form>*@
+        </div>
+    </div>
+</div>

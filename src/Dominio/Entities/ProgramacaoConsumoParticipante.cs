@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
@@ -28,6 +29,7 @@ namespace Domain.Entities
         public int SaldoAnterior { get; private set; }
 
         public ParticipanteItem ParticipanteItem { get; private set; }
+        public ICollection<OrdemFornecimento> OrdemFornecimentos { get; private set; }
 
         public void Update(int consumoEstimado)
         {

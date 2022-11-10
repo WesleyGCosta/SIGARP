@@ -20,6 +20,7 @@ namespace WebApp.Controllers
     {
         private readonly SearchUnidadeAdministrativa _searchUnidadeAdministrativa;
         private readonly SearchParticipanteItem _searchParticipanteItem;
+        private readonly SearchProgramacoesConsumos _searchProgramacoesConsumos;
         private readonly SearchItem _searchItem;
         private readonly UpdateItem _updateItem;
         private readonly UpdateProgramacoesConsumos _updateProgramacoesConsumos;
@@ -34,6 +35,7 @@ namespace WebApp.Controllers
         {
             _searchUnidadeAdministrativa = new SearchUnidadeAdministrativa(unidadeAdministrativaRepository);
             _searchParticipanteItem = new SearchParticipanteItem(participanteItemRepository);
+            _searchProgramacoesConsumos = new SearchProgramacoesConsumos(programacaoConsumoParticipanteRepository);
             _searchItem = new SearchItem(itemRepository);
             _updateItem = new UpdateItem(itemRepository);
             _updateProgramacoesConsumos = new UpdateProgramacoesConsumos(programacaoConsumoParticipanteRepository);
@@ -131,6 +133,14 @@ namespace WebApp.Controllers
             ViewBag.ListYears = LoadDropYear();
             ViewBag.ListUnidadeAdministrativa = new SelectList(await _searchUnidadeAdministrativa.GetAllUnidadeActive(), "Id", "Exibicao");
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ReleaseSupply(Guid programacaoConsumoId)
+        {
+            var programacaoConsumo = await _searchProgramacoesConsumos.GetById(programacaoConsumoId);
+            var programacaoConsumoViewModel = ProgramacaoConsumoFactory.ToViewModel(programacaoConsumo);
+            return PartialView("_FormSupply", programacaoConsumoViewModel);
         }
 
         [HttpGet]

@@ -93,8 +93,20 @@ $(document).ready(function () {
         }
     })
 
-    $(document).on('click', '.liberarFornecimento', function() {
-        alert($(this).data('id'))
+    $(document).on('click', '.liberarFornecimento', function () {
+        $.ajax({
+            type: 'GET',
+            url: '/ProgramacaoConsumo/ReleaseSupply/',
+            data: { programacaoConsumoId: $(this).data('id') },
+            success: function (response) {
+                placeHolderHere.empty()
+                placeHolderHere.html(response)
+                placeHolderHere.unbind()
+                placeHolderHere.data("validator", null)
+                $.validator.unobtrusive.parse(placeHolderHere);
+                placeHolderHere.find('.modal').modal('show');
+            }
+        })
     })
 
 })

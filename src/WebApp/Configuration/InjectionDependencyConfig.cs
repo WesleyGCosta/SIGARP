@@ -26,6 +26,7 @@ namespace WebApp.Configuration
             services.AddScoped<IProgramacaoConsumoParticipanteRepository, ProgramacaoConsumoParticipanteRepository>();
             services.AddScoped<IUnidadeAdministrativaRepository, UnidadeAdministrativaRepository>();
             services.AddScoped<IRealinhamentoPrecoRepository, RealinhamentoPrecoRepository>();
+            services.AddScoped<IOrdemFornecimentoRepository, OrdemFornecimentoRepository>();
             services.AddScoped<INotifier, Notifier>();
 
 

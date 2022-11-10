@@ -52,6 +52,7 @@ namespace WebApp.Factories
                 ParticipanteId = programacaoConsumo.ParticipanteId,
                 ConsumoEstimado = programacaoConsumo.ConsumoEstimado,
                 SaldoAnterior = programacaoConsumo.SaldoAnterior,
+                SaldoDisponivel = programacaoConsumo.Saldo
             };
         }
 

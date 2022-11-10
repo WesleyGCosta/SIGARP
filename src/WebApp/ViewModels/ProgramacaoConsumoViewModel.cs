@@ -49,8 +49,12 @@ namespace WebApp.ViewModels
         {
             get => ConsumoEstimado;
         }
+        public int SaldoDisponivel { get; set; }
         public int Transferido { get; set; }
+
+        [Display(Name = "Saldo Disponível")]
         public int SaldoAnterior { get; set; }
+        public OrdemFornecimentoViewModel OrdemFornecimentoViewModel { get; set; }
         public ICollection<UnidadeAdministrativaViewModel> ParticipanteItemViewModel { get; set; }
 
         public int SumConsumoEstimado()

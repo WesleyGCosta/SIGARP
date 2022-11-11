@@ -31,7 +31,6 @@ namespace WebApp.Controllers
 
         #region HttpGet
 
-
         [HttpGet]
         public IActionResult Management()
         {
@@ -75,6 +74,13 @@ namespace WebApp.Controllers
             TempData["Success"] = "Ata Excluído com Sucesso";
 
             return RedirectToAction("GetListAtaByYear", new { yearAta });
+        }
+
+        [HttpGet]
+        public IActionResult GenerateReport()
+        {
+            ViewBag.ListYears = LoadDropYear();
+            return View();
         }
 
         #endregion

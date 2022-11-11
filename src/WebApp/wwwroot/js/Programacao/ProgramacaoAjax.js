@@ -10,12 +10,12 @@ $(document).ready(function () {
                 type: 'POST',
                 url: '/ProgramacaoConsumo/Create/',
                 data: $(this).serialize(),
-                success: function (response) {              
+                success: function (response) {
                     GetMessageDomain();
                     if (response != 'Error') {
                         GetInfoItem()
                     }
-                    
+
                 },
             })
         }
@@ -25,7 +25,7 @@ $(document).ready(function () {
         e.preventDefault()
         const yearAta = $('#AnoAta').val()
         const codeAta = $('#CodigoAta').val()
-        
+
         $.ajax({
             type: 'POST',
             url: '/ProgramacaoConsumo/Edit/',
@@ -78,5 +78,57 @@ $(document).ready(function () {
         })
     }
 
-    
+    $('.OrderSelect').change(function () {
+        if ($('#AnoAta').val() != '' && $('#UnidadeAdministrativaa').find("option:selected").val() != '') {
+
+            GetProgramacaoConsumo($('#UnidadeAdministrativaa').find("option:selected").val(), $('#AnoAta').val())
+        }
+    })
+
+    function GetProgramacaoConsumo(unidadeAdministrativaId, yearAta,) {
+        $.ajax({
+            type: 'GET',
+            url: '/ProgramacaoConsumo/GetProgramacaoConsumo/',
+            data: { unidadeAdministrativaId: unidadeAdministrativaId, yearAta: yearAta },
+            success: function (response) {
+                $('#result').empty()
+                $('#result').html(response)
+            }
+        })
+    }
+
+    $(document).on('click', '.liberarFornecimento', function () {
+        $.ajax({
+            type: 'GET',
+            url: '/ProgramacaoConsumo/ReleaseSupply/',
+            data: { programacaoConsumoId: $(this).data('id') },
+            success: function (response) {
+                placeHolderHere.empty()
+                placeHolderHere.html(response)
+                placeHolderHere.unbind()
+                placeHolderHere.data("validator", null)
+                $.validator.unobtrusive.parse(placeHolderHere);
+                placeHolderHere.find('.modal').modal('show');
+            }
+        })
+    })
+
+    $(document).on('submit', '#formFornecimento', function (e) {
+        e.preventDefault()
+
+        if ($(this).valid()) {
+            $.ajax({
+                type: 'POST',
+                url: '/ProgramacaoConsumo/ReleaseSupply/',
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response != 'Error') {
+                        placeHolderHere.find('.modal').modal('hide');
+                        GetProgramacaoConsumo($('#UnidadeAdministrativaa').find("option:selected").val(), $('#AnoAta').val())
+                    }
+                    GetMessageDomain();
+                }
+            })
+        }
+    })
 })

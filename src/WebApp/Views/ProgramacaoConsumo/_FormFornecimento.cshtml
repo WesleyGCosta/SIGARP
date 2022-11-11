@@ -1,0 +1,16 @@
+﻿@model OrdemFornecimentoViewModel
+
+<input asp-for="Id" type="hidden"/>
+<input asp-for="ProgramacaoConsumoId" type="hidden" />
+<input asp-for="DataFornecimento" type="hidden" />
+<input asp-for="Saldo" type="hidden" />
+<div class="col-md-6">
+    <label asp-for="NumeroProcesso" class="control-label"></label>
+    <input asp-for="NumeroProcesso" class="form-control" type="text" placeholder="Ex. 0000.00000-00-0000" />
+    <span asp-validation-for="NumeroProcesso" class="text-danger"></span>
+</div>
+<div class="col-md-6">
+    <label asp-for="Consumo" class="control-label"></label>
+    <input asp-for="Consumo" class="form-control" value="" placeholder="Consumo" />
+    <span asp-validation-for="Consumo" class="text-danger"></span>
+</div>

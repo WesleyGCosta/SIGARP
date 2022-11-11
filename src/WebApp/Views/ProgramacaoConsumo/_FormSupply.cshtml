@@ -1,0 +1,56 @@
+﻿@model ProgramacaoConsumoViewModel
+
+@{
+    var qtdFornecida = Model.ConsumoEstimado - Model.SaldoDisponivel;
+    Model.OrdemFornecimentoViewModel.Saldo = Model.SaldoDisponivel;
+    Model.OrdemFornecimentoViewModel.ProgramacaoConsumoId = Model.Id;
+}
+
+<div class="modal fade" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content ">
+            <div class="d-flex justify-content-center card-header">
+                <h5 class="modal-title">Ordem de Fornecimento</h5>
+            </div>
+            <table class="table table-borderless text-center">
+                <thead>
+                    <tr>
+                        <th colspan="3" class="font-weight-bold text-sapphire">Informação</th>
+                    </tr>
+                </thead>
+                <tbody class="text-justify">
+                    <tr>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.ConsumoEstimado)</span>
+                            <div class="mt-2 text-muted">R$ @Html.DisplayFor(model => model.ConsumoEstimado)</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.SaldoDisponivel)</span>
+                            <div class="mt-2 text-muted">R$ @Html.DisplayFor(model => model.SaldoDisponivel)</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Quantidade Fornecida</span>
+                            <div class="mt-2 text-muted">R$ @qtdFornecida</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <form id="formFornecimento" asp-action="ReleaseSupply">
+                <div class="modal-body">
+                    <hr />
+                    <div class="row">
+                        <partial name="_FormFornecimento" model="Model.OrdemFornecimentoViewModel" />
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <div class="mr-2">
+                        <button type="submit" class="btn btn-primary shadow">Salvar</button>
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary shadow" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -49,7 +49,7 @@ namespace WebApp.Factories
         }
         public static ProgramacaoConsumoViewModel ToViewModel(ProgramacaoConsumoParticipante programacaoConsumo)
         {
-            return new ProgramacaoConsumoViewModel
+            var programacaoConsumoViewModel =  new ProgramacaoConsumoViewModel
             {
                 Id = programacaoConsumo.Id,
                 ParticipanteId = programacaoConsumo.ParticipanteId,
@@ -58,6 +58,13 @@ namespace WebApp.Factories
                 SaldoAnterior = programacaoConsumo.SaldoAnterior,
                 SaldoDisponivel = programacaoConsumo.Saldo
             };
+
+            if(programacaoConsumo.OrdemFornecimentos != null && programacaoConsumo.OrdemFornecimentos.Any())
+            {
+                programacaoConsumoViewModel.Fornecimentos = OrdemForncecimentoFactory.ToListViewModel(programacaoConsumo.OrdemFornecimentos);
+            }
+
+            return programacaoConsumoViewModel;
         }
 
     }

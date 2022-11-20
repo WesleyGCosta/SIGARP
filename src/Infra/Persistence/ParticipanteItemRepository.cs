@@ -51,6 +51,24 @@ namespace Infra.Persistence
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<ParticipanteItem>> GetListOrdemFornecimentoByUnidadeAdministrativaIdAndYearAta(Guid unidadeAdministrativaId, int yearAta)
+        {
+            return await _db.ParticipantesItens
+                .AsNoTracking()
+                .Include(pi => pi.Item)
+                .ThenInclude(i => i.Ata)
+                .Include(pi => pi.ProgramacoesConsumoParticipantes)
+                .ThenInclude(pc => pc.OrdemFornecimentos)
+                .Include(pi => pi.UnidadeAdministrativa)
+                .Where(pi => pi.UnidadeAdministrativaId.Equals(unidadeAdministrativaId)
+                        && pi.Item.AnoAta.Equals(yearAta)
+                        && pi.Item.Ata.Publicada.Equals(true)
+                        && pi.Item.Ativo.Equals(true)
+                        && pi.ProgramacoesConsumoParticipantes.OrdemFornecimentos.Any())
+                .OrderBy(pi => pi.Item.CodigoAta)
+                .ToListAsync();
+        }
+
         public async Task<ParticipanteItem> GetParticipanteItemByIds(Guid unidadeAdministrativaId, Guid itemId)
         {
             return await _db.ParticipantesItens

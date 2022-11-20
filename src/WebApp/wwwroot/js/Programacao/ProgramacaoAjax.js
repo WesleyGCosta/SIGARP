@@ -80,8 +80,13 @@ $(document).ready(function () {
 
     $('.OrderSelect').change(function () {
         if ($('#AnoAta').val() != '' && $('#UnidadeAdministrativaa').find("option:selected").val() != '') {
-
-            GetProgramacaoConsumo($('#UnidadeAdministrativaa').find("option:selected").val(), $('#AnoAta').val())
+            const pathname = window.location.pathname.split('/');
+            if (pathname[2] == "OrderOfSupply") {
+                GetProgramacaoConsumo($('#UnidadeAdministrativaa').find("option:selected").val(), $('#AnoAta').val())
+            } else {
+                GetOrdensFornecimentos($('#UnidadeAdministrativaa').find("option:selected").val(), $('#AnoAta').val())
+            }
+           
         }
     })
 
@@ -90,6 +95,30 @@ $(document).ready(function () {
             type: 'GET',
             url: '/ProgramacaoConsumo/GetProgramacaoConsumo/',
             data: { unidadeAdministrativaId: unidadeAdministrativaId, yearAta: yearAta },
+            beforeSend: function () {
+                Loader()
+            },
+            complete: function () {
+                Finish()
+            },
+            success: function (response) {
+                $('#result').empty()
+                $('#result').html(response)
+            }
+        })
+    }
+
+    function GetOrdensFornecimentos(unidadeAdministrativaId, yearAta,) {
+        $.ajax({
+            type: 'GET',
+            url: '/ProgramacaoConsumo/GetOrdensFornecimentos/',
+            data: { unidadeAdministrativaId: unidadeAdministrativaId, yearAta: yearAta },
+            beforeSend: function () {
+                Loader()
+            },
+            complete: function () {
+                Finish()
+            },
             success: function (response) {
                 $('#result').empty()
                 $('#result').html(response)

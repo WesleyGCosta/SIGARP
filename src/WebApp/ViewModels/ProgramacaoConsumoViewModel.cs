@@ -53,6 +53,7 @@ namespace WebApp.ViewModels
         public int Transferido { get; set; }
         public int SaldoAnterior { get; set; }
         public OrdemFornecimentoViewModel OrdemFornecimentoViewModel { get; set; }
+        public ICollection<OrdemFornecimentoViewModel> Fornecimentos { get; set; }
         public ICollection<UnidadeAdministrativaViewModel> ParticipanteItemViewModel { get; set; }
 
         public int SumConsumoEstimado()

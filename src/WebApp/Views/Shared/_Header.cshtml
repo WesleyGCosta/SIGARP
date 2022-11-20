@@ -57,20 +57,20 @@
                 </div>
                 <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                        Liberações
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" asp-controller="ProgramacaoConsumo" asp-action="OrderOfSupply">Ordem de Fornecimento</a>
-                        <a class="dropdown-item" href="#">Estorno Solicitação OF</a>
-                    </div>
-                </div>
-                <div class="dropdown">
-                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
                         Realiamento
                     </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" asp-controller="Item" asp-action="SuspendItem">Suspender Item</a>
                         <a class="dropdown-item" asp-controller="Item" asp-action="RealignPrice">Realinhar Preço</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                        Liberações
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" asp-controller="ProgramacaoConsumo" asp-action="OrderOfSupply">Ordem de Fornecimento</a>
+                        <a class="dropdown-item" asp-controller="ProgramacaoConsumo" asp-action="ReversalOfSupply">Estorno Solicitação OF</a>
                     </div>
                 </div>
                 <div class="dropdown">

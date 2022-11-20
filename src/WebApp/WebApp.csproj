@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\ProgramacaoConsumo\_ListFornecimentos.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.7" />
@@ -34,6 +38,7 @@
     <None Include="Views\ProgramacaoConsumo\ManagementProgramacaoConsumo.cshtml" />
     <None Include="Views\ProgramacaoConsumo\OrderOfSupply.cshtml" />
     <None Include="Views\ProgramacaoConsumo\_ItemDatailsProgramacaoConsumo.cshtml" />
+    <None Include="Views\ProgramacaoConsumo\_ListFornecimentos.cshtml" />
     <None Include="Views\ProgramacaoConsumo\_ListProgramacoesConsumo.cshtml" />
     <None Include="Views\ProgramacaoConsumo\_ProgramacaoConsumoEditModal.cshtml" />
   </ItemGroup>

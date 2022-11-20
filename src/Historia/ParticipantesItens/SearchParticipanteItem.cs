@@ -35,5 +35,10 @@ namespace Historia.ParticipantesItens
         {
             return await _participanteItemRepository.GetListByUnidadeAdministrativaIdAndYearAta(unidadeAdministrativaId, yearAta);
         }
+
+        public async Task<IEnumerable<ParticipanteItem>> GetListOrdemFornecimentoByUnidadeAdministrativaIdAndYearAta(Guid unidadeAdministrativaId, int yearAta)
+        {
+            return await _participanteItemRepository.GetListOrdemFornecimentoByUnidadeAdministrativaIdAndYearAta(unidadeAdministrativaId, yearAta);
+        }
     }
 }

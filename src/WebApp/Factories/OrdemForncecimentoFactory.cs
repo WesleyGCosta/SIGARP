@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using System.Collections;
 using System.Collections.Generic;
 using WebApp.ViewModels;
 
@@ -14,6 +13,7 @@ namespace WebApp.Factories
                 Id= ordemFornecimento.Id,
                 ProgramacaoConsumoId = ordemFornecimento.ProgramacaoConsumoParticipanteId,
                 DataFornecimento = ordemFornecimento.DataFornecimento,
+                NumeroProcesso = ordemFornecimento.NumeroProcesso,
                 Consumo = ordemFornecimento.Consumo
             };
         }

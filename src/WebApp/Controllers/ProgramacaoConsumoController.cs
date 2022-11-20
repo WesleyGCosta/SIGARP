@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
@@ -147,6 +148,14 @@ namespace WebApp.Controllers
             return PartialView("_FormSupply", programacaoConsumoViewModel);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ReversalOfSupply()
+        {
+            ViewBag.ListYears = LoadDropYear();
+            ViewBag.ListUnidadeAdministrativa = new SelectList(await _searchUnidadeAdministrativa.GetAllUnidadeActive(), "Id", "Exibicao");
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ReleaseSupply(OrdemFornecimentoViewModel ordemFornecimentoViewModel)
@@ -171,8 +180,16 @@ namespace WebApp.Controllers
         public async Task<IActionResult> GetProgramacaoConsumo(Guid unidadeAdministrativaId, int yearAta)
         {
             var participantes = await _searchParticipanteItem.GetListByUnidadeAdministrativaIdAndYearAta(unidadeAdministrativaId, yearAta);
-            var itensViewModel = ItemFactory.ToListViewModel(participantes);
-            return PartialView("_ListProgramacoesConsumo", itensViewModel);
+            return PartialView("_ListProgramacoesConsumo", ItemFactory.ToListViewModel(participantes));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOrdensFornecimentos(Guid unidadeAdministrativaId, int yearAta)
+        {
+            var participantes = await _searchParticipanteItem.GetListOrdemFornecimentoByUnidadeAdministrativaIdAndYearAta(unidadeAdministrativaId, yearAta);
+
+            return PartialView("_ListFornecimentos", ItemFactory.ToListViewModel(participantes));
+
         }
     }
 }

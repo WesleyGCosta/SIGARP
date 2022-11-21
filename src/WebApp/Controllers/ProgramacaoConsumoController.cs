@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using Domain.IRepositories;
+﻿using Domain.IRepositories;
 using Domain.Notifications.Interface;
 using Historia.Itens;
 using Historia.OrdensFornecimentos;
@@ -10,7 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
@@ -160,13 +158,13 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ReleaseSupply(OrdemFornecimentoViewModel ordemFornecimentoViewModel)
         {
-            if(!ModelState.IsValid || !await _updateProgramacoesConsumos.SubtractSaldo(ordemFornecimentoViewModel.ProgramacaoConsumoId, ordemFornecimentoViewModel.Consumo))
+            if (!ModelState.IsValid || !await _updateProgramacoesConsumos.SubtractSaldo(ordemFornecimentoViewModel.ProgramacaoConsumoId, ordemFornecimentoViewModel.Consumo))
             {
                 TempData["Warning"] = "Erro na liberação de fornecimento";
                 return Ok("Error");
             }
 
-            var ordemFornecimento  = OrdemForncecimentoFactory.ToEntity(ordemFornecimentoViewModel);
+            var ordemFornecimento = OrdemForncecimentoFactory.ToEntity(ordemFornecimentoViewModel);
 
             await _createOrdemFornecimento.Run(ordemFornecimento);
 

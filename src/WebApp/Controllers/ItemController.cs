@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using Domain.IRepositories;
+﻿using Domain.IRepositories;
 using Domain.Notifications.Interface;
 using Historia.Atas;
 using Historia.Detentoras;
@@ -46,7 +45,7 @@ namespace WebApp.Controllers
             _createItem = new CreateItem(itemRepository);
             _createRealinhamentoPreco = new CreateRealinhamentoPreco(realinhamentoPrecoRepository);
             _createDetentoraItem = new CreateDetentoraItem(detentoraItemRepository);
-            _deleteItem = new DeleteItem(itemRepository); 
+            _deleteItem = new DeleteItem(itemRepository);
             _updateItem = new UpdateItem(itemRepository);
             _updateDetentoraItem = new UpdateDetentoraItem(detentoraItemRepository);
         }
@@ -197,7 +196,7 @@ namespace WebApp.Controllers
         {
             var item = await _searchItem.GetById(itemId);
 
-            if(item == null)
+            if (item == null)
             {
                 TempData["Warning"] = "Erro na alteração do item";
                 return Json("Error");
@@ -208,7 +207,7 @@ namespace WebApp.Controllers
             TempData["Success"] = "Item alterado com Sucesso";
 
 
-            return RedirectToAction(nameof(GetListItemSuspend), new {yearAta = item.AnoAta, codeAta = item.CodigoAta});
+            return RedirectToAction(nameof(GetListItemSuspend), new { yearAta = item.AnoAta, codeAta = item.CodigoAta });
         }
 
 
@@ -229,7 +228,7 @@ namespace WebApp.Controllers
             await _createRealinhamentoPreco.Run(realinhamentoPreco);
 
             TempData["Success"] = "Realinhamento feito com sucesso";
-            return RedirectToAction(nameof(GetListItemRealignPrice), new { yearAta = item.AnoAta, codeAta = item.CodigoAta});
+            return RedirectToAction(nameof(GetListItemRealignPrice), new { yearAta = item.AnoAta, codeAta = item.CodigoAta });
         }
 
         #endregion
@@ -273,7 +272,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> GetListItemSuspend(int yearAta, int codeAta)
         {
             var itens = await _searchItem.GetListItemByCodeAtaAndYearAta(yearAta, codeAta);
-            if(itens == null)
+            if (itens == null)
             {
                 TempData["Warning"] = "Itens não encontrado";
                 return Json("Error");

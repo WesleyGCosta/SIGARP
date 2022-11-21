@@ -10,7 +10,7 @@ namespace WebApp.Factories
         {
             return new OrdemFornecimentoViewModel
             {
-                Id= ordemFornecimento.Id,
+                Id = ordemFornecimento.Id,
                 ProgramacaoConsumoId = ordemFornecimento.ProgramacaoConsumoParticipanteId,
                 DataFornecimento = ordemFornecimento.DataFornecimento,
                 NumeroProcesso = ordemFornecimento.NumeroProcesso,
@@ -32,7 +32,7 @@ namespace WebApp.Factories
         public static ICollection<OrdemFornecimentoViewModel> ToListViewModel(ICollection<OrdemFornecimento> ordemFornecimentoCollection)
         {
             var list = new List<OrdemFornecimentoViewModel>();
-            foreach(var fornecimento in ordemFornecimentoCollection)
+            foreach (var fornecimento in ordemFornecimentoCollection)
             {
                 list.Add(ToViewModel(fornecimento));
             }

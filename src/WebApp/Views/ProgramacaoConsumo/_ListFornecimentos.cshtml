@@ -1,23 +1,25 @@
-﻿@model ICollection<ItemViewModel>
+﻿@using WebApp.ViewModels;
+@model ICollection<ItemViewModel>
 
-@if(Model.Any()){
+@if (Model.Any())
+{
     @foreach (var item in Model)
     {
-        <table class="table table-bordeless table-striped text-center">
-            <thead>
+        <table class="table table-bordered">
+            <thead class="text-center">
                 <tr>
-                    <th colspan="6" class="font-weight-bold text-sapphire">Ata @item.CodigoAta/@item.AnoAta</th>
+                    <th colspan="5" class="font-weight-bold text-sapphire">Ata @item.CodigoAta/@item.AnoAta</th>
                 </tr>
             </thead>
-            <tbody class="text-justify">
-                <tr>
+            <tbody>
+                <tr class="text-center">
                     <td>
                         <span class="font-weight-bold text-sapphire">N° item</span>
                         <div class="mt-2 text-muted">@item.CodigoItem</div>
                     </td>
                     <td>
                         <span class="font-weight-bold text-sapphire">Descrição</span>
-                        <div class="mt-2 text-muted">@item.Descricao</div>
+                        <div class="mt-2 text-muted text-justify">@item.Descricao</div>
                     </td>
                     <td>
                         <span class="font-weight-bold text-sapphire">Vigência</span>
@@ -31,24 +33,34 @@
                         <span class="font-weight-bold text-sapphire">Saldo</span>
                         <div class="mt-2 text-muted">@item.ParticipanteItems.Select(p => p.ProgramacaoConsumoViewModel.Saldo).FirstOrDefault()</div>
                     </td>
-                    <td>
-                        <button type="button" class="btn btn-outline-success liberarFornecimento" data-id="@item.ParticipanteItems.Select(p => p.ProgramacaoConsumoViewModel.Id).FirstOrDefault()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-check" viewBox="0 0 16 16">
-                                <path d="M11.354 6.354a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
-                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
-                            </svg>
-                        </button>
-                    </td>
                 </tr>
+                <tr class="text-center">
+                    <th colspan="5">
+                        <span class="font-weight-bold text-sapphire">Fornecimentos</span>
+                    </th>
+                </tr>
+                @foreach (var participante in item.ParticipanteItems)
+                {
+                    foreach (var fornecimento in participante.ProgramacaoConsumoViewModel.Fornecimentos)
+                    {
+                        <tr>
+                            <td colspan="5">
+                                <div class="mt-2 text-muted"> <span class="font-weight-bold text-sapphire">@participante.UnidadeAdministrativaViewModel.NomeUnidadeAdministrativa - @participante.UnidadeAdministrativaViewModel.Sigla: </span>@fornecimento.Consumo</div>
+                            </td>
+                        </tr>
+                    }
+                }
             </tbody>
         </table>
     }
-}else{
+}
+else
+{
     <div class="not-found">
         <img src="/img/not-found.svg" />
         <div>
-           <span>Sem Resultados</span>
-           <p>Nenhuma Programação de Consumo Encontrada</p>
+            <span>Sem Resultados</span>
+            <p>Nenhuma Programação de Consumo Encontrada</p>
         </div>
     </div>
 }

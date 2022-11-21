@@ -47,7 +47,7 @@ namespace WebApp.Factories
                 Ativo = item.Ativo
             };
 
-            if(item.Ata != null)
+            if (item.Ata != null)
             {
                 itemViewModel.DataVirgencia = item.Ata.DataVencimentoAta;
             }
@@ -64,7 +64,7 @@ namespace WebApp.Factories
                 foreach (var participante in itemViewModel.ParticipanteItems)
                     participante.ItemViewModel = itemViewModel;
             }
-                           
+
             return itemViewModel;
         }
 

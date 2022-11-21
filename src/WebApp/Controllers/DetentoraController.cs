@@ -4,7 +4,6 @@ using Historia.Detentoras;
 using Historia.DetentorasItem;
 using Historia.Enderecos;
 using Historia.Itens;
-using Historia.UnidadesAdministrativas;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -109,7 +108,7 @@ namespace WebApp.Controllers
 
             TempData["Success"] = "Detentora Alterado com Sucesso";
 
-            return RedirectToAction(nameof(GetDetentorasByStatus), new {status = detentoraViewModel.Ativo});
+            return RedirectToAction(nameof(GetDetentorasByStatus), new { status = detentoraViewModel.Ativo });
         }
 
         [HttpPost]

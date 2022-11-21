@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 using WebApp.ViewModels.CustomValidation;
 
 namespace WebApp.ViewModels

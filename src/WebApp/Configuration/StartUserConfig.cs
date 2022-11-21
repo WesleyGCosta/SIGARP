@@ -19,7 +19,7 @@ namespace WebApp.Configuration
 
         private static void StartUser(UserManager<User> userManager)
         {
-            if(userManager.FindByNameAsync("Admin@sigarp.com").Result == null)
+            if (userManager.FindByNameAsync("Admin@sigarp.com").Result == null)
             {
                 var user = new User
                 {

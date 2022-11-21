@@ -9,14 +9,14 @@ namespace WebApp.Factories
         public static ProgramacaoConsumoParticipante ToEntity(ProgramacaoConsumoViewModel programacaoConsumoViewModel)
         {
             programacaoConsumoViewModel.FillSaldo();
-             var programacaoConsumo = new ProgramacaoConsumoParticipante(
-                programacaoConsumoViewModel.Id,
-                programacaoConsumoViewModel.ParticipanteId,
-                programacaoConsumoViewModel.ConsumoEstimado,
-                programacaoConsumoViewModel.Saldo,
-                programacaoConsumoViewModel.Transferido,
-                programacaoConsumoViewModel.SaldoAnterior
-                );
+            var programacaoConsumo = new ProgramacaoConsumoParticipante(
+               programacaoConsumoViewModel.Id,
+               programacaoConsumoViewModel.ParticipanteId,
+               programacaoConsumoViewModel.ConsumoEstimado,
+               programacaoConsumoViewModel.Saldo,
+               programacaoConsumoViewModel.Transferido,
+               programacaoConsumoViewModel.SaldoAnterior
+               );
 
             return programacaoConsumo;
         }
@@ -49,7 +49,7 @@ namespace WebApp.Factories
         }
         public static ProgramacaoConsumoViewModel ToViewModel(ProgramacaoConsumoParticipante programacaoConsumo)
         {
-            var programacaoConsumoViewModel =  new ProgramacaoConsumoViewModel
+            var programacaoConsumoViewModel = new ProgramacaoConsumoViewModel
             {
                 Id = programacaoConsumo.Id,
                 ParticipanteId = programacaoConsumo.ParticipanteId,
@@ -59,7 +59,7 @@ namespace WebApp.Factories
                 SaldoDisponivel = programacaoConsumo.Saldo
             };
 
-            if(programacaoConsumo.OrdemFornecimentos != null && programacaoConsumo.OrdemFornecimentos.Any())
+            if (programacaoConsumo.OrdemFornecimentos != null && programacaoConsumo.OrdemFornecimentos.Any())
             {
                 programacaoConsumoViewModel.Fornecimentos = OrdemForncecimentoFactory.ToListViewModel(programacaoConsumo.OrdemFornecimentos);
             }

@@ -5,9 +5,7 @@ using Historia.Atas;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using WebApp.Factories;
 using WebApp.ViewModels;
@@ -129,19 +127,19 @@ namespace WebApp.Controllers
             }
         }
 
-        
+
 
         [HttpPost]
         public async Task<IActionResult> Publish(int codeAta, int yearAta)
         {
             var ata = await _searchAta.GetAtaFullIncludeByYearAndCode(yearAta, codeAta);
-            if(ata == null)
+            if (ata == null)
             {
                 TempData["Warning"] = "Erro ao Publicar Ata";
                 return NotFound();
             }
 
-            if(!ValidationAta(ata))
+            if (!ValidationAta(ata))
             {
                 return Ok("NotValidated");
             }
@@ -150,7 +148,7 @@ namespace WebApp.Controllers
 
             TempData["Success"] = "Ata Publicada com Sucesso";
             return Ok();
-            
+
         }
 
         [HttpPost]
@@ -194,18 +192,18 @@ namespace WebApp.Controllers
                 //valida se tem Detentora
                 if (item.DetentoraItem == null)
                 {
-                    if(itemDetentora != "")
+                    if (itemDetentora != "")
                     {
                         itemDetentora += " ," + item.NumeroItem.ToString();
                     }
                     else
                     {
                         itemDetentora = item.NumeroItem.ToString();
-                    }            
+                    }
                 }
 
                 //valida sem a quantidade de itens estão sendo todas utilizadas
-                if(item.QuantidadeDisponivel > 0)
+                if (item.QuantidadeDisponivel > 0)
                 {
                     if (itensQuantidade != "")
                     {
@@ -218,7 +216,7 @@ namespace WebApp.Controllers
                 }
             }
 
-            if(itemDetentora != "")
+            if (itemDetentora != "")
             {
                 TempData["Warning"] += $"O(s) Item(s): {itemDetentora} não possuem detentora cadastrada</br>";
                 valid = false;

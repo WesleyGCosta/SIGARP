@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -65,7 +64,7 @@ namespace WebApp.Controllers
             {
                 var user = UserFactory.ToIdentityUser(model);
 
-                var resultCreate = await _userManager.CreateAsync(user, model.Password);            
+                var resultCreate = await _userManager.CreateAsync(user, model.Password);
 
                 if (resultCreate.Succeeded)
                 {
@@ -134,7 +133,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-            if(user != null)
+            if (user != null)
             {
                 var result = await _userManager.DeleteAsync(user);
 

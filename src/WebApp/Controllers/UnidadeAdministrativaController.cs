@@ -1,6 +1,5 @@
 ﻿using Domain.IRepositories;
 using Domain.Notifications.Interface;
-using Historia.Detentoras;
 using Historia.Itens;
 using Historia.ParticipantesItens;
 using Historia.UnidadesAdministrativas;
@@ -68,7 +67,7 @@ namespace WebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult Management() => View();    
+        public IActionResult Management() => View();
 
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
@@ -91,7 +90,7 @@ namespace WebApp.Controllers
 
             TempData["Success"] = "Unidade Administratiav alterado com Sucesso";
 
-            return RedirectToAction(nameof(GetUnidadesAdministrativasByStatus), new {status = unidadeAdministrativaViewModel.Ativo});
+            return RedirectToAction(nameof(GetUnidadesAdministrativasByStatus), new { status = unidadeAdministrativaViewModel.Ativo });
         }
 
         [HttpPost]
@@ -129,7 +128,7 @@ namespace WebApp.Controllers
         {
             var unidadeAdmistrativa = await _searchUnidadeAdministrativa.GetById(unidadeAdministrativaId);
 
-            if(unidadeAdmistrativa == null)
+            if (unidadeAdmistrativa == null)
             {
                 TempData["Warning"] = "Erro ao Excluir Unidade Administrativa";
                 return NotFound();
@@ -145,7 +144,7 @@ namespace WebApp.Controllers
         {
             var participante = await _searchParticipanteItem.GetByParticipanteId(participanteId);
 
-            if(participante == null)
+            if (participante == null)
             {
                 TempData["Warning"] = "Erro ao deletar participante";
                 return NotFound();

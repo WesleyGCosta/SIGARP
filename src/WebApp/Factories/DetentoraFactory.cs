@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using WebApp.ViewModels;
@@ -43,7 +42,7 @@ namespace WebApp.Factories
                 detentoraViewModel.Endereco = EnderecoFactory.ToViewModel(detentora.Enderecos.FirstOrDefault());
                 detentoraViewModel.Enderecos = EnderecoFactory.ToListViewModel(detentora.Enderecos);
             }
-                
+
 
             return detentoraViewModel;
         }

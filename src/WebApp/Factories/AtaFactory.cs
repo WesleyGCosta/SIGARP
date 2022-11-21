@@ -1,6 +1,5 @@
 ﻿using Domain.Entities;
 using System.Collections.Generic;
-using System.Linq;
 using WebApp.ViewModels;
 
 namespace WebApp.Factories
@@ -52,7 +51,7 @@ namespace WebApp.Factories
                 Publicada = ata.Publicada
             };
 
-            if(ata.Itens != null)
+            if (ata.Itens != null)
                 ataViewModel.ItensViewModel = ItemFactory.ToListViewModel(ata.Itens);
 
             return ataViewModel;

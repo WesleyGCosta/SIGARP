@@ -43,6 +43,11 @@ namespace Domain.Entities
             return true;
         }
 
+        public void SumSaldo(int saldo)
+        {
+            Saldo+= saldo;
+        }
+
         public void Update(int consumoEstimado)
         {
             ConsumoEstimado = consumoEstimado;

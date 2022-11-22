@@ -21,16 +21,19 @@ namespace WebApp.Controllers
         private readonly SearchUnidadeAdministrativa _searchUnidadeAdministrativa;
         private readonly SearchParticipanteItem _searchParticipanteItem;
         private readonly SearchProgramacoesConsumos _searchProgramacoesConsumos;
+        private readonly SearchOrdemFornecimento _searchOrdemFornecimento;
         private readonly SearchItem _searchItem;
         private readonly UpdateItem _updateItem;
         private readonly UpdateProgramacoesConsumos _updateProgramacoesConsumos;
         private readonly CreateProgramacaoConsumo _createProgramacaoConsumo;
         private readonly CreateOrdemFornecimento _createOrdemFornecimento;
         private readonly CreateParticipanteItem _createParticipanteItem;
+        private readonly DeleteOrdemFornecimento _deleteOrdemFornecimento;
         public ProgramacaoConsumoController(
             IUnidadeAdministrativaRepository unidadeAdministrativaRepository,
             IProgramacaoConsumoParticipanteRepository programacaoConsumoParticipanteRepository,
             IParticipanteItemRepository participanteItemRepository,
+            IOrdemFornecimentoRepository ordemFornecimentoRepository1,
             IItemRepository itemRepository,
             IOrdemFornecimentoRepository ordemFornecimentoRepository,
             INotifier notifier) : base(notifier)
@@ -38,12 +41,14 @@ namespace WebApp.Controllers
             _searchUnidadeAdministrativa = new SearchUnidadeAdministrativa(unidadeAdministrativaRepository);
             _searchParticipanteItem = new SearchParticipanteItem(participanteItemRepository);
             _searchProgramacoesConsumos = new SearchProgramacoesConsumos(programacaoConsumoParticipanteRepository);
+            _searchOrdemFornecimento = new SearchOrdemFornecimento(ordemFornecimentoRepository);
             _searchItem = new SearchItem(itemRepository);
             _updateItem = new UpdateItem(itemRepository);
             _updateProgramacoesConsumos = new UpdateProgramacoesConsumos(programacaoConsumoParticipanteRepository);
             _createProgramacaoConsumo = new CreateProgramacaoConsumo(programacaoConsumoParticipanteRepository);
             _createOrdemFornecimento = new CreateOrdemFornecimento(ordemFornecimentoRepository);
             _createParticipanteItem = new CreateParticipanteItem(participanteItemRepository);
+            _deleteOrdemFornecimento = new DeleteOrdemFornecimento(ordemFornecimentoRepository);
         }
 
         public async Task<IActionResult> Create()
@@ -170,6 +175,26 @@ namespace WebApp.Controllers
 
 
             TempData["Success"] = "Ordem fornecimento realizado com Sucesso";
+
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteFornecimento(Guid fornecimentoId, Guid programacaoId)
+        {
+            var fornecimento = await _searchOrdemFornecimento.GetOrdemFornecimentoId(fornecimentoId);
+
+            if(fornecimento == null)
+            {
+                TempData["Warning"] = "Erro ao estornar fornecimento!";
+                return Json("Error");
+            }
+
+            await _updateProgramacoesConsumos.SumSaldo(programacaoId, fornecimento.Consumo);
+
+            await _deleteOrdemFornecimento.Run(fornecimento);
+
+            TempData["Success"] = "Fornecimento estornado com sucesso";
 
             return Ok();
         }

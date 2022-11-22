@@ -160,4 +160,38 @@ $(document).ready(function () {
             })
         }
     })
+
+    $(document).on('click', '.btn-reverseFornecimento', function () {
+        Swal.fire({
+            title: 'Confirmação de Estorno',
+            text: "Deseja estornar o fornecimento?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#247ba0',
+            cancelButtonColor: '#6c757d',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Sim, estornar fornecimento!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/ProgramacaoConsumo/DeleteFornecimento/',
+                    data: { fornecimentoId: $(this).data('fornecimentoid'), programacaoId: $(this).data('programacaoid') },
+                    beforeSend: function () {
+                        Loader()
+                    },
+                    complete: function () {
+                        Finish()
+                    },
+                    success: function () {
+                        GetMessageDomain()
+                        GetOrdensFornecimentos($('#UnidadeAdministrativaa').find("option:selected").val(), $('#AnoAta').val())
+                    },
+                    error: function () {
+                        GetMessageDomain()
+                    }
+                })
+            }
+        })
+    })
 })

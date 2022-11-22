@@ -36,7 +36,7 @@
                 </tr>
                 <tr class="text-center">
                     <th colspan="5">
-                        <span class="font-weight-bold text-sapphire">Fornecimentos</span>
+                        <span class="font-weight-bold text-sapphire">Fornecimento(s) - @Model.Select(i => i.ParticipanteItems.Select(pi => pi.UnidadeAdministrativaViewModel.Sigla).FirstOrDefault()).FirstOrDefault()</span>
                     </th>
                 </tr>
                 @foreach (var participante in item.ParticipanteItems)
@@ -45,7 +45,14 @@
                     {
                         <tr>
                             <td colspan="5">
-                                <div class="mt-2 text-muted"> <span class="font-weight-bold text-sapphire">@participante.UnidadeAdministrativaViewModel.NomeUnidadeAdministrativa - @participante.UnidadeAdministrativaViewModel.Sigla: </span>@fornecimento.Consumo</div>
+                                <div class="mt-2 text-muted">
+                                    <span class="text-muted">
+                                        Fornecido no dia 
+                                        <span class="font-weight-bold">@fornecimento.DataFornecimento</span>  
+                                        quantidade de
+                                        <span class="font-weight-bold">@fornecimento.Consumo</span>
+                                    </span>
+                                </div>
                             </td>
                         </tr>
                     }

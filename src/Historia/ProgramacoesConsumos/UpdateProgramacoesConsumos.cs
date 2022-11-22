@@ -36,5 +36,14 @@ namespace Historia.ProgramacoesConsumos
 
             return true;
         }
+
+        public async Task SumSaldo(Guid programacaoConsumoId, int saldo)
+        {
+
+            var programacaoConsumo = await _programacaoConsumoParticipanteRepository.GetByPrimaryKey(programacaoConsumoId);
+            programacaoConsumo.SumSaldo(saldo);
+            await _programacaoConsumoParticipanteRepository.Update(programacaoConsumo);
+
+        }
     }
 }

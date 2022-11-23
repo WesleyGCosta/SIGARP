@@ -74,13 +74,6 @@ namespace WebApp.Controllers
             return RedirectToAction("GetListAtaByYear", new { yearAta });
         }
 
-        [HttpGet]
-        public IActionResult GenerateReport()
-        {
-            ViewBag.ListYears = LoadDropYear();
-            return View();
-        }
-
         #endregion
 
         #region HttPost

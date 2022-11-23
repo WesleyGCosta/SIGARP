@@ -126,6 +126,7 @@ namespace Infra.Persistence
                 .Include(a => a.Itens.OrderBy(i => i.NumeroItem))
                     .ThenInclude(i => i.ParticipantesItens)
                     .ThenInclude(pt => pt.ProgramacoesConsumoParticipantes)
+                    .ThenInclude(pc => pc.OrdemFornecimentos)
                 .Where(a => a.AnoAta.Equals(year) && a.CodigoAta.Equals(code) && a.Publicada.Equals(publish))
                 .FirstOrDefaultAsync();
         }

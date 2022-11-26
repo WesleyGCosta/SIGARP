@@ -1,0 +1,117 @@
+﻿@using System.Text.RegularExpressions
+@model AtaViewModel
+
+<section class="border-bottom border-right border-left">
+    <table class="table table-borderless text-center">
+        <thead>
+            <tr>
+                <th colspan="4" class="font-weight-bold text-sapphire">Informações da Ata @Model.CodigoAta/@Model.AnoAta</th>
+            </tr>
+        </thead>
+        <tbody class="text-justify">
+            <tr>
+                <td>
+                    <span class="text-sapphire font-weight-bold">@Html.DisplayNameFor(model => model.NumeroProcesso)</span>
+                    <div class="mt-2 text-muted">@Html.DisplayFor(model => model.NumeroProcesso)</div>
+                </td>
+                <td>
+                    <span class="font-weight-bold text-sapphire"> @Html.DisplayNameFor(model => model.TipoPregao)</span>
+                    <div class="mt-2 text-muted">@Html.DisplayFor(model => model.TipoPregao)</div>
+                </td>
+                <td>
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.NumeroPregao)</span>
+                    <div class="mt-2 text-muted"> @Html.DisplayFor(model => model.NumeroPregao)</div>
+                <td>
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.AnoPregao)</span>
+                    <div class="mt-2 text-muted">@Html.DisplayFor(model => model.AnoPregao)</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.DataHomologacao)</span>
+                    <div class="mt-2 text-muted">@Model.DataHomologacao.ToString("dd/MM/yyy")</div>
+                </td>
+                <td>
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.DataPublicacaoDOE)</span>
+                    <div class="mt-2 text-muted">@Model.DataPublicacaoDOE.ToString("dd/MM/yyy")</div>
+                </td>
+
+                <td>
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.DataVencimentoAta)</span>
+                    <div class="mt-2 text-muted">@Model.DataVencimentoAta.ToString("dd/MM/yyy")</div>
+                </td>
+                <td>
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.DataCadastro)</span>
+                    <div class="mt-2 text-muted">@Model.DataCadastro.ToString("dd/MM/yyy")</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.ObjetoResumido)</span>
+                    <div class="mt-2 text-muted text-justify">@Html.DisplayFor(model => model.ObjetoResumido)</div>
+                </td>
+                <td colspan="2">
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.Observacao)</span>
+                    <div class="mt-2 text-muted">@Html.DisplayFor(model => model.Observacao)</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    @if (Model.ItensViewModel.Count() > 0)
+    {
+        @foreach (var item in Model.ItensViewModel)
+        {
+            var valorTotal = item.Quantidade * item.PrecoRegistrado;
+            var valorDiferenca = item.Quantidade * item.PrecoMercado - valorTotal;
+            <hr />
+            <br />
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th colspan="6" class="font-weight-bold text-sapphire"> Item N° @item.CodigoItem</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Quantidade</span>
+                            <div class="mt-2 text-muted">@item.Quantidade</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Preço Mercado</span>
+                            <div class="mt-2 text-muted">@String.Format("{0:C}", item.PrecoMercado)</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Preço Registrado</span>
+                            <div class="mt-2 text-muted">@String.Format("{0:C}", item.PrecoRegistrado)</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Preço Total</span>
+                            <div class="mt-2 text-muted">@String.Format("{0:C}", valorTotal)</div>
+                        </td>                        
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Valor Economizado</span>
+                            <div class="mt-2 text-muted">@String.Format("{0:C}", valorDiferenca)</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Detentora</span>
+                            <div class="mt-2 text-muted">@item.ItemDetentora.Detentora.RazaoSocial</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <span class="font-weight-bold text-sapphire">Descrição</span>
+                            <div class="mt-2 text-muted text-justify">@item.Descricao</div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        }
+    }
+
+    <div class="d-flex justify-content-center mt-4 mb-3">
+        <button id="btnReportAta" class="btn btn-primary" data-codeAta="@Model.CodigoAta" data-yearAta="@Model.AnoAta">Gerar PDF</button>
+    </div>
+</section>

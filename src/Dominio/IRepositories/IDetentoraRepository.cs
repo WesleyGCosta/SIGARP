@@ -12,5 +12,6 @@ namespace Domain.IRepositories
         Task<Detentora> GetByCnpj(string cnpj);
         Task<Detentora> GetIdInclude(Guid id);
         Task<int> CountDetentoras();
+        Task<List<Detentora>> GetAllDentenrasActive();
     }
 }

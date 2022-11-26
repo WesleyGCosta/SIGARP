@@ -54,7 +54,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Create()
         {
             ViewBag.ListYears = LoadDropYear();
-            ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
+            ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAllDentenrasActive(), "Id", "RazaoSocial");
             return View();
         }
 
@@ -67,7 +67,7 @@ namespace WebApp.Controllers
             if (itemViewModel.ItemDetentora != null)
                 ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial", itemViewModel.ItemDetentora.Detentora.Id);
             else
-                ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAll(), "Id", "RazaoSocial");
+                ViewBag.ListDetentora = new SelectList(await _searchDetentora.GetAllDentenrasActive(), "Id", "RazaoSocial");
 
             return PartialView("_FormEditItemModal", itemViewModel);
         }

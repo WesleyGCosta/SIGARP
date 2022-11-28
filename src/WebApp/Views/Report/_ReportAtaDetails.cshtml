@@ -63,49 +63,84 @@
         @foreach (var item in Model.ItensViewModel)
         {
             var valorTotal = item.Quantidade * item.PrecoRegistrado;
-            var valorDiferenca = item.Quantidade * item.PrecoMercado - valorTotal;
             <hr />
             <br />
-            <table class="table table-bordered text-center">
+            <table class="table table-borderless text-center table-active">
                 <thead>
                     <tr>
-                        <th colspan="6" class="font-weight-bold text-sapphire"> Item N° @item.CodigoItem</th>
+                        <th colspan="7" class="font-weight-bold text-sapphire"> Item N° @item.CodigoItem</th>
+                    </tr>
+                    <tr>
+                        <th colspan="7" class="font-weight-bold text-sapphire">CNPJ: @item.ItemDetentora.Detentora.Cnpj - @item.ItemDetentora.Detentora.RazaoSocial</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
+                            <span class="font-weight-bold text-sapphire">Marca</span>
+                            <div class="mt-2 text-muted">@item.Marca)</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Tipo</span>
+                            <div class="mt-2 text-muted">@item.Tipo</div>
+                        </td>
+                        <td>
                             <span class="font-weight-bold text-sapphire">Quantidade</span>
                             <div class="mt-2 text-muted">@item.Quantidade</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Quantidade Disponível</span>
+                            <div class="mt-2 text-muted">@item.QuantidadeDisponivel</div>
                         </td>
                         <td>
                             <span class="font-weight-bold text-sapphire">Preço Mercado</span>
                             <div class="mt-2 text-muted">@String.Format("{0:C}", item.PrecoMercado)</div>
                         </td>
                         <td>
-                            <span class="font-weight-bold text-sapphire">Preço Registrado</span>
+                            <span class="font-weight-bold text-sapphire">Preço Unit. Registrado</span>
                             <div class="mt-2 text-muted">@String.Format("{0:C}", item.PrecoRegistrado)</div>
                         </td>
                         <td>
                             <span class="font-weight-bold text-sapphire">Preço Total</span>
                             <div class="mt-2 text-muted">@String.Format("{0:C}", valorTotal)</div>
-                        </td>                        
-                        <td>
-                            <span class="font-weight-bold text-sapphire">Valor Economizado</span>
-                            <div class="mt-2 text-muted">@String.Format("{0:C}", valorDiferenca)</div>
-                        </td>
-                        <td>
-                            <span class="font-weight-bold text-sapphire">Detentora</span>
-                            <div class="mt-2 text-muted">@item.ItemDetentora.Detentora.RazaoSocial</div>
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="6">
+                    <tr class="border-top">
+                        <td colspan="7">
                             <span class="font-weight-bold text-sapphire">Descrição</span>
                             <div class="mt-2 text-muted text-justify">@item.Descricao</div>
                         </td>
                     </tr>
-
+                    <tr>
+                        <th class="font-weight-bold text-sapphire border-top" colspan="7">Fornecimentos</th>
+                    </tr>
+                    @foreach (var participante in item.ParticipanteItems)
+                    {
+                        if (participante.ProgramacaoConsumoViewModel.Fornecimentos != null)
+                        {
+                            foreach (var fornecimento in participante.ProgramacaoConsumoViewModel.Fornecimentos)
+                            {
+                                <tr class="text-center">
+                                    <td colspan="4" class="mt-2 text-justify text-muted">
+                                        <span class="font-weight-bold text-sapphire">Unidade Administrativa</span>
+                                        <div class="mt-2 text-muted">@participante.UnidadeAdministrativaViewModel.NomeUnidadeAdministrativa</div>
+                                    </td>
+                                    <td class="mt-2 text-justify text-muted">
+                                        <span class="font-weight-bold text-sapphire">Sigla</span>
+                                        <div class="mt-2 text-muted">@participante.UnidadeAdministrativaViewModel.Sigla</div>
+                                    </td>
+                                    <td class="mt-2 text-justify text-muted">
+                                        <span class="font-weight-bold text-sapphire">Quantidade</span>
+                                        <div class="mt-2 text-muted">@fornecimento.Consumo</div>
+                                    </td>
+                                    <td class="mt-2 text-justify text-muted">
+                                        <span class="font-weight-bold text-sapphire">Data Fornecimento</span>
+                                        <div class="mt-2 text-muted">@fornecimento.DataFornecimento</div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
                 </tbody>
             </table>
         }

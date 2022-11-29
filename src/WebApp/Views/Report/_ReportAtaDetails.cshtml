@@ -1,0 +1,180 @@
+﻿@using System.Text.RegularExpressions
+@model AtaViewModel
+
+<section class="border-bottom border-right border-left">
+    <table class="table table-borderless text-center">
+        <thead>
+            <tr>
+                <th colspan="4" class="font-weight-bold text-sapphire">Informações da Ata @Model.CodigoAta/@Model.AnoAta</th>
+            </tr>
+        </thead>
+        <tbody class="text-justify">
+            <tr>
+                <td>
+                    <span class="text-sapphire font-weight-bold">@Html.DisplayNameFor(model => model.NumeroProcesso)</span>
+                    <div class="mt-2 text-muted">@Html.DisplayFor(model => model.NumeroProcesso)</div>
+                </td>
+                <td>
+                    <span class="font-weight-bold text-sapphire"> @Html.DisplayNameFor(model => model.TipoPregao)</span>
+                    <div class="mt-2 text-muted">@Html.DisplayFor(model => model.TipoPregao)</div>
+                </td>
+                <td>
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.NumeroPregao)</span>
+                    <div class="mt-2 text-muted"> @Html.DisplayFor(model => model.NumeroPregao)</div>
+                <td>
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.AnoPregao)</span>
+                    <div class="mt-2 text-muted">@Html.DisplayFor(model => model.AnoPregao)</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.DataHomologacao)</span>
+                    <div class="mt-2 text-muted">@Model.DataHomologacao.ToString("dd/MM/yyy")</div>
+                </td>
+                <td>
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.DataPublicacaoDOE)</span>
+                    <div class="mt-2 text-muted">@Model.DataPublicacaoDOE.ToString("dd/MM/yyy")</div>
+                </td>
+
+                <td>
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.DataVencimentoAta)</span>
+                    <div class="mt-2 text-muted">@Model.DataVencimentoAta.ToString("dd/MM/yyy")</div>
+                </td>
+                <td>
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.DataCadastro)</span>
+                    <div class="mt-2 text-muted">@Model.DataCadastro.ToString("dd/MM/yyy")</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.ObjetoResumido)</span>
+                    <div class="mt-2 text-muted text-justify">@Html.DisplayFor(model => model.ObjetoResumido)</div>
+                </td>
+                <td colspan="2">
+                    <span class="font-weight-bold text-sapphire">@Html.DisplayNameFor(model => model.Observacao)</span>
+                    <div class="mt-2 text-muted">@Html.DisplayFor(model => model.Observacao)</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    @if (Model.ItensViewModel.Count() > 0)
+    {
+        @foreach (var item in Model.ItensViewModel)
+        {
+            int cont = 1;
+            var valorTotal = item.Quantidade * item.PrecoRegistrado;
+            <hr />
+            <br />
+            <table class="table table-borderless text-center table-active">
+                <thead>
+                    <tr>
+                        <th colspan="7" class="font-weight-bold text-sapphire"> Item N° @item.CodigoItem</th>
+                    </tr>
+                    <tr>
+                        <th colspan="7" class="font-weight-bold text-sapphire">CNPJ: @item.ItemDetentora.Detentora.Cnpj - @item.ItemDetentora.Detentora.RazaoSocial</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Marca</span>
+                            <div class="mt-2 text-muted">@item.Marca)</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Tipo</span>
+                            <div class="mt-2 text-muted">@item.Tipo</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Quantidade</span>
+                            <div class="mt-2 text-muted">@item.Quantidade</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Unidade de Aquisição</span>
+                            <div class="mt-2 text-muted">@item.UnidadeAquisicao</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Preço Mercado</span>
+                            <div class="mt-2 text-muted">@String.Format("{0:C}", item.PrecoMercado)</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Preço Unit. Registrado</span>
+                            <div class="mt-2 text-muted">@String.Format("{0:C}", item.PrecoRegistrado)</div>
+                        </td>
+                        <td>
+                            <span class="font-weight-bold text-sapphire">Preço Total</span>
+                            <div class="mt-2 text-muted">@String.Format("{0:C}", valorTotal)</div>
+                        </td>
+                    </tr>
+                    <tr class="border-top">
+                        <td colspan="7">
+                            <span class="font-weight-bold text-sapphire">Descrição do Item</span>
+                            <div class="mt-2 text-muted text-justify">@item.Descricao</div>
+                        </td>
+                    </tr>
+                    @foreach (var participante in item.ParticipanteItems)
+                    {
+                        cont = 1;
+                        <tr>
+                            <td colspan="7" class="border-top font-weight-bold text-sapphire">
+                                @participante.UnidadeAdministrativaViewModel.Sigla <br>
+                                <span>
+                                    Programação de Consumo: <strong class="font-weight-bold">
+                                        @participante.ProgramacaoConsumoViewModel.ConsumoEstimado
+                                    </strong>
+                                </span>
+                            </td>
+                        </tr>
+                        if (participante.ProgramacaoConsumoViewModel.Fornecimentos != null)
+                        {
+                            <tr>
+                                <th class="font-weight-bold text-sapphire border-top" colspan="7">Fornecimentos</th>
+                            </tr>
+                            foreach (var fornecimento in participante.ProgramacaoConsumoViewModel.Fornecimentos)
+                            {
+
+                                <tr class="text-center">
+                                    <td colspan="2" class="mt-2 text-justify text-muted">
+                                        <div class="mt-2 text-muted">@cont</div>
+                                    </td>
+                                    <td colspan="2" class="mt-2 text-justify text-muted">
+                                        <span class="font-weight-bold text-sapphire">N° Processo</span>
+                                        <div class="mt-2 text-muted">@fornecimento.NumeroProcesso</div>
+                                    </td>
+                                    <td colspan="2" class="mt-2 text-justify text-muted">
+                                        <span class="font-weight-bold text-sapphire">Data Fornecimento</span>
+                                        <div class="mt-2 text-muted">@fornecimento.DataFornecimento</div>
+                                    </td>
+                                    <td colspan="2" class="mt-2 text-justify text-muted">
+                                        <span class="font-weight-bold text-sapphire">Quantidade</span>
+                                        <div class="mt-2 text-muted">@fornecimento.Consumo</div>
+                                    </td>
+                                </tr>
+
+                                cont++;
+                            }
+                            <tr class="border-top table-active text-sapphire">
+                                <td colspan="2" class="mt-2 font-weight-bold text-justify">Saldo</td>
+                                <td colspan="2"></td>
+                                <td colspan="2"></td>
+                                <td colspan="2" class="font-weight-bold text-justify">@participante.ProgramacaoConsumoViewModel.Saldo</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="7" class="mt-2 text-justify text-muted text-center">
+                                    NENHUM FORNECIMENTO FEITO PARA @participante.UnidadeAdministrativaViewModel.Sigla.ToUpper()
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+    }
+
+    <div class="d-flex justify-content-center mt-4 mb-3">
+        <button id="btnReportAta" class="btn btn-primary" data-codeAta="@Model.CodigoAta" data-yearAta="@Model.AnoAta">Gerar PDF</button>
+    </div>
+</section>

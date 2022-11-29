@@ -30,6 +30,11 @@ namespace Historia.Detentoras
             return await _detentoraRepository.GetAll();
         }
 
+        public async Task<List<Detentora>> GetAllDentenrasActive()
+        {
+            return await _detentoraRepository.GetAllDentenrasActive();
+        }
+
         public async Task<Detentora> GetByCnpj(string cnpj)
         {
             return await _detentoraRepository.GetByCnpj(cnpj);

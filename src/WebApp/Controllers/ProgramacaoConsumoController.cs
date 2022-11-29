@@ -67,10 +67,11 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProgramacaoConsumoViewModel programacaoConsumoViewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(programacaoConsumoViewModel);
-            }
+            //programacaoConsumoViewModel.OrdemFornecimentoViewModel = null;
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(programacaoConsumoViewModel);
+            //}
             var existsParticipante = await _searchParticipanteItem.GetByIds(programacaoConsumoViewModel.CodigoUnidadeAdministrativa, programacaoConsumoViewModel.CodigoItem);
             if (existsParticipante != null)
             {
@@ -103,11 +104,11 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(ProgramacaoConsumoViewModel programacaoConsumoViewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                TempData["Warning"] = "Erro na Alteração da Programação de Consumo";
-                return NotFound();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    TempData["Warning"] = "Erro na Alteração da Programação de Consumo";
+            //    return NotFound();
+            //}
             var programacaoConsumo = ProgramacaoConsumoFactory.ToEntity(programacaoConsumoViewModel);
             await _updateProgramacoesConsumos.Run(programacaoConsumo);
             await _updateItem.SubtractQuantityItem(programacaoConsumoViewModel.CodigoItem, programacaoConsumoViewModel.SumConsumoEstimado());

@@ -22,6 +22,11 @@ namespace Infra.Persistence
                 .CountAsync();
         }
 
+        public async Task<List<Detentora>> GetAllDentenrasActive()
+        {
+            return await _db.Detentoras.AsNoTracking().Where(d => d.Ativo.Equals(true)).ToListAsync();
+        }
+
         public async Task<Detentora> GetByCnpj(string cnpj)
         {
             return await _db.Detentoras

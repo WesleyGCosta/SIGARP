@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SIGARP</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/chosen.css" />
+    <link rel="stylesheet" href="/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="/css/sweetalert2.min.css" />
+</head>
+<body>
+    @if (@User.Identity.IsAuthenticated)
+    {
+        <partial name="_Header" />
+
+        <main role="main" class="container pb-3">
+            @RenderBody()
+        </main>
+    }
+    <partial name="_JavaScriptImport" />
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

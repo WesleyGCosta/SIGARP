@@ -163,7 +163,7 @@
                         else
                         {
                             <tr>
-                                <td colspan="7" class="mt-2 text-justify text-muted text-center">
+                                <td colspan="7" class="mt-2 text-justify text-muted text-center table-active">
                                     NENHUM FORNECIMENTO FEITO PARA @participante.UnidadeAdministrativaViewModel.Sigla.ToUpper()
                                 </td>
                             </tr>
@@ -173,8 +173,11 @@
             </table>
         }
     }
-
-    <div class="d-flex justify-content-center mt-4 mb-3">
-        <button id="btnReportAta" class="btn btn-primary" data-codeAta="@Model.CodigoAta" data-yearAta="@Model.AnoAta">Gerar PDF</button>
-    </div>
+    <form action="GeneratePdf" method="get" target="_blank">
+        <div class="d-flex justify-content-center mt-4 mb-3">
+            <input type="hidden" name="yearAta" value="@Model.AnoAta" />
+            <input type="hidden" name="codeAta" value="@Model.CodigoAta" />
+            <button type="submit" class="btn btn-primary">Gerar PDF</button>
+        </div>
+    </form>
 </section>

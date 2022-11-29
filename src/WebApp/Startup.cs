@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Rotativa.AspNetCore;
 using WebApp.Configuration;
 using WebApp.Extensions;
 
@@ -68,6 +69,7 @@ namespace WebApp
                     pattern: "{controller=User}/{action=Login}/{id?}");
             });
             StartUserConfig.StartIdentity(userManager, roleManager);
+            RotativaConfiguration.Setup(env.WebRootPath, "Rotativa");
         }
     }
 }

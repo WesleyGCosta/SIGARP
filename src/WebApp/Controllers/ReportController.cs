@@ -47,6 +47,7 @@ namespace WebApp.Controllers
                 CustomSwitches = customSwitches,
                 PageHeight = 630,
                 PageWidth = 300
+
             };
 
             return view;

@@ -1,7 +1,18 @@
 ﻿@using System.Text.RegularExpressions
 @model AtaViewModel
 
-<section class="border-bottom border-right border-left">
+@{
+    ViewData["Title"] = "Despacho Final";
+    Layout = "_LayoutPdf";
+}
+
+<section class="container mb-3">
+    <div class="text-center">
+        <img style="width: 7rem;" src="/img/logo-sigarp.png" /><br />
+    </div>
+</section>
+
+<section class="border">
     <table class="table table-borderless text-center">
         <thead>
             <tr>
@@ -66,20 +77,20 @@
             var valorTotal = item.Quantidade * item.PrecoRegistrado;
             <hr />
             <br />
-            <table class="table table-borderless text-center table-active">
+            <table class="table table-bordered text-center mb-5">
                 <thead>
                     <tr>
                         <th colspan="7" class="font-weight-bold text-sapphire"> Item N° @item.CodigoItem</th>
                     </tr>
                     <tr>
-                        <th colspan="7" class="font-weight-bold text-sapphire">CNPJ: @item.ItemDetentora.Detentora.Cnpj - @item.ItemDetentora.Detentora.RazaoSocial</th>
+                        <th colspan="7" class="font-weight-bold text-sapphire">Detentora<br/>@item.ItemDetentora.Detentora.RazaoSocial - @item.ItemDetentora.Detentora.Cnpj</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
                             <span class="font-weight-bold text-sapphire">Marca</span>
-                            <div class="mt-2 text-muted">@item.Marca)</div>
+                            <div class="mt-2 text-muted">@item.Marca</div>
                         </td>
                         <td>
                             <span class="font-weight-bold text-sapphire">Tipo</span>
@@ -134,18 +145,18 @@
                             {
 
                                 <tr class="text-center">
-                                    <td colspan="2" class="mt-2 text-justify text-muted">
-                                        <div class="mt-2 text-muted">@cont</div>
+                                    <td colspan="2" class="mt-2 text-justify">
+                                        <div class="mt-2">@cont°</div>
                                     </td>
-                                    <td colspan="2" class="mt-2 text-justify text-muted">
+                                    <td colspan="2" class="mt-2 text-justify">
                                         <span class="font-weight-bold text-sapphire">N° Processo</span>
                                         <div class="mt-2 text-muted">@fornecimento.NumeroProcesso</div>
                                     </td>
-                                    <td colspan="2" class="mt-2 text-justify text-muted">
+                                    <td colspan="2" class="mt-2 text-justify">
                                         <span class="font-weight-bold text-sapphire">Data Fornecimento</span>
                                         <div class="mt-2 text-muted">@fornecimento.DataFornecimento</div>
                                     </td>
-                                    <td colspan="2" class="mt-2 text-justify text-muted">
+                                    <td colspan="2" class="mt-2 text-justify">
                                         <span class="font-weight-bold text-sapphire">Quantidade</span>
                                         <div class="mt-2 text-muted">@fornecimento.Consumo</div>
                                     </td>
@@ -173,8 +184,4 @@
             </table>
         }
     }
-
-    <div class="d-flex justify-content-center mt-4 mb-3">
-        <button id="btnReportAta" class="btn btn-primary" data-codeAta="@Model.CodigoAta" data-yearAta="@Model.AnoAta">Gerar PDF</button>
-    </div>
 </section>
